@@ -48,6 +48,9 @@ htmlcov/
 *.sqlite3
 chroma_db/
 chromadata/
+
+# External reference workspaces
+gdg/
 pgdata/
 
 # Logs & OS Files
