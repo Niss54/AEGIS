@@ -1,0 +1,96 @@
+# aiKart Agent Manifest — BHARAT AGENTIC 2026
+# Compliant with Official aiKart Agent Manifest Specification
+
+schema_version: "1.0"
+agent:
+  id: "aegis-climate-syntrix"
+  name: "AEGIS-CLIMATE"
+  version: "1.0.0"
+  description: "Autonomous Multi-Agent Environmental & Climate Risk Intelligence Platform for Bharat"
+  tagline: "Translating Environmental Threats into Actionable Business & Civic Intelligence"
+  category: "Energy & ClimateTech"
+  secondary_categories:
+    - "Citizen & GovTech"
+    - "Open Bharat"
+
+team:
+  name: "Syntrix"
+  leader:
+    name: "Nishant Maurya"
+    email: "nishant.maurya@example.com"
+    phone: "+91 8840301998"
+  members:
+    - name: "Navya Chaudhary"
+      phone: "+91 9045659400"
+    - name: "Om Tripathi"
+      phone: "+91 7905226392"
+    - name: "Nikita Chopde"
+      phone: "+91 9343458471"
+  repository: "https://github.com/Niss54/AEGIS"
+
+runtime:
+  type: "docker"
+  image: "aegis-backend:latest"
+  dockerfile: "backend/Dockerfile"
+  port: 8000
+  protocol: "http/json"
+  health_check_endpoint: "/api/v1/health"
+
+agent_flow:
+  paradigm: "Understand -> Reason -> Plan -> Use Tools -> Act -> Deliver"
+  orchestration: "MCP Hub (JSON-RPC 2.0) + LangGraph StateGraph"
+  sub_agents:
+    - id: "agent-1-acute"
+      name: "Acute Physical Risk Agent"
+      type: "ML Classifier (XGBoost / Open-Meteo)"
+      output: "Flash flood probability score [0.0 - 1.0] and risk tier"
+    - id: "agent-2-chronic"
+      name: "Chronic Climate Vulnerability Agent"
+      type: "Geospatial Engine (30m SRTM DEM / GeoPandas)"
+      trigger: "Agent 1 risk_score > 0.65"
+      output: "Infrastructure failure tier, waterlogging depth cm, 10/20/30yr exposure"
+    - id: "agent-3-financial"
+      name: "Macro Transition & Financial Risk Agent"
+      type: "Regulatory RAG (ChromaDB + Claude/LLM)"
+      trigger: "Agent 2 exposure_tier == INFRASTRUCTURE_FAILURE"
+      output: "Value at Risk (VaR), stranded asset risk, bilingual Hindi/English dispatch"
+
+interface:
+  primary_endpoint:
+    path: "/api/v1/analyze"
+    method: "POST"
+    input_schema:
+      type: "object"
+      required: ["lat", "lon"]
+      properties:
+        lat:
+          type: "number"
+          description: "Latitude in decimal degrees (-90 to 90)"
+          example: 19.0728
+        lon:
+          type: "number"
+          description: "Longitude in decimal degrees (-180 to 180)"
+          example: 72.8797
+        location_name:
+          type: "string"
+          example: "Mumbai — Mithi River & Kurla Basin"
+        simulated_additional_rain_mm:
+          type: "number"
+          default: 0.0
+          description: "What-If simulation slider increment"
+    output_schema:
+      type: "object"
+      properties:
+        event_id:
+          type: "string"
+        agent1:
+          type: "object"
+        agent2:
+          type: "object"
+        agent3:
+          type: "object"
+        thought_trace:
+          type: "array"
+  websocket_stream:
+    path: "/ws/events"
+    description: "Live WebSocket feed for real-time agent execution monologue"
