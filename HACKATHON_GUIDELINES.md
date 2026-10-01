@@ -36,14 +36,33 @@
 | **08:30 AM** | Guidelines & Instructions | Review rules, rubrics, and finalize workspace setup |
 | **09:00 AM** | **Hackathon Officially Begins** | Start 12-hour building clock |
 | **09:00 AM – 08:00 PM** | **Active Build & Testing Phase** | Core pipeline, MCP Hub, 3 Agents, Next.js UI, testing |
-| **08:00 PM** | **Official Submission Portal Opens** | Prepare repo, demo video, pitch deck, deployment link |
-| **09:00 PM** | **HARD DEADLINE — Submission Closes** | All deliverables submitted on Unstop/AIKart portal |
+| **08:00 PM – 10:00 PM** | **Official Submission Portal Opens** | Submit via Method 1 (Agent Manifest YAML + Docker) or Method 2 (Hosted API) + Google Form |
+| **09:00 PM** | **Build Work Completion Freeze** | Core hackathon coding must complete by 9:00 PM sharp |
+| **10:00 PM** | **HARD SUBMISSION DEADLINE** | Final submissions close |
 | **03 October 2026 (06:00 PM)** | **Results Announcement** | Evaluation & Winner Showcase |
 
 ### Communication Channels
 - 📧 **Email:** Official updates, credentials, and submission confirmations
 - 💬 **WhatsApp:** High-priority announcements and timeline alerts
 - 🎮 **Discord:** Community, mentor technical support, and queries
+
+---
+
+## 🛠️ 2.1 aiKart Official Submission Methods
+
+As per official aiKart specifications, teams must submit via one of the following methods, followed by the mandatory Google Form:
+
+### Method 1 — YAML / Agent Manifest Submission
+1. Create a `Dockerfile` ensuring the agent runs containerized.
+2. Create the `agent_manifest.yaml` manifest specifying agent metadata, inputs, outputs, runtime, and entrypoints.
+3. Package and verify Docker container execution.
+
+### Method 2 — API Endpoint Submission
+1. Host your agent so it is accessible via a public API endpoint (e.g. `POST /api/v1/analyze`).
+2. Provide endpoint documentation, request/response schema, and live test credentials.
+
+### Mandatory Final Step
+- Submit all project links, demo video, pitch deck, GitHub repository (`https://github.com/Niss54/AEGIS`), and agent manifest/endpoint through the official **Hackathon Google Form**.
 
 ---
 
