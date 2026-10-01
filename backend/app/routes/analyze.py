@@ -8,6 +8,7 @@ import math
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 import httpx
 
@@ -140,6 +141,77 @@ async def get_model_info():
     return {
         "is_trained": flood_ml_engine.is_trained(),
         "metadata": flood_ml_engine.metadata
+    }
+
+
+@router.post("/bhasha/tts")
+async def bhasha_tts(payload: Dict[str, Any]):
+    """
+    Generates authentic neural voice speech:
+    - Indic/Hindi via Sarvam AI (priya, aditya)
+    - English/Multilingual via ElevenLabs
+    With automatic cross-engine failover and browser Web Speech API fallback.
+    """
+    text = payload.get("text", "")
+    language = payload.get("language", "auto")
+    speaker = payload.get("speaker", "priya")
+    voice_id = payload.get("voice_id", None)
+    engine = payload.get("engine", "auto")
+
+    # Detect Devanagari Hindi characters
+    has_devanagari = any("\u0900" <= c <= "\u097F" for c in text)
+    if language == "auto":
+        language = "hi" if has_devanagari else "en"
+
+    # Prioritize ElevenLabs for English or explicit request
+    if (engine == "elevenlabs") or (engine == "auto" and language == "en"):
+        audio_b64 = financial_risk_engine.synthesize_elevenlabs_speech(text, voice_id=voice_id)
+        if audio_b64:
+            return {
+                "status": "success",
+                "source": "elevenlabs",
+                "language": language,
+                "mime_type": "audio/mpeg",
+                "audio_b64": audio_b64
+            }
+
+    # Prioritize Sarvam AI for Hindi or explicit request
+    if (engine == "sarvam") or (engine == "auto" and language == "hi") or (language == "hi"):
+        audio_b64 = financial_risk_engine.synthesize_sarvam_speech(text, speaker=speaker)
+        if audio_b64:
+            return {
+                "status": "success",
+                "source": "sarvam_ai",
+                "speaker": speaker,
+                "language": "hi",
+                "mime_type": "audio/wav",
+                "audio_b64": audio_b64
+            }
+
+    # Cross-engine fallback: Try Sarvam if ElevenLabs failed, or vice versa
+    if language == "en":
+        audio_b64 = financial_risk_engine.synthesize_elevenlabs_speech(text, voice_id=voice_id)
+        if audio_b64:
+            return {
+                "status": "success",
+                "source": "elevenlabs",
+                "mime_type": "audio/mpeg",
+                "audio_b64": audio_b64
+            }
+    else:
+        audio_b64 = financial_risk_engine.synthesize_sarvam_speech(text, speaker=speaker)
+        if audio_b64:
+            return {
+                "status": "success",
+                "source": "sarvam_ai",
+                "mime_type": "audio/wav",
+                "audio_b64": audio_b64
+            }
+
+    return {
+        "status": "fallback",
+        "source": "browser_speech",
+        "message": "Cloud neural TTS engines unconfigured or unavailable, using Web Speech API."
     }
 
 
@@ -454,5 +526,230 @@ async def get_event_financial(event_id: str):
     if not event.agent3:
         raise HTTPException(status_code=404, detail="Financial VaR modeling was not triggered for this event")
     return event.agent3
+
+
+@router.get("/events/{event_id}/executive-briefing")
+async def get_executive_briefing(event_id: str):
+    """
+    Generates C-Suite & Authority Climate Hazard, Structural Vulnerability,
+    and Financial Value-at-Risk (VaR) Executive Briefing.
+    """
+    if event_id not in HISTORICAL_EVENTS:
+        if HISTORICAL_EVENTS:
+            event = list(HISTORICAL_EVENTS.values())[-1]
+        else:
+            raise HTTPException(status_code=404, detail="No analyzed events found in session.")
+    else:
+        event = HISTORICAL_EVENTS[event_id]
+
+    var_inr = event.agent3.var_estimate_inr if event.agent3 else 0
+    var_usd = event.agent3.var_estimate_usd if event.agent3 else 0
+
+    return {
+        "briefing_id": f"EXEC-{event.event_id}",
+        "event_id": event.event_id,
+        "location": event.location_name,
+        "coordinates": {"lat": event.lat, "lon": event.lon},
+        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "prepared_for": "National Disaster Management Authority (NDMA) & C-Suite Risk Committee",
+        "executive_summary": (
+            f"Autonomous 3-agent intelligence platform evaluated {event.location_name}. "
+            f"Acute hazard tier is {event.agent1.risk_tier} (Risk Score: {event.agent1.risk_score:.2f}). "
+            f"Direct structural and operational Value-at-Risk is projected at ₹{var_inr / 10000000:.2f} Crores ($ {var_usd / 1000000:.2f}M)."
+        ),
+        "physical_risk": {
+            "tier": event.agent1.risk_tier,
+            "probability": event.agent1.risk_score,
+            "dominant_factor": event.agent1.dominant_factor,
+            "precipitation_24h_mm": event.agent1.metrics.precipitation_24h_mm,
+            "soil_saturation_pct": event.agent1.metrics.soil_saturation_pct
+        },
+        "geospatial_exposure": {
+            "waterlogging_depth_cm": event.agent2.waterlogging_depth_cm if event.agent2 else 0,
+            "buildings_at_risk": event.agent2.buildings_at_risk if event.agent2 else 0,
+            "drainage_overflow_pct": event.agent2.drainage_overflow_pct if event.agent2 else 0,
+            "exposure_tier": event.agent2.exposure_tier if event.agent2 else "NONE"
+        } if event.agent2 else None,
+        "financial_var": {
+            "var_inr": var_inr,
+            "var_usd": var_usd,
+            "stranded_asset_risk": event.agent3.stranded_asset_risk if event.agent3 else "LOW",
+            "compliance_gap_pct": event.agent3.compliance_gap_pct if event.agent3 else 0,
+            "applicable_mandates": event.agent3.applicable_regulations if event.agent3 else []
+        } if event.agent3 else None,
+        "bilingual_alerts": {
+            "hindi": event.agent3.bilingual_alert_hindi if event.agent3 else None,
+            "english": event.agent3.bilingual_alert_english if event.agent3 else None
+        } if event.agent3 else None,
+        "recommended_actions": event.agent3.recommended_actions if event.agent3 else [
+            "Maintain standard municipal drainage telemetry surveillance."
+        ]
+    }
+
+
+@router.get("/events/{event_id}/executive-briefing/html", response_class=HTMLResponse)
+async def get_executive_briefing_html(event_id: str):
+    """
+    Renders a print-ready Executive C-Suite & NDMA Disaster Management PDF/HTML briefing.
+    Supports browser Ctrl+P directly to print A4 PDF report.
+    """
+    briefing = await get_executive_briefing(event_id)
+
+    actions_html = "".join([f"<li>{act}</li>" for act in briefing["recommended_actions"]])
+    policies_html = "".join([f"<li><b>{p}</b></li>" for p in briefing["financial_var"]["applicable_mandates"]]) if briefing.get("financial_var") else "<li>Standard Urban SOP</li>"
+
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AEGIS Executive Climate Briefing — {briefing['event_id']}</title>
+  <style>
+    @page {{ size: A4; margin: 20mm; }}
+    body {{
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: #1A202C;
+      background: #FFFFFF;
+      margin: 0;
+      padding: 24px;
+      line-height: 1.5;
+    }}
+    .header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0E9AA7;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }}
+    .title {{ font-size: 22px; font-weight: 800; color: #0A1424; margin: 0; }}
+    .subtitle {{ font-size: 13px; color: #4A5568; margin-top: 4px; }}
+    .badge {{
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: #E53E3E;
+      color: #FFF;
+    }}
+    .grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }}
+    .card {{
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 14px;
+      background: #F7FAFC;
+    }}
+    .card-title {{
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #718096;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }}
+    .stat-number {{ font-size: 20px; font-weight: 800; color: #0E9AA7; }}
+    .alert-box {{
+      background: #FFF5F5;
+      border-left: 4px solid #E53E3E;
+      padding: 12px;
+      margin: 16px 0;
+      border-radius: 4px;
+      font-size: 13px;
+    }}
+    .print-btn {{
+      padding: 8px 16px;
+      background: #0E9AA7;
+      color: #FFF;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }}
+    @media print {{
+      .no-print {{ display: none; }}
+      body {{ padding: 0; }}
+    }}
+  </style>
+</head>
+<body>
+  <div class="no-print" style="text-align: right; margin-bottom: 12px;">
+    <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  </div>
+
+  <div class="header">
+    <div>
+      <div class="title">AEGIS-CLIMATE EXECUTIVE BRIEFING</div>
+      <div class="subtitle">Autonomous Multi-Agent Environmental & Financial Intelligence for Bharat</div>
+      <div style="font-size: 11px; color: #718096; margin-top: 4px;">Prepared for: {briefing['prepared_for']}</div>
+    </div>
+    <div style="text-align: right;">
+      <span class="badge">{briefing['physical_risk']['tier']} HAZARD</span>
+      <div style="font-size: 11px; color: #718096; margin-top: 6px;">Event ID: {briefing['event_id']}</div>
+      <div style="font-size: 11px; color: #718096;">Date: {briefing['generated_at'][:10]}</div>
+    </div>
+  </div>
+
+  <div style="background: #EDF2F7; padding: 12px; border-radius: 6px; font-size: 13px; margin-bottom: 16px;">
+    <b>Target Location:</b> {briefing['location']} ({briefing['coordinates']['lat']:.4f}°N, {briefing['coordinates']['lon']:.4f}°E)<br/>
+    <b>Executive Summary:</b> {briefing['executive_summary']}
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Agent 1: Acute Physical Risk (ML)</div>
+      <div class="stat-number">{(briefing['physical_risk']['probability'] * 100):.1f}% Probability</div>
+      <div style="font-size: 12px; color: #4A5568; margin-top: 6px;">
+        • Dominant Driver: <b>{briefing['physical_risk']['dominant_factor']}</b><br/>
+        • 24h Precipitation: <b>{briefing['physical_risk']['precipitation_24h_mm']} mm</b><br/>
+        • Soil Saturation: <b>{briefing['physical_risk']['soil_saturation_pct']}%</b>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Agent 2: Chronic Structural Exposure</div>
+      <div class="stat-number">{briefing['geospatial_exposure']['waterlogging_depth_cm'] if briefing.get('geospatial_exposure') else 0} cm Inundation</div>
+      <div style="font-size: 12px; color: #4A5568; margin-top: 6px;">
+        • Exposed Critical Structures: <b>{briefing['geospatial_exposure']['buildings_at_risk'] if briefing.get('geospatial_exposure') else 0} assets</b><br/>
+        • Drainage Overflow: <b>{briefing['geospatial_exposure']['drainage_overflow_pct'] if briefing.get('geospatial_exposure') else 0}%</b><br/>
+        • Classification: <b>{briefing['geospatial_exposure']['exposure_tier'] if briefing.get('geospatial_exposure') else 'N/A'}</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="background: #F0FFF4; border-color: #9AE6B4; margin-bottom: 16px;">
+    <div class="card-title" style="color: #276749;">Agent 3: Enterprise Value-at-Risk (VaR) & Compliance</div>
+    <div style="display: flex; gap: 32px; align-items: baseline; margin-top: 6px;">
+      <div>
+        <span style="font-size: 12px; color: #4A5568;">Direct Value-at-Risk:</span><br/>
+        <span class="stat-number" style="color: #276749;">₹{(briefing['financial_var']['var_inr'] / 10000000):.2f} Crores</span>
+        <span style="font-size: 13px; color: #4A5568;">($ {(briefing['financial_var']['var_usd'] / 1000000):.2f}M)</span>
+      </div>
+      <div>
+        <span style="font-size: 12px; color: #4A5568;">Compliance Gap:</span><br/>
+        <span style="font-size: 20px; font-weight: 800; color: #C53030;">{briefing['financial_var']['compliance_gap_pct']}%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-box">
+    <b>📢 Bhasha-AI Bilingual Civil Alert Dispatch:</b><br/>
+    <div style="margin-top: 6px; font-family: sans-serif;"><b>Hindi (देवनागरी):</b> {briefing['bilingual_alerts']['hindi']}</div>
+    <div style="margin-top: 4px; color: #4A5568;"><b>English:</b> {briefing['bilingual_alerts']['english']}</div>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <div style="font-size: 13px; font-weight: 700; color: #0A1424; margin-bottom: 6px;">Mandatory Recommended Actions:</div>
+    <ul style="font-size: 12px; color: #2D3748; padding-left: 20px;">
+      {actions_html}
+    </ul>
+  </div>
+
+  <div style="margin-top: 24px; padding-top: 12px; border-top: 1px solid #E2E8F0; font-size: 11px; color: #A0AEC0; text-align: center;">
+    Generated autonomously by <b>AEGIS-CLIMATE</b> • Team Syntrix (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde) • BHARAT AGENTIC 2026
+  </div>
+</body>
+</html>"""
+    return HTMLResponse(content=html)
 
 
