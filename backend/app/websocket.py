@@ -18,12 +18,15 @@ class ConnectionManager:
         await websocket.accept()
         self.active_connections.append(websocket)
         logger.info(f"WebSocket client connected. Active connections: {len(self.active_connections)}")
-        # Send welcome handshake
-        await websocket.send_text(json.dumps({
-            "type": "HANDSHAKE",
-            "message": "Connected to AEGIS-CLIMATE Real-Time Multi-Agent Stream",
-            "active_clients": len(self.active_connections)
-        }))
+        # Send welcome handshake safely
+        try:
+            await websocket.send_text(json.dumps({
+                "type": "HANDSHAKE",
+                "message": "Connected to AEGIS-CLIMATE Real-Time Multi-Agent Stream",
+                "active_clients": len(self.active_connections)
+            }))
+        except Exception as e:
+            logger.debug(f"Handshake send skipped: {e}")
 
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:

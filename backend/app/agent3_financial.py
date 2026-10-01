@@ -11,8 +11,15 @@ import base64
 import logging
 from typing import Dict, List, Any, Optional
 import httpx
-import chromadb
-from chromadb.config import Settings as ChromaSettings
+try:
+    import chromadb
+    from chromadb.config import Settings as ChromaSettings
+    HAS_CHROMADB = True
+except Exception as _chroma_err:
+    chromadb = None
+    ChromaSettings = None
+    HAS_CHROMADB = False
+
 from backend.app.config import settings
 
 logger = logging.getLogger("aegis.agent3_financial")
@@ -91,6 +98,10 @@ class RegulatoryRAGVectorStore:
 
     def _init_chroma(self):
         """Initializes ChromaDB persistent client and indexes policy documents."""
+        if not HAS_CHROMADB or chromadb is None:
+            logger.info("ChromaDB not installed/available; using fast in-memory semantic fallback.")
+            return
+
         try:
             os.makedirs(CHROMA_DATA_DIR, exist_ok=True)
             self.client = chromadb.PersistentClient(path=CHROMA_DATA_DIR)
