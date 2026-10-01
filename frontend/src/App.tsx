@@ -820,7 +820,32 @@ export function App() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-          <img src="/logo.png" alt="AEGIS Logo" style={{ height: "38px", width: "auto" }} />
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "46px",
+              height: "46px",
+              borderRadius: "12px",
+              background: "linear-gradient(135deg, rgba(14, 154, 167, 0.2) 0%, rgba(10, 20, 36, 0.85) 100%)",
+              border: "1px solid rgba(14, 154, 167, 0.45)",
+              boxShadow: "0 0 20px rgba(14, 154, 167, 0.3), inset 0 0 10px rgba(14, 154, 167, 0.15)",
+              flexShrink: 0
+            }}
+          >
+            <img
+              src="/logo.png"
+              alt="AEGIS-CLIMATE Logo"
+              style={{
+                width: "36px",
+                height: "36px",
+                objectFit: "contain",
+                filter: "drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7))"
+              }}
+            />
+          </div>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <h1 style={{ fontSize: "1.25rem", color: "#FFFFFF", letterSpacing: "0.02em" }}>
