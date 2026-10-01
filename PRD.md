@@ -18,11 +18,12 @@
 5. [Detailed Agent Specifications](#5-detailed-agent-specifications)
 6. [Core Functional Requirements](#6-core-functional-requirements)
 7. [Winning Edge: High-Impact Differentiators](#7-winning-edge-high-impact-differentiators)
-8. [Phased Implementation Roadmap (12-Hour Sprint)](#8-phased-implementation-roadmap-12-hour-sprint)
-9. [REST API & WebSocket Specifications](#9-rest-api--websocket-specifications)
-10. [Data Architecture & Schema](#10-data-architecture--schema)
-11. [Judging Evaluation Alignment & Success Metrics](#11-judging-evaluation-alignment--success-metrics)
-12. [Demo Execution & Deliverables Checklist](#12-demo-execution--deliverables-checklist)
+8. [API Keys & Live Integration Architecture Matrix](#8-api-keys--live-integration-architecture-matrix)
+9. [Phased Implementation Roadmap (12-Hour Sprint)](#9-phased-implementation-roadmap-12-hour-sprint)
+10. [REST API & WebSocket Specifications](#10-rest-api--websocket-specifications)
+11. [Data Architecture & Schema](#11-data-architecture--schema)
+12. [Judging Evaluation Alignment & Success Metrics](#12-judging-evaluation-alignment--success-metrics)
+13. [Demo Execution & Deliverables Checklist](#13-demo-execution--deliverables-checklist)
 
 ---
 
@@ -220,7 +221,9 @@ AEGIS-CLIMATE implements an asynchronous **Hub-and-Spoke Multi-Agent Architectur
 │ 2. 🇮🇳 Pre-Loaded Bharat Hotspots (Mumbai, Bengaluru, Assam, Chennai)   │
 │ 3. 🧪 "What-If" Climate Anomaly Simulator (Live Rainfall Slider)        │
 │ 4. 🗣️ Bhasha-AI: Bilingual Hindi/English Audio & Text Alert Generator  │
-│ 5. 📄 One-Click Executive Briefing PDF Exporter                         │
+│ 5. 📄 One-Click Executive Briefing PDF/HTML Exporter                    │
+│ 6. 🔌 Multi-Provider API & LLM Arbitration Matrix (Gemini + Groq + OSS) │
+│ 7. ✨ High-Energy Cyber-Cockpit UI/UX (Inspired by nissh.info & UI-UX)  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -238,29 +241,63 @@ AEGIS-CLIMATE implements an asynchronous **Hub-and-Spoke Multi-Agent Architectur
    - *Why Judges Care:* Lets judges interact with the agents dynamically. A slider adjusts simulated precipitation (+25mm to +150mm) or soil saturation and watches the 3 agents autonomously re-plan and re-calculate in real time.
 4. **Bhasha-AI (Voice & Multilingual Civic Dispatch):**
    - *Why Judges Care:* Bharat Agentic highlights *Bharat Languages & Accessibility*.
-   - *Feature:* Generates instant audio speech synthesis and Hindi/English localized broadcast text for field response teams.
+   - *Feature:* Generates instant audio speech synthesis and Hindi/English localized broadcast text for field response teams using ElevenLabs / Sarvam AI / Web Speech.
 5. **One-Click Executive Briefing Exporter:**
-   - *Why Judges Care:* Proves end-to-end product utility from operational telemetry to C-suite boardroom briefing.
+   - *Why Judges Care:* Proves end-to-end product utility from operational telemetry to C-suite boardroom briefing (`/api/v1/events/{id}/executive-briefing/html`).
+6. **Mission-Control Cyber Cockpit (Inspired by nissh.info & docs/UI-UX.md):**
+   - *Why Judges Care:* Instant visual WOW factor. Floating ambient particle canvas, live telemetry marquee, neon glassmorphic cards, and an interactive API integrations drawer.
 
 ---
 
-## 8. Phased Implementation Roadmap (12-Hour Sprint)
+## 8. API Keys & Live Integration Architecture Matrix
+
+### 8.1 Why Tests Pass Without Live API Keys (Deterministic Graceful Degradation)
+In enterprise disaster response systems, **network outages or API quota limits must NEVER cause system failure**. AEGIS is architected with a **Dual-Engine Model**:
+- **Offline Deterministic Fallback (Active in Unit Tests & Air-Gapped Deployments):**
+  - **Agent 1:** Trained Scikit-Learn GradientBoostingClassifier (95.14% accuracy) runs locally in memory.
+  - **Agent 2:** Geospatial elevation and HAZUS depth-damage lookup tables run locally using GeoPandas.
+  - **Agent 3:** Statistical Value-at-Risk (VaR) equations and deterministic regulatory templates run locally.
+  - *Result:* 100% of unit tests pass reliably, validating system integrity and disaster resilience even with zero external network connectivity.
+- **Live Online LLM & Telemetry Engine (Activated via `.env`):**
+  - When API keys are supplied in `.env`, the system automatically activates dynamic multi-model LLM reasoning (Gemini 1.5 Flash + Groq LLaMA-3-70B), live Open-Meteo satellite streams, Mapbox 3D satellite tiles, and ElevenLabs / Sarvam AI neural voice synthesis.
+
+### 8.2 API Key Configuration Matrix (`.env`)
+
+| Variable Name | Service Provider | Tier / Cost | Core Feature Powered | Where to Obtain |
+| :--- | :--- | :--- | :--- | :--- |
+| `GEMINI_API_KEY` | Google AI Studio | Free Tier | Dynamic ESG policy synthesis, nuance Hindi translation, C-Suite brief generation in Agent 3 | [aistudio.google.com](https://aistudio.google.com) |
+| `GROQ_API_KEY` | Groq Cloud | Free Tier | Ultra-low latency (<400ms) LLaMA-3-70B reasoning for Agent Thought Trace monologues | [console.groq.com](https://console.groq.com) |
+| `OPENMETEO_API_KEY` | Open-Meteo | Optional (Free for Hackathon) | Live 15-minute Doppler radar precipitation, soil moisture, and humidity telemetry | [open-meteo.com](https://open-meteo.com) |
+| `MAPBOX_API_TOKEN` | Mapbox GL | Free (50k loads/mo) | High-resolution satellite tiles, 3D terrain elevation contours on Leaflet GIS | [mapbox.com](https://mapbox.com) |
+| `ELEVENLABS_API_KEY` | ElevenLabs | Free Tier | High-fidelity neural voice synthesis for English civic emergency audio alerts | [elevenlabs.io](https://elevenlabs.io) |
+| `SARVAM_API_KEY` | Sarvam AI | Trial Tier | Indic neural speech synthesis (Hindi, Marathi, Tamil, Bengali) for regional field response | [sarvam.ai](https://sarvam.ai) |
+| `OPENAI_API_KEY` | OpenAI | Optional | GPT-4o fallback arbitration for macro financial risk analysis | [platform.openai.com](https://platform.openai.com) |
+| `ANTHROPIC_API_KEY` | Anthropic | Optional | Claude 3.5 Sonnet RAG reasoning over complex SEBI BRSR regulatory clauses | [console.anthropic.com](https://console.anthropic.com) |
+
+---
+
+## 9. Phased Implementation Roadmap (12-Hour Sprint)
 
 Aligned with the hackathon sprint from 09:00 AM to 08:00 PM build freeze:
 
 ```
-[09:00 - 10:30] Phase 1: Foundation & Infrastructure (FastAPI + Docker + MCP Skeleton)
-[10:30 - 12:00] Phase 2: Agent 1 - Acute Physical ML Classifier (Open-Meteo + XGBoost)
-[12:00 - 02:00] Phase 3: Agent 2 - Chronic Vulnerability & Geospatial Engine (GeoPandas + DEM)
-[02:00 - 04:00] Phase 4: Agent 3 - Regulatory RAG & VaR Modeling (ChromaDB + LLM)
-[04:00 - 06:00] Phase 5: Next.js 14 Command Center & Real-Time Leaflet GIS Dashboard
-[06:00 - 07:30] Phase 6: Winning Edge Features (Simulator, Thought Log, Bharat Hotspots)
-[07:30 - 08:30] Phase 7: E2E Integration, Demo Scripting & Final Submission Prep
+[09:00 - 10:30] Phase 1: Foundation & Infrastructure (FastAPI + Docker + MCP Skeleton) [COMPLETE]
+[10:30 - 12:00] Phase 2: Agent 1 - Acute Physical ML Classifier (Open-Meteo + GBM 95.14%) [COMPLETE]
+[12:00 - 02:00] Phase 3: Agent 2 - Chronic Vulnerability & Geospatial Engine (GeoPandas + HAZUS) [COMPLETE]
+[02:00 - 04:00] Phase 4: Agent 3 - Regulatory RAG & VaR Modeling (ChromaDB + LLM Fallback) [COMPLETE]
+[04:00 - 06:00] Phase 5: Next.js 14 Command Center & Real-Time Leaflet GIS Dashboard [COMPLETE]
+[06:00 - 07:30] Phase 6: Winning Edge & Full API Integration Matrix
+  ├── Phase 6.1: Live LLM Multi-Provider Arbitration (Gemini 1.5 Flash + Groq LLaMA-3-70B)
+  ├── Phase 6.2: Live Telemetry & Mapbox High-Res Satellite/Radar GIS Integration
+  ├── Phase 6.3: Bhasha-AI Multilingual Voice Dispatch Pipeline (ElevenLabs + Sarvam AI)
+  ├── Phase 6.4: UI/UX Master Overhaul (Ambient Particle Canvas, Ticker Marquee, API Drawer, nissh.info Style)
+  └── Phase 6.5: C-Suite Executive Briefing HTML/PDF Print-Ready Generator
+[07:30 - 08:30] Phase 7: E2E Integration, Demo Scripting & Final Submission Packaging
 ```
 
 ---
 
-## 9. REST API & WebSocket Specifications
+## 10. REST API & WebSocket Specifications
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -273,11 +310,13 @@ Aligned with the hackathon sprint from 09:00 AM to 08:00 PM build freeze:
 | `POST` | `/api/v1/documents/ingest` | Upload and vectorize climate policy PDF into ChromaDB. |
 | `GET` | `/api/v1/documents` | List indexed policy documents and chunk stats. |
 | `GET` | `/api/v1/health` | System health check (DB, Redis, MCP Hub, Vector Store). |
+| `GET` | `/api/v1/integrations/status` | Live status inspector for all connected AI and telemetry API services. |
+| `GET` | `/api/v1/events/{id}/executive-briefing/html` | Print-ready A4 executive C-Suite briefing document. |
 | `WS` | `/ws/events` | Bidirectional WebSocket stream for live agent execution tokens. |
 
 ---
 
-## 10. Data Architecture & Schema
+## 11. Data Architecture & Schema
 
 ### PostgreSQL / PostGIS Core Tables:
 1. `risk_events`:
@@ -291,7 +330,7 @@ Aligned with the hackathon sprint from 09:00 AM to 08:00 PM build freeze:
 
 ---
 
-## 11. Judging Evaluation Alignment & Success Metrics
+## 12. Judging Evaluation Alignment & Success Metrics
 
 | Judging Criteria | Maximum Score Objective | Built-in Proof Point in AEGIS |
 | :--- | :--- | :--- |
@@ -305,7 +344,7 @@ Aligned with the hackathon sprint from 09:00 AM to 08:00 PM build freeze:
 
 ---
 
-## 12. Demo Execution & Deliverables Checklist
+## 13. Demo Execution & Deliverables Checklist
 
 ### Unstop / AIKart Required Submission Assets:
 - [ ] **Project Name:** AEGIS-CLIMATE
