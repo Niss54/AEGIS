@@ -1,0 +1,36 @@
+{
+  "model_type": "GradientBoostingClassifier",
+  "n_estimators": 120,
+  "max_depth": 4,
+  "accuracy": 0.9514,
+  "macro_f1": 0.9056,
+  "cv_f1_mean": 0.883,
+  "class_names": [
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "feature_names": [
+    "soil_saturation_pct",
+    "precipitation_24h_mm",
+    "precipitation_7d_mm",
+    "relative_humidity_pct",
+    "elevation_m",
+    "drainage_capacity_index"
+  ],
+  "feature_importances": {
+    "soil_saturation_pct": 0.1358,
+    "precipitation_24h_mm": 0.2466,
+    "precipitation_7d_mm": 0.129,
+    "relative_humidity_pct": 0.309,
+    "elevation_m": 0.1269,
+    "drainage_capacity_index": 0.0528
+  },
+  "target_classes": {
+    "0": "LOW",
+    "1": "MEDIUM",
+    "2": "HIGH",
+    "3": "CRITICAL"
+  }
+}
