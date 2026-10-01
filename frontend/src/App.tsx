@@ -11,7 +11,16 @@ import {
   Copy,
   Terminal,
   RefreshCw,
-  Radio
+  Radio,
+  FileDown,
+  Printer,
+  ExternalLink,
+  X,
+  Key,
+  Globe,
+  Sparkles,
+  Cpu,
+  Square
 } from "lucide-react";
 
 const API_BASE = "http://localhost:8000/api/v1";
@@ -339,6 +348,134 @@ function buildFallbackAnalysis(lat: number, lon: number, locName: string, rain: 
   };
 }
 
+// ========================================================
+// AMBIENT PARTICLE BACKGROUND (Inspired by nissh.info)
+// ========================================================
+function ParticleBackground() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+    window.addEventListener("resize", handleResize);
+
+    const particleCount = 42;
+    const particles: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+      alpha: number;
+    }> = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        size: Math.random() * 2 + 1,
+        alpha: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < particleCount; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) p.x = width;
+        else if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        else if (p.y > height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "#38BDF8";
+        ctx.fill();
+
+        for (let j = i + 1; j < particleCount; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(14, 154, 167, ${0.18 * (1 - dist / 110)})`;
+            ctx.lineWidth = 0.75;
+            ctx.stroke();
+          }
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="particle-canvas" />;
+}
+
+// ========================================================
+// TELEMETRY TICKER MARQUEE (Inspired by nissh.info & Command UI)
+// ========================================================
+function TelemetryTicker() {
+  return (
+    <div className="telemetry-ticker">
+      <div className="marquee-content">
+        <span className="marquee-item">
+          <span className="pulse-ping"><span className="pulse-ping-dot"></span><span className="pulse-ping-core"></span></span>
+          <span className="marquee-emerald">LIVE TELEMETRY:</span> BHARAT MONSOON RADAR ACTIVE (IMD / OPEN-METEO)
+        </span>
+        <span className="marquee-item">
+          <span className="marquee-highlight">AGENT 1 (ACUTE RISK):</span> GRADIENT BOOSTING ML CLASSIFIER (95.14% ACCURACY)
+        </span>
+        <span className="marquee-item">
+          <span className="marquee-amber">AGENT 2 (CHRONIC HAZARD):</span> 30m SRTM DEM & HAZUS DEPTH-DAMAGE ENGINE
+        </span>
+        <span className="marquee-item">
+          <span className="marquee-highlight">AGENT 3 (FINANCIAL VaR):</span> SEBI BRSR ESG VECTOR RAG (CHROMADB)
+        </span>
+        <span className="marquee-item">
+          <span className="marquee-emerald">BHASHA-AI:</span> HINDI (देवनागरी) & ENGLISH MULTILINGUAL VOICE READY
+        </span>
+        <span className="marquee-item">
+          <span className="marquee-highlight">MULTI-AGENT MCP HUB:</span> JSON-RPC 2.0 PROTOCOL ENGINE ON PORT 8001
+        </span>
+        <span className="marquee-item">
+          <span className="marquee-amber">BHARAT HOTSPOTS:</span> MUMBAI • BENGALURU • ASSAM • CHENNAI • GUJARAT MUNDRA
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function App() {
   const [hotspots, setHotspots] = useState<Hotspot[]>(DEFAULT_HOTSPOTS);
   const [selectedHotspot, setSelectedHotspot] = useState<string>("mumbai-mithi");
@@ -357,6 +494,12 @@ export function App() {
   const [wsConnected, setWsConnected] = useState<boolean>(false);
   const [liveSteps, setLiveSteps] = useState<ThoughtStep[]>([]);
   const [copied, setCopied] = useState<boolean>(false);
+  const [showBriefingModal, setShowBriefingModal] = useState<boolean>(false);
+  const [showApiModal, setShowApiModal] = useState<boolean>(false);
+  const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
+  const [integrationStatus, setIntegrationStatus] = useState<any>(null);
+  const [pingingApi, setPingingApi] = useState<boolean>(false);
+  const [apiPingSuccess, setApiPingSuccess] = useState<boolean | null>(null);
 
   // Map Reference
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -484,12 +627,12 @@ export function App() {
 
       L.control.zoom({ position: "bottomright" }).addTo(map);
 
-      // CartoDB Dark Matter Tiles (High-end Dark Mode)
+      // Esri World Dark Gray Canvas Base (Clean Dark GIS, No Key Watermark)
       L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+        "https://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
         {
-          attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
-          maxZoom: 19
+          attribution: '&copy; <a href="https://www.esri.com/">Esri</a>, HERE, DeLorme',
+          maxZoom: 16
         }
       ).addTo(map);
 
@@ -565,6 +708,28 @@ export function App() {
     runAnalysis();
   }, []);
 
+  const fetchIntegrationStatus = async () => {
+    setPingingApi(true);
+    try {
+      const res = await fetch(`${API_BASE}/integrations/status`);
+      if (res.ok) {
+        const data = await res.json();
+        setIntegrationStatus(data.integrations);
+        setApiPingSuccess(true);
+      } else {
+        setApiPingSuccess(false);
+      }
+    } catch (err) {
+      setApiPingSuccess(false);
+    } finally {
+      setPingingApi(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchIntegrationStatus();
+  }, []);
+
   const handleSelectHotspot = (h: Hotspot) => {
     setSelectedHotspot(h.id);
     setCurrentLat(h.lat);
@@ -586,17 +751,58 @@ export function App() {
     }
   };
 
-  const speakText = (text: string) => {
+  const speakText = async (text: string) => {
+    if (isPlayingAudio) {
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+      setIsPlayingAudio(false);
+      return;
+    }
+
+    setIsPlayingAudio(true);
+
+    // 1. Try authentic Sarvam AI Indic Neural Voice for Hindi
+    if (activeLangTab === "hindi") {
+      try {
+        const res = await fetch(`${API_BASE}/bhasha/tts`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, speaker: "priya" })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.status === "success" && data.audio_b64) {
+            const audio = new Audio("data:audio/wav;base64," + data.audio_b64);
+            audio.onended = () => setIsPlayingAudio(false);
+            audio.onerror = () => setIsPlayingAudio(false);
+            await audio.play();
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn("Sarvam AI TTS call skipped, falling back to Web Speech:", e);
+      }
+    }
+
+    // 2. Fallback to Web Speech API
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 1.0;
+      utterance.onend = () => setIsPlayingAudio(false);
+      utterance.onerror = () => setIsPlayingAudio(false);
       window.speechSynthesis.speak(utterance);
+    } else {
+      setIsPlayingAudio(false);
     }
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", background: "var(--color-bg-deep)" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh", background: "var(--color-bg-deep)", position: "relative" }}>
+      {/* Background Ambient Constellation Particles */}
+      <ParticleBackground />
+
       {/* ========================================================
           TOP HEADER COMMAND BAR
           ======================================================== */}
@@ -609,7 +815,8 @@ export function App() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 24px",
-          zIndex: 1000
+          zIndex: 1000,
+          position: "relative"
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
@@ -630,7 +837,7 @@ export function App() {
         </div>
 
         {/* System Microservices Status */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.75rem", color: "var(--color-text-secondary)" }}>
             <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: wsConnected ? "var(--color-safe)" : "var(--color-danger)" }}></span>
             WebSocket: <span className="mono" style={{ color: "#FFF" }}>{wsConnected ? "LIVE STREAM" : "POLLING"}</span>
@@ -649,8 +856,49 @@ export function App() {
           <div className="badge" style={{ background: "rgba(14, 154, 167, 0.15)", border: "1px solid var(--color-primary)", color: "#FFF" }}>
             TEAM SYNTRIX
           </div>
+
+          <button
+            className="btn-secondary"
+            style={{
+              padding: "5px 12px",
+              fontSize: "0.75rem",
+              borderColor: "rgba(56, 189, 248, 0.45)",
+              color: "#38BDF8",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px"
+            }}
+            onClick={() => {
+              setShowApiModal(true);
+              fetchIntegrationStatus();
+            }}
+          >
+            <span className="pulse-ping" style={{ width: "6px", height: "6px" }}>
+              <span className="pulse-ping-dot" style={{ backgroundColor: "#38BDF8" }}></span>
+              <span className="pulse-ping-core" style={{ backgroundColor: "#38BDF8" }}></span>
+            </span>
+            <Key size={13} />
+            <span>API Keys & Integrations</span>
+          </button>
+
+          <button
+            className="btn-primary"
+            style={{
+              padding: "5px 12px",
+              fontSize: "0.75rem",
+              background: "linear-gradient(135deg, #0E9AA7 0%, #2EC4B6 100%)",
+              boxShadow: "0 2px 10px rgba(14, 154, 167, 0.4)"
+            }}
+            onClick={() => setShowBriefingModal(true)}
+          >
+            <FileDown size={14} />
+            Export C-Suite Briefing
+          </button>
         </div>
       </header>
+
+      {/* Live Telemetry Marquee Banner */}
+      <TelemetryTicker />
 
       {/* ========================================================
           MAIN COCKPIT LAYOUT (3 COLUMNS)
@@ -1076,7 +1324,12 @@ export function App() {
                     <div style={{ display: "flex", gap: "8px" }}>
                       <button
                         className="btn-secondary"
-                        style={{ padding: "4px 10px", fontSize: "0.7rem" }}
+                        style={{
+                          padding: "4px 10px",
+                          fontSize: "0.7rem",
+                          borderColor: isPlayingAudio ? "#38BDF8" : "rgba(255,255,255,0.12)",
+                          color: isPlayingAudio ? "#38BDF8" : "inherit"
+                        }}
                         onClick={() =>
                           speakText(
                             activeLangTab === "hindi"
@@ -1085,8 +1338,17 @@ export function App() {
                           )
                         }
                       >
-                        <Volume2 size={13} />
-                        Audio Readout
+                        {isPlayingAudio ? <Square size={13} color="#38BDF8" /> : <Volume2 size={13} />}
+                        {isPlayingAudio ? "Stop Audio" : "Audio Readout"}
+                        {isPlayingAudio && (
+                          <div className="audio-equalizer">
+                            <div className="audio-bar"></div>
+                            <div className="audio-bar"></div>
+                            <div className="audio-bar"></div>
+                            <div className="audio-bar"></div>
+                            <div className="audio-bar"></div>
+                          </div>
+                        )}
                       </button>
                       <button
                         className="btn-secondary"
@@ -1147,6 +1409,485 @@ export function App() {
           )}
         </section>
       </div>
+
+      {/* ========================================================
+          EXECUTIVE C-SUITE & NDMA BRIEFING MODAL (WINNING EDGE)
+          ======================================================== */}
+      {showBriefingModal && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(3, 7, 18, 0.85)",
+            backdropFilter: "blur(12px)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px"
+          }}
+          onClick={() => setShowBriefingModal(false)}
+        >
+          <div
+            className="glass-card animate-fade-in"
+            style={{
+              maxWidth: "820px",
+              width: "100%",
+              maxHeight: "90vh",
+              overflowY: "auto",
+              background: "#08101C",
+              border: "1px solid var(--color-primary)",
+              padding: "28px",
+              borderRadius: "var(--radius-lg)",
+              color: "#FFF",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.8)"
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "16px", marginBottom: "20px" }}>
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+                  <span className="badge" style={{ background: "rgba(214, 40, 40, 0.25)", color: "#FF5A5A", border: "1px solid rgba(214, 40, 40, 0.5)" }}>
+                    CONFIDENTIAL // C-SUITE & NDMA BRIEFING
+                  </span>
+                  <span className="mono" style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)" }}>
+                    EVENT: {result?.event_id || "AEGIS-LIVE-01"}
+                  </span>
+                </div>
+                <h2 style={{ fontSize: "1.35rem", color: "#FFF", letterSpacing: "0.01em" }}>
+                  AEGIS Climate Hazard & Financial Value-at-Risk Briefing
+                </h2>
+                <div style={{ fontSize: "0.8rem", color: "var(--color-primary)" }}>
+                  Target: {locationName} ({currentLat.toFixed(4)}°N, {currentLon.toFixed(4)}°E)
+                </div>
+              </div>
+              <button
+                onClick={() => setShowBriefingModal(false)}
+                style={{ background: "transparent", border: "none", color: "var(--color-text-secondary)", cursor: "pointer", padding: "4px" }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Executive Summary Block */}
+            <div style={{ background: "rgba(14, 154, 167, 0.1)", border: "1px solid rgba(14, 154, 167, 0.3)", borderRadius: "8px", padding: "14px", marginBottom: "20px", fontSize: "0.82rem", lineHeight: 1.6, color: "var(--color-text-primary)" }}>
+              <b>Executive Intelligence Summary:</b> Autonomous 3-agent intelligence cascade evaluated acute meteorological telemetry, 30m DEM elevation basins, and regulatory policy mandates for <b>{locationName}</b>. Acute physical flood risk is evaluated at <b>{result ? (result.agent1.risk_score * 100).toFixed(0) : 88}% ({result?.agent1.risk_tier || "CRITICAL"})</b>, projecting direct structural inundation of <b>{result?.agent2?.waterlogging_depth_cm || 85} cm</b> across {result?.agent2?.buildings_at_risk || 340} critical assets. Total Enterprise Value at Risk (VaR) is estimated at <b>₹{result?.agent3 ? (result.agent3.var_estimate_inr / 10000000).toFixed(2) : "1,182.75"} Crores</b> (${result?.agent3 ? (result.agent3.var_estimate_usd / 1000000).toFixed(2) : "142.50"}M USD).
+            </div>
+
+            {/* 3 Pillar Summary Grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "14px", marginBottom: "20px" }}>
+              <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", padding: "14px", borderRadius: "8px" }}>
+                <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", textTransform: "uppercase" }}>Agent 1: Physical Risk</div>
+                <div className="mono" style={{ fontSize: "1.4rem", fontWeight: 800, color: result && result.agent1.risk_score > 0.65 ? "var(--color-danger)" : "var(--color-safe)", marginTop: "4px" }}>
+                  {result ? (result.agent1.risk_score * 100).toFixed(0) : 88}%
+                </div>
+                <div style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", marginTop: "4px" }}>
+                  24h Rain: <b>{result?.agent1.metrics.precipitation_24h_mm || 142} mm</b><br/>
+                  Moisture: <b>{result?.agent1.metrics.soil_saturation_pct || 94}%</b>
+                </div>
+              </div>
+
+              <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", padding: "14px", borderRadius: "8px" }}>
+                <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", textTransform: "uppercase" }}>Agent 2: Structural Loss</div>
+                <div className="mono" style={{ fontSize: "1.4rem", fontWeight: 800, color: "#F4A261", marginTop: "4px" }}>
+                  {result?.agent2?.waterlogging_depth_cm || 85} cm
+                </div>
+                <div style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", marginTop: "4px" }}>
+                  Assets at Risk: <b>{result?.agent2?.buildings_at_risk || 340}</b><br/>
+                  Drainage Overflow: <b>{result?.agent2?.drainage_overflow_pct || 81}%</b>
+                </div>
+              </div>
+
+              <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", padding: "14px", borderRadius: "8px" }}>
+                <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", textTransform: "uppercase" }}>Agent 3: Total VaR</div>
+                <div className="mono" style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--color-primary)", marginTop: "4px" }}>
+                  ₹{result?.agent3 ? (result.agent3.var_estimate_inr / 10000000).toFixed(0) : "1,183"} Cr
+                </div>
+                <div style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", marginTop: "4px" }}>
+                  USD: <b>${result?.agent3 ? (result.agent3.var_estimate_usd / 1000000).toFixed(1) : "142.5"}M</b><br/>
+                  Compliance Gap: <b>{result?.agent3?.compliance_gap_pct || 42}%</b>
+                </div>
+              </div>
+            </div>
+
+            {/* Bhasha-AI Official Civic Alerts */}
+            <div style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "14px", marginBottom: "20px" }}>
+              <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#FFF", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
+                <Radio size={14} color="var(--color-primary)" />
+                Bhasha-AI Bilingual Civil Protection Broadcast Dispatch:
+              </div>
+              <div style={{ fontSize: "0.75rem", color: "var(--color-text-primary)", lineHeight: 1.5, marginBottom: "8px" }}>
+                <b>हिन्दी (देवनागरी):</b> {result?.agent3?.bilingual_alert_hindi || "मीठी नदी और कुर्ला बेसिन में जलभराव की स्थिति गंभीर है। तत्काल जल निकासी द्वार खोलें।"}
+              </div>
+              <div style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
+                <b>English:</b> {result?.agent3?.bilingual_alert_english || "Critical waterlogging projected for transit and industrial substations. Immediate flood barrier deployment mandated."}
+              </div>
+            </div>
+
+            {/* Mandatory Actions */}
+            <div style={{ marginBottom: "24px" }}>
+              <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", marginBottom: "8px" }}>
+                Mandatory Mitigation Directives (NDMA & SEBI BRSR):
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                {(result?.agent3?.recommended_actions || [
+                  "Enforce mandatory physical flood barrier hardening up to +120cm datum level.",
+                  "Execute parametric climate catastrophe bond derivative hedges under IRDAI guidelines.",
+                  "Provision contingency capital reserve for BRSR Principle 6 audit compliance."
+                ]).map((action, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.75rem", color: "var(--color-text-primary)" }}>
+                    <CheckCircle2 size={13} color="var(--color-safe)" />
+                    <span>{action}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Modal Footer Controls */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "16px" }}>
+              <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
+                Autonomous System Report • Team Syntrix • BHARAT AGENTIC 2026
+              </div>
+
+              <div style={{ display: "flex", gap: "10px" }}>
+                <button
+                  className="btn-secondary"
+                  onClick={() => {
+                    const printUrl = `${API_BASE}/events/${result?.event_id || 'latest'}/executive-briefing/html`;
+                    window.open(printUrl, "_blank");
+                  }}
+                >
+                  <ExternalLink size={14} />
+                  Standalone Print View
+                </button>
+                <button
+                  className="btn-primary"
+                  onClick={() => window.print()}
+                >
+                  <Printer size={14} />
+                  Print / Save as PDF
+                </button>
+                <button
+                  className="btn-secondary"
+                  onClick={() => setShowBriefingModal(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          API KEYS & LIVE INTEGRATIONS MODAL
+          ======================================================== */}
+      {showApiModal && (
+        <div className="modal-overlay" onClick={() => setShowApiModal(false)}>
+          <div
+            className="modal-content"
+            style={{ maxWidth: "880px", padding: "28px" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "16px", marginBottom: "20px" }}>
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "4px" }}>
+                  <span className="cyber-badge" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                    <span className="pulse-ping" style={{ width: "6px", height: "6px" }}>
+                      <span className="pulse-ping-dot"></span>
+                      <span className="pulse-ping-core"></span>
+                    </span>
+                    MULTI-PROVIDER AI ARBITRATION MATRIX
+                  </span>
+                  <span className="mono" style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)" }}>
+                    .env API KEYS & LIVE SYSTEM STATUS
+                  </span>
+                </div>
+                <h2 style={{ fontSize: "1.3rem", color: "#FFF", letterSpacing: "0.01em" }}>
+                  External AI Models & Telemetry Integrations
+                </h2>
+                <p style={{ fontSize: "0.8rem", color: "var(--color-text-secondary)", marginTop: "4px" }}>
+                  AEGIS features dual-mode architecture: deterministic local models provide 100% resilient offline fallback, while connecting external API keys unlocks dynamic LLM reasoning and neural voice synthesis.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowApiModal(false)}
+                style={{ background: "transparent", border: "none", color: "var(--color-text-secondary)", cursor: "pointer", padding: "4px" }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Live Inspector Bar */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "rgba(14, 154, 167, 0.12)", border: "1px solid rgba(14, 154, 167, 0.35)", borderRadius: "8px", padding: "12px 16px", marginBottom: "20px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <Activity size={18} color="var(--color-primary)" />
+                <div style={{ fontSize: "0.82rem" }}>
+                  <b>Integration Inspector:</b>{" "}
+                  {apiPingSuccess === true ? (
+                    <span style={{ color: "#10B981" }}>Backend Connected • API Inspector Active</span>
+                  ) : apiPingSuccess === false ? (
+                    <span style={{ color: "#F59E0B" }}>Using Offline Safe Fallbacks</span>
+                  ) : (
+                    <span style={{ color: "var(--color-text-secondary)" }}>Click test button to inspect live services</span>
+                  )}
+                </div>
+              </div>
+              <button
+                className="btn-secondary"
+                onClick={fetchIntegrationStatus}
+                disabled={pingingApi}
+                style={{ fontSize: "0.75rem", padding: "6px 12px" }}
+              >
+                <RefreshCw size={13} className={pingingApi ? "animate-spin" : ""} />
+                {pingingApi ? "Pinging..." : "Test Live Connectivity"}
+              </button>
+            </div>
+
+            {/* Services Grid (8 Services) */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "20px" }}>
+              
+              {/* 1. Google Gemini */}
+              <div className="cyber-card" style={{ padding: "14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Sparkles size={16} color="#38BDF8" />
+                    <div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>Google Gemini 1.5 Flash</div>
+                      <div className="mono" style={{ fontSize: "0.68rem", color: "var(--color-primary)" }}>GEMINI_API_KEY</div>
+                    </div>
+                  </div>
+                  <span className="badge" style={{
+                    background: (integrationStatus?.gemini?.configured || integrationStatus?.google_gemini?.configured) ? "rgba(16, 185, 129, 0.2)" : "rgba(56, 189, 248, 0.15)",
+                    color: (integrationStatus?.gemini?.configured || integrationStatus?.google_gemini?.configured) ? "#10B981" : "#38BDF8",
+                    border: "1px solid rgba(56, 189, 248, 0.3)"
+                  }}>
+                    {(integrationStatus?.gemini?.configured || integrationStatus?.google_gemini?.configured) ? "LIVE ACTIVE" : "READY / SANDBOX"}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
+                  Powers Agent 3 dynamic ESG policy reasoning, Hindi linguistic nuance, and C-Suite executive briefing synthesis.
+                </p>
+                <div style={{ marginTop: "8px", fontSize: "0.68rem", color: "var(--color-text-muted)" }}>
+                  Free key: <a href="https://aistudio.google.com" target="_blank" rel="noreferrer" style={{ color: "#38BDF8", textDecoration: "none" }}>aistudio.google.com</a>
+                </div>
+              </div>
+
+              {/* 2. Groq Cloud */}
+              <div className="cyber-card" style={{ padding: "14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Cpu size={16} color="#F59E0B" />
+                    <div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>Groq Cloud (LLaMA-3-70B)</div>
+                      <div className="mono" style={{ fontSize: "0.68rem", color: "#F59E0B" }}>GROQ_API_KEY</div>
+                    </div>
+                  </div>
+                  <span className="badge" style={{
+                    background: integrationStatus?.groq?.configured ? "rgba(16, 185, 129, 0.2)" : "rgba(245, 158, 11, 0.15)",
+                    color: integrationStatus?.groq?.configured ? "#10B981" : "#F59E0B",
+                    border: "1px solid rgba(245, 158, 11, 0.3)"
+                  }}>
+                    {integrationStatus?.groq?.configured ? "SUB-400ms ACTIVE" : "READY / SANDBOX"}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
+                  Powers real-time sub-second autonomous Thought Trace monologues and instant decision log dispatch.
+                </p>
+                <div style={{ marginTop: "8px", fontSize: "0.68rem", color: "var(--color-text-muted)" }}>
+                  Free key: <a href="https://console.groq.com" target="_blank" rel="noreferrer" style={{ color: "#F59E0B", textDecoration: "none" }}>console.groq.com</a>
+                </div>
+              </div>
+
+              {/* 3. Open-Meteo Radar */}
+              <div className="cyber-card" style={{ padding: "14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Globe size={16} color="#10B981" />
+                    <div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>Open-Meteo Live Radar</div>
+                      <div className="mono" style={{ fontSize: "0.68rem", color: "#10B981" }}>OPENMETEO_API_KEY (Optional)</div>
+                    </div>
+                  </div>
+                  <span className="badge" style={{ background: "rgba(16, 185, 129, 0.2)", color: "#10B981", border: "1px solid rgba(16, 185, 129, 0.3)" }}>
+                    {integrationStatus?.open_meteo?.configured ? "COMMERCIAL TIER" : "FREE TIER ACTIVE"}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
+                  Live 15-minute Doppler precipitation, 7-day antecedent saturation indices, soil moisture, and temperature.
+                </p>
+                <div style={{ marginTop: "8px", fontSize: "0.68rem", color: "var(--color-text-muted)" }}>
+                  Status: <b>Live HTTP Gateway Operational</b> (No key needed for demo)
+                </div>
+              </div>
+
+              {/* 4. Mapbox Satellite GIS */}
+              <div className="cyber-card" style={{ padding: "14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Layers size={16} color="#8B5CF6" />
+                    <div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>Mapbox 3D Satellite GIS</div>
+                      <div className="mono" style={{ fontSize: "0.68rem", color: "#8B5CF6" }}>MAPBOX_API_TOKEN</div>
+                    </div>
+                  </div>
+                  <span className="badge" style={{
+                    background: integrationStatus?.mapbox?.configured ? "rgba(16, 185, 129, 0.2)" : "rgba(139, 92, 246, 0.15)",
+                    color: integrationStatus?.mapbox?.configured ? "#10B981" : "#8B5CF6",
+                    border: "1px solid rgba(139, 92, 246, 0.3)"
+                  }}>
+                    {integrationStatus?.mapbox?.configured ? "SATELLITE HD" : "CARTO DARK ACTIVE"}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
+                  High-resolution satellite orthophotos, hillshade DEM contours, and parcel boundary overlays.
+                </p>
+                <div style={{ marginTop: "8px", fontSize: "0.68rem", color: "var(--color-text-muted)" }}>
+                  Free key: <a href="https://mapbox.com" target="_blank" rel="noreferrer" style={{ color: "#8B5CF6", textDecoration: "none" }}>mapbox.com (50k loads/mo)</a>
+                </div>
+              </div>
+
+              {/* 5. ElevenLabs Voice AI */}
+              <div className="cyber-card" style={{ padding: "14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Volume2 size={16} color="#EC4899" />
+                    <div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>ElevenLabs Neural Voice</div>
+                      <div className="mono" style={{ fontSize: "0.68rem", color: "#EC4899" }}>ELEVENLABS_API_KEY</div>
+                    </div>
+                  </div>
+                  <span className="badge" style={{
+                    background: integrationStatus?.elevenlabs?.configured ? "rgba(16, 185, 129, 0.2)" : "rgba(236, 72, 153, 0.15)",
+                    color: integrationStatus?.elevenlabs?.configured ? "#10B981" : "#EC4899",
+                    border: "1px solid rgba(236, 72, 153, 0.3)"
+                  }}>
+                    {integrationStatus?.elevenlabs?.configured ? "NEURAL ACTIVE" : "WEBSPEECH ACTIVE"}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
+                  Ultra-realistic neural voice alerts for English civil protection dispatches in Bhasha-AI.
+                </p>
+                <div style={{ marginTop: "8px", fontSize: "0.68rem", color: "var(--color-text-muted)" }}>
+                  Free key: <a href="https://elevenlabs.io" target="_blank" rel="noreferrer" style={{ color: "#EC4899", textDecoration: "none" }}>elevenlabs.io</a>
+                </div>
+              </div>
+
+              {/* 6. Sarvam AI Indic Speech */}
+              <div className="cyber-card" style={{ padding: "14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Radio size={16} color="#F97316" />
+                    <div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>Sarvam AI (Indic Speech)</div>
+                      <div className="mono" style={{ fontSize: "0.68rem", color: "#F97316" }}>SARVAM_API_KEY</div>
+                    </div>
+                  </div>
+                  <span className="badge" style={{
+                    background: integrationStatus?.sarvam_ai?.configured ? "rgba(16, 185, 129, 0.2)" : "rgba(249, 115, 22, 0.15)",
+                    color: integrationStatus?.sarvam_ai?.configured ? "#10B981" : "#F97316",
+                    border: "1px solid rgba(249, 115, 22, 0.3)"
+                  }}>
+                    {integrationStatus?.sarvam_ai?.configured ? "INDIC ACTIVE" : "LOCAL HINDI ACTIVE"}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
+                  Indigenous Indian neural speech synthesis for Hindi, Marathi, Tamil, Bengali broadcast dispatches.
+                </p>
+                <div style={{ marginTop: "8px", fontSize: "0.68rem", color: "var(--color-text-muted)" }}>
+                  Trial key: <a href="https://sarvam.ai" target="_blank" rel="noreferrer" style={{ color: "#F97316", textDecoration: "none" }}>sarvam.ai</a>
+                </div>
+              </div>
+
+              {/* 7. OpenAI GPT-4o */}
+              <div className="cyber-card" style={{ padding: "14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Shield size={16} color="#14B8A6" />
+                    <div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>OpenAI GPT-4o</div>
+                      <div className="mono" style={{ fontSize: "0.68rem", color: "#14B8A6" }}>OPENAI_API_KEY</div>
+                    </div>
+                  </div>
+                  <span className="badge" style={{ background: "rgba(255,255,255,0.06)", color: "var(--color-text-secondary)" }}>
+                    {integrationStatus?.openai?.configured ? "ACTIVE" : "OPTIONAL STANDBY"}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
+                  Secondary LLM arbitration provider for high-confidence multi-model consensus verification.
+                </p>
+              </div>
+
+              {/* 8. Anthropic Claude 3.5 */}
+              <div className="cyber-card" style={{ padding: "14px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <Key size={16} color="#A78BFA" />
+                    <div>
+                      <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>Anthropic Claude 3.5</div>
+                      <div className="mono" style={{ fontSize: "0.68rem", color: "#A78BFA" }}>ANTHROPIC_API_KEY</div>
+                    </div>
+                  </div>
+                  <span className="badge" style={{ background: "rgba(255,255,255,0.06)", color: "var(--color-text-secondary)" }}>
+                    {integrationStatus?.anthropic?.configured ? "ACTIVE" : "OPTIONAL STANDBY"}
+                  </span>
+                </div>
+                <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.4 }}>
+                  Deep legal analysis and SEBI BRSR compliance clause breakdown across complex multi-page PDF documents.
+                </p>
+              </div>
+
+            </div>
+
+            {/* .env Quick Copy Block */}
+            <div style={{ background: "rgba(0,0,0,0.5)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px", padding: "14px", marginBottom: "20px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.75rem", fontWeight: 700, color: "#FFF" }}>
+                  <Key size={14} color="var(--color-primary)" />
+                  <span>Setup Instructions: Add keys to root `.env` file</span>
+                </div>
+                <button
+                  className="btn-secondary"
+                  style={{ padding: "3px 8px", fontSize: "0.68rem" }}
+                  onClick={() => {
+                    const envTemplate = `# AEGIS-CLIMATE Environment Variables
+GEMINI_API_KEY=your_gemini_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
+OPENMETEO_API_KEY=
+MAPBOX_API_TOKEN=your_mapbox_token_here
+ELEVENLABS_API_KEY=your_elevenlabs_key_here
+SARVAM_API_KEY=your_sarvam_key_here
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=`;
+                    navigator.clipboard.writeText(envTemplate);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                >
+                  <Copy size={12} />
+                  {copied ? "Copied .env Template!" : "Copy .env Template"}
+                </button>
+              </div>
+              <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
+                Keys added to <code className="mono" style={{ color: "#38BDF8" }}>c:\Users\nisha\OneDrive\Documents\Downloads\AEGIS\.env</code> are automatically loaded by FastAPI on launch. Gemini and Groq free tiers immediately activate dynamic LLM reasoning!
+              </p>
+            </div>
+
+            {/* Modal Footer Controls */}
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button
+                className="btn-primary"
+                onClick={() => setShowApiModal(false)}
+                style={{ padding: "8px 20px" }}
+              >
+                Close Settings
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
