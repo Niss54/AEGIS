@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.app.config import settings
 from backend.app.websocket import manager
 from backend.app.routes import health, analyze, geo, documents, hotspots
+from mcp_hub.hub import router as mcp_router
 
 # Configure Logging
 logging.basicConfig(
@@ -40,6 +41,7 @@ app.include_router(analyze.router, prefix="/api/v1")
 app.include_router(geo.router, prefix="/api/v1")
 app.include_router(documents.router, prefix="/api/v1")
 app.include_router(hotspots.router, prefix="/api/v1")
+app.include_router(mcp_router)  # Model Context Protocol Gateway (/mcp/health, /mcp/tools, /mcp/invoke)
 
 
 @app.get("/")
