@@ -437,12 +437,7 @@ As mandated by the aiKart hackathon specifications, AEGIS provides an official c
 
 Proudly built during the 12-hour sprint of **BHARAT AGENTIC 2026**:
 
-| Member | Role | Specialization |
-| :--- | :--- | :--- |
-| **Nishant Maurya** | **Team Leader** | Full-Stack Architecture, MCP Protocol Gateway & Frontend Cockpit |
-| **Navya Chaudhary** | Core Member | Machine Learning Models (GBM Classifier) & Geospatial Systems |
-| **Om Tripathi** | Core Member | Financial Value-at-Risk Engine & ChromaDB Regulatory RAG |
-| **Nikita Chopde** | Core Member | Bhasha-AI Neural Speech Dispatch & System Testing |
+
 
 ---
 
@@ -452,3 +447,8 @@ Proudly built during the 12-hour sprint of **BHARAT AGENTIC 2026**:
 - **Meteorological Data:** Courtesy of [Open-Meteo API](https://open-meteo.com/) (Open-access community license).
 - **Cartographic Basemaps:** Courtesy of Esri World Dark Gray Canvas and Mapbox.
 - **Hackathon Platform:** Powered by **AIKart** on **Unstop** for **BHARAT AGENTIC 2026**.
+
+- ## 👥 Team Syntrix
+
+Proudly built during the 12-hour sprint of **BHARAT AGENTIC 2026**:
+
