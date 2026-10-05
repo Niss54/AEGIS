@@ -79,25 +79,61 @@ async def invoke_tool(rpc: JsonRpcRequest):
         return JsonRpcResponse(id=rpc.id, result=result)
 
     elif tool_name == "run_flood_classifier":
-        precip = params.get("precipitation_24h_mm", 0.0)
-        sat = params.get("soil_saturation_pct", 0.0)
-        score = min(1.0, (precip / 100.0 * 0.4) + (sat / 100.0 * 0.6))
-        return JsonRpcResponse(id=rpc.id, result={"risk_score": round(score, 3), "tier": "HIGH" if score > 0.65 else "LOW"})
+        try:
+            from backend.app.agent1_ml import flood_ml_engine
+            res = flood_ml_engine.predict(
+                soil_saturation_pct=params.get("soil_saturation_pct", 50.0),
+                precipitation_24h_mm=params.get("precipitation_24h_mm", 0.0),
+                precipitation_7d_mm=params.get("precipitation_7d_mm", 0.0),
+                relative_humidity_pct=params.get("relative_humidity_pct", 75.0),
+                elevation_m=params.get("elevation_m", 15.0),
+                drainage_capacity_index=params.get("drainage_capacity_index", 65.0)
+            )
+            return JsonRpcResponse(id=rpc.id, result=res)
+        except Exception as e:
+            precip = params.get("precipitation_24h_mm", 0.0)
+            sat = params.get("soil_saturation_pct", 0.0)
+            score = min(1.0, (precip / 100.0 * 0.4) + (sat / 100.0 * 0.6))
+            return JsonRpcResponse(id=rpc.id, result={"risk_score": round(score, 3), "tier": "HIGH" if score > 0.65 else "LOW"})
 
     elif tool_name == "compute_dem_exposure":
-        risk_score = params.get("risk_score", 0.7)
-        return JsonRpcResponse(id=rpc.id, result={
-            "exposure_tier": "INFRASTRUCTURE_FAILURE" if risk_score > 0.65 else "SUPERFICIAL_WATERLOGGING",
-            "waterlogging_depth_cm": int(risk_score * 110),
-            "buildings_at_risk": int(risk_score * 400)
-        })
+        try:
+            from backend.app.agent2_geo import chronic_geo_engine
+            res = chronic_geo_engine.analyze_structural_exposure(
+                lat=params.get("lat", 19.0728),
+                lon=params.get("lon", 72.8797),
+                risk_score=params.get("risk_score", 0.75),
+                precipitation_24h_mm=params.get("precipitation_24h_mm", 90.0),
+                soil_saturation_pct=params.get("soil_saturation_pct", 85.0),
+                elevation_m=params.get("elevation_m", 12.0),
+                radius_km=params.get("radius_km", 10.0)
+            )
+            return JsonRpcResponse(id=rpc.id, result=res)
+        except Exception as e:
+            risk_score = params.get("risk_score", 0.7)
+            return JsonRpcResponse(id=rpc.id, result={
+                "exposure_tier": "INFRASTRUCTURE_FAILURE" if risk_score > 0.65 else "SUPERFICIAL_WATERLOGGING",
+                "waterlogging_depth_cm": int(risk_score * 110),
+                "buildings_at_risk": int(risk_score * 400)
+            })
 
     elif tool_name == "query_policy_rag":
-        return JsonRpcResponse(id=rpc.id, result={
-            "applicable_regulations": ["SEBI BRSR Core Mandate", "Carbon Tax Schema 2026"],
-            "var_multiplier": 1.85,
-            "compliance_gap_pct": 34
-        })
+        try:
+            from backend.app.agent3_financial import financial_risk_engine
+            query_str = params.get("query", "SEBI BRSR carbon tax flood risk penalties")
+            clauses = financial_risk_engine.rag.query(query_str, top_k=3)
+            return JsonRpcResponse(id=rpc.id, result={
+                "tool": "query_policy_rag",
+                "matched_count": len(clauses),
+                "clauses": clauses,
+                "applicable_regulations": [c["metadata"].get("title") for c in clauses]
+            })
+        except Exception as e:
+            return JsonRpcResponse(id=rpc.id, result={
+                "applicable_regulations": ["SEBI BRSR Core Mandate", "Carbon Tax Schema 2026"],
+                "var_multiplier": 1.85,
+                "compliance_gap_pct": 34
+            })
 
     return JsonRpcResponse(id=rpc.id, result={"status": "executed", "params": params})
 

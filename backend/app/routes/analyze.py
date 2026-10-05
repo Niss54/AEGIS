@@ -8,6 +8,7 @@ import math
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 from fastapi import APIRouter, HTTPException, BackgroundTasks
+from pydantic import BaseModel, Field
 import httpx
 
 from backend.app.schemas import (
@@ -15,11 +16,132 @@ from backend.app.schemas import (
     RiskMetrics, HorizonCurves, AgentTraceStep
 )
 from backend.app.websocket import manager
+from backend.app.agent1_ml import flood_ml_engine
+from backend.app.agent2_geo import chronic_geo_engine
+from backend.app.agent3_financial import financial_risk_engine
 
 router = APIRouter(tags=["Analysis & Agent Orchestration"])
 
 # In-memory store for events in Phase 1
 HISTORICAL_EVENTS: Dict[str, UnifiedRiskResponse] = {}
+
+
+class ToolPredictInput(BaseModel):
+    soil_saturation_pct: float = Field(..., ge=0.0, le=100.0, example=85.0)
+    precipitation_24h_mm: float = Field(..., ge=0.0, example=95.0)
+    precipitation_7d_mm: float = Field(..., ge=0.0, example=240.0)
+    relative_humidity_pct: float = Field(..., ge=0.0, le=100.0, example=88.0)
+    elevation_m: float = Field(..., example=12.0)
+    drainage_capacity_index: float = Field(65.0, ge=0.0, le=100.0, example=55.0)
+
+
+class ToolGeoInput(BaseModel):
+    lat: float = Field(..., example=19.0728)
+    lon: float = Field(..., example=72.8797)
+    risk_score: float = Field(..., ge=0.0, le=1.0, example=0.85)
+    precipitation_24h_mm: float = Field(..., example=95.0)
+    soil_saturation_pct: float = Field(..., example=88.0)
+    elevation_m: float = Field(..., example=12.0)
+    radius_km: float = Field(10.0, example=10.0)
+
+
+@router.post("/tools/predict")
+async def tool_predict_flood_risk(input_data: ToolPredictInput):
+    """
+    Dedicated ML Tool Endpoint for Agent 1.
+    Evaluates meteorological feature matrix using trained GradientBoostingClassifier.
+    Used by MCP Hub and external microservices.
+    """
+    prediction = flood_ml_engine.predict(
+        soil_saturation_pct=input_data.soil_saturation_pct,
+        precipitation_24h_mm=input_data.precipitation_24h_mm,
+        precipitation_7d_mm=input_data.precipitation_7d_mm,
+        relative_humidity_pct=input_data.relative_humidity_pct,
+        elevation_m=input_data.elevation_m,
+        drainage_capacity_index=input_data.drainage_capacity_index
+    )
+    return {
+        "status": "success",
+        "tool": "run_flood_classifier",
+        **prediction
+    }
+
+
+@router.post("/tools/geo-exposure")
+async def tool_compute_geo_exposure(input_data: ToolGeoInput):
+    """
+    Dedicated Geospatial Tool Endpoint for Agent 2.
+    Computes 30m DEM elevation deltas, municipal drainage overflow, and HAZUS depth-damage estimates.
+    Used by MCP Hub and external microservices.
+    """
+    res = chronic_geo_engine.analyze_structural_exposure(
+        lat=input_data.lat,
+        lon=input_data.lon,
+        risk_score=input_data.risk_score,
+        precipitation_24h_mm=input_data.precipitation_24h_mm,
+        soil_saturation_pct=input_data.soil_saturation_pct,
+        elevation_m=input_data.elevation_m,
+        radius_km=input_data.radius_km
+    )
+    return {
+        "status": "success",
+        "tool": "compute_dem_exposure",
+        **res
+    }
+
+
+class ToolVarInput(BaseModel):
+    location_name: str = Field("Industrial Asset", example="Mumbai Logistics Hub")
+    risk_score: float = Field(..., ge=0.0, le=1.0, example=0.85)
+    waterlogging_depth_cm: int = Field(..., example=85)
+    buildings_at_risk: int = Field(..., example=340)
+    damage_estimate_inr: int = Field(..., example=250000000)
+    sector: str = Field("Industrial & Enterprise", example="Industrial & Logistics")
+
+
+@router.post("/tools/var-model")
+async def tool_compute_financial_var(input_data: ToolVarInput):
+    """
+    Dedicated Financial VaR Tool Endpoint for Agent 3.
+    Computes direct physical loss, downtime loss, regulatory penalties, and insurance surges.
+    Used by MCP Hub and external microservices.
+    """
+    res = financial_risk_engine.model_financial_var(
+        location_label=input_data.location_name,
+        risk_score=input_data.risk_score,
+        waterlogging_depth_cm=input_data.waterlogging_depth_cm,
+        buildings_at_risk=input_data.buildings_at_risk,
+        damage_estimate_inr=input_data.damage_estimate_inr,
+        sector=input_data.sector
+    )
+    return {
+        "status": "success",
+        "tool": "model_var_exposure",
+        **res
+    }
+
+
+@router.post("/tools/policy-rag")
+async def tool_query_policy_rag(query: str, top_k: int = 3):
+    """Queries ChromaDB regulatory vector collection for matching climate policy clauses."""
+    clauses = financial_risk_engine.rag.query(query, top_k=top_k)
+    return {
+        "status": "success",
+        "tool": "query_policy_rag",
+        "query": query,
+        "results_count": len(clauses),
+        "clauses": clauses
+    }
+
+
+@router.get("/tools/model-info")
+async def get_model_info():
+    """Returns training parameters, cross-validation metrics, and feature importance rankings."""
+    return {
+        "is_trained": flood_ml_engine.is_trained(),
+        "metadata": flood_ml_engine.metadata
+    }
+
 
 
 async def fetch_open_meteo_telemetry(lat: float, lon: float) -> Dict[str, float]:
@@ -67,9 +189,9 @@ async def fetch_open_meteo_telemetry(lat: float, lon: float) -> Dict[str, float]
     }
 
 
-def compute_acute_risk(telemetry: Dict[str, float], sim_rain: float = 0.0, sim_sat: Optional[float] = None) -> (float, str, str, RiskMetrics):
+def compute_acute_risk(telemetry: Dict[str, float], sim_rain: float = 0.0, sim_sat: Optional[float] = None) -> (float, str, str, RiskMetrics, Dict[str, Any]):
     """
-    Computes flood probability score [0.0 - 1.0] and risk tier.
+    Computes flood probability score [0.0 - 1.0] and risk tier using the trained ML model.
     Incorporates 'What-If' simulation adjustments.
     """
     precip_24h = telemetry["precipitation_24h_mm"] + sim_rain
@@ -78,29 +200,19 @@ def compute_acute_risk(telemetry: Dict[str, float], sim_rain: float = 0.0, sim_s
     humidity = telemetry["relative_humidity_pct"]
     elevation = telemetry["elevation_m"]
 
-    # Multi-factor weighted probabilistic calculation (XGBoost weights proxy)
-    # Features: soil saturation (35%), 24h precip (30%), 7d antecedent (15%), elevation inverse (10%), humidity (10%)
-    score = (
-        (min(1.0, soil_sat / 100.0) * 0.35) +
-        (min(1.0, precip_24h / 120.0) * 0.30) +
-        (min(1.0, precip_7d / 300.0) * 0.15) +
-        (max(0.0, 1.0 - (elevation / 100.0)) * 0.10) +
-        (min(1.0, humidity / 100.0) * 0.10)
+    # Run trained Gradient Boosting Classifier
+    pred = flood_ml_engine.predict(
+        soil_saturation_pct=soil_sat,
+        precipitation_24h_mm=precip_24h,
+        precipitation_7d_mm=precip_7d,
+        relative_humidity_pct=humidity,
+        elevation_m=elevation,
+        drainage_capacity_index=65.0
     )
-    score = round(min(1.0, max(0.05, score)), 3)
 
-    if score >= 0.80:
-        tier = "CRITICAL"
-        dominant = "soil_saturation" if soil_sat > 85 else "precipitation_24h"
-    elif score >= 0.65:
-        tier = "HIGH"
-        dominant = "precipitation_24h" if precip_24h > 60 else "antecedent_rainfall"
-    elif score >= 0.40:
-        tier = "MEDIUM"
-        dominant = "moderate_rainfall"
-    else:
-        tier = "LOW"
-        dominant = "nominal_weather"
+    score = pred["risk_score"]
+    tier = pred["risk_tier"]
+    dominant = pred["dominant_factor"]
 
     metrics = RiskMetrics(
         precipitation_24h_mm=round(precip_24h, 2),
@@ -110,7 +222,7 @@ def compute_acute_risk(telemetry: Dict[str, float], sim_rain: float = 0.0, sim_s
         elevation_m=round(elevation, 1),
         temperature_c=telemetry.get("temperature_c", 28.0)
     )
-    return score, tier, dominant, metrics
+    return score, tier, dominant, metrics, pred
 
 
 @router.post("/analyze", response_model=UnifiedRiskResponse)
@@ -144,7 +256,7 @@ async def analyze_location(req: AnalyzeRequest):
 
     t0 = time.time()
     telemetry = await fetch_open_meteo_telemetry(req.lat, req.lon)
-    risk_score, risk_tier, dominant, metrics = compute_acute_risk(
+    risk_score, risk_tier, dominant, metrics, pred = compute_acute_risk(
         telemetry,
         sim_rain=req.simulated_additional_rain_mm,
         sim_sat=req.simulated_saturation_pct_override
@@ -153,11 +265,12 @@ async def analyze_location(req: AnalyzeRequest):
 
     triggered_chronic = risk_score > 0.65
 
+    probs_summary = ", ".join([f"{k}: {v*100:.1f}%" for k, v in pred.get("probabilities", {}).items()])
     thought_trace.append(AgentTraceStep(
         agent_id="agent-1-acute",
-        step_name="ML Classification",
+        step_name="ML Classification (GradientBoosting)",
         action_type="OBSERVATION",
-        content=f"Telemetry: 24h Rain={metrics.precipitation_24h_mm}mm, Soil Saturation={metrics.soil_saturation_pct}%. Model predicted Risk Score={risk_score} ({risk_tier}). Dominant factor: {dominant}."
+        content=f"Telemetry: 24h Rain={metrics.precipitation_24h_mm}mm, Soil Saturation={metrics.soil_saturation_pct}%. Model: {pred.get('engine')}. Risk Score={risk_score} ({risk_tier}). Dominant factor: {dominant}. Probabilities: [{probs_summary}]."
     ))
 
     thought_trace.append(AgentTraceStep(
@@ -197,20 +310,27 @@ async def analyze_location(req: AnalyzeRequest):
         )
 
         t_geo_0 = time.time()
-        # Simulated geospatial calculations based on elevation and rainfall intensity
-        waterlogging_depth = int(min(160, max(25, (metrics.precipitation_24h_mm * 0.9) - (metrics.elevation_m * 1.5))))
-        drainage_overflow = round(min(98.0, max(45.0, 50.0 + (risk_score * 45.0))), 1)
-        buildings_count = int(120 + (risk_score * 280))
-        damage_usd = int(buildings_count * 38000 * (waterlogging_depth / 50.0))
-        damage_inr = int(damage_usd * 83.2)  # Conversion rate approx 83.2
-
-        exposure_tier = "INFRASTRUCTURE_FAILURE" if drainage_overflow > 70.0 and waterlogging_depth > 60 else "SUPERFICIAL_WATERLOGGING"
+        geo_result = chronic_geo_engine.analyze_structural_exposure(
+            lat=req.lat,
+            lon=req.lon,
+            risk_score=risk_score,
+            precipitation_24h_mm=metrics.precipitation_24h_mm,
+            soil_saturation_pct=metrics.soil_saturation_pct,
+            elevation_m=metrics.elevation_m,
+            radius_km=req.radius_km
+        )
+        waterlogging_depth = geo_result["waterlogging_depth_cm"]
+        drainage_overflow = geo_result["drainage_overflow_pct"]
+        buildings_count = geo_result["buildings_at_risk"]
+        damage_usd = geo_result["damage_estimate_usd"]
+        damage_inr = geo_result["damage_estimate_inr"]
+        exposure_tier = geo_result["exposure_tier"]
 
         thought_trace.append(AgentTraceStep(
             agent_id="agent-2-chronic",
             step_name="HAZUS Structural Loss Estimation",
             action_type="OBSERVATION",
-            content=f"Computed waterlogging depth: {waterlogging_depth} cm. Municipal drainage over capacity by {drainage_overflow}%. {buildings_count} critical structures in hazard zone. Estimated structural damage: ₹{damage_inr / 10000000:.2f} Crores."
+            content=f"Computed waterlogging depth: {waterlogging_depth} cm. Municipal drainage over capacity by {drainage_overflow}%. {buildings_count} critical structures in hazard zone. Estimated structural damage: ₹{damage_inr / 10000000:.2f} Crores ($ {damage_usd / 1000000:.2f}M)."
         ))
 
         agent2_res = Agent2Result(
@@ -222,12 +342,8 @@ async def analyze_location(req: AnalyzeRequest):
             damage_estimate_inr=damage_inr,
             damage_estimate_usd=damage_usd,
             geo_overlay_geojson=f"/api/v1/geo/layer/{event_id}",
-            horizon_curves=HorizonCurves(**{
-                "10yr": round(min(1.0, 0.25 + (risk_score * 0.5)), 2),
-                "20yr": round(min(1.0, 0.45 + (risk_score * 0.45)), 2),
-                "30yr": round(min(1.0, 0.65 + (risk_score * 0.35)), 2)
-            }),
-            execution_time_ms=round((time.time() - t_geo_0) * 1000, 2)
+            horizon_curves=HorizonCurves(**geo_result["horizon_curves"]),
+            execution_time_ms=geo_result["execution_time_ms"]
         )
 
     # ----------------------------------------------------
@@ -251,46 +367,42 @@ async def analyze_location(req: AnalyzeRequest):
         )
 
         t_fin_0 = time.time()
-        var_usd = int(agent2_res.damage_estimate_usd * 1.85)
-        var_inr = int(var_usd * 83.2)
+        fin_result = financial_risk_engine.model_financial_var(
+            location_label=location_label,
+            risk_score=risk_score,
+            waterlogging_depth_cm=agent2_res.waterlogging_depth_cm,
+            buildings_at_risk=agent2_res.buildings_at_risk,
+            damage_estimate_inr=agent2_res.damage_estimate_inr,
+            sector="Industrial & Logistics Infrastructure"
+        )
 
-        # Bilingual Alerts
-        hindi_alert = (
-            f"चेतावनी: {location_label} में भारी जलभराव ({agent2_res.waterlogging_depth_cm} सेमी) और नालों के ओवरफ्लो की आशंका। "
-            f"{agent2_res.buildings_at_risk} इमारतों को उच्च जोखिम। आपदा प्रतिक्रिया दल तत्काल रेत की बोरियां और पंप तैनात करें।"
-        )
-        english_alert = (
-            f"ALERT: Severe waterlogging ({agent2_res.waterlogging_depth_cm} cm) & drainage surge projected for {location_label}. "
-            f"{agent2_res.buildings_at_risk} structures compromised. Immediate deployment of civic dewatering units recommended."
-        )
+        var_usd = fin_result["var_estimate_usd"]
+        var_inr = fin_result["var_estimate_inr"]
+        stranded_risk = fin_result["stranded_asset_risk"]
+        compliance_gap_pct = fin_result["compliance_gap_pct"]
+        applicable_regulations = fin_result["applicable_regulations"]
+        recommended_actions = fin_result["recommended_actions"]
+        hindi_alert = fin_result["bilingual_alert_hindi"]
+        english_alert = fin_result["bilingual_alert_english"]
 
         thought_trace.append(AgentTraceStep(
             agent_id="agent-3-financial",
-            step_name="Value-at-Risk Synthesis",
+            step_name="Value-at-Risk Synthesis & RAG Alignment",
             action_type="DECISION",
-            content=f"Synthesized corporate VaR: ₹{var_inr / 10000000:.2f} Crores ($ {var_usd / 1000000:.2f}M). Stranded asset probability HIGH. Generated bilingual emergency broadcast."
+            content=f"Synthesized corporate VaR: ₹{var_inr / 10000000:.2f} Crores ($ {var_usd / 1000000:.2f}M). Stranded asset risk: {stranded_risk}. Compliance Gap: {compliance_gap_pct}%. Ingested {len(applicable_regulations)} policy mandates via ChromaDB."
         ))
 
         agent3_res = Agent3Result(
             status="COMPLETED",
             var_estimate_usd=var_usd,
             var_estimate_inr=var_inr,
-            stranded_asset_risk="HIGH" if risk_score > 0.75 else "MEDIUM",
-            applicable_regulations=[
-                "SEBI BRSR Core Mandate (Principal 6: Environmental & Climate Risk)",
-                "National Action Plan on Climate Change (NAPCC) — Urban Mission",
-                "Ministry of Finance Heavy Carbon Surcharge Directive 2026"
-            ],
-            compliance_gap_pct=38 if risk_score > 0.75 else 22,
-            recommended_actions=[
-                "Deploy emergency high-volume mobile dewatering pumps at low-lying access junctions.",
-                "Implement parametric flood insurance hedges to offset immediate physical balance-sheet disruption.",
-                "Submit accelerated BRSR ESG physical risk disclosure to mitigate regulatory penalty tier.",
-                "Elevate electrical substations by 1.2m to prevent prolonged grid blackouts."
-            ],
+            stranded_asset_risk=stranded_risk,
+            applicable_regulations=applicable_regulations,
+            compliance_gap_pct=compliance_gap_pct,
+            recommended_actions=recommended_actions,
             bilingual_alert_hindi=hindi_alert,
             bilingual_alert_english=english_alert,
-            execution_time_ms=round((time.time() - t_fin_0) * 1000, 2)
+            execution_time_ms=fin_result["execution_time_ms"]
         )
 
     response = UnifiedRiskResponse(
@@ -320,3 +432,27 @@ async def get_event(event_id: str):
     if event_id not in HISTORICAL_EVENTS:
         raise HTTPException(status_code=404, detail="Event not found")
     return HISTORICAL_EVENTS[event_id]
+
+
+@router.get("/events/{event_id}/structural", response_model=Agent2Result)
+async def get_event_structural(event_id: str):
+    """Retrieve Agent 2 structural exposure report for a specific event."""
+    if event_id not in HISTORICAL_EVENTS:
+        raise HTTPException(status_code=404, detail="Event not found")
+    event = HISTORICAL_EVENTS[event_id]
+    if not event.agent2:
+        raise HTTPException(status_code=404, detail="Structural analysis was not triggered for this low-risk event")
+    return event.agent2
+
+
+@router.get("/events/{event_id}/financial", response_model=Agent3Result)
+async def get_event_financial(event_id: str):
+    """Retrieve Agent 3 Value at Risk and regulatory compliance report for a specific event."""
+    if event_id not in HISTORICAL_EVENTS:
+        raise HTTPException(status_code=404, detail="Event not found")
+    event = HISTORICAL_EVENTS[event_id]
+    if not event.agent3:
+        raise HTTPException(status_code=404, detail="Financial VaR modeling was not triggered for this event")
+    return event.agent3
+
+
