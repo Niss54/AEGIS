@@ -1,0 +1,59 @@
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.env
+docs/.env
+
+# Dependencies & Build Artefacts
+node_modules/
+.next/
+dist/
+build/
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Coverage
+.coverage
+.pytest_cache/
+htmlcov/
+.nyc_output/
+
+# Databases & Vector Stores
+*.sqlite3
+chroma_db/
+chromadata/
+pgdata/
+
+# Logs & OS Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
