@@ -1,0 +1,219 @@
+/* ============================================================
+   AEGIS-CLIMATE DESIGN SYSTEM & THEME TOKENS
+   Aesthetic: Mission-Control Command Center (Navy Glassmorphic)
+   ============================================================ */
+
+:root {
+  --color-primary: #0E9AA7;
+  --color-primary-light: #21B6C4;
+  --color-primary-glow: rgba(14, 154, 167, 0.35);
+  
+  --color-safe: #2EC4B6;
+  --color-safe-glow: rgba(46, 196, 182, 0.3);
+  
+  --color-watch: #F4A261;
+  --color-watch-glow: rgba(244, 162, 97, 0.3);
+  
+  --color-danger: #E76F51;
+  --color-danger-glow: rgba(231, 111, 81, 0.3);
+  
+  --color-critical: #D62828;
+  --color-critical-glow: rgba(214, 40, 40, 0.4);
+
+  --color-bg-deep: #050B14;
+  --color-bg-dark: #0A1424;
+  --color-card-bg: rgba(13, 27, 42, 0.78);
+  --color-card-border: rgba(46, 75, 110, 0.45);
+  --color-card-hover: rgba(20, 39, 64, 0.85);
+
+  --color-text-primary: #F0F4F8;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.42);
+  --shadow-glow: 0 0 24px var(--color-primary-glow);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-deep);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+  background-image: 
+    radial-gradient(circle at 15% 10%, rgba(14, 154, 167, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(214, 40, 40, 0.08) 0%, transparent 45%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphic Panel Card */
+.glass-card {
+  background: var(--color-card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(14, 154, 167, 0.5);
+  box-shadow: 0 10px 36px 0 rgba(0, 0, 0, 0.5), 0 0 16px var(--color-primary-glow);
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-low {
+  background: rgba(46, 196, 182, 0.15);
+  color: var(--color-safe);
+  border: 1px solid rgba(46, 196, 182, 0.35);
+}
+
+.badge-medium {
+  background: rgba(244, 162, 97, 0.15);
+  color: var(--color-watch);
+  border: 1px solid rgba(244, 162, 97, 0.35);
+}
+
+.badge-high {
+  background: rgba(231, 111, 81, 0.18);
+  color: var(--color-danger);
+  border: 1px solid rgba(231, 111, 81, 0.4);
+}
+
+.badge-critical {
+  background: rgba(214, 40, 40, 0.22);
+  color: #FF5A5A;
+  border: 1px solid rgba(214, 40, 40, 0.5);
+  animation: pulse-critical 2s infinite ease-in-out;
+}
+
+@keyframes pulse-critical {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(214, 40, 40, 0.5); }
+  50% { box-shadow: 0 0 14px 4px rgba(214, 40, 40, 0.4); }
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #086F7A 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px 0 rgba(14, 154, 167, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px 0 rgba(14, 154, 167, 0.55);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.825rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--color-primary);
+}
+
+/* Micro Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Leaflet Container Fixes */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  background-color: #07101B !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--color-bg-dark) !important;
+  color: var(--color-text-primary) !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--color-bg-dark) !important;
+}
