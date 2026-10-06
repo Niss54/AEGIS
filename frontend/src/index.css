@@ -217,3 +217,198 @@ h1, h2, h3, h4 {
 .leaflet-popup-tip {
   background: var(--color-bg-dark) !important;
 }
+
+/* ============================================================
+   TELEMETRY MARQUEE TICKER (Inspired by nissh.info & Command UI)
+   ============================================================ */
+.telemetry-ticker {
+  background: linear-gradient(90deg, rgba(8, 20, 36, 0.95) 0%, rgba(14, 30, 54, 0.95) 50%, rgba(8, 20, 36, 0.95) 100%);
+  border-bottom: 1px solid rgba(14, 154, 167, 0.3);
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.marquee-content {
+  display: inline-flex;
+  gap: 32px;
+  animation: marquee-scroll 38s linear infinite;
+  padding-left: 100%;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  color: #94A3B8;
+  align-items: center;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.marquee-highlight {
+  color: #38BDF8;
+  font-weight: 600;
+}
+
+.marquee-emerald {
+  color: #10B981;
+  font-weight: 600;
+}
+
+.marquee-amber {
+  color: #F59E0B;
+  font-weight: 600;
+}
+
+/* ============================================================
+   AMBIENT PARTICLE CANVAS (Inspired by nissh.info)
+   ============================================================ */
+.particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.65;
+}
+
+/* ============================================================
+   AUDIO WAVE EQUALIZER (For Bhasha-AI Speech Playback)
+   ============================================================ */
+.audio-equalizer {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+  margin-left: 8px;
+}
+
+.audio-bar {
+  width: 3px;
+  background: #38BDF8;
+  border-radius: 2px;
+  animation: sound-wave 1.2s ease-in-out infinite;
+}
+
+.audio-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+.audio-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
+.audio-bar:nth-child(3) { height: 10px; animation-delay: 0.15s; }
+.audio-bar:nth-child(4) { height: 16px; animation-delay: 0.4s; }
+.audio-bar:nth-child(5) { height: 8px; animation-delay: 0.25s; }
+
+@keyframes sound-wave {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.6; }
+  50% { transform: scaleY(1.2); opacity: 1; filter: drop-shadow(0 0 4px #38BDF8); }
+}
+
+/* ============================================================
+   NEON BORDERS & CYBER ACCENTS
+   ============================================================ */
+.cyber-card {
+  position: relative;
+  background: rgba(11, 23, 42, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-card:hover {
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15);
+  transform: translateY(-2px);
+}
+
+.cyber-badge {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* ============================================================
+   MODAL & DRAWER OVERLAYS
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.modal-content {
+  background: #0B132B;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(14, 154, 167, 0.2);
+  border-radius: var(--radius-lg);
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.95) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Pulse Ping Indicator */
+.pulse-ping {
+  position: relative;
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+}
+
+.pulse-ping-dot {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background-color: #10B981;
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.75;
+}
+
+.pulse-ping-core {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: #10B981;
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
