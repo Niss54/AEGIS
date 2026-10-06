@@ -25,3 +25,13 @@ async def get_health_status():
             "websocket_bus": "active"
         }
     )
+
+
+@router.get("/integrations/status")
+async def get_integrations_status():
+    """Returns configured status of external AI, satellite, and meteorological APIs."""
+    return {
+        "status": "success",
+        "integrations": settings.get_api_status()
+    }
+

@@ -7,10 +7,13 @@ and models enterprise balance-sheet Value at Risk.
 import os
 import time
 import math
+import base64
 import logging
 from typing import Dict, List, Any, Optional
+import httpx
 import chromadb
 from chromadb.config import Settings as ChromaSettings
+from backend.app.config import settings
 
 logger = logging.getLogger("aegis.agent3_financial")
 
@@ -201,6 +204,7 @@ class FinancialRiskEngine:
         ]
 
         # Step 5: Bhasha-AI Bilingual Civic Broadcast
+        # Default deterministic templates for verified reliability
         hindi_alert = (
             f"आपातकालीन अलर्ट: {location_label} में भारी जलभराव ({waterlogging_depth_cm} सेमी) का अनुमान। "
             f"{buildings_at_risk} इमारतें और औद्योगिक परिसंपत्तियां उच्च जोखिम में हैं। "
@@ -214,6 +218,15 @@ class FinancialRiskEngine:
             f"Enterprise Value at Risk (VaR): INR {total_var_inr / 10000000:.2f} Cr ($ {total_var_usd / 1000000:.2f}M). "
             f"Regulatory compliance gap: {compliance_gap_pct}%. Immediate civil defenses required."
         )
+
+        # Dynamic LLM Enhancement if GEMINI_API_KEY or GROQ_API_KEY is active
+        llm_hindi = self._generate_llm_hindi(location_label, waterlogging_depth_cm, buildings_at_risk, total_var_inr)
+        if llm_hindi:
+            hindi_alert = f"आपातकालीन चेतावनी: {llm_hindi}" if "आपातकालीन" not in llm_hindi else llm_hindi
+
+        llm_english = self._generate_llm_english(location_label, waterlogging_depth_cm, buildings_at_risk, total_var_inr, compliance_gap_pct)
+        if llm_english:
+            english_alert = f"EXECUTIVE ALERT: {llm_english}" if "EXECUTIVE ALERT" not in llm_english else llm_english
 
         elapsed_ms = round((time.time() - t0) * 1000, 2)
 
@@ -243,6 +256,141 @@ class FinancialRiskEngine:
             "bilingual_alert_english": english_alert,
             "execution_time_ms": elapsed_ms
         }
+
+    def _generate_llm_hindi(self, location: str, depth: int, buildings: int, var_inr: int) -> Optional[str]:
+        """Calls Google Gemini or Groq to craft a natural Devanagari Hindi civil alert."""
+        prompt = (
+            f"You are the NDMA Disaster Response Dispatcher. Write a concise, urgent civil alert in Hindi (Devanagari script only, 2-3 sentences) "
+            f"for {location}. Waterlogging depth: {depth} cm, critical buildings at risk: {buildings}, estimated financial loss: ₹{var_inr / 10000000:.0f} Crores. "
+            f"Instruct emergency services to deploy dewatering pumps and safeguard electrical substations. Output only the Hindi text."
+        )
+        return self._call_llm(prompt)
+
+    def _generate_llm_english(self, location: str, depth: int, buildings: int, var_inr: int, gap_pct: int) -> Optional[str]:
+        """Calls Google Gemini or Groq to craft an executive C-suite English alert."""
+        prompt = (
+            f"You are a Chief Risk Officer climate briefing AI. Write a crisp 2-sentence executive alert in English for {location}. "
+            f"Projected waterlogging: {depth} cm across {buildings} assets. Enterprise Value-at-Risk: ₹{var_inr / 10000000:.0f} Crores. "
+            f"SEBI BRSR compliance gap: {gap_pct}%. Mandate physical floodgate actuation and parametric insurance trigger."
+        )
+        return self._call_llm(prompt)
+
+    def _call_llm(self, prompt: str) -> Optional[str]:
+        """Tries Groq first (sub-350ms speed), then Google Gemini, with strict timeout and fallback."""
+        # 1. Try Groq (Active with 120B/20B models)
+        if settings.GROQ_API_KEY and settings.GROQ_API_KEY.strip():
+            groq_models = ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "llama-3.3-70b-versatile", "llama-3.1-8b-instant"]
+            for model_id in groq_models:
+                try:
+                    url = "https://api.groq.com/openai/v1/chat/completions"
+                    resp = httpx.post(
+                        url,
+                        headers={"Authorization": f"Bearer {settings.GROQ_API_KEY}", "Content-Type": "application/json"},
+                        json={
+                            "model": model_id,
+                            "messages": [{"role": "user", "content": prompt}],
+                            "temperature": 0.3,
+                            "max_tokens": 250
+                        },
+                        timeout=3.5
+                    )
+                    if resp.status_code == 200:
+                        text = resp.json()["choices"][0]["message"]["content"].strip()
+                        if text:
+                            logger.info(f"Groq LLM ({model_id}) generated live reasoning response.")
+                            return text
+                except Exception as e:
+                    logger.debug(f"Groq {model_id} call skipped: {e}")
+
+        # 2. Try Google Gemini
+        if settings.GEMINI_API_KEY and settings.GEMINI_API_KEY.strip():
+            gemini_models = ["gemini-2.5-flash", "gemini-3.8-flash", "gemini-flash-latest"]
+            for g_model in gemini_models:
+                try:
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/{g_model}:generateContent?key={settings.GEMINI_API_KEY}"
+                    resp = httpx.post(
+                        url,
+                        json={
+                            "contents": [{"parts": [{"text": prompt}]}],
+                            "generationConfig": {"temperature": 0.3, "maxOutputTokens": 250}
+                        },
+                        timeout=3.0
+                    )
+                    if resp.status_code == 200:
+                        text = resp.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
+                        if text:
+                            logger.info(f"Gemini LLM ({g_model}) generated live reasoning response.")
+                            return text
+                except Exception as e:
+                    logger.debug(f"Gemini {g_model} call skipped: {e}")
+
+        return None
+
+    def synthesize_sarvam_speech(self, text: str, speaker: str = "priya") -> Optional[str]:
+        """Synthesizes genuine Indic neural speech using Sarvam AI."""
+        if not (settings.SARVAM_API_KEY and settings.SARVAM_API_KEY.strip()):
+            return None
+
+        try:
+            url = "https://api.sarvam.ai/text-to-speech"
+            resp = httpx.post(
+                url,
+                headers={
+                    "api-subscription-key": settings.SARVAM_API_KEY.strip(),
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "inputs": [text[:500]],
+                    "target_language_code": "hi-IN",
+                    "speaker": speaker
+                },
+                timeout=12.0
+            )
+            if resp.status_code == 200:
+                data = resp.json()
+                audios = data.get("audios", [])
+                if audios:
+                    logger.info("Sarvam AI generated native Hindi neural speech.")
+                    return audios[0]
+        except Exception as e:
+            logger.warning(f"Sarvam AI TTS synthesis failed: {e}")
+
+        return None
+
+    def synthesize_elevenlabs_speech(self, text: str, voice_id: Optional[str] = None) -> Optional[str]:
+        """Synthesizes high-fidelity multilingual neural speech using ElevenLabs."""
+        if not (settings.ELEVENLABS_API_KEY and settings.ELEVENLABS_API_KEY.strip()):
+            return None
+
+        target_voice = voice_id or settings.ELEVENLABS_VOICE_ID or "21m00Tcm4TlvDq8ikWAM"
+        try:
+            url = f"https://api.elevenlabs.io/v1/text-to-speech/{target_voice}"
+            resp = httpx.post(
+                url,
+                headers={
+                    "xi-api-key": settings.ELEVENLABS_API_KEY.strip(),
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "text": text[:500],
+                    "model_id": "eleven_multilingual_v2",
+                    "voice_settings": {
+                        "stability": 0.5,
+                        "similarity_boost": 0.75
+                    }
+                },
+                timeout=15.0
+            )
+            if resp.status_code == 200 and resp.content:
+                audio_b64 = base64.b64encode(resp.content).decode("utf-8")
+                logger.info(f"ElevenLabs generated neural speech audio ({len(resp.content)} bytes).")
+                return audio_b64
+            else:
+                logger.warning(f"ElevenLabs API returned {resp.status_code}: {resp.text[:200]}")
+        except Exception as e:
+            logger.warning(f"ElevenLabs TTS synthesis failed: {e}")
+
+        return None
 
 
 # Singleton financial engine
