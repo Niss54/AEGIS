@@ -1,4 +1,4 @@
-# 🇮🇳 BHARAT AGENTIC 2026 — Hackathon Guide & Project Blueprint
+- # 🇮🇳 BHARAT AGENTIC 2026 — Hackathon Guide & Project Blueprint
 
 > **"Build the Agents. Build Bharat."**  
 > **12 Hours. One Mission. Autonomous Multi-Agent AI for Real-World Bharat.**  
