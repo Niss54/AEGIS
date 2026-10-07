@@ -26,14 +26,29 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# CORS Configuration
+# CORS Configuration (Full interoperability with Vercel, Railway, and localhost)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request, exc: Exception):
+    logger.error(f"Global caught exception on {request.url.path}: {exc}")
+    from fastapi.responses import JSONResponse
+    return JSONResponse(
+        status_code=500,
+        content={
+            "status": "error",
+            "message": "AEGIS resilient recovery active. Error handled safely.",
+            "error": str(exc),
+            "path": str(request.url.path)
+        }
+    )
 
 # Mount API Routers
 app.include_router(health.router, prefix="/api/v1")
