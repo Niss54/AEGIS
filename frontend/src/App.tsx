@@ -23,7 +23,17 @@ import {
   Square
 } from "lucide-react";
 
-const API_BASE = "http://localhost:8000/api/v1";
+const getBackendBase = (): string => {
+  if (typeof window !== "undefined") {
+    const custom = localStorage.getItem("AEGIS_CUSTOM_API_URL");
+    if (custom && custom.trim()) return custom.trim().replace(/\/$/, "");
+  }
+  const envUrl = (import.meta as any).env?.VITE_BACKEND_URL;
+  if (envUrl && envUrl.trim()) return envUrl.trim().replace(/\/$/, "");
+  return "http://localhost:8000";
+};
+
+const API_BASE = `${getBackendBase()}/api/v1`;
 
 interface Hotspot {
   id: string;
@@ -407,9 +417,9 @@ function ParticleBackground() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha})`;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = "#38BDF8";
+        ctx.fillStyle = `rgba(0, 240, 255, ${p.alpha})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = "#00F0FF";
         ctx.fill();
 
         for (let j = i + 1; j < particleCount; j++) {
@@ -421,7 +431,7 @@ function ParticleBackground() {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(14, 154, 167, ${0.18 * (1 - dist / 110)})`;
+            ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 110)})`;
             ctx.lineWidth = 0.75;
             ctx.stroke();
           }
@@ -583,13 +593,19 @@ export function App() {
       });
   }, []);
 
-  // WebSocket Connection
+  // WebSocket Connection (Supports dynamic ws:// and wss://)
   useEffect(() => {
     let ws: WebSocket;
     try {
-      ws = new WebSocket("ws://localhost:8000/ws/events");
+      const backendHost = getBackendBase();
+      const wsUrl = backendHost.startsWith("https://")
+        ? backendHost.replace("https://", "wss://") + "/ws/events"
+        : backendHost.replace("http://", "ws://") + "/ws/events";
+
+      ws = new WebSocket(wsUrl);
       ws.onopen = () => setWsConnected(true);
       ws.onclose = () => setWsConnected(false);
+      ws.onerror = () => setWsConnected(false);
       ws.onmessage = (event) => {
         try {
           const msg = JSON.parse(event.data);
@@ -611,7 +627,11 @@ export function App() {
       setWsConnected(false);
     }
     return () => {
-      if (ws) ws.close();
+      if (ws) {
+        try {
+          ws.close();
+        } catch {}
+      }
     };
   }, []);
 
@@ -808,15 +828,16 @@ export function App() {
           ======================================================== */}
       <header
         style={{
-          height: "64px",
-          background: "rgba(10, 20, 36, 0.95)",
-          borderBottom: "1px solid var(--color-card-border)",
+          height: "60px",
+          background: "rgba(3, 7, 18, 0.97)",
+          borderBottom: "1px solid rgba(0, 240, 255, 0.1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 24px",
           zIndex: 1000,
-          position: "relative"
+          position: "relative",
+          boxShadow: "0 2px 20px rgba(0, 0, 0, 0.5)"
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
@@ -829,9 +850,9 @@ export function App() {
               width: "46px",
               height: "46px",
               borderRadius: "12px",
-              background: "linear-gradient(135deg, rgba(14, 154, 167, 0.2) 0%, rgba(10, 20, 36, 0.85) 100%)",
-              border: "1px solid rgba(14, 154, 167, 0.45)",
-              boxShadow: "0 0 20px rgba(14, 154, 167, 0.3), inset 0 0 10px rgba(14, 154, 167, 0.15)",
+              background: "linear-gradient(135deg, rgba(0, 240, 255, 0.12) 0%, rgba(3, 7, 18, 0.9) 100%)",
+              border: "1px solid rgba(0, 240, 255, 0.35)",
+              boxShadow: "0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.08)",
               flexShrink: 0
             }}
           >
@@ -848,10 +869,10 @@ export function App() {
           </div>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <h1 style={{ fontSize: "1.25rem", color: "#FFFFFF", letterSpacing: "0.02em" }}>
-                AEGIS<span style={{ color: "var(--color-primary)" }}>-CLIMATE</span>
+              <h1 style={{ fontSize: "1.2rem", color: "#FFFFFF", letterSpacing: "0.03em", fontFamily: "var(--font-display)" }}>
+                AEGIS<span style={{ color: "var(--color-primary)", textShadow: "0 0 12px rgba(0, 240, 255, 0.4)" }}>-CLIMATE</span>
               </h1>
-              <span className="badge" style={{ background: "rgba(14, 154, 167, 0.2)", color: "var(--color-primary)" }}>
+              <span className="cyber-badge">
                 BHARAT AGENTIC 2026
               </span>
             </div>
@@ -878,7 +899,7 @@ export function App() {
             ML Model: <span className="mono" style={{ color: "#FFF" }}>GBM (F1: 0.90)</span>
           </div>
 
-          <div className="badge" style={{ background: "rgba(14, 154, 167, 0.15)", border: "1px solid var(--color-primary)", color: "#FFF" }}>
+          <div className="cyber-badge" style={{ borderColor: "rgba(0, 240, 255, 0.4)", letterSpacing: "0.08em" }}>
             TEAM SYNTRIX
           </div>
 
@@ -887,8 +908,8 @@ export function App() {
             style={{
               padding: "5px 12px",
               fontSize: "0.75rem",
-              borderColor: "rgba(56, 189, 248, 0.45)",
-              color: "#38BDF8",
+              borderColor: "rgba(0, 240, 255, 0.3)",
+              color: "var(--color-primary)",
               display: "flex",
               alignItems: "center",
               gap: "6px"
@@ -899,8 +920,8 @@ export function App() {
             }}
           >
             <span className="pulse-ping" style={{ width: "6px", height: "6px" }}>
-              <span className="pulse-ping-dot" style={{ backgroundColor: "#38BDF8" }}></span>
-              <span className="pulse-ping-core" style={{ backgroundColor: "#38BDF8" }}></span>
+              <span className="pulse-ping-dot" style={{ backgroundColor: "var(--color-primary)" }}></span>
+              <span className="pulse-ping-core" style={{ backgroundColor: "var(--color-primary)" }}></span>
             </span>
             <Key size={13} />
             <span>API Keys & Integrations</span>
@@ -910,9 +931,7 @@ export function App() {
             className="btn-primary"
             style={{
               padding: "5px 12px",
-              fontSize: "0.75rem",
-              background: "linear-gradient(135deg, #0E9AA7 0%, #2EC4B6 100%)",
-              boxShadow: "0 2px 10px rgba(14, 154, 167, 0.4)"
+              fontSize: "0.75rem"
             }}
             onClick={() => setShowBriefingModal(true)}
           >
@@ -935,8 +954,8 @@ export function App() {
             ====================================================== */}
         <aside
           style={{
-            background: "rgba(8, 16, 28, 0.9)",
-            borderRight: "1px solid var(--color-card-border)",
+            background: "rgba(3, 7, 18, 0.95)",
+            borderRight: "1px solid rgba(0, 240, 255, 0.08)",
             display: "flex",
             flexDirection: "column",
             padding: "16px",
@@ -963,8 +982,8 @@ export function App() {
                     style={{
                       padding: "10px 12px",
                       borderRadius: "var(--radius-md)",
-                      background: isSelected ? "rgba(14, 154, 167, 0.22)" : "rgba(255, 255, 255, 0.03)",
-                      border: `1px solid ${isSelected ? "var(--color-primary)" : "rgba(255, 255, 255, 0.07)"}`,
+                      background: isSelected ? "rgba(0, 240, 255, 0.08)" : "rgba(255, 255, 255, 0.02)",
+                      border: `1px solid ${isSelected ? "rgba(0, 240, 255, 0.35)" : "rgba(255, 255, 255, 0.05)"}`,
                       cursor: "pointer",
                       transition: "all 0.2s ease"
                     }}
@@ -987,7 +1006,7 @@ export function App() {
           </div>
 
           {/* Section: What-If Simulation Sandbox (Winning Edge) */}
-          <div className="glass-card" style={{ padding: "14px", border: "1px solid rgba(244, 162, 97, 0.3)" }}>
+          <div className="glass-card" style={{ padding: "14px", border: "1px solid rgba(255, 184, 0, 0.25)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
               <Sliders size={16} color="var(--color-watch)" />
               <h3 style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--color-watch)", letterSpacing: "0.05em" }}>
@@ -1113,8 +1132,8 @@ export function App() {
             ====================================================== */}
         <section
           style={{
-            background: "rgba(8, 16, 28, 0.95)",
-            borderLeft: "1px solid var(--color-card-border)",
+            background: "rgba(3, 7, 18, 0.95)",
+            borderLeft: "1px solid rgba(0, 240, 255, 0.08)",
             display: "flex",
             flexDirection: "column",
             padding: "16px",
@@ -1199,29 +1218,29 @@ export function App() {
                   AGENT 2: CHRONIC CLIMATE VULNERABILITY CARD
                   ------------------------------------------------ */}
               {result.agent2 && (
-                <div className="glass-card animate-fade-in" style={{ padding: "16px", border: "1px solid rgba(231, 111, 81, 0.35)" }}>
+                <div className="glass-card animate-fade-in" style={{ padding: "16px", border: "1px solid rgba(255, 77, 77, 0.25)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                        <span className="mono" style={{ fontSize: "0.7rem", color: "#F4A261", fontWeight: 700 }}>AGENT 2</span>
+                        <span className="mono" style={{ fontSize: "0.7rem", color: "var(--color-watch)", fontWeight: 700 }}>AGENT 2</span>
                         <h3 style={{ fontSize: "0.95rem", color: "#FFF" }}>Chronic Vulnerability</h3>
                       </div>
                       <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>30m DEM • Drainage Overcapacity • HAZUS</span>
                     </div>
-                    <span className="badge" style={{ background: "rgba(231, 111, 81, 0.2)", color: "#E76F51" }}>
+                    <span className="badge" style={{ background: "rgba(255, 77, 77, 0.12)", color: "var(--color-danger)", border: "1px solid rgba(255, 77, 77, 0.3)" }}>
                       {result.agent2.exposure_tier.replace("_", " ")}
                     </span>
                   </div>
 
                   {/* Key Spatial Numbers */}
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", margin: "10px 0" }}>
-                    <div style={{ background: "rgba(0,0,0,0.25)", padding: "10px", borderRadius: "8px", borderLeft: "3px solid #D62828" }}>
+                    <div style={{ background: "rgba(0,0,0,0.3)", padding: "10px", borderRadius: "8px", borderLeft: "3px solid var(--color-critical)" }}>
                       <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>Waterlogging Depth</div>
                       <div className="mono" style={{ fontSize: "1.25rem", fontWeight: 800, color: "#FFF" }}>
                         {result.agent2.waterlogging_depth_cm} <span style={{ fontSize: "0.8rem", color: "var(--color-text-secondary)" }}>cm</span>
                       </div>
                     </div>
-                    <div style={{ background: "rgba(0,0,0,0.25)", padding: "10px", borderRadius: "8px", borderLeft: "3px solid #F4A261" }}>
+                    <div style={{ background: "rgba(0,0,0,0.3)", padding: "10px", borderRadius: "8px", borderLeft: "3px solid var(--color-watch)" }}>
                       <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>Exposed Buildings</div>
                       <div className="mono" style={{ fontSize: "1.25rem", fontWeight: 800, color: "#FFF" }}>
                         {result.agent2.buildings_at_risk}
@@ -1230,7 +1249,7 @@ export function App() {
                   </div>
 
                   <div style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", marginBottom: "8px" }}>
-                    Municipal Drainage Overflow: <b className="mono" style={{ color: "#E76F51" }}>{result.agent2.drainage_overflow_pct}%</b>
+                    Municipal Drainage Overflow: <b className="mono" style={{ color: "var(--color-danger)" }}>{result.agent2.drainage_overflow_pct}%</b>
                   </div>
 
                   {/* 10/20/30-Year Horizon Curves */}
@@ -1242,7 +1261,7 @@ export function App() {
                       {Object.entries(result.agent2.horizon_curves).map(([yr, val]) => (
                         <div key={yr} style={{ flex: 1, background: "rgba(255,255,255,0.04)", padding: "4px 8px", borderRadius: "4px", textAlign: "center" }}>
                           <span style={{ fontSize: "0.65rem", color: "var(--color-text-muted)" }}>{yr}</span>
-                          <div className="mono" style={{ fontSize: "0.75rem", fontWeight: 700, color: val > 0.5 ? "#E76F51" : "#4ECCA3" }}>
+                          <div className="mono" style={{ fontSize: "0.75rem", fontWeight: 700, color: val > 0.5 ? "var(--color-danger)" : "var(--color-safe)" }}>
                             {(val * 100).toFixed(0)}%
                           </div>
                         </div>
@@ -1256,7 +1275,7 @@ export function App() {
                   AGENT 3: FINANCIAL RISK & REGULATORY RAG CARD
                   ------------------------------------------------ */}
               {result.agent3 && (
-                <div className="glass-card animate-fade-in" style={{ padding: "16px", border: "1px solid rgba(14, 154, 167, 0.45)" }}>
+                <div className="glass-card animate-fade-in" style={{ padding: "16px", border: "1px solid rgba(0, 240, 255, 0.25)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px" }}>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -1265,13 +1284,13 @@ export function App() {
                       </div>
                       <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>ChromaDB Regulatory Retrieval • Capital at Risk</span>
                     </div>
-                    <span className="badge" style={{ background: "rgba(214, 40, 40, 0.2)", color: "#FF6B6B" }}>
+                    <span className="badge" style={{ background: "rgba(255, 23, 68, 0.12)", color: "#FF4060", border: "1px solid rgba(255, 23, 68, 0.35)" }}>
                       {result.agent3.stranded_asset_risk} STRANDED
                     </span>
                   </div>
 
                   {/* Value at Risk High Impact Numbers */}
-                  <div style={{ background: "linear-gradient(135deg, rgba(14, 154, 167, 0.15) 0%, rgba(214, 40, 40, 0.15) 100%)", padding: "12px", borderRadius: "8px", border: "1px solid rgba(14, 154, 167, 0.3)", marginBottom: "12px" }}>
+                  <div style={{ background: "linear-gradient(135deg, rgba(0, 240, 255, 0.06) 0%, rgba(255, 23, 68, 0.06) 100%)", padding: "12px", borderRadius: "8px", border: "1px solid rgba(0, 240, 255, 0.2)", marginBottom: "12px" }}>
                     <div style={{ fontSize: "0.7rem", color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                       Total Enterprise Value at Risk (VaR)
                     </div>
@@ -1283,7 +1302,7 @@ export function App() {
                         (${(result.agent3.var_estimate_usd / 1000000).toFixed(2)}M)
                       </span>
                     </div>
-                    <div style={{ fontSize: "0.7rem", color: "#F4A261", marginTop: "4px" }}>
+                    <div style={{ fontSize: "0.7rem", color: "var(--color-watch)", marginTop: "4px" }}>
                       Compliance Shortfall: <b>{result.agent3.compliance_gap_pct}%</b>
                     </div>
                   </div>
@@ -1352,8 +1371,8 @@ export function App() {
                         style={{
                           padding: "4px 10px",
                           fontSize: "0.7rem",
-                          borderColor: isPlayingAudio ? "#38BDF8" : "rgba(255,255,255,0.12)",
-                          color: isPlayingAudio ? "#38BDF8" : "inherit"
+                          borderColor: isPlayingAudio ? "var(--color-primary)" : "rgba(255,255,255,0.1)",
+                          color: isPlayingAudio ? "var(--color-primary)" : "inherit"
                         }}
                         onClick={() =>
                           speakText(
@@ -1363,7 +1382,7 @@ export function App() {
                           )
                         }
                       >
-                        {isPlayingAudio ? <Square size={13} color="#38BDF8" /> : <Volume2 size={13} />}
+                        {isPlayingAudio ? <Square size={13} color="var(--color-primary)" /> : <Volume2 size={13} />}
                         {isPlayingAudio ? "Stop Audio" : "Audio Readout"}
                         {isPlayingAudio && (
                           <div className="audio-equalizer">
@@ -1399,7 +1418,7 @@ export function App() {
               {/* ------------------------------------------------
                   LIVE AGENT THOUGHT TRACE TERMINAL (Autonomous Proof)
                   ------------------------------------------------ */}
-              <div className="glass-card" style={{ padding: "14px", background: "rgba(5, 11, 20, 0.95)", border: "1px solid rgba(14, 154, 167, 0.25)" }}>
+              <div className="glass-card" style={{ padding: "14px", background: "rgba(3, 7, 18, 0.98)", border: "1px solid rgba(0, 240, 255, 0.15)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "8px" }}>
                   <Terminal size={14} color="var(--color-primary)" />
                   <span className="mono" style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", textTransform: "uppercase" }}>
@@ -1421,7 +1440,7 @@ export function App() {
                     <div key={idx} className="mono" style={{ display: "flex", gap: "6px", color: "var(--color-text-secondary)" }}>
                       <span style={{ color: "var(--color-primary)" }}>&gt;</span>
                       <div>
-                        <span style={{ color: step.action_type === "DECISION" ? "#F4A261" : step.action_type === "TOOL_CALL" ? "#2EC4B6" : "#A0AEC0", fontWeight: 700 }}>
+                        <span style={{ color: step.action_type === "DECISION" ? "var(--color-watch)" : step.action_type === "TOOL_CALL" ? "var(--color-safe)" : "var(--color-text-secondary)", fontWeight: 700 }}>
                           [{step.agent_id.split("-")[1]?.toUpperCase() || "SYS"}] {step.step_name}:
                         </span>{" "}
                         <span style={{ color: "var(--color-text-primary)" }}>{step.content}</span>
@@ -1678,16 +1697,16 @@ export function App() {
               <div className="cyber-card" style={{ padding: "14px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <Sparkles size={16} color="#38BDF8" />
+                    <Sparkles size={16} color="var(--color-primary)" />
                     <div>
                       <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "#FFF" }}>Google Gemini 1.5 Flash</div>
                       <div className="mono" style={{ fontSize: "0.68rem", color: "var(--color-primary)" }}>GEMINI_API_KEY</div>
                     </div>
                   </div>
                   <span className="badge" style={{
-                    background: (integrationStatus?.gemini?.configured || integrationStatus?.google_gemini?.configured) ? "rgba(16, 185, 129, 0.2)" : "rgba(56, 189, 248, 0.15)",
-                    color: (integrationStatus?.gemini?.configured || integrationStatus?.google_gemini?.configured) ? "#10B981" : "#38BDF8",
-                    border: "1px solid rgba(56, 189, 248, 0.3)"
+                    background: (integrationStatus?.gemini?.configured || integrationStatus?.google_gemini?.configured) ? "rgba(0, 255, 136, 0.12)" : "rgba(0, 240, 255, 0.1)",
+                    color: (integrationStatus?.gemini?.configured || integrationStatus?.google_gemini?.configured) ? "var(--color-safe)" : "var(--color-primary)",
+                    border: "1px solid rgba(0, 240, 255, 0.25)"
                   }}>
                     {(integrationStatus?.gemini?.configured || integrationStatus?.google_gemini?.configured) ? "LIVE ACTIVE" : "READY / SANDBOX"}
                   </span>
@@ -1696,7 +1715,7 @@ export function App() {
                   Powers Agent 3 dynamic ESG policy reasoning, Hindi linguistic nuance, and C-Suite executive briefing synthesis.
                 </p>
                 <div style={{ marginTop: "8px", fontSize: "0.68rem", color: "var(--color-text-muted)" }}>
-                  Free key: <a href="https://aistudio.google.com" target="_blank" rel="noreferrer" style={{ color: "#38BDF8", textDecoration: "none" }}>aistudio.google.com</a>
+                  Free key: <a href="https://aistudio.google.com" target="_blank" rel="noreferrer" style={{ color: "var(--color-primary)", textDecoration: "none" }}>aistudio.google.com</a>
                 </div>
               </div>
 
@@ -1896,7 +1915,7 @@ ANTHROPIC_API_KEY=`;
                 </button>
               </div>
               <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
-                Keys added to <code className="mono" style={{ color: "#38BDF8" }}>c:\Users\nisha\OneDrive\Documents\Downloads\AEGIS\.env</code> are automatically loaded by FastAPI on launch. Gemini and Groq free tiers immediately activate dynamic LLM reasoning!
+                Keys added to <code className="mono" style={{ color: "var(--color-primary)" }}>.env</code> are automatically loaded by FastAPI on launch. Gemini and Groq free tiers immediately activate dynamic LLM reasoning!
               </p>
             </div>
 
