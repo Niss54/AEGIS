@@ -9,7 +9,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.app.config import settings
 from backend.app.websocket import manager
 from backend.app.routes import health, analyze, geo, documents, hotspots
-from mcp_hub.hub import router as mcp_router
+
+# Resilient MCP Hub import — backend must never crash due to agent engine import failures
+try:
+    from mcp_hub.hub import router as mcp_router
+    HAS_MCP_HUB = True
+except Exception as _mcp_import_err:
+    mcp_router = None
+    HAS_MCP_HUB = False
+    logging.getLogger("aegis.main").warning(f"MCP Hub import deferred (non-fatal): {_mcp_import_err}")
 
 # Configure Logging
 logging.basicConfig(
@@ -56,7 +64,8 @@ app.include_router(analyze.router, prefix="/api/v1")
 app.include_router(geo.router, prefix="/api/v1")
 app.include_router(documents.router, prefix="/api/v1")
 app.include_router(hotspots.router, prefix="/api/v1")
-app.include_router(mcp_router)  # Model Context Protocol Gateway (/mcp/health, /mcp/tools, /mcp/invoke)
+if HAS_MCP_HUB and mcp_router:
+    app.include_router(mcp_router)  # Model Context Protocol Gateway (/mcp/health, /mcp/tools, /mcp/invoke)
 
 
 @app.get("/")
