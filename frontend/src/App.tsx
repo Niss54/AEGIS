@@ -27,10 +27,14 @@ const getBackendBase = (): string => {
   if (typeof window !== "undefined") {
     const custom = localStorage.getItem("AEGIS_CUSTOM_API_URL");
     if (custom && custom.trim()) return custom.trim().replace(/\/$/, "");
+    const host = window.location.hostname;
+    if (host === "127.0.0.1" || host === "localhost") {
+      return `http://${host}:8000`;
+    }
   }
   const envUrl = (import.meta as any).env?.VITE_BACKEND_URL;
   if (envUrl && envUrl.trim()) return envUrl.trim().replace(/\/$/, "");
-  return "http://localhost:8000";
+  return "http://127.0.0.1:8000";
 };
 
 const API_BASE = `${getBackendBase()}/api/v1`;
@@ -593,40 +597,63 @@ export function App() {
       });
   }, []);
 
-  // WebSocket Connection (Supports dynamic ws:// and wss://)
+  // WebSocket Connection (Supports dynamic ws:// and wss:// with automatic resilient reconnect)
   useEffect(() => {
-    let ws: WebSocket;
-    try {
-      const backendHost = getBackendBase();
-      const wsUrl = backendHost.startsWith("https://")
-        ? backendHost.replace("https://", "wss://") + "/ws/events"
-        : backendHost.replace("http://", "ws://") + "/ws/events";
+    let ws: WebSocket | null = null;
+    let reconnectTimer: any = null;
+    let isMounted = true;
 
-      ws = new WebSocket(wsUrl);
-      ws.onopen = () => setWsConnected(true);
-      ws.onclose = () => setWsConnected(false);
-      ws.onerror = () => setWsConnected(false);
-      ws.onmessage = (event) => {
-        try {
-          const msg = JSON.parse(event.data);
-          if (msg.type === "AGENT_STEP") {
-            setLiveSteps((prev) => [
-              ...prev.slice(-10),
-              {
-                agent_id: msg.agent_id,
-                step_name: msg.step_name,
-                action_type: msg.action_type,
-                content: msg.content,
-                timestamp: new Date().toLocaleTimeString()
-              }
-            ]);
+    const connect = () => {
+      if (!isMounted) return;
+      try {
+        const backendHost = getBackendBase();
+        const wsUrl = backendHost.startsWith("https://")
+          ? backendHost.replace("https://", "wss://") + "/ws/events"
+          : backendHost.replace("http://", "ws://") + "/ws/events";
+
+        ws = new WebSocket(wsUrl);
+        ws.onopen = () => {
+          if (isMounted) setWsConnected(true);
+        };
+        ws.onclose = () => {
+          if (isMounted) {
+            setWsConnected(false);
+            reconnectTimer = setTimeout(connect, 3000);
           }
-        } catch (e) {}
-      };
-    } catch (e) {
-      setWsConnected(false);
-    }
+        };
+        ws.onerror = () => {
+          if (isMounted) setWsConnected(false);
+        };
+        ws.onmessage = (event) => {
+          try {
+            const msg = JSON.parse(event.data);
+            if (msg.type === "AGENT_STEP") {
+              setLiveSteps((prev) => [
+                ...prev.slice(-10),
+                {
+                  agent_id: msg.agent_id,
+                  step_name: msg.step_name,
+                  action_type: msg.action_type,
+                  content: msg.content,
+                  timestamp: new Date().toLocaleTimeString()
+                }
+              ]);
+            }
+          } catch (e) {}
+        };
+      } catch (e) {
+        if (isMounted) {
+          setWsConnected(false);
+          reconnectTimer = setTimeout(connect, 3000);
+        }
+      }
+    };
+
+    connect();
+
     return () => {
+      isMounted = false;
+      if (reconnectTimer) clearTimeout(reconnectTimer);
       if (ws) {
         try {
           ws.close();
@@ -947,7 +974,7 @@ export function App() {
       {/* ========================================================
           MAIN COCKPIT LAYOUT (3 COLUMNS)
           ======================================================== */}
-      <div style={{ display: "grid", gridTemplateColumns: "330px 1fr 440px", flex: 1, overflow: "hidden" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "330px 1fr 440px", flex: 1, minHeight: 0, overflow: "hidden" }}>
         
         {/* ======================================================
             COLUMN 1: BHARAT HOTSPOTS & WHAT-IF SIMULATOR
@@ -960,7 +987,8 @@ export function App() {
             flexDirection: "column",
             padding: "16px",
             overflowY: "auto",
-            gap: "18px"
+            minHeight: 0,
+            gap: "16px"
           }}
         >
           {/* Section: Bharat Hotspots */}
@@ -972,20 +1000,20 @@ export function App() {
               </h2>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
               {hotspots.map((h) => {
                 const isSelected = selectedHotspot === h.id;
                 return (
                   <div
                     key={h.id}
                     onClick={() => handleSelectHotspot(h)}
+                    className={`hotspot-item ${isSelected ? "active" : ""}`}
                     style={{
-                      padding: "10px 12px",
+                      padding: "8px 12px",
                       borderRadius: "var(--radius-md)",
                       background: isSelected ? "rgba(0, 240, 255, 0.08)" : "rgba(255, 255, 255, 0.02)",
                       border: `1px solid ${isSelected ? "rgba(0, 240, 255, 0.35)" : "rgba(255, 255, 255, 0.05)"}`,
-                      cursor: "pointer",
-                      transition: "all 0.2s ease"
+                      cursor: "pointer"
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -996,7 +1024,7 @@ export function App() {
                         {h.risk_profile}
                       </span>
                     </div>
-                    <div style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", marginTop: "4px" }}>
+                    <div style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", marginTop: "3px" }}>
                       {h.state} • Loss: {h.typical_annual_loss_inr}
                     </div>
                   </div>
@@ -1007,18 +1035,18 @@ export function App() {
 
           {/* Section: What-If Simulation Sandbox (Winning Edge) */}
           <div className="glass-card" style={{ padding: "14px", border: "1px solid rgba(255, 184, 0, 0.25)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
               <Sliders size={16} color="var(--color-watch)" />
               <h3 style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--color-watch)", letterSpacing: "0.05em" }}>
                 What-If Climate Sandbox
               </h3>
             </div>
-            <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", marginBottom: "14px" }}>
+            <p style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", marginBottom: "12px", lineHeight: 1.4 }}>
               Stress-test the autonomous 3-agent pipeline by simulating extreme meteorological anomalies:
             </p>
 
             {/* Slider 1: Simulated Rainfall */}
-            <div style={{ marginBottom: "14px" }}>
+            <div style={{ marginBottom: "12px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
                 <span style={{ color: "var(--color-text-secondary)" }}>Rainfall Cloudburst:</span>
                 <span className="mono" style={{ color: "var(--color-primary)", fontWeight: 700 }}>+{simRain} mm</span>
@@ -1034,7 +1062,7 @@ export function App() {
             </div>
 
             {/* Slider 2: Soil Saturation */}
-            <div style={{ marginBottom: "16px" }}>
+            <div style={{ marginBottom: "14px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
                 <span style={{ color: "var(--color-text-secondary)" }}>Soil Saturation Index:</span>
                 <span className="mono" style={{ color: "#F4A261", fontWeight: 700 }}>{simSat}%</span>
@@ -1050,7 +1078,7 @@ export function App() {
             </div>
 
             <button
-              className="btn-primary"
+              className="btn-primary btn-trigger-cascade"
               onClick={() => runAnalysis()}
               disabled={loading}
               style={{ width: "100%", justifyContent: "center" }}
@@ -1138,6 +1166,7 @@ export function App() {
             flexDirection: "column",
             padding: "16px",
             overflowY: "auto",
+            minHeight: 0,
             gap: "16px"
           }}
         >
