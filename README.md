@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/readme%20first.png" alt="AEGIS-CLIMATE Hero Banner" width="100%" />
+  <img src="./public/readme%20first1.png" alt="AEGIS-CLIMATE Hero Banner" width="100%" />
 </p>
 
 <div align="center">
