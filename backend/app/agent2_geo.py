@@ -8,8 +8,15 @@ import math
 import time
 import logging
 from typing import Dict, List, Any, Optional, Tuple
-from shapely.geometry import Point, Polygon
-from shapely.ops import unary_union
+try:
+    from shapely.geometry import Point, Polygon
+    from shapely.ops import unary_union
+    HAS_SHAPELY = True
+except Exception:
+    Point = None
+    Polygon = None
+    unary_union = None
+    HAS_SHAPELY = False
 
 logger = logging.getLogger("aegis.agent2_geo")
 
@@ -176,7 +183,6 @@ class ChronicVulnerabilityEngine:
         - Individual Exposed Structural Pins (Points)
         """
         features = []
-        center_pt = Point(lon, lat)
 
         # 1. Outer Buffer Perimeter (Moderate Waterlogging)
         pts_outer = 24
