@@ -1,0 +1,26 @@
+{
+  "name": "aegis-blockchain",
+  "version": "2.0.0",
+  "description": "AEGIS-CHAIN Smart Contract Layer — IEEE ClimateChain 2026",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:amoy": "hardhat run scripts/deploy.ts --network polygonAmoy",
+    "seed:amoy": "hardhat run scripts/seed_demo.ts --network polygonAmoy"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.18",
+    "typescript": "^5.7.0",
+    "ts-node": "^10.9.2",
+    "@types/node": "^22.0.0",
+    "@types/mocha": "^10.0.10",
+    "@types/chai": "^4.3.20"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.1.0",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5"
+  }
+}

@@ -60,3 +60,8 @@ yarn-debug.log*
 yarn-error.log*
 .DS_Store
 Thumbs.db
+
+# Blockchain / Hardhat
+blockchain/artifacts/
+blockchain/cache/
+
