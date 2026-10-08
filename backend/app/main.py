@@ -81,6 +81,15 @@ async def root():
     }
 
 
+@app.get("/health")
+async def health_alias():
+    return {
+        "status": "operational",
+        "version": settings.APP_VERSION,
+        "platform": settings.APP_NAME
+    }
+
+
 @app.websocket("/ws/events")
 async def websocket_endpoint(websocket: WebSocket):
     """Real-time WebSocket stream for agent thought trace, tool invocations, and live alerts."""
