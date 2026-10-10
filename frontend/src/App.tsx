@@ -27,6 +27,7 @@ import {
   Code,
   Check
 } from "lucide-react";
+import { BlockchainPanel } from "./components/BlockchainPanel";
 
 const getBackendBase = (): string => {
   if (typeof window !== "undefined") {
@@ -120,6 +121,7 @@ interface AnalysisResult {
   agent2?: Agent2Data;
   agent3?: Agent3Data;
   thought_trace: ThoughtStep[];
+  blockchain?: any;
 }
 
 const DEFAULT_HOTSPOTS: Hotspot[] = [
@@ -517,8 +519,8 @@ export function App() {
   const [currentLon, setCurrentLon] = useState<number>(72.8797);
   const [locationName, setLocationName] = useState<string>("Mumbai — Mithi River & Kurla Basin");
 
-  // Executive Top Nav View Mode: 'command' | 'agents' | 'mcp' | 'finance'
-  const [activeView, setActiveView] = useState<"command" | "agents" | "mcp" | "finance">("command");
+  // Executive Top Nav View Mode: 'command' | 'agents' | 'mcp' | 'finance' | 'blockchain'
+  const [activeView, setActiveView] = useState<"command" | "agents" | "mcp" | "finance" | "blockchain">("command");
 
   // MCP Hub Connection & Interactive Tester State
   const [showMcpModal, setShowMcpModal] = useState<boolean>(false);
@@ -741,18 +743,49 @@ export function App() {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/analyze`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          lat,
-          lon,
-          location_name: locName,
-          radius_km: 10.0,
-          simulated_additional_rain_mm: customRain,
-          simulated_saturation_pct_override: customSat
-        })
-      });
+      let res: Response;
+      try {
+        res = await fetch(`${getBackendBase()}/api/v2/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            lat,
+            lon,
+            location_name: locName,
+            radius_km: 10.0,
+            simulated_additional_rain_mm: customRain,
+            simulated_saturation_pct_override: customSat
+          })
+        });
+      } catch {
+        res = await fetch(`${API_BASE}/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            lat,
+            lon,
+            location_name: locName,
+            radius_km: 10.0,
+            simulated_additional_rain_mm: customRain,
+            simulated_saturation_pct_override: customSat
+          })
+        });
+      }
+
+      if (!res.ok) {
+        res = await fetch(`${API_BASE}/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            lat,
+            lon,
+            location_name: locName,
+            radius_km: 10.0,
+            simulated_additional_rain_mm: customRain,
+            simulated_saturation_pct_override: customSat
+          })
+        });
+      }
 
       if (!res.ok) {
         throw new Error(`HTTP ${res.status}`);
@@ -1091,6 +1124,13 @@ export function App() {
           >
             <TrendingUp size={14} color={activeView === "finance" ? "var(--color-safe)" : "var(--color-text-secondary)"} />
             <span>Financial & BRSR</span>
+          </button>
+          <button
+            className={`nav-tab-btn ${activeView === "blockchain" ? "active" : ""}`}
+            onClick={() => setActiveView("blockchain")}
+          >
+            <Shield size={14} color={activeView === "blockchain" ? "#8A2BE2" : "var(--color-text-secondary)"} />
+            <span>Web3 & Ledger</span>
           </button>
         </nav>
 
@@ -2378,6 +2418,17 @@ export function App() {
             </div>
           </div>
         </main>
+      )}
+
+      {/* ========================================================
+          VIEW 5: AEGIS-CHAIN v2.0 BLOCKCHAIN COCKPIT
+          ======================================================== */}
+      {activeView === "blockchain" && (
+        <BlockchainPanel
+          currentAssessment={result}
+          backendBase={getBackendBase()}
+          activeHotspot={DEFAULT_HOTSPOTS.find(h => h.name === locationName) || DEFAULT_HOTSPOTS[0]}
+        />
       )}
 
       {/* ========================================================
