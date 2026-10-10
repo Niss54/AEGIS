@@ -62,5 +62,66 @@ TOOLS_REGISTRY: Dict[str, Dict[str, Any]] = {
             "required": ["damage_estimate_inr"]
         },
         "target_agent": "agent-3-financial"
+    },
+    "anchor_risk_on_chain": {
+        "name": "anchor_risk_on_chain",
+        "description": "Anchors an Agent 1 risk assessment on Polygon Amoy blockchain via AEGISRiskLedger.sol, creating a tamper-evident on-chain record.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "lat": {"type": "number", "description": "Latitude"},
+                "lon": {"type": "number", "description": "Longitude"},
+                "risk_score": {"type": "number", "description": "Agent 1 risk score [0.0 - 1.0]"},
+                "ipfs_cid": {"type": "string", "description": "IPFS CIDv1 of full assessment"},
+                "location_name": {"type": "string", "description": "Human-readable location label"}
+            },
+            "required": ["lat", "lon", "risk_score", "ipfs_cid", "location_name"]
+        },
+        "target_agent": "blockchain-layer"
+    },
+    "store_on_ipfs": {
+        "name": "store_on_ipfs",
+        "description": "Stores a climate assessment payload on IPFS via Pinata and returns the CIDv1 content identifier for provenance anchoring.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "payload": {"type": "object", "description": "JSON payload to store"},
+                "filename": {"type": "string", "description": "Logical filename"}
+            },
+            "required": ["payload"]
+        },
+        "target_agent": "ipfs-layer"
+    },
+    "check_bond_trigger": {
+        "name": "check_bond_trigger",
+        "description": "Notifies DisasterBond contract about a critical assessment. Automatically pays covered beneficiaries if threshold is breached for consecutive cycles.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "lat": {"type": "number"},
+                "lon": {"type": "number"},
+                "risk_score_bps": {"type": "integer", "description": "Score in basis points [0 - 10000]"},
+                "assessment_id": {"type": "string", "description": "On-chain assessment ID (bytes32)"}
+            },
+            "required": ["lat", "lon", "risk_score_bps", "assessment_id"]
+        },
+        "target_agent": "blockchain-layer"
+    },
+    "check_cfmc_eligibility": {
+        "name": "check_cfmc_eligibility",
+        "description": "Checks and mints Carbon Flood Mitigation Credits (CFMC) when Agent 1 predicts high risk but Agent 2 demonstrates low damage.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "lat": {"type": "number"},
+                "lon": {"type": "number"},
+                "risk_score": {"type": "number"},
+                "dem_depth_cm": {"type": "number"},
+                "beneficiary": {"type": "string"},
+                "assessment_id": {"type": "string"}
+            },
+            "required": ["lat", "lon", "risk_score", "dem_depth_cm", "beneficiary", "assessment_id"]
+        },
+        "target_agent": "blockchain-layer"
     }
 }
