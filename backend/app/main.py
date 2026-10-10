@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.config import settings
 from backend.app.websocket import manager
-from backend.app.routes import health, analyze, geo, documents, hotspots
+from backend.app.routes import health, analyze, geo, documents, hotspots, blockchain
 
 # Resilient MCP Hub import — backend must never crash due to agent engine import failures
 try:
@@ -58,12 +58,17 @@ async def global_exception_handler(request, exc: Exception):
         }
     )
 
+
 # Mount API Routers
 app.include_router(health.router, prefix="/api/v1")
 app.include_router(analyze.router, prefix="/api/v1")
 app.include_router(geo.router, prefix="/api/v1")
 app.include_router(documents.router, prefix="/api/v1")
 app.include_router(hotspots.router, prefix="/api/v1")
+
+# Mount AEGIS-CHAIN v2.0 Blockchain Gateway
+app.include_router(blockchain.router, prefix="/api/v2")
+
 if HAS_MCP_HUB and mcp_router:
     app.include_router(mcp_router)  # Model Context Protocol Gateway (/mcp/health, /mcp/tools, /mcp/invoke)
 
