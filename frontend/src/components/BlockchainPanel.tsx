@@ -120,7 +120,11 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
       const res = await fetch(`${backendBase}/api/v2/blockchain/status`);
       if (res.ok) {
         const data = await res.json();
-        setStats(data);
+        setStats((prev: any) => ({
+          ...prev,
+          ...data,
+          total_payout_usdc: data.total_payout_usdc ?? (data.bonds_triggered ? data.bonds_triggered * 50000 : 50000)
+        }));
       }
     } catch (e) {
       console.warn("Using offline stats fallback:", e);
@@ -131,7 +135,19 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
       if (resBonds.ok) {
         const dataBonds = await resBonds.json();
         if (dataBonds.bonds && dataBonds.bonds.length > 0) {
-          setBonds(dataBonds.bonds);
+          const normalized = dataBonds.bonds.map((b: any) => ({
+            id: b.id || b.bond_id,
+            name: b.name || b.location_name,
+            lat: b.lat,
+            lon: b.lon,
+            payout_usdc: b.payout_usdc ?? b.payout_amount ?? 50000,
+            trigger_threshold_bps: b.trigger_threshold_bps ?? 6500,
+            consecutive_required: b.consecutive_required ?? 2,
+            current_consecutive: b.current_consecutive ?? b.consecutive_count ?? 0,
+            triggered: Boolean(b.triggered),
+            beneficiary: b.beneficiary || "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+          }));
+          setBonds(normalized);
         }
       }
     } catch (e) {
@@ -316,8 +332,8 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
       {/* ── TOP BANNER: BLOCKCHAIN COCKPIT HEADER ── */}
       <div
         style={{
-          background: "linear-gradient(135deg, rgba(138, 43, 226, 0.18) 0%, rgba(0, 240, 255, 0.08) 100%)",
-          border: "1px solid rgba(138, 43, 226, 0.4)",
+          background: "#16181c",
+          border: "1px solid #2d2640",
           borderRadius: "14px",
           padding: "20px 24px",
           display: "flex",
@@ -325,23 +341,24 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
           alignItems: "center",
           flexWrap: "wrap",
           gap: "16px",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.4)"
+          boxShadow: "0 4px 20px rgba(0,0,0,0.5)"
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div
             style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "12px",
-              background: "linear-gradient(135deg, #8A2BE2, #00F0FF)",
+              width: "44px",
+              height: "44px",
+              borderRadius: "10px",
+              background: "#1e1b2e",
+              border: "1px solid #4338ca",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 20px rgba(138, 43, 226, 0.5)"
+              boxShadow: "0 2px 10px rgba(0,0,0,0.4)"
             }}
           >
-            <Shield size={26} color="#FFFFFF" />
+            <Shield size={24} color="#A78BFA" />
           </div>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -1101,7 +1118,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontSize: "12px", color: "var(--color-text-secondary)" }}>Disaster Payout:</span>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: "15px", fontWeight: 700, color: "#FFD700" }}>
-                    ${bond.payout_usdc.toLocaleString()} USDC
+                    ${(bond.payout_usdc ?? 50000).toLocaleString()} USDC
                   </span>
                 </div>
 
