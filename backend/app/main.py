@@ -1,13 +1,18 @@
 """
 AEGIS-CLIMATE FastAPI Main Entrypoint
 Autonomous Multi-Agent Environmental Intelligence Platform
+Harden per PRD 2: E-001, E-008, E-009 (Strict CORS, Request ID, Safe Errors)
 """
 import logging
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+import uuid
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from backend.app.config import settings
 from backend.app.websocket import manager
+from backend.app.middleware import RequestCorrelationMiddleware
+from backend.app.errors import AEGISError, ErrorResponse
 from backend.app.routes import health, analyze, geo, documents, hotspots, blockchain
 
 # Resilient MCP Hub import — backend must never crash due to agent engine import failures
@@ -34,27 +39,52 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# CORS Configuration (Full interoperability with Vercel, Railway, and localhost)
+# Tracing & Security Middleware
+app.add_middleware(RequestCorrelationMiddleware)
+
+# CORS Configuration - Explicit origin allowlist (PRD 2 E-009)
+origins = settings.ALLOWED_ORIGINS if isinstance(settings.ALLOWED_ORIGINS, list) else [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
-    allow_methods=["*"],
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
 
+@app.exception_handler(AEGISError)
+async def aegis_domain_exception_handler(request: Request, exc: AEGISError):
+    """Handles structured domain errors without leaking internal stack traces."""
+    correlation_id = getattr(request.state, "correlation_id", exc.correlation_id)
+    logger.warning(f"Domain error [{exc.error_code}] on {request.url.path} (CID: {correlation_id}): {exc.message}")
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=exc.to_response().model_dump()
+    )
+
+
 @app.exception_handler(Exception)
-async def global_exception_handler(request, exc: Exception):
-    logger.error(f"Global caught exception on {request.url.path}: {exc}")
-    from fastapi.responses import JSONResponse
+async def global_exception_handler(request: Request, exc: Exception):
+    """
+    Catches all unexpected exceptions.
+    Logs full exception details securely on the server with correlation ID,
+    returning a sanitized, safe response to the client (PRD 2: E-009).
+    """
+    correlation_id = getattr(request.state, "correlation_id", str(uuid.uuid4()))
+    logger.error(f"Unhandled exception on {request.url.path} (CID: {correlation_id}): {exc}", exc_info=True)
     return JSONResponse(
         status_code=500,
         content={
-            "status": "error",
-            "message": "AEGIS resilient recovery active. Error handled safely.",
-            "error": str(exc),
-            "path": str(request.url.path)
+            "error_code": "INTERNAL_SERVER_ERROR",
+            "message": "An unexpected server error occurred. Please reference the correlation ID for diagnosis.",
+            "correlation_id": correlation_id
         }
     )
 
@@ -81,7 +111,8 @@ async def root():
         "status": "online",
         "edition": "Enterprise Climate Intelligence",
         "docs": "/docs",
-        "api_v1": "/api/v1"
+        "api_v1": "/api/v1",
+        "api_v2": "/api/v2"
     }
 
 

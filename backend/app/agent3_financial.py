@@ -243,6 +243,7 @@ class FinancialRiskEngine:
 
         return {
             "status": "COMPLETED",
+            "legal_disclaimer": "This analysis is for research and risk-awareness purposes only and does not constitute formal legal advice, compliance certification, or insurance underwriting guarantees.",
             "var_estimate_inr": total_var_inr,
             "var_estimate_usd": total_var_usd,
             "stranded_asset_risk": stranded_risk,

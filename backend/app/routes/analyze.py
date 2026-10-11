@@ -217,51 +217,20 @@ async def bhasha_tts(payload: Dict[str, Any]):
 
 
 async def fetch_open_meteo_telemetry(lat: float, lon: float) -> Dict[str, float]:
-    """Fetch live meteorological vectors from Open-Meteo API with graceful fallback."""
-    url = (
-        f"https://api.open-meteo.com/v1/forecast?"
-        f"latitude={lat}&longitude={lon}&hourly=precipitation,relative_humidity_2m,soil_moisture_0_to_1cm"
-        f"&daily=precipitation_sum&past_days=7"
-        f"&current=temperature_2m,relative_humidity_2m,precipitation&timezone=auto"
-    )
-    try:
-        async with httpx.AsyncClient(timeout=4.0) as client:
-            resp = await client.get(url)
-            if resp.status_code == 200:
-                data = resp.json()
-                current = data.get("current", {})
-                hourly = data.get("hourly", {})
-                daily = data.get("daily", {})
-                
-                precip_hourly = hourly.get("precipitation", [0.0] * 24)
-                precip_24h = sum(precip_hourly[-24:]) if len(precip_hourly) >= 24 else sum(precip_hourly)
-                daily_sums = daily.get("precipitation_sum", [])
-                precip_7d = sum(daily_sums) if daily_sums else (precip_24h * 2.8)
-                
-                soil_hourly = hourly.get("soil_moisture_0_to_1cm", [0.35])
-                latest_soil = (soil_hourly[-1] if soil_hourly else 0.35) * 100  # convert m³/m³ to approx pct
-                
-                return {
-                    "precipitation_24h_mm": round(precip_24h, 2),
-                    "precipitation_7d_mm": round(precip_7d, 2),
-                    "soil_saturation_pct": round(min(100.0, max(20.0, latest_soil * 2.2)), 1),
-                    "relative_humidity_pct": round(float(current.get("relative_humidity_2m", 78.0)), 1),
-                    "temperature_c": round(float(current.get("temperature_2m", 28.5)), 1),
-                    "elevation_m": round(float(data.get("elevation", 14.0)), 1)
-                }
-    except Exception as e:
-        # Fallback based on coordinate geographic characteristics
-        pass
-
-    # Deterministic natural fallback if external API is rate-limited or offline
-    base_precip = 65.0 if (18.5 <= lat <= 20.0 and 72.5 <= lon <= 73.5) else 35.0  # Higher for Mumbai
+    """
+    Fetch live meteorological vectors via WeatherSourceAdapter (PRD 2: E-013 -> E-024).
+    Calculates independent 24h & 7d precipitation without scaling multipliers.
+    """
+    from backend.app.weather.adapter import weather_adapter
+    result = await weather_adapter.fetch_weather_vector(lat, lon)
+    vec = result.vector
     return {
-        "precipitation_24h_mm": base_precip,
-        "precipitation_7d_mm": base_precip * 2.4,
-        "soil_saturation_pct": 82.5 if base_precip > 50 else 48.0,
-        "relative_humidity_pct": 85.0,
-        "temperature_c": 29.0,
-        "elevation_m": 12.0
+        "precipitation_24h_mm": vec.precipitation_24h_mm,
+        "precipitation_7d_mm": vec.precipitation_7d_mm,
+        "soil_saturation_pct": vec.soil_saturation_pct,
+        "relative_humidity_pct": vec.relative_humidity_pct,
+        "temperature_c": vec.temperature_c if vec.temperature_c is not None else 28.5,
+        "elevation_m": vec.elevation_m
     }
 
 
