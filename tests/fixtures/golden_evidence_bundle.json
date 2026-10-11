@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_id": "ev_golden_fixture_001",
+  "analysis": {
+    "analysis_id": "an_golden_mumbai_001",
+    "location": {
+      "region_label": "Mumbai Mithi River Basin",
+      "latitude": 19.0728,
+      "longitude": 72.8797,
+      "coordinate_commitment": null
+    },
+    "created_at_utc": "2026-10-14T12:00:00Z",
+    "data_mode": "fixture",
+    "inputs": [
+      {
+        "source": "Open-Meteo",
+        "variable": "precipitation_24h",
+        "value": 115.5,
+        "unit": "mm",
+        "is_synthetic": true,
+        "timestamp_utc": null
+      },
+      {
+        "source": "Open-Meteo",
+        "variable": "precipitation_7d",
+        "value": 285.0,
+        "unit": "mm",
+        "is_synthetic": true,
+        "timestamp_utc": null
+      },
+      {
+        "source": "Open-Meteo",
+        "variable": "soil_saturation",
+        "value": 88.0,
+        "unit": "%",
+        "is_synthetic": true,
+        "timestamp_utc": null
+      },
+      {
+        "source": "Open-Meteo",
+        "variable": "relative_humidity",
+        "value": 92.0,
+        "unit": "%",
+        "is_synthetic": true,
+        "timestamp_utc": null
+      },
+      {
+        "source": "SRTM-DEM",
+        "variable": "elevation",
+        "value": 12.0,
+        "unit": "m",
+        "is_synthetic": true,
+        "timestamp_utc": null
+      }
+    ],
+    "transformations": [
+      {
+        "step": "Agent1_ML_Inference",
+        "method": "GradientBoostingClassifier",
+        "description": "Computed acute flood risk probability score."
+      },
+      {
+        "step": "Agent2_HAZUS_Exposure",
+        "method": "TopographicalPoolingHeuristic",
+        "description": "Modeled waterlogging pooling depth."
+      },
+      {
+        "step": "Agent3_Financial_VaR",
+        "method": "MultiFactorLossModeling",
+        "description": "Calculated corporate Value at Risk."
+      }
+    ],
+    "risk_output": {
+      "risk_score": 0.82,
+      "risk_tier": "CRITICAL",
+      "dominant_factor": "precipitation_24h_mm",
+      "probabilities": {
+        "LOW": 0.05,
+        "MEDIUM": 0.1,
+        "HIGH": 0.25,
+        "CRITICAL": 0.6
+      }
+    },
+    "exposure_output": {
+      "exposure_tier": "INFRASTRUCTURE_FAILURE",
+      "waterlogging_depth_cm": 85,
+      "buildings_at_risk": 340,
+      "drainage_overflow_pct": 88.5,
+      "damage_estimate_inr": 250000000.0,
+      "methodology": "topographical_heuristic_hazus"
+    },
+    "policy_output": {
+      "var_estimate_inr": 385000000.0,
+      "stranded_asset_risk": "HIGH",
+      "compliance_gap_pct": 65,
+      "applicable_regulations": [
+        "SEBI BRSR Principle 6",
+        "NDMA Urban Flood SOP 2024"
+      ],
+      "legal_disclaimer": "This analysis is for research and risk-awareness purposes only and does not constitute formal legal advice."
+    }
+  },
+  "model_manifest": {
+    "model_id": "aegis-flood-classifier-v1",
+    "artifact_sha256": "7c4a16f9e2b10a56d98231c50bf3c14d9b68e0aa1b95f22e72a44018e6ec9d71",
+    "feature_schema_version": "1.0.0",
+    "algorithm": "GradientBoostingClassifier",
+    "features": [
+      "soil_saturation_pct",
+      "precipitation_24h_mm",
+      "precipitation_7d_mm",
+      "relative_humidity_pct",
+      "elevation_m",
+      "drainage_capacity_index"
+    ]
+  },
+  "code_revision": "a51f088",
+  "limitations": [
+    "Exposure is modeled via topographical pooling heuristics and HAZUS depth-damage curves.",
+    "Weather telemetry from Open-Meteo free API tier; calibrated synthetic fallback active when offline."
+  ],
+  "hash_algorithm": "keccak256",
+  "canonicalization_version": "aegis-canonical-json-v1"
+}

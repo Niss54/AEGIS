@@ -124,6 +124,10 @@ class FloodRiskMLModel:
                     "dominant_factor": dominant_factor,
                     "probabilities": prob_dict,
                     "engine": "GradientBoostingClassifier (scikit-learn)",
+                    "model_id": self.metadata.get("model_id", "aegis-flood-classifier-v1"),
+                    "model_version": self.metadata.get("model_version", "1.0.0"),
+                    "artifact_sha256": self.metadata.get("artifact_sha256", "ecf12983bec200fe3d88996c0d89d709676c01deeaa99276dd7f919b23150d70"),
+                    "is_fallback": False,
                     "feature_contributions": {k: round(v, 4) for k, v in normalized_contributions.items()}
                 }
             except Exception as e:
@@ -147,6 +151,7 @@ class FloodRiskMLModel:
             "dominant_factor": dominant_factor,
             "probabilities": {tier: 1.0},
             "engine": "Calibrated Hydro-Meteorological Heuristic",
+            "is_fallback": True,
             "feature_contributions": {k: round(v, 4) for k, v in normalized_contributions.items()}
         }
 
