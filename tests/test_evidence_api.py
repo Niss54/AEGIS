@@ -152,3 +152,79 @@ def test_create_evidence_invalid_coordinates(sample_evidence_payload):
 
     res = client.post("/api/v1/evidence", json=invalid_payload)
     assert res.status_code == 422
+
+
+def test_anchor_evidence_bundle_and_status(sample_evidence_payload):
+    """
+    PRD 2: Section 8 & 9 (E-085, E-100, E-101).
+    Test anchoring lifecycle: NOT_ANCHORED -> POST anchor -> CONFIRMED -> GET status.
+    """
+    # 1. Create bundle
+    create_res = client.post("/api/v1/evidence", json=sample_evidence_payload)
+    evidence_id = create_res.json()["evidence_id"]
+    expected_digest = create_res.json()["digest"]
+
+    # 2. Check initial status before anchor
+    status_before = client.get(f"/api/v1/evidence/{evidence_id}/anchor-status")
+    assert status_before.status_code == 200
+    assert status_before.json()["anchor_status"] == "NOT_ANCHORED"
+    assert status_before.json()["confirmations"] == 0
+
+    # 3. Anchor on-chain
+    anchor_res = client.post(f"/api/v1/evidence/{evidence_id}/anchor")
+    assert anchor_res.status_code == 200
+    anchor_data = anchor_res.json()
+    assert anchor_data["status"] == "CONFIRMED"
+    assert anchor_data["digest"] == expected_digest
+    assert anchor_data["tx_hash"].startswith("0x")
+    assert anchor_data["confirmations"] >= 2
+    assert "polygonscan.com" in anchor_data["explorer_url"]
+
+    # 4. Check status after anchor
+    status_after = client.get(f"/api/v1/evidence/{evidence_id}/anchor-status")
+    assert status_after.status_code == 200
+    after_data = status_after.json()
+    assert after_data["anchor_status"] == "CONFIRMED"
+    assert after_data["tx_hash"] == anchor_data["tx_hash"]
+    assert after_data["confirmations"] >= 2
+    assert after_data["block_number"] == anchor_data["block_number"]
+
+
+def test_anchor_evidence_idempotency(sample_evidence_payload):
+    """PRD 2: E-076, E-090 Duplicate anchor requests return same transaction without duplicate error."""
+    create_res = client.post("/api/v1/evidence", json=sample_evidence_payload)
+    evidence_id = create_res.json()["evidence_id"]
+
+    # First anchor call
+    res1 = client.post(f"/api/v1/evidence/{evidence_id}/anchor")
+    assert res1.status_code == 200
+    tx1 = res1.json()["tx_hash"]
+
+    # Repeated anchor call
+    res2 = client.post(f"/api/v1/evidence/{evidence_id}/anchor")
+    assert res2.status_code == 200
+    tx2 = res2.json()["tx_hash"]
+
+    assert tx1 == tx2, "Idempotent anchor requests must yield the identical transaction hash"
+
+
+def test_anchor_nonexistent_evidence_returns_404():
+    """PRD 2: E-098 Anchoring unknown evidence bundle returns 404."""
+    res = client.post("/api/v1/evidence/ev_non_existent_anchor_999/anchor")
+    assert res.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_chain_client_input_constraints():
+    """PRD 2: E-078 Contract input constraints (reject zero digest, empty report_ref)."""
+    from backend.app.blockchain.chain_client import chain_client
+
+    # Zero digest rejection
+    zero_digest = "0x" + "0" * 64
+    with pytest.raises(ValueError, match="Zero digest is forbidden"):
+        await chain_client.anchor_evidence(digest=zero_digest, report_ref="report_001")
+
+    # Empty report_ref rejection
+    with pytest.raises(ValueError, match="Empty report_ref is forbidden"):
+        await chain_client.anchor_evidence(digest="0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", report_ref="")
+
