@@ -1,8 +1,7 @@
-- # 🇮🇳 BHARAT AGENTIC 2026 — Hackathon Guide & Project Blueprint
+# 🛡️ AEGIS-CLIMATE — System Architecture & Engineering Blueprint
 
-> **"Build the Agents. Build Bharat."**  
-> **12 Hours. One Mission. Autonomous Multi-Agent AI for Real-World Bharat.**  
-> Powered by **AIKart** | Platform: **Unstop**
+> **Autonomous Multi-Agent Environmental & Climate Risk Intelligence Platform**  
+> **Architecture: Hub-and-Spoke MCP (Model Context Protocol) JSON-RPC 2.0 & LangGraph**
 
 ---
 
@@ -13,56 +12,32 @@
 | **Team Name** | **Syntrix** |
 | **Project Name** | **AEGIS-CLIMATE** (*Autonomous Multi-Agent Environmental Intelligence Platform*) |
 | **GitHub Repository** | [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS) |
-| **Primary Domain** | **Energy & ClimateTech** / **Citizen & GovTech** / **Open Bharat** |
-| **Mode** | 100% Online |
-| **Duration** | 12 Hours Sprint |
-| **Prize Pool** | ₹50,000 + Internship opportunities for top performers |
+| **Primary Domain** | **Energy & ClimateTech** / **Citizen & GovTech** |
+| **Blockchain Network** | **Polygon Amoy Testnet (Chain ID 80002)** |
+| **Decentralized Storage**| **IPFS / Filecoin Pinning** |
 
 ### Team Members
 
 | Name | Role | Contact Number | Status |
 | :--- | :--- | :--- | :--- |
 | **Nishant Maurya** | **Team Leader** (Full-Stack / Agent Systems) | `+91 8840301998` | Verified ✅ |
-| **Navya Chaudhary** | Core Member | `+91 9045659400` | Verified ✅ |
-| **Om Tripathi** | Core Member | `+91 7905226392` | Verified ✅ |
-| **Nikita Chopde** | Core Member | `+91 9343458471` | Verified ✅ |
+| **Navya Chaudhary** | Core Member (Climate Modeling & GIS) | `+91 9045659400` | Verified ✅ |
+| **Om Tripathi** | Core Member (Blockchain & Smart Contracts) | `+91 7905226392` | Verified ✅ |
+| **Nikita Chopde** | Core Member (Financial Policy & UI/UX) | `+91 9343458471` | Verified ✅ |
 
 ---
 
-## ⏰ 2. Hackathon Timeline (1 October 2026)
+## 🛠️ 2. Deployment & Container Architecture Specifications
 
-| Time | Event / Milestone | Critical Objective |
-| :--- | :--- | :--- |
-| **08:30 AM** | Guidelines & Instructions | Review rules, rubrics, and finalize workspace setup |
-| **09:00 AM** | **Hackathon Officially Begins** | Start 12-hour building clock |
-| **09:00 AM – 08:00 PM** | **Active Build & Testing Phase** | Core pipeline, MCP Hub, 3 Agents, Next.js UI, testing |
-| **08:00 PM – 10:00 PM** | **Official Submission Portal Opens** | Submit via Method 1 (Agent Manifest YAML + Docker) or Method 2 (Hosted API) + Google Form |
-| **09:00 PM** | **Build Work Completion Freeze** | Core hackathon coding must complete by 9:00 PM sharp |
-| **10:00 PM** | **HARD SUBMISSION DEADLINE** | Final submissions close |
-| **03 October 2026 (06:00 PM)** | **Results Announcement** | Evaluation & Winner Showcase |
+### Method 1 — Open Agent Manifest & Container Deployment
+1. Standardized `Dockerfile` ensuring all services run containerized.
+2. `agent_manifest.yaml` specifying agent metadata, inputs, outputs, runtime, and entrypoints.
+3. Microservices packaged via `docker-compose.yml`.
 
-### Communication Channels
-- 📧 **Email:** Official updates, credentials, and submission confirmations
-- 💬 **WhatsApp:** High-priority announcements and timeline alerts
-- 🎮 **Discord:** Community, mentor technical support, and queries
-
----
-
-## 🛠️ 2.1 aiKart Official Submission Methods
-
-As per official aiKart specifications, teams must submit via one of the following methods, followed by the mandatory Google Form:
-
-### Method 1 — YAML / Agent Manifest Submission
-1. Create a `Dockerfile` ensuring the agent runs containerized.
-2. Create the `agent_manifest.yaml` manifest specifying agent metadata, inputs, outputs, runtime, and entrypoints.
-3. Package and verify Docker container execution.
-
-### Method 2 — API Endpoint Submission
-1. Host your agent so it is accessible via a public API endpoint (e.g. `POST /api/v1/analyze`).
-2. Provide endpoint documentation, request/response schema, and live test credentials.
-
-### Mandatory Final Step
-- Submit all project links, demo video, pitch deck, GitHub repository (`https://github.com/Niss54/AEGIS`), and agent manifest/endpoint through the official **Hackathon Google Form**.
+### Method 2 — Hosted API Endpoint Architecture
+1. Publicly accessible REST endpoints (`POST /api/v1/analyze`, `GET /api/v1/health`).
+2. Interactive Swagger documentation at `/docs` with live request/response schemas.
+3. Model Context Protocol Gateway at `/mcp/invoke` over JSON-RPC 2.0.
 
 ---
 

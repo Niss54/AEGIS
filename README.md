@@ -9,7 +9,7 @@
 
 > **Translating Environmental Hazards into Actionable Business, Civic & On-Chain Financial Intelligence**
 
-Built for **BHARAT AGENTIC 2026** & **IEEE ClimateChain Hackathon 2026**  
+Built for **IEEE ClimateChain Hackathon 2026** & **Enterprise Environmental Intelligence**  
 *Track 1: Climate Data Verification · Track 3: Carbon Markets · Track 5: Data Integrity & Accountability*
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Niss54/AEGIS)
@@ -74,7 +74,7 @@ Yet today, **a fatal operational disconnect paralyzes disaster response:**
   - [⚙️ Environment Configuration Matrix](#️-environment-configuration-matrix)
   - [📡 REST API & WebSocket Reference](#-rest-api--websocket-reference)
   - [🧪 Automated Testing & Verification](#-automated-testing--verification)
-  - [📦 aiKart Hackathon Official Submission Methods](#-aikart-hackathon-official-submission-methods)
+  - [📦 Deployment & Container Architecture Specifications](#-deployment--container-architecture-specifications)
     - [Method 1: YAML / Agent Manifest Submission](#method-1-yaml--agent-manifest-submission)
     - [Method 2: Hosted API Endpoint Submission](#method-2-hosted-api-endpoint-submission)
   - [👥 Team Syntrix](#-team-syntrix)
@@ -454,15 +454,15 @@ tests/test_mcp_end_to_end.py ..........                                  [100%]
 
 ---
 
-## 📦 aiKart Hackathon Official Submission Methods
+## 📦 Deployment & Container Architecture Specifications
 
-### Method 1: YAML / Agent Manifest Submission
-As mandated by the aiKart hackathon specifications, AEGIS provides an official containerized manifest:
+### Method 1: YAML / Agent Manifest Deployment
+AEGIS provides an official containerized manifest and microservice architecture:
 - **Manifest File:** [`agent_manifest.yaml`](./agent_manifest.yaml)
 - **Container Entrypoint:** [`Dockerfile`](./Dockerfile)
 - **Compose Multi-Service:** [`docker-compose.yml`](./docker-compose.yml)
 
-### Method 2: Hosted API Endpoint Submission
+### Method 2: Hosted API Endpoint Architecture
 - **Primary Endpoint:** `POST /api/v1/analyze`
 - **Protocol Gateway:** `POST /mcp/invoke`
 - **Health Check:** `GET /api/v1/health`
@@ -472,9 +472,11 @@ As mandated by the aiKart hackathon specifications, AEGIS provides an official c
 
 ## 👥 Team Syntrix
 
-Proudly built during the 12-hour sprint of **BHARAT AGENTIC 2026**:
-
-
+Architected and developed by **Team Syntrix**:
+- **Nishant Maurya** (Lead Agentic Systems & Full-Stack Architect)
+- **Navya Chaudhary** (Climate Modeling & GIS Analytics)
+- **Om Tripathi** (Blockchain & Smart Contracts Core)
+- **Nikita Chopde** (Financial Policy & UI/UX Experience)
 
 ---
 
@@ -483,9 +485,5 @@ Proudly built during the 12-hour sprint of **BHARAT AGENTIC 2026**:
 - **License:** MIT Open Source License. See [LICENSE](./LICENSE) for details.
 - **Meteorological Data:** Courtesy of [Open-Meteo API](https://open-meteo.com/) (Open-access community license).
 - **Cartographic Basemaps:** Courtesy of Esri World Dark Gray Canvas and Mapbox.
-- **Hackathon Platform:** Powered by **AIKart** on **Unstop** for **BHARAT AGENTIC 2026**.
-
-- ## 👥 Team Syntrix
-
-Proudly built during the 12-hour sprint of **BHARAT AGENTIC 2026**:
+- **Standards:** SEBI BRSR Principle 6, NDMA Urban Flood Mitigation Protocol, IEEE ClimateChain Specifications.
 

@@ -1,5 +1,5 @@
-# 🎬 AEGIS-CLIMATE — Hackathon Video Demo Script (2:30 Mins)
-### *BHARAT AGENTIC 2026 — 12-Hour Sprint Submission*
+# 🎬 AEGIS-CLIMATE — Demonstration Walkthrough Script (2:30 Mins)
+### *Autonomous Multi-Agent Environmental & Climate Risk Intelligence Platform*
 
 > **Project Name:** AEGIS-CLIMATE  
 > **Team Name:** Syntrix (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
@@ -13,12 +13,12 @@
 
 | Timestamp | Section | Key Screen Action | Voiceover Focus |
 | :--- | :--- | :--- | :--- |
-| **0:00 – 0:25** | The Hook & The Problem | Headline slide ➔ Command center reveal | ₹8,000 Cr annual Indian urban flood loss; siloed data crisis. |
+| **0:00 – 0:25** | The Hook & The Problem | Headline slide ➔ Command center reveal | ₹8,000 Cr annual urban flood loss; siloed data crisis. |
 | **0:25 – 0:50** | Command Center & GIS Map | Pan & zoom Leaflet map across Mumbai/Bengaluru | CartoDB Dark Matter tiles, multi-tier hazard polygons, asset pins. |
 | **0:50 – 1:30** | The Autonomous Multi-Agent Cascade | Move "What-If" slider (+110mm) ➔ Click Trigger | Agent 1 (ML) ➔ Agent 2 (DEM Geo) ➔ Agent 3 (VaR RAG) cascade. |
 | **1:30 – 1:55** | Bhasha-AI & Executive PDF Briefing | Play audio readout ➔ Click "Export C-Suite Briefing" | Hindi/English voice dispatch & print-ready executive PDF report. |
 | **1:55 – 2:20** | Under The Hood (MCP Hub & Code) | Terminal test pass ➔ MCP Hub code ➔ Manifest | 95.14% GBM accuracy, JSON-RPC 2.0 MCP Hub, Docker Compose. |
-| **2:20 – 2:30** | Closing Call to Action | Return to live dashboard with Team Syntrix tag | "Built for Bharat Agentic 2026. Ready to protect Bharat today." |
+| **2:20 – 2:30** | Closing Call to Action | Return to live dashboard with Team Syntrix tag | "Built by Team Syntrix. Ready to protect citizens and critical infrastructure today." |
 
 ---
 
@@ -78,7 +78,7 @@
   > *"Under the hood, AEGIS-CLIMATE is built with rigorous engineering standards:*  
   > *All agent tool calls are coordinated through an asynchronous **Model Context Protocol (MCP) Hub** over JSON-RPC 2.0.*  
   > *Our ML flood classifier is trained on 3,500 samples achieving **95.14% accuracy** and a **0.90 Macro F1 score**.*  
-  > *The entire platform is fully compliant with aiKart Method 1 specifications, complete with an official `agent_manifest.yaml` and multi-service Docker Compose architecture.*  
+  > *The entire platform is fully compliant with open agent specifications, complete with an official `agent_manifest.yaml` and multi-service Docker Compose architecture.*  
   > *Every single unit, integration, and end-to-end test suite passes at 100%."*
 
 ---
@@ -87,7 +87,7 @@
 - **Visual:** Return to full-screen view of the glowing AEGIS-CLIMATE cockpit with all agents in `COMPLETE` state and live map pulsing.
 - **Voiceover (Inspiring, Confident):**
   > *"AEGIS-CLIMATE transforms unpredictable climate volatility into transparent, anticipatory intelligence.*  
-  > *Built by Team Syntrix for BHARAT AGENTIC 2026. Ready to protect Bharat's citizens and economy today. Thank you!"*
+  > *Built by Team Syntrix. Ready to protect citizens and critical infrastructure today. Thank you!"*
 
 ---
 
