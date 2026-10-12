@@ -241,6 +241,29 @@ flowchart TD
 
 ---
 
+### 🔹 Phase 6: Winning Edge — Executive Briefing, Bhasha-AI & Judge Proof
+*“C-Suite Executive Briefing JSON/HTML printable reports, Bhasha-AI Devanagari voice dispatch, Pitch Deck, aur Demo Runbook.”*
+
+* **PRD Sections & Competition Edge Covered:**
+  - §11, §15, §16: Executive deliverables & presentation artifacts
+* **Core Objectives:**
+  1. **Executive Briefing Engine:**
+     - `GET /api/v1/events/{event_id}/executive-briefing`: Full structured C-Suite risk assessment.
+     - `GET /api/v1/events/{event_id}/executive-briefing/html`: Printable A4 PDF/HTML report ready for boardroom decision-makers with `window.print()`.
+  2. **Bhasha-AI Vernacular Voice Dispatch:**
+     - High-urgency Devanagari Hindi (`[\u0900-\u097F]`) and English warnings for ground emergency teams.
+  3. **What-If Extreme Stress Comparison:**
+     - Verified differentiation between nominal semi-arid dry conditions and catastrophic cloudburst scenarios.
+  4. **Official Presentation & Video Runbook:**
+     - Updated `docs/PITCH_DECK.md` (9 widescreen slides with cryptographic proof & Web3 anchoring).
+     - Updated `docs/DEMO_SCRIPT.md` (2:30 min video runbook including live tamper simulation).
+* **Testing & Verification:**
+  - All 5 winning edge verification tests pass (`tests/test_phase6_winning_edge.py`).
+* **Git Commit Gate:**
+  `feat(phase-6): winning edge - executive briefing, bhasha-ai bilingual verification & judge pitch deck`
+
+---
+
 ## 📊 Summary Matrix
 
 | Phase | Focus Area | PRD Sections | Requirements | Acceptance Criteria to Commit |
@@ -250,3 +273,4 @@ flowchart TD
 | **Phase 3** | **Blockchain Adapter** | §7 – §8 | `E-073` → `E-096` | Contract event decoding matches receipt, Web3 client connected, idempotent retry, local EVM test passes. |
 | **Phase 4** | **UX & Evidence Cockpit** | §11 | `E-121` → `E-144` | EvidencePanel & AnchorStatus UI, standalone verifier, tamper simulator, `npm run build` zero-error pass. |
 | **Phase 5** | **Release Rehearsal** | §12 – §16 | `E-145` → `E-192` | Threat model & docs written, CI config ready, full E2E smoke test passes, final sign-off. |
+| **Phase 6** | **Winning Edge & Briefing** | §11, §15, §16 | Edge & Demo | C-Suite A4 printable briefing, Bhasha-AI Devanagari alerts, Pitch Deck, 100% winning edge tests pass. |
