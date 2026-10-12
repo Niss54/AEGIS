@@ -1,0 +1,60 @@
+name: AEGIS-CLIMATE CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    name: Build, Test & Evidence Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Check out repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: 📦 Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install pytest pytest-asyncio httpx pycryptodome pydantic pydantic-settings web3
+
+      - name: 🧪 Run Pytest Test Suite
+        run: |
+          python -m pytest -v
+
+      - name: 🟢 Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: ⛓️ Run Hardhat Smart Contract Tests
+        run: |
+          cd blockchain
+          npm ci
+          npx hardhat test
+
+      - name: 💻 Build Frontend (Strict TypeScript & Vite)
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+      - name: 🔒 Secret Scanning Audit
+        run: |
+          # Ensure no private keys or unredacted secrets are committed in source code
+          echo "Scanning for accidental secret leaks..."
+          ! grep -r "PRIVATE_KEY=0x[0-9a-fA-F]\{64\}" backend/ frontend/src/ docs/ --exclude-dir=node_modules || exit 1
+          echo "Secret scan passed cleanly."
+
+      - name: 🛡️ Run End-to-End Evidence Smoke Verification
+        run: |
+          python scripts/e2e_evidence_smoke.py
