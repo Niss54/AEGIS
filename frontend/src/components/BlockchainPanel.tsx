@@ -15,6 +15,9 @@ import {
   Database,
   Flame
 } from "lucide-react";
+import { EvidencePanel } from "./EvidencePanel";
+import { AnchorStatus } from "./AnchorStatus";
+import { EvidenceVerifierModal } from "./EvidenceVerifierModal";
 
 interface BlockchainPanelProps {
   currentAssessment?: any;
@@ -113,6 +116,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
 
   const [isTamperSimulated, setIsTamperSimulated] = useState<boolean>(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [isVerifierModalOpen, setIsVerifierModalOpen] = useState<boolean>(false);
 
   // Fetch live stats from backend /api/v2
   const refreshStats = async () => {
@@ -626,6 +630,28 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
           </div>
         </div>
       </div>
+
+      {/* ── PRD-2 PHASE 4: EVIDENCE PANEL & BLOCKCHAIN LIFECYCLE ── */}
+      <EvidencePanel
+        bundle={currentAssessment?.evidence_bundle}
+        digest={bcMeta.keccak256_digest || bcMeta.evidence_digest}
+        evidenceId={currentAssessment?.evidence_id || "ev_23af39ff55334551"}
+        dataMode={currentAssessment?.data_mode || "live"}
+        onOpenVerifier={() => setIsVerifierModalOpen(true)}
+      />
+
+      <AnchorStatus
+        evidenceId={currentAssessment?.evidence_id || "ev_23af39ff55334551"}
+        digest={bcMeta.keccak256_digest || bcMeta.evidence_digest}
+        backendBase={backendBase}
+        initialState="CONFIRMED"
+        initialTxHash={bcMeta.tx_hash}
+        initialBlockNumber={bcMeta.block_number}
+        initialConfirmations={2}
+        chainId={stats.chain_id || 80002}
+        networkName={stats.network || "Polygon Amoy Testnet"}
+        registryAddress={stats.contracts?.risk_ledger || "0x8a729e2A676AC29e2898863f8d38A88E12A1F8a9"}
+      />
 
       {/* ── SECTION 1: LATEST ON-CHAIN ASSESSMENT & IMMUTABLE PROOF ── */}
       <div
@@ -1340,6 +1366,14 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
           </div>
         </div>
       </div>
+
+      {/* ── PRD-2 PHASE 4: STANDALONE EVIDENCE VERIFIER & TAMPER SANDBOX MODAL ── */}
+      <EvidenceVerifierModal
+        isOpen={isVerifierModalOpen}
+        onClose={() => setIsVerifierModalOpen(false)}
+        defaultDigest={bcMeta.keccak256_digest || "0x4eaa871ecae3e76b9cf322237676e7c95f16b1433ae68c4b159089eeec18d0b4"}
+        backendBase={backendBase}
+      />
     </main>
   );
 };

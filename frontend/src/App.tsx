@@ -28,6 +28,7 @@ import {
   Check
 } from "lucide-react";
 import { BlockchainPanel } from "./components/BlockchainPanel";
+import { EvidenceVerifierModal } from "./components/EvidenceVerifierModal";
 
 const getBackendBase = (): string => {
   if (typeof window !== "undefined") {
@@ -122,6 +123,8 @@ interface AnalysisResult {
   agent3?: Agent3Data;
   thought_trace: ThoughtStep[];
   blockchain?: any;
+  evidence_id?: string;
+  evidence_bundle?: any;
 }
 
 const DEFAULT_HOTSPOTS: Hotspot[] = [
@@ -522,6 +525,7 @@ export function App() {
 
   // MCP Hub Connection & Interactive Tester State
   const [showMcpModal, setShowMcpModal] = useState<boolean>(false);
+  const [showEvidenceModal, setShowEvidenceModal] = useState<boolean>(false);
   const [mcpModalTab, setMcpModalTab] = useState<"claude" | "cursor" | "playground" | "catalog">("claude");
   const [mcpToolName, setMcpToolName] = useState<string>("fetch_weather_vectors");
   const [mcpParamsJson, setMcpParamsJson] = useState<string>(MCP_TOOL_TEMPLATES["fetch_weather_vectors"]);
@@ -1148,6 +1152,21 @@ export function App() {
             </span>
             <Zap size={12} color="#38BDF8" />
             <span>Connect MCP</span>
+          </button>
+
+          {/* Prominent Standalone Evidence Verifier Button */}
+          <button
+            className="mcp-pill-btn"
+            style={{
+              borderColor: "rgba(167, 139, 250, 0.4)",
+              background: "rgba(167, 139, 250, 0.12)",
+              color: "#A78BFA"
+            }}
+            onClick={() => setShowEvidenceModal(true)}
+            title="Launch Standalone Evidence Verifier & Tamper Testing Sandbox (PRD-2 §11)"
+          >
+            <Shield size={12} color="#A78BFA" />
+            <span>Verify Evidence</span>
           </button>
 
           <button
@@ -3171,6 +3190,15 @@ ANTHROPIC_API_KEY=`;
           </div>
         </div>
       )}
+
+      {/* ── PRD-2 PHASE 4: GLOBAL EVIDENCE VERIFIER MODAL ── */}
+      <EvidenceVerifierModal
+        isOpen={showEvidenceModal}
+        onClose={() => setShowEvidenceModal(false)}
+        defaultDigest={result?.blockchain?.keccak256_digest || "0x4eaa871ecae3e76b9cf322237676e7c95f16b1433ae68c4b159089eeec18d0b4"}
+        defaultBundle={result?.evidence_bundle}
+        backendBase={getBackendBase()}
+      />
     </div>
   );
 }
