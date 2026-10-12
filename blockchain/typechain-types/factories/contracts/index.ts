@@ -3,5 +3,6 @@
 /* eslint-disable */
 export { AEGISRiskLedger__factory } from "./AEGISRiskLedger__factory";
 export { CarbonFloodCredit__factory } from "./CarbonFloodCredit__factory";
+export { ClimateEvidenceRegistry__factory } from "./ClimateEvidenceRegistry__factory";
 export { DisasterBond__factory } from "./DisasterBond__factory";
 export { MockERC20__factory } from "./MockERC20__factory";

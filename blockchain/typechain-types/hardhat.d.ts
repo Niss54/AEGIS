@@ -50,6 +50,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CarbonFloodCredit__factory>;
     getContractFactory(
+      name: "ClimateEvidenceRegistry",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ClimateEvidenceRegistry__factory>;
+    getContractFactory(
       name: "DisasterBond",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.DisasterBond__factory>;
@@ -104,6 +108,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.CarbonFloodCredit>;
     getContractAt(
+      name: "ClimateEvidenceRegistry",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ClimateEvidenceRegistry>;
+    getContractAt(
       name: "DisasterBond",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -151,6 +160,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.CarbonFloodCredit>;
     deployContract(
+      name: "ClimateEvidenceRegistry",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ClimateEvidenceRegistry>;
+    deployContract(
       name: "DisasterBond",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.DisasterBond>;
@@ -204,6 +217,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.CarbonFloodCredit>;
+    deployContract(
+      name: "ClimateEvidenceRegistry",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ClimateEvidenceRegistry>;
     deployContract(
       name: "DisasterBond",
       args: any[],
