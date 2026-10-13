@@ -24,6 +24,8 @@ from backend.app.config import settings
 from backend.app.rag.engine import global_rag_engine, normalize_jurisdiction_target, HybridRegulatoryRAGEngine
 from backend.app.rag.corpus import GLOBAL_REGULATORY_CORPUS
 from backend.app.rag.hybrid_cache import hybrid_cache
+from backend.app.bhasha.engine import bhasha_engine
+from backend.app.bhasha.providers import sarvam_connector, global_tts_connector
 
 logger = logging.getLogger("aegis.agent3_financial")
 
@@ -61,7 +63,11 @@ class FinancialRiskEngine:
         waterlogging_depth_cm: int,
         buildings_at_risk: int,
         damage_estimate_inr: int,
-        sector: str = "Industrial & Enterprise"
+        sector: str = "Industrial & Enterprise",
+        lat: Optional[float] = None,
+        lon: Optional[float] = None,
+        jurisdiction: Optional[Any] = None,
+        telemetry: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """
         Executes enterprise Value-at-Risk modeling and RAG regulatory retrieval:
@@ -69,6 +75,7 @@ class FinancialRiskEngine:
         2. Calculates 4-factor VaR: Physical Damage + Business Interruption + Regulatory Penalties + Insurance Surges
         3. Estimates Stranded Asset Probability
         4. Synthesizes Bilingual Civic & Enterprise Actions (Bhasha-AI)
+        5. Stamps with Verifiable Blue-Carbon-MRV Provenance
         """
         t0 = time.time()
 
@@ -115,21 +122,33 @@ class FinancialRiskEngine:
             "Establish secondary parametric catastrophe reinsurance cover with 48-hour trigger index."
         ]
 
-        # Step 5: Bhasha-AI Bilingual Civic Broadcast
-        # Default deterministic templates for verified reliability
-        hindi_alert = (
-            f"आपातकालीन अलर्ट: {location_label} में भारी जलभराव ({waterlogging_depth_cm} सेमी) का अनुमान। "
-            f"{buildings_at_risk} इमारतें और औद्योगिक परिसंपत्तियां उच्च जोखिम में हैं। "
-            f"अनुमानित आर्थिक नुकसान: ₹{total_var_inr / 10000000:.2f} करोड़। "
-            f"आपदा राहत दल तुरंत पंपिंग स्टेशन और बैरिकेडिंग सक्रिय करें।"
+        # Step 5: Bhasha-AI Bilingual Civic Broadcast & Cryptographic MRV Provenance
+        dispatch = bhasha_engine.generate_dispatch(
+            location_label=location_label,
+            waterlogging_depth_cm=waterlogging_depth_cm,
+            buildings_at_risk=buildings_at_risk,
+            total_var_inr=total_var_inr,
+            total_var_usd=total_var_usd,
+            compliance_gap_pct=compliance_gap_pct,
+            lat=lat,
+            lon=lon,
+            jurisdiction=jurisdiction,
+            telemetry=telemetry
         )
 
-        english_alert = (
-            f"EXECUTIVE ALERT: Severe flood exposure projected for {location_label}. "
-            f"Inundation depth: {waterlogging_depth_cm} cm affecting {buildings_at_risk} structures. "
-            f"Enterprise Value at Risk (VaR): INR {total_var_inr / 10000000:.2f} Cr ($ {total_var_usd / 1000000:.2f}M). "
-            f"Regulatory compliance gap: {compliance_gap_pct}%. Immediate civil defenses required."
-        )
+        english_alert = dispatch.primary_english
+        regional_alert = dispatch.regional_native
+
+        # Default deterministic Hindi alert for backwards compatibility
+        if dispatch.language_profile.short_code == "hi":
+            hindi_alert = regional_alert
+        else:
+            hindi_alert = (
+                f"आपातकालीन अलर्ट: {location_label} में भारी जलभराव ({waterlogging_depth_cm} सेमी) का अनुमान। "
+                f"{buildings_at_risk} इमारतें और औद्योगिक परिसंपत्तियां उच्च जोखिम में हैं। "
+                f"अनुमानित आर्थिक नुकसान: ₹{total_var_inr / 10000000:.2f} करोड़। "
+                f"आपदा राहत दल तुरंत पंपिंग स्टेशन और बैरिकेडिंग सक्रिय करें।"
+            )
 
         # Dynamic LLM Enhancement if GEMINI_API_KEY or GROQ_API_KEY is active
         llm_hindi = self._generate_llm_hindi(location_label, waterlogging_depth_cm, buildings_at_risk, total_var_inr)
@@ -167,6 +186,11 @@ class FinancialRiskEngine:
             "recommended_actions": recommendations,
             "bilingual_alert_hindi": hindi_alert,
             "bilingual_alert_english": english_alert,
+            "bilingual_alert_regional": regional_alert,
+            "regional_language_code": dispatch.language_profile.code,
+            "regional_language_name": dispatch.language_profile.native_name,
+            "regional_language_flag": dispatch.language_profile.flag_emoji,
+            "mrv_provenance": dispatch.mrv_provenance.model_dump() if hasattr(dispatch.mrv_provenance, "model_dump") else dispatch.mrv_provenance.dict(),
             "execution_time_ms": elapsed_ms
         }
 

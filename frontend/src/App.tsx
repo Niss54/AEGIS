@@ -122,6 +122,21 @@ interface Agent3Data {
   recommended_actions: string[];
   bilingual_alert_hindi?: string;
   bilingual_alert_english?: string;
+  bilingual_alert_regional?: string;
+  regional_language_code?: string;
+  regional_language_name?: string;
+  regional_language_flag?: string;
+  mrv_provenance?: {
+    mrv_registry_type: string;
+    bundle_id: string;
+    jurisdiction_iso: string;
+    timestamp_utc: string;
+    sensor_telemetry_digest: string;
+    evidence_digest: string;
+    signature_scheme: string;
+    verification_endpoint: string;
+    metadata?: Record<string, any>;
+  };
   execution_time_ms: number;
 }
 
@@ -500,6 +515,20 @@ function buildFallbackAnalysis(lat: number, lon: number, locName: string, rain: 
       ],
       bilingual_alert_hindi: `⚠️ [ऐजिस-भारत चेतावनी | स्तर: ${riskTier}] ${locName} में ${sat}% मृदा संतृप्ति और भारी वर्षा के कारण जलभराव की गंभीर आशंका है। अनुमानित वित्तीय जोखिम ₹${(varInr / 10000000).toFixed(0)} करोड़ है। एनडीएमए प्रोटोकॉल लागू करें और महत्वपूर्ण संरचनाओं को सुरक्षित करें।`,
       bilingual_alert_english: `⚠️ [AEGIS BHARAT ALERT | TIER: ${riskTier}] ${locName} facing acute flood risk (> ${depth}cm depth) with ${sat}% soil saturation. Estimated Enterprise Value at Risk: ₹${(varInr / 10000000).toFixed(0)} Crores. Immediate municipal drainage actuation required.`,
+      bilingual_alert_regional: `⚠️ [ऐजिस-भारत चेतावनी | स्तर: ${riskTier}] ${locName} में ${sat}% मृदा संतृप्ति और भारी वर्षा के कारण जलभराव की गंभीर आशंका है। अनुमानित वित्तीय जोखिम ₹${(varInr / 10000000).toFixed(0)} करोड़ है।`,
+      regional_language_code: "hi-IN",
+      regional_language_name: "हिन्दी",
+      regional_language_flag: "🇮🇳",
+      mrv_provenance: {
+        mrv_registry_type: "Blue-Carbon-MRV-v1",
+        bundle_id: `mrv-in-${Date.now()}`,
+        jurisdiction_iso: "IN-MH",
+        timestamp_utc: new Date().toISOString(),
+        sensor_telemetry_digest: "0x78ab1234cd5678ef901234567890abcdef1234567890abcdef1234567890abcd",
+        evidence_digest: "0x4321fedcba0987654321fedcba0987654321fedcba0987654321fedcba098765",
+        signature_scheme: "Keccak256-RFC8785",
+        verification_endpoint: "/api/v2/evidence/verify"
+      },
       execution_time_ms: 68.7
     },
     thought_trace: [
@@ -716,7 +745,7 @@ export function App() {
   // Analysis State
   const [loading, setLoading] = useState<boolean>(false);
   const [result, setResult] = useState<AnalysisResult | null>(() => buildFallbackAnalysis(19.0728, 72.8797, "Mumbai — Mithi River & Kurla Basin", 85, 90));
-  const [activeLangTab, setActiveLangTab] = useState<"hindi" | "english">("hindi");
+  const [activeLangTab, setActiveLangTab] = useState<"regional" | "english" | "hindi">("regional");
   const [wsConnected, setWsConnected] = useState<boolean>(false);
   const [liveSteps, setLiveSteps] = useState<ThoughtStep[]>([]);
   const [copied, setCopied] = useState<boolean>(false);
@@ -1047,7 +1076,7 @@ export function App() {
     }
   };
 
-  const speakText = async (text: string) => {
+  const speakText = async (text: string, languageCode: string = "auto") => {
     if (isPlayingAudio) {
       if ("speechSynthesis" in window) {
         window.speechSynthesis.cancel();
@@ -1058,33 +1087,39 @@ export function App() {
 
     setIsPlayingAudio(true);
 
-    // 1. Try authentic Sarvam AI Indic Neural Voice for Hindi
-    if (activeLangTab === "hindi") {
-      try {
-        const res = await fetch(`${API_BASE}/bhasha/tts`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text, speaker: "priya" })
-        });
-        if (res.ok) {
-          const data = await res.json();
-          if (data.status === "success" && data.audio_b64) {
-            const audio = new Audio("data:audio/wav;base64," + data.audio_b64);
-            audio.onended = () => setIsPlayingAudio(false);
-            audio.onerror = () => setIsPlayingAudio(false);
-            await audio.play();
-            return;
-          }
+    // 1. Try Bhasha-AI Neural Voice Engine (Sarvam AI / ElevenLabs)
+    try {
+      const res = await fetch(`${API_BASE}/bhasha/tts`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text,
+          language: languageCode,
+          speaker: "priya"
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.status === "success" && data.audio_b64) {
+          const mime = data.mime_type || "audio/wav";
+          const audio = new Audio(`data:${mime};base64,` + data.audio_b64);
+          audio.onended = () => setIsPlayingAudio(false);
+          audio.onerror = () => setIsPlayingAudio(false);
+          await audio.play();
+          return;
         }
-      } catch (e) {
-        console.warn("Sarvam AI TTS call skipped, falling back to Web Speech:", e);
       }
+    } catch (e) {
+      console.warn("Bhasha-AI TTS call skipped, falling back to Web Speech:", e);
     }
 
     // 2. Fallback to Web Speech API
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
+      if (languageCode && languageCode !== "auto") {
+        utterance.lang = languageCode;
+      }
       utterance.rate = 1.0;
       utterance.onend = () => setIsPlayingAudio(false);
       utterance.onerror = () => setIsPlayingAudio(false);
@@ -1838,27 +1873,27 @@ export function App() {
                     </div>
                   </div>
 
-                  {/* Bhasha-AI Bilingual Civic Broadcast (Winning Edge) */}
+                  {/* Bhasha-AI Multilingual Civic Broadcast (Winning Edge) */}
                   <div style={{ background: "rgba(0,0,0,0.3)", borderRadius: "8px", padding: "10px", marginTop: "12px", border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px", flexWrap: "wrap", gap: "6px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.75rem", fontWeight: 700, color: "#FFF" }}>
                         <Radio size={14} color="var(--color-primary)" />
-                        <span>Bhasha-AI Civic Broadcast</span>
+                        <span>Bhasha-AI Multilingual Dispatch</span>
                       </div>
                       <div style={{ display: "flex", gap: "4px" }}>
                         <button
-                          onClick={() => setActiveLangTab("hindi")}
+                          onClick={() => setActiveLangTab("regional")}
                           style={{
                             fontSize: "0.68rem",
                             padding: "2px 8px",
                             borderRadius: "4px",
                             border: "none",
-                            background: activeLangTab === "hindi" ? "var(--color-primary)" : "rgba(255,255,255,0.05)",
+                            background: activeLangTab === "regional" ? "var(--color-primary)" : "rgba(255,255,255,0.05)",
                             color: "#FFF",
                             cursor: "pointer"
                           }}
                         >
-                          हिंदी
+                          {result.agent3.regional_language_flag || "📍"} {result.agent3.regional_language_name || "Regional"}
                         </button>
                         <button
                           onClick={() => setActiveLangTab("english")}
@@ -1872,16 +1907,41 @@ export function App() {
                             cursor: "pointer"
                           }}
                         >
-                          English
+                          🌐 Global English
                         </button>
+                        {result.agent3.regional_language_code !== "hi-IN" && (
+                          <button
+                            onClick={() => setActiveLangTab("hindi")}
+                            style={{
+                              fontSize: "0.68rem",
+                              padding: "2px 8px",
+                              borderRadius: "4px",
+                              border: "none",
+                              background: activeLangTab === "hindi" ? "var(--color-primary)" : "rgba(255,255,255,0.05)",
+                              color: "#FFF",
+                              cursor: "pointer"
+                            }}
+                          >
+                            🇮🇳 हिंदी
+                          </button>
+                        )}
                       </div>
                     </div>
 
                     <div style={{ fontSize: "0.75rem", color: "var(--color-text-primary)", lineHeight: 1.45, marginBottom: "8px" }}>
-                      {activeLangTab === "hindi"
-                        ? result.agent3.bilingual_alert_hindi
-                        : result.agent3.bilingual_alert_english}
+                      {activeLangTab === "regional"
+                        ? (result.agent3.bilingual_alert_regional || result.agent3.bilingual_alert_hindi)
+                        : (activeLangTab === "hindi"
+                          ? result.agent3.bilingual_alert_hindi
+                          : result.agent3.bilingual_alert_english)}
                     </div>
+
+                    {result.agent3.mrv_provenance && (
+                      <div style={{ fontSize: "0.64rem", color: "var(--color-primary)", display: "flex", alignItems: "center", gap: "5px", marginBottom: "8px", background: "rgba(0, 240, 255, 0.05)", padding: "3px 6px", borderRadius: "4px", border: "1px solid rgba(0, 240, 255, 0.15)" }}>
+                        <Shield size={11} color="var(--color-primary)" />
+                        <span>MRV Provenance: <b>{result.agent3.mrv_provenance.evidence_digest?.slice(0, 14)}...</b> ({result.agent3.mrv_provenance.jurisdiction_iso})</span>
+                      </div>
+                    )}
 
                     <div style={{ display: "flex", gap: "8px" }}>
                       <button
@@ -1892,13 +1952,17 @@ export function App() {
                           borderColor: isPlayingAudio ? "var(--color-primary)" : "rgba(255,255,255,0.1)",
                           color: isPlayingAudio ? "var(--color-primary)" : "inherit"
                         }}
-                        onClick={() =>
-                          speakText(
-                            activeLangTab === "hindi"
-                              ? result.agent3?.bilingual_alert_hindi || ""
-                              : result.agent3?.bilingual_alert_english || ""
-                          )
-                        }
+                        onClick={() => {
+                          const currentTxt = activeLangTab === "regional"
+                            ? (result?.agent3?.bilingual_alert_regional || result?.agent3?.bilingual_alert_hindi || "")
+                            : (activeLangTab === "hindi"
+                              ? result?.agent3?.bilingual_alert_hindi || ""
+                              : result?.agent3?.bilingual_alert_english || "");
+                          const currentCode = activeLangTab === "regional"
+                            ? (result?.agent3?.regional_language_code || "auto")
+                            : (activeLangTab === "hindi" ? "hi-IN" : "en-US");
+                          speakText(currentTxt, currentCode);
+                        }}
                       >
                         {isPlayingAudio ? <Square size={13} color="var(--color-primary)" /> : <Volume2 size={13} />}
                         {isPlayingAudio ? "Stop Audio" : "Audio Readout"}
@@ -1916,10 +1980,11 @@ export function App() {
                         className="btn-secondary"
                         style={{ padding: "4px 10px", fontSize: "0.7rem" }}
                         onClick={() => {
-                          const txt =
-                            activeLangTab === "hindi"
-                              ? result.agent3?.bilingual_alert_hindi || ""
-                              : result.agent3?.bilingual_alert_english || "";
+                          const txt = activeLangTab === "regional"
+                            ? (result?.agent3?.bilingual_alert_regional || result?.agent3?.bilingual_alert_hindi || "")
+                            : (activeLangTab === "hindi"
+                              ? result?.agent3?.bilingual_alert_hindi || ""
+                              : result?.agent3?.bilingual_alert_english || "");
                           navigator.clipboard.writeText(txt);
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
