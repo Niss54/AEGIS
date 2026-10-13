@@ -129,6 +129,18 @@ class WeatherSourceAdapter:
         precip_7d = max(precip_24h, precip_7d)  # 7-day cumulative must be at least 24h
         rel_humidity = min(100.0, max(0.0, rel_humidity))
 
+        # Regional climatological baseline estimation (dClimate pattern)
+        if lon < -100.0:  # North America / California
+            baseline_24h = 18.0
+        elif lat > 55.0 and 20.0 <= lon <= 32.0:  # Baltic / Northern Europe (Estonia)
+            baseline_24h = 22.0
+        elif 36.0 <= lat <= 43.0 and 25.0 <= lon <= 45.0:  # Anatolia / Marmara / Türkiye
+            baseline_24h = 28.0
+        else:  # Indian Subcontinent
+            baseline_24h = 35.0
+
+        anomaly_ratio = round(precip_24h / max(baseline_24h, 1.0), 2)
+
         vector = WeatherVector(
             precipitation_24h_mm=precip_24h,
             precipitation_7d_mm=precip_7d,
@@ -137,7 +149,9 @@ class WeatherSourceAdapter:
             relative_humidity_pct=rel_humidity,
             elevation_m=elevation,
             temperature_c=temperature,
-            drainage_capacity_index=60.0
+            drainage_capacity_index=60.0,
+            historical_baseline_24h_mm=baseline_24h,
+            precipitation_anomaly_ratio=anomaly_ratio
         )
 
         provenance = ProvenanceMetadata(
@@ -166,23 +180,40 @@ class WeatherSourceAdapter:
     ) -> WeatherAdapterResult:
         """
         PRD 2: E-023 Returns an explicitly labeled synthetic fallback dataset.
-        Downstream agents and evidence bundles retain is_synthetic=True.
+        Calibrated with regional baseline characteristics for global hotspots.
         """
-        # Calibrated default values for typical Indian monsoon hotspot
+        # Geolocation-aware synthetic parameter calibration
+        if lon < -100.0:  # USA / California Orange County
+            p24, p7d, sat, sm, elev, temp, base, prov_loc = 105.0, 210.0, 88.0, 0.40, 45.0, 19.5, 18.0, "Orange County Basin"
+        elif 40.0 <= lat <= 43.0 and 26.0 <= lon <= 30.5:  # Türkiye / Istanbul Marmara
+            p24, p7d, sat, sm, elev, temp, base, prov_loc = 95.0, 180.0, 92.0, 0.42, 28.0, 21.0, 28.0, "Istanbul Marmara"
+        elif 41.0 <= lat <= 43.0 and 33.0 <= lon <= 36.0:  # Türkiye / Kastamonu Bozkurt
+            p24, p7d, sat, sm, elev, temp, base, prov_loc = 140.0, 260.0, 99.0, 0.45, 185.0, 17.0, 35.0, "Kastamonu Bozkurt"
+        elif 57.0 <= lat <= 60.0 and 22.0 <= lon <= 28.0:  # Estonia / Pärnu Baltic
+            p24, p7d, sat, sm, elev, temp, base, prov_loc = 75.0, 165.0, 94.0, 0.43, 6.0, 14.0, 22.0, "Pärnu Baltic Coast"
+        elif 25.5 <= lat <= 27.5 and 79.5 <= lon <= 82.5:  # India / Lucknow Gomti Basin
+            p24, p7d, sat, sm, elev, temp, base, prov_loc = 120.0, 245.0, 96.0, 0.44, 123.0, 29.0, 42.0, "Lucknow Gomti Basin"
+        else:  # Default Monsoon (Mumbai/Assam)
+            p24, p7d, sat, sm, elev, temp, base, prov_loc = 78.5, 195.0, 82.0, 0.38, 12.0, 29.5, 35.0, "Monsoon Baseline"
+
+        anomaly = round(p24 / max(base, 1.0), 2)
+
         vector = WeatherVector(
-            precipitation_24h_mm=78.5,
-            precipitation_7d_mm=195.0,  # Explicit independent value, not 24h*2.8
-            soil_saturation_pct=82.0,
-            soil_moisture_m3_m3=0.38,
-            relative_humidity_pct=86.0,
-            elevation_m=12.0,
-            temperature_c=29.5,
-            drainage_capacity_index=55.0
+            precipitation_24h_mm=p24,
+            precipitation_7d_mm=p7d,
+            soil_saturation_pct=sat,
+            soil_moisture_m3_m3=sm,
+            relative_humidity_pct=88.0,
+            elevation_m=elev,
+            temperature_c=temp,
+            drainage_capacity_index=55.0,
+            historical_baseline_24h_mm=base,
+            precipitation_anomaly_ratio=anomaly
         )
 
         provenance = ProvenanceMetadata(
             provider_name="AEGIS-Synthetic-Fallback-Engine",
-            provider_url="internal://fixtures/monsoon_baseline",
+            provider_url=f"internal://fixtures/{prov_loc.lower().replace(' ', '_')}",
             query_coordinates={"latitude": lat, "longitude": lon},
             response_latency_ms=0.5,
             data_mode="synthetic",
@@ -200,44 +231,42 @@ class WeatherSourceAdapter:
 
     def get_deterministic_fixture(self, scenario: str = "cloudburst") -> WeatherAdapterResult:
         """Returns certified test fixture for reproducible evaluations."""
-        if scenario == "cloudburst":
-            vector = WeatherVector(
-                precipitation_24h_mm=140.0,
-                precipitation_7d_mm=325.0,
-                soil_saturation_pct=95.0,
-                soil_moisture_m3_m3=0.44,
-                relative_humidity_pct=96.0,
-                elevation_m=8.0,
-                temperature_c=26.0,
-                drainage_capacity_index=35.0
-            )
+        if scenario == "istanbul":
+            p24, p7d, sat, sm, elev, temp, base, lat, lon = 95.0, 180.0, 92.0, 0.42, 28.0, 21.0, 28.0, 41.0082, 28.9784
+        elif scenario == "bozkurt":
+            p24, p7d, sat, sm, elev, temp, base, lat, lon = 140.0, 260.0, 99.0, 0.45, 185.0, 17.0, 35.0, 41.9572, 34.0125
+        elif scenario == "orange_county":
+            p24, p7d, sat, sm, elev, temp, base, lat, lon = 105.0, 210.0, 88.0, 0.40, 45.0, 19.5, 18.0, 33.7175, -117.8311
+        elif scenario == "parnu":
+            p24, p7d, sat, sm, elev, temp, base, lat, lon = 75.0, 165.0, 94.0, 0.43, 6.0, 14.0, 22.0, 58.3859, 24.4971
+        elif scenario == "lucknow":
+            p24, p7d, sat, sm, elev, temp, base, lat, lon = 120.0, 245.0, 96.0, 0.44, 123.0, 29.0, 42.0, 26.8467, 80.9462
+        elif scenario == "cloudburst":
+            p24, p7d, sat, sm, elev, temp, base, lat, lon = 140.0, 325.0, 95.0, 0.44, 8.0, 26.0, 35.0, 19.0728, 72.8797
         elif scenario == "arid":
-            vector = WeatherVector(
-                precipitation_24h_mm=0.0,
-                precipitation_7d_mm=4.0,
-                soil_saturation_pct=15.0,
-                soil_moisture_m3_m3=0.08,
-                relative_humidity_pct=22.0,
-                elevation_m=450.0,
-                temperature_c=38.0,
-                drainage_capacity_index=85.0
-            )
-        else:
-            vector = WeatherVector(
-                precipitation_24h_mm=45.0,
-                precipitation_7d_mm=110.0,
-                soil_saturation_pct=60.0,
-                soil_moisture_m3_m3=0.28,
-                relative_humidity_pct=70.0,
-                elevation_m=25.0,
-                temperature_c=31.0,
-                drainage_capacity_index=70.0
-            )
+            p24, p7d, sat, sm, elev, temp, base, lat, lon = 0.0, 4.0, 15.0, 0.08, 450.0, 38.0, 10.0, 26.9124, 75.7873
+        else:  # moderate
+            p24, p7d, sat, sm, elev, temp, base, lat, lon = 45.0, 110.0, 60.0, 0.28, 25.0, 31.0, 30.0, 19.0728, 72.8797
+
+        anomaly = round(p24 / max(base, 1.0), 2)
+
+        vector = WeatherVector(
+            precipitation_24h_mm=p24,
+            precipitation_7d_mm=p7d,
+            soil_saturation_pct=sat,
+            soil_moisture_m3_m3=sm,
+            relative_humidity_pct=85.0,
+            elevation_m=elev,
+            temperature_c=temp,
+            drainage_capacity_index=50.0,
+            historical_baseline_24h_mm=base,
+            precipitation_anomaly_ratio=anomaly
+        )
 
         provenance = ProvenanceMetadata(
             provider_name="AEGIS-Golden-Fixture",
             provider_url=f"fixture://scenarios/{scenario}",
-            query_coordinates={"latitude": 19.0728, "longitude": 72.8797},
+            query_coordinates={"latitude": lat, "longitude": lon},
             response_latency_ms=0.1,
             data_mode="fixture",
             is_synthetic=True,

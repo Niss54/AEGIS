@@ -95,15 +95,31 @@ class UnifiedRiskResponse(BaseModel):
     thought_trace: List[AgentTraceStep] = Field(default_factory=list)
 
 
+class JurisdictionHierarchy(BaseModel):
+    """
+    Nested jurisdictional classification (inspired by Yale OpenLab OpenClimate architecture).
+    Enables multi-tiered climate risk and emissions roll-up across municipal, regional, and national bodies.
+    """
+    country_iso: str = Field(..., description="ISO 3166-1 alpha-2 country code e.g. IN, TR, US, EE")
+    country_name: str = Field(..., description="Country name")
+    admin1_state: str = Field(..., description="Primary administrative subdivision (state/province)")
+    admin2_district: str = Field(..., description="Secondary administrative subdivision (district/city/county)")
+    basin_name: str = Field(..., description="Hydrological basin or watershed identifier")
+
+
 class HotspotModel(BaseModel):
     id: str
     name: str
     state: str
+    country: str = "India"
     lat: float
     lon: float
     risk_profile: str
     description: str
     typical_annual_loss_inr: str
+    typical_annual_loss_usd: Optional[str] = None
+    historical_baseline_24h_mm: float = 30.0
+    jurisdiction: Optional[JurisdictionHierarchy] = None
 
 
 class HealthResponse(BaseModel):
