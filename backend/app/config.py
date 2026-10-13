@@ -69,6 +69,8 @@ class Settings(BaseSettings):
     PINATA_JWT: Optional[str] = None
     PINATA_API_KEY: Optional[str] = None
     PINATA_SECRET_KEY: Optional[str] = None
+    PINATA_API_SECRET: Optional[str] = None
+    POLYGONSCAN_API_KEY: Optional[str] = None
     IPFS_GATEWAY_URL: str = "https://gateway.pinata.cloud/ipfs/"
 
     # Evidence & Cryptographic Verification Settings
@@ -98,6 +100,11 @@ class Settings(BaseSettings):
                 "configured": bool(self.GROQ_API_KEY and self.GROQ_API_KEY.strip()),
                 "role": "Sub-500ms Thought Trace Monologue"
             },
+            "openai": {
+                "name": "OpenAI GPT-4o",
+                "configured": bool(self.OPENAI_API_KEY and self.OPENAI_API_KEY.strip()),
+                "role": "Autonomous Fallback LLM"
+            },
             "open_meteo": {
                 "name": "Open-Meteo Weather API",
                 "configured": True,  # Free tier active by default
@@ -118,6 +125,21 @@ class Settings(BaseSettings):
                 "name": "Sarvam AI (Indic Speech)",
                 "configured": bool(self.SARVAM_API_KEY and self.SARVAM_API_KEY.strip()),
                 "role": "Bhasha-AI Hindi & Regional Neural Speech"
+            },
+            "bhashini": {
+                "name": "Bhashini (MeitY India)",
+                "configured": bool(self.BHASHINI_API_KEY and self.BHASHINI_USER_ID),
+                "role": "Vernacular Language Translation Mission"
+            },
+            "pinata": {
+                "name": "Pinata IPFS Gateway",
+                "configured": bool(self.PINATA_JWT or (self.PINATA_API_KEY and (self.PINATA_SECRET_KEY or self.PINATA_API_SECRET))),
+                "role": "Decentralized Climate Evidence Storage"
+            },
+            "polygonscan": {
+                "name": "PolygonScan API",
+                "configured": bool(self.POLYGONSCAN_API_KEY and self.POLYGONSCAN_API_KEY.strip()),
+                "role": "Smart Contract Verification & Explorer"
             },
             "blockchain": {
                 "name": "Polygon Amoy Testnet",
