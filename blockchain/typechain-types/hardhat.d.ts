@@ -46,6 +46,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.AEGISRiskLedger__factory>;
     getContractFactory(
+      name: "AgenticSettlementPool",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.AgenticSettlementPool__factory>;
+    getContractFactory(
       name: "CarbonFloodCredit",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CarbonFloodCredit__factory>;
@@ -58,9 +62,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.DisasterBond__factory>;
     getContractFactory(
+      name: "IZKTelemetryVerifier",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IZKTelemetryVerifier__factory>;
+    getContractFactory(
       name: "MockERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MockERC20__factory>;
+    getContractFactory(
+      name: "MockZKTelemetryVerifier",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MockZKTelemetryVerifier__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -103,6 +115,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.AEGISRiskLedger>;
     getContractAt(
+      name: "AgenticSettlementPool",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.AgenticSettlementPool>;
+    getContractAt(
       name: "CarbonFloodCredit",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -118,10 +135,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.DisasterBond>;
     getContractAt(
+      name: "IZKTelemetryVerifier",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IZKTelemetryVerifier>;
+    getContractAt(
       name: "MockERC20",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.MockERC20>;
+    getContractAt(
+      name: "MockZKTelemetryVerifier",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MockZKTelemetryVerifier>;
 
     deployContract(
       name: "Ownable",
@@ -156,6 +183,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.AEGISRiskLedger>;
     deployContract(
+      name: "AgenticSettlementPool",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AgenticSettlementPool>;
+    deployContract(
       name: "CarbonFloodCredit",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.CarbonFloodCredit>;
@@ -168,9 +199,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.DisasterBond>;
     deployContract(
+      name: "IZKTelemetryVerifier",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IZKTelemetryVerifier>;
+    deployContract(
       name: "MockERC20",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MockERC20>;
+    deployContract(
+      name: "MockZKTelemetryVerifier",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockZKTelemetryVerifier>;
 
     deployContract(
       name: "Ownable",
@@ -213,6 +252,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.AEGISRiskLedger>;
     deployContract(
+      name: "AgenticSettlementPool",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.AgenticSettlementPool>;
+    deployContract(
       name: "CarbonFloodCredit",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -228,10 +272,20 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.DisasterBond>;
     deployContract(
+      name: "IZKTelemetryVerifier",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IZKTelemetryVerifier>;
+    deployContract(
       name: "MockERC20",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MockERC20>;
+    deployContract(
+      name: "MockZKTelemetryVerifier",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MockZKTelemetryVerifier>;
 
     // default types
     getContractFactory(

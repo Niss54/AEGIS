@@ -34,6 +34,19 @@ class CFMCRetireRequest(BaseModel):
     reason: str = Field("Corporate ESG Climate Neutrality", example="Offset Scope 1 Emissions")
 
 
+class SettleReliefRequest(BaseModel):
+    evidence_digest: str = Field(..., example="0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef")
+    flood_depth_cm: int = Field(..., ge=1, example=65)
+    municipal_beneficiary: str = Field(..., example="0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
+    zk_proof: Optional[str] = Field("0x", example="0x")
+
+
+class CFMCRetireResilienceRequest(BaseModel):
+    amount: int = Field(..., gt=0, example=50)
+    evidence_digest: str = Field(..., example="0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef")
+    memo: Optional[str] = Field("Toucan / KlimaDAO programmatic offset retirement", example="Toucan / KlimaDAO programmatic offset retirement")
+
+
 # ─── BLOCKCHAIN ENDPOINTS ───────────────────────────────────────────────────
 
 @router.get("/blockchain/status")
@@ -105,6 +118,40 @@ async def retire_cfmc(req: CFMCRetireRequest):
         "tx_hash": chain_client._generate_tx_hash(),
         "timestamp": int(time.time())
     }
+
+
+@router.post("/blockchain/settle-relief")
+async def settle_relief(req: SettleReliefRequest):
+    """
+    Autonomous stablecoin emergency relief settlement for AI agents.
+    Enforces ClimateEvidenceRegistry verification and UNDP Double-Counting Defense.
+    """
+    try:
+        res = chain_client.settle_emergency_relief(
+            evidence_digest=req.evidence_digest,
+            depth_cm=req.flood_depth_cm,
+            municipal_beneficiary=req.municipal_beneficiary,
+            zk_proof=req.zk_proof or "0x"
+        )
+        return res
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.post("/blockchain/cfmc/retire-resilience")
+async def retire_cfmc_resilience(req: CFMCRetireResilienceRequest):
+    """
+    Retire CFMC carbon offset tokens tied to a verified flood resilience evidence digest.
+    """
+    try:
+        res = chain_client.retire_offset_for_flood_resilience(
+            amount=req.amount,
+            evidence_digest=req.evidence_digest,
+            memo=req.memo or "Flood resilience offset retirement"
+        )
+        return res
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 # ─── EVIDENCE TAMPER VERIFICATION ENDPOINTS ─────────────────────────────────

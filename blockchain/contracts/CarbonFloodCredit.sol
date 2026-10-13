@@ -36,6 +36,13 @@ contract CarbonFloodCredit is ERC20, Ownable {
     );
 
     event CFMCRetired(address indexed holder, uint256 amount, string reason);
+    event OffsetRetiredForResilience(
+        address indexed retiree,
+        uint256 amount,
+        bytes32 indexed evidenceDigest,
+        string memo,
+        uint256 timestamp
+    );
     event BackendUpdated(address indexed oldBackend, address indexed newBackend);
 
     constructor(address _aegisBackend)
@@ -83,6 +90,17 @@ contract CarbonFloodCredit is ERC20, Ownable {
         require(amount > 0, "CarbonFloodCredit: zero amount");
         _burn(msg.sender, amount);
         emit CFMCRetired(msg.sender, amount, reason);
+    }
+
+    function retireOffsetForFloodResilience(
+        uint256 amount,
+        bytes32 evidenceDigest,
+        string calldata memo
+    ) external {
+        require(amount > 0, "CarbonFloodCredit: zero amount");
+        require(evidenceDigest != bytes32(0), "CarbonFloodCredit: zero evidence digest");
+        _burn(msg.sender, amount);
+        emit OffsetRetiredForResilience(msg.sender, amount, evidenceDigest, memo, block.timestamp);
     }
 
     function setBackend(address newBackend) external onlyOwner {
