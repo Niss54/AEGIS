@@ -25,7 +25,8 @@ import {
   Zap,
   TrendingUp,
   Code,
-  Check
+  Check,
+  Navigation
 } from "lucide-react";
 import { BlockchainPanel } from "./components/BlockchainPanel";
 import { EvidenceVerifierModal } from "./components/EvidenceVerifierModal";
@@ -755,6 +756,8 @@ export function App() {
   const [integrationStatus, setIntegrationStatus] = useState<any>(null);
   const [pingingApi, setPingingApi] = useState<boolean>(false);
   const [apiPingSuccess, setApiPingSuccess] = useState<boolean | null>(null);
+  const [detectingLocation, setDetectingLocation] = useState<boolean>(false);
+  const [locationToast, setLocationToast] = useState<string | null>(null);
 
   // Map Reference
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -1063,6 +1066,93 @@ export function App() {
     runAnalysis(h.lat, h.lon, h.name);
   };
 
+  const detectMyLocation = () => {
+    setDetectingLocation(true);
+    if (!("geolocation" in navigator)) {
+      snapToFallbackLocation("Geolocation not supported by browser. Defaulted to Lucknow, UP.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        try {
+          const res = await fetch(`${API_BASE}/geo/detect-location`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ lat: latitude, lon: longitude })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            const hotspot = data.nearest_hotspot;
+            if (hotspot) {
+              setSelectedHotspot(hotspot.id);
+              setCurrentLat(hotspot.lat);
+              setCurrentLon(hotspot.lon);
+              setLocationName(hotspot.name);
+              setActiveLangTab("regional");
+              setLocationToast(`🛰️ GPS: Near ${hotspot.name.split("—")[0].trim()} (${data.distance_km}km)`);
+              runAnalysis(hotspot.lat, hotspot.lon, hotspot.name);
+              setTimeout(() => setLocationToast(null), 4500);
+              setDetectingLocation(false);
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn("Backend detect-location error, falling back locally:", err);
+        }
+
+        snapToNearestLocalHotspot(latitude, longitude);
+      },
+      (err) => {
+        console.warn("Geolocation permission denied or timed out:", err);
+        snapToFallbackLocation("📍 Geolocation simulated to user base: Lucknow, Uttar Pradesh");
+      },
+      { timeout: 6000, enableHighAccuracy: true }
+    );
+  };
+
+  const snapToFallbackLocation = (msg: string) => {
+    const lucknow = hotspots.find((h) => h.id === "lucknow-gomti") || {
+      id: "lucknow-gomti",
+      name: "Lucknow — Gomti River Basin & Lowland Drainage Corridor",
+      lat: 26.8467,
+      lon: 80.9462
+    };
+    setSelectedHotspot(lucknow.id);
+    setCurrentLat(lucknow.lat);
+    setCurrentLon(lucknow.lon);
+    setLocationName(lucknow.name);
+    setActiveLangTab("regional");
+    setLocationToast(msg);
+    runAnalysis(lucknow.lat, lucknow.lon, lucknow.name);
+    setTimeout(() => setLocationToast(null), 4500);
+    setDetectingLocation(false);
+  };
+
+  const snapToNearestLocalHotspot = (lat: number, lon: number) => {
+    let nearest = hotspots[0];
+    let minDist = 999999;
+    hotspots.forEach((h) => {
+      const d = Math.hypot(h.lat - lat, h.lon - lon);
+      if (d < minDist) {
+        minDist = d;
+        nearest = h;
+      }
+    });
+    if (nearest) {
+      setSelectedHotspot(nearest.id);
+      setCurrentLat(nearest.lat);
+      setCurrentLon(nearest.lon);
+      setLocationName(nearest.name);
+      setActiveLangTab("regional");
+      setLocationToast(`🛰️ GPS: Snapped to ${nearest.name.split("—")[0].trim()}`);
+      runAnalysis(nearest.lat, nearest.lon, nearest.name);
+      setTimeout(() => setLocationToast(null), 4500);
+    }
+    setDetectingLocation(false);
+  };
+
   const getTierClass = (tier?: string) => {
     switch (tier) {
       case "CRITICAL":
@@ -1348,6 +1438,22 @@ export function App() {
 
         {/* Right Action Controls */}
         <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
+          {/* Quick GPS Location Detect in Header */}
+          <button
+            className="mcp-pill-btn"
+            style={{
+              borderColor: "rgba(56, 189, 248, 0.4)",
+              background: "rgba(56, 189, 248, 0.12)",
+              color: "#38BDF8"
+            }}
+            onClick={detectMyLocation}
+            disabled={detectingLocation}
+            title="Auto-detect current GPS coordinates and activate local jurisdiction language"
+          >
+            <Navigation size={12} color="#38BDF8" className={detectingLocation ? "spin" : ""} />
+            <span>{detectingLocation ? "Locating..." : "🛰️ GPS Detect"}</span>
+          </button>
+
           {/* Prominent Connect MCP Button */}
           <button
             className="mcp-pill-btn"
@@ -1459,12 +1565,57 @@ export function App() {
             gap: "16px"
           }}
         >
-          {/* Section: Bharat Hotspots */}
+          {/* 1-Click GPS Detect My Location Button */}
+          <div>
+            <button
+              onClick={detectMyLocation}
+              disabled={detectingLocation}
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "8px",
+                background: "linear-gradient(135deg, rgba(56, 189, 248, 0.18) 0%, rgba(167, 139, 250, 0.18) 100%)",
+                border: "1px solid rgba(56, 189, 248, 0.45)",
+                borderRadius: "8px",
+                padding: "9px 12px",
+                color: "#FFFFFF",
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                cursor: detectingLocation ? "wait" : "pointer",
+                boxShadow: "0 2px 8px rgba(56, 189, 248, 0.15)",
+                transition: "all 0.2s ease"
+              }}
+            >
+              <Navigation size={14} color="#38BDF8" className={detectingLocation ? "spin" : ""} />
+              <span>{detectingLocation ? "Triangulating GPS..." : "🛰️ Detect My Location"}</span>
+            </button>
+            {locationToast && (
+              <div style={{
+                marginTop: "6px",
+                padding: "6px 8px",
+                borderRadius: "6px",
+                background: "rgba(16, 185, 129, 0.12)",
+                border: "1px solid rgba(16, 185, 129, 0.35)",
+                fontSize: "0.68rem",
+                color: "#10B981",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px"
+              }}>
+                <CheckCircle2 size={12} color="#10B981" />
+                <span>{locationToast}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Section: Global & Regional Climate Hotspots */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
               <Compass size={16} color="var(--color-primary)" />
               <h2 style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--color-text-secondary)" }}>
-                Bharat Climate Hotspots
+                Global &amp; Regional Hotspots
               </h2>
             </div>
 
