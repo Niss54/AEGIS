@@ -14,12 +14,13 @@ import httpx
 
 from backend.app.schemas import (
     AnalyzeRequest, UnifiedRiskResponse, Agent1Result, Agent2Result, Agent3Result,
-    RiskMetrics, HorizonCurves, AgentTraceStep
+    RiskMetrics, HorizonCurves, AgentTraceStep, CriticalInfrastructureVector
 )
 from backend.app.websocket import manager
 from backend.app.agent1_ml import flood_ml_engine
 from backend.app.agent2_geo import chronic_geo_engine
 from backend.app.agent3_financial import financial_risk_engine
+from backend.app.rag.hybrid_cache import hybrid_cache
 
 router = APIRouter(tags=["Analysis & Agent Orchestration"])
 
@@ -123,15 +124,18 @@ async def tool_compute_financial_var(input_data: ToolVarInput):
 
 
 @router.post("/tools/policy-rag")
-async def tool_query_policy_rag(query: str, top_k: int = 3):
-    """Queries ChromaDB regulatory vector collection for matching climate policy clauses."""
-    clauses = financial_risk_engine.rag.query(query, top_k=top_k)
+async def tool_query_policy_rag(query: str, region: Optional[str] = None, sector: Optional[str] = None, top_k: int = 3):
+    """Queries Hybrid RAG regulatory vector collection and Redis L1 cache for matching climate policy clauses."""
+    clauses = financial_risk_engine.rag.query(query, region=region, sector=sector, top_k=top_k)
     return {
         "status": "success",
         "tool": "query_policy_rag",
         "query": query,
+        "region": region,
+        "sector": sector,
         "results_count": len(clauses),
-        "clauses": clauses
+        "clauses": clauses,
+        "cache_stats": hybrid_cache.get_stats()
     }
 
 
@@ -378,12 +382,17 @@ async def analyze_location(req: AnalyzeRequest):
             content=f"Computed waterlogging depth: {waterlogging_depth} cm. Municipal drainage over capacity by {drainage_overflow}%. {buildings_count} critical structures in hazard zone. Estimated structural damage: ₹{damage_inr / 10000000:.2f} Crores ($ {damage_usd / 1000000:.2f}M)."
         ))
 
+        crit_vector_model = None
+        if "critical_infrastructure_vector" in geo_result and geo_result["critical_infrastructure_vector"]:
+            crit_vector_model = CriticalInfrastructureVector(**geo_result["critical_infrastructure_vector"])
+
         agent2_res = Agent2Result(
             status="COMPLETED",
             exposure_tier=exposure_tier,
             waterlogging_depth_cm=waterlogging_depth,
             buildings_at_risk=buildings_count,
             drainage_overflow_pct=drainage_overflow,
+            critical_infrastructure_vector=crit_vector_model,
             damage_estimate_inr=damage_inr,
             damage_estimate_usd=damage_usd,
             geo_overlay_geojson=f"/api/v1/geo/layer/{event_id}",

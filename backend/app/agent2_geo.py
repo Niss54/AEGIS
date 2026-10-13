@@ -137,7 +137,19 @@ class ChronicVulnerabilityEngine:
 
         total_loss_usd = int(total_loss_inr / self.inr_per_usd)
 
-        # Step 6: 10/20/30-Year Horizon Curves
+        # Step 6: AquaFHIR Cross-Sector Infrastructure Hazard Vector
+        crit_count = asset_breakdown["critical_infrastructure"]
+        power_substations = max(1, int(crit_count * 0.4)) if net_pooling_depth_cm > 25 else 0
+        healthcare_exposed = max(1, int(crit_count * 0.3)) if net_pooling_depth_cm > 40 else 0
+        evacuation_submerged = max(1, int(drainage_overflow_pct / 20.0)) if net_pooling_depth_cm > 35 else 0
+        critical_infra_vector = {
+            "power_substations_at_risk": power_substations,
+            "healthcare_facilities_exposed": healthcare_exposed,
+            "evacuation_corridors_submerged": evacuation_submerged,
+            "drainage_conduits_overcapacity_pct": drainage_overflow_pct
+        }
+
+        # Step 7: 10/20/30-Year Horizon Curves
         # Factors in RCP 4.5/8.5 accelerated precipitation anomalies
         horizon_10yr = round(min(1.0, 0.28 + (risk_score * 0.48)), 2)
         horizon_20yr = round(min(1.0, horizon_10yr + 0.22), 2)
@@ -154,6 +166,7 @@ class ChronicVulnerabilityEngine:
             "waterlogging_depth_cm": net_pooling_depth_cm,
             "buildings_at_risk": num_structures,
             "drainage_overflow_pct": drainage_overflow_pct,
+            "critical_infrastructure_vector": critical_infra_vector,
             "damage_estimate_inr": total_loss_inr,
             "damage_estimate_usd": total_loss_usd,
             "asset_breakdown": detailed_damages,

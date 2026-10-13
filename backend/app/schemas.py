@@ -47,6 +47,17 @@ class HorizonCurves(BaseModel):
         populate_by_name = True
 
 
+class CriticalInfrastructureVector(BaseModel):
+    """
+    Cross-sector critical infrastructure hazard vector (inspired by AquaFHIR).
+    Tracks exposure across electrical grid, public health facilities, and civic corridors.
+    """
+    power_substations_at_risk: int = Field(0, description="Electrical substations within hazard inundation zone")
+    healthcare_facilities_exposed: int = Field(0, description="Hospitals and emergency healthcare clinics at risk")
+    evacuation_corridors_submerged: int = Field(0, description="Primary civic evacuation corridors cut off")
+    drainage_conduits_overcapacity_pct: float = Field(0.0, description="Stormwater conduit overload percentage")
+
+
 class Agent2Result(BaseModel):
     status: str = Field("COMPLETED", description="Agent execution status")
     exposure_tier: str = Field(..., description="SUPERFICIAL_WATERLOGGING or INFRASTRUCTURE_FAILURE")
@@ -55,6 +66,7 @@ class Agent2Result(BaseModel):
     drainage_overflow_pct: float = Field(..., description="Municipal stormwater drainage capacity exceeded percentage")
     damage_estimate_inr: int = Field(..., description="Estimated 10-year direct structural damage in INR")
     damage_estimate_usd: int = Field(..., description="Estimated 10-year direct structural damage in USD")
+    critical_infrastructure_vector: Optional[CriticalInfrastructureVector] = Field(None, description="AquaFHIR-aligned critical lifeline exposure metrics")
     geo_overlay_geojson: Optional[str] = Field(None, description="Endpoint or GeoJSON polygon url")
     horizon_curves: HorizonCurves
     execution_time_ms: float
