@@ -216,14 +216,15 @@ OUTPUT: VaR: ₹37.5 Cr | stranded_asset_risk: HIGH | compliance_gap: 34%
 #### Observed Prototype Impact (Built Today):
 | Metric | Value |
 |:---|:---|
-| End-to-end analysis time (3 agents) | **< 8 seconds** |
+| End-to-end analysis time (3 agents) | **< 3 seconds** |
 | ML classifier accuracy | **95.14%** (Scikit-Learn GradientBoosting) |
-| Smart contract test suite | **100% passing (29/29 tests)** |
-| Blockchain settlement | **Polygon Amoy Testnet (Chain ID 80002)** |
-| Indian hotspots pre-loaded | **4 cities** (Mumbai, Bengaluru, Assam, Chennai) |
-| Voice alert languages | **2** (English + Hindi) |
-| API integrations live | **6+** (Open-Meteo, Groq, Gemini, ElevenLabs, Sarvam, Mapbox) |
-| Full test suite | **100% passing (81 python + 29 hardhat)** |
+| Smart contract test suite | **100% passing (40/40 tests)** |
+| Blockchain settlement | **Polygon Amoy Testnet (Chain ID 80002) / Base Sepolia** |
+| Multi-national hotspots pre-loaded | **8 international basins** (Lucknow, Mumbai, Istanbul, Kastamonu, Orange County, Pärnu, Bengaluru, Assam) |
+| Voice alert languages | **5** (Hindi Devanagari, Marathi, Turkish, Estonian, English) |
+| API integrations live | **8+** (Open-Meteo, Groq, Gemini, ElevenLabs, Sarvam AI, Bhashini, Mapbox, Redis) |
+| Autonomous Liquidity Pool | **AgenticSettlementPool.sol (USDC) + DisasterBond.sol** |
+| Full test suite | **100% passing (130 python + 40 hardhat = 170/170 tests)** |
 
 #### Projected Scale:
 ```
