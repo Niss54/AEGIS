@@ -6,7 +6,7 @@
 
 ---
 
-## SLIDE 1 — THE HOOK
+## SLIDE 1: Title & Vision — THE HOOK
 
 ### **"Every monsoon, India responds to floods _after_ the damage is done."**
 
@@ -22,7 +22,7 @@
 
 ---
 
-## SLIDE 2 — THE BHARAT CRISIS (The Real Problem)
+## SLIDE 2: The Problem — THE BHARAT CRISIS (The Real Problem)
 
 ### **₹2 Lakh Crore+ lost annually to climate disasters. Most of it was preventable.**
 
@@ -45,7 +45,7 @@
 
 ---
 
-## SLIDE 3 — WHY EXISTING APPROACHES FAIL
+## SLIDE 3: The Architecture — WHY EXISTING APPROACHES FAIL
 
 ### **Current tools solve fragments. Nobody connects the full chain.**
 
@@ -62,7 +62,7 @@
 
 ---
 
-## SLIDE 4 — THE AEGIS SOLUTION
+## SLIDE 4: Technical Depth — THE AEGIS SOLUTION
 
 ### **3 Autonomous AI Agents. 1 Unified Command Center. Zero Human Bottleneck.**
 
@@ -94,7 +94,7 @@
 
 ---
 
-## SLIDE 5 — HOW IT ACTUALLY WORKS (Architecture)
+## SLIDE 5: Market Opportunity — HOW IT ACTUALLY WORKS (Architecture)
 
 ### **Hub-and-Spoke Multi-Agent Architecture via Model Context Protocol (MCP)**
 
