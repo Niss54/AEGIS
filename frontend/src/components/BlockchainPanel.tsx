@@ -44,18 +44,18 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
   activeHotspot
 }) => {
   const [stats, setStats] = useState<any>({
-    network: "Polygon Amoy Testnet",
+    network: "Polygon Amoy / Local EVM Testbed",
     chain_id: 80002,
-    total_assessments: 128,
-    critical_alerts: 14,
-    bonds_triggered: 1,
-    total_payout_usdc: 50000,
-    cfmc_minted: 300,
+    total_assessments: 0,
+    critical_alerts: 0,
+    bonds_triggered: 0,
+    total_payout_usdc: 0,
+    cfmc_minted: 0,
     contracts: {
-      risk_ledger: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
-      disaster_bond: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
-      carbon_flood_credit: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
-      mock_usdc: "0x610178dA2BA51AD074466328243384524b7d3434"
+      risk_ledger: "0x89C57973B8e72faFE2c510D12E6B1D0bB5d8C971",
+      disaster_bond: "0x4b7868D9C0632a6773F2f89D5276B8E00B29b87B",
+      carbon_flood_credit: "0x16b04D2e2051664C72B9a221f7B5A795eA0A8F25",
+      mock_usdc: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     }
   });
 
@@ -80,8 +80,8 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
       payout_usdc: 75000,
       trigger_threshold_bps: 6500,
       consecutive_required: 2,
-      current_consecutive: 2,
-      triggered: true,
+      current_consecutive: 0,
+      triggered: false,
       beneficiary: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
     },
     {
@@ -98,7 +98,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
     }
   ]);
 
-  const [cfmcBalance, setCfmcBalance] = useState<number>(300);
+  const [cfmcBalance, setCfmcBalance] = useState<number>(0);
   const [retireAmount, setRetireAmount] = useState<number>(25);
   const [retireReason, setRetireReason] = useState<string>("Corporate ESG Scope 1 Climate Offset");
   const [retireReceipt, setRetireReceipt] = useState<any>(null);
@@ -127,7 +127,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
         setStats((prev: any) => ({
           ...prev,
           ...data,
-          total_payout_usdc: data.total_payout_usdc ?? (data.bonds_triggered ? data.bonds_triggered * 50000 : 50000)
+          total_payout_usdc: data.total_payout_usdc ?? (data.total_settled_usdc ?? (data.bonds_triggered ? data.bonds_triggered * 50000 : 0))
         }));
       }
     } catch (e) {
@@ -156,6 +156,18 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
       }
     } catch (e) {
       console.warn("Using offline bonds fallback:", e);
+    }
+
+    try {
+      const resCfmc = await fetch(`${backendBase}/api/v2/blockchain/cfmc/balance?address=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`);
+      if (resCfmc.ok) {
+        const dataCfmc = await resCfmc.json();
+        if (typeof dataCfmc.balance === "number") {
+          setCfmcBalance(dataCfmc.balance);
+        }
+      }
+    } catch (e) {
+      // Retain live zero state
     }
   };
 
@@ -417,7 +429,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
                     boxShadow: "0 0 8px #00FF88"
                   }}
                 />
-                Polygon Amoy Synced (Chain ID 80002)
+                Verified PoC / Testnet Ledger (Chain ID 80002 / 31337)
               </span>
             </div>
             <p
@@ -454,7 +466,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
             <span>Sync Ledger</span>
           </button>
           <a
-            href="https://amoy.polygonscan.com/address/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+            href={stats.explorer || "https://amoy.polygonscan.com/address/0x89C57973B8e72faFE2c510D12E6B1D0bB5d8C971"}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -517,7 +529,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
               Total Anchored Reports
             </div>
             <div style={{ fontSize: "22px", fontWeight: 700, color: "#FFFFFF", fontFamily: "var(--font-mono)" }}>
-              {stats.total_assessments ?? 128}
+              {stats.total_assessments ?? 0}
             </div>
           </div>
         </div>
@@ -553,7 +565,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
               Critical Alerts On-Chain
             </div>
             <div style={{ fontSize: "22px", fontWeight: 700, color: "var(--color-critical)", fontFamily: "var(--font-mono)" }}>
-              {stats.critical_alerts ?? 14}
+              {stats.critical_alerts ?? 0}
             </div>
           </div>
         </div>
@@ -589,7 +601,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
               Bonds Auto-Disbursed
             </div>
             <div style={{ fontSize: "22px", fontWeight: 700, color: "#FFD700", fontFamily: "var(--font-mono)" }}>
-              ${stats.total_payout_usdc?.toLocaleString() ?? "50,000"} USDC
+              ${(stats.total_payout_usdc ?? (stats.total_settled_usdc ?? 0)).toLocaleString()} USDC
             </div>
           </div>
         </div>
@@ -625,7 +637,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
               CFMC Token Supply
             </div>
             <div style={{ fontSize: "22px", fontWeight: 700, color: "var(--color-safe)", fontFamily: "var(--font-mono)" }}>
-              {stats.cfmc_minted ?? 300} CFMC
+              {stats.cfmc_minted ?? 0} CFMC
             </div>
           </div>
         </div>
@@ -650,7 +662,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
         initialConfirmations={2}
         chainId={stats.chain_id || 80002}
         networkName={stats.network || "Polygon Amoy Testnet"}
-        registryAddress={stats.contracts?.risk_ledger || "0x8a729e2A676AC29e2898863f8d38A88E12A1F8a9"}
+        registryAddress={stats.contracts?.risk_ledger || "0x89C57973B8e72faFE2c510D12E6B1D0bB5d8C971"}
       />
 
       {/* ── SECTION 1: LATEST ON-CHAIN ASSESSMENT & IMMUTABLE PROOF ── */}
