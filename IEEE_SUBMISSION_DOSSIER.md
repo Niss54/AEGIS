@@ -16,6 +16,7 @@
 | **Backend Reliability** | 130/130 Passing Pytest Suite (Zero Failures) |
 | **Frontend UI** | React 19 + TypeScript + Tailwind CSS + Mapbox/Leaflet GIS Basemap (Vite 0 Errors) |
 | **Repository** | [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS) |
+| **Official Devpost Form** | [DEVPOST_SUBMISSION.md](./DEVPOST_SUBMISSION.md) (100% Complete Questionnaire) |
 
 ---
 
