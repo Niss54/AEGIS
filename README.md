@@ -10,7 +10,7 @@
 > **Translating Environmental Hazards into Actionable Business, Civic & On-Chain Financial Intelligence**
 
 Built for **IEEE ClimateChain Hackathon 2026** & **Enterprise Environmental Intelligence**  
-*Track 4: AI & Cybersecurity (Primary) · Track 1: Climate Data Verification · Track 3: Carbon Markets · Track 5: Data Integrity*
+*Primary Track: Track 4 — Climate Data & Environmental Monitoring · Cross-Track Utility: Track 1 — Carbon Markets & Emissions Transparency*
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Niss54/AEGIS)
 [![Network](https://img.shields.io/badge/Network-Polygon%20Amoy%20(80002)-8A2BE2?style=for-the-badge&logo=polygon&logoColor=white)](https://amoy.polygonscan.com/address/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D)
