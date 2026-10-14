@@ -16,12 +16,17 @@ class IPFSStorageClient:
     """Storage client for IPFS via Pinata with content-addressable local fallback."""
 
     def __init__(self, api_key: Optional[str] = None, api_secret: Optional[str] = None):
-        self.api_key = api_key or os.getenv("PINATA_API_KEY", "")
-        self.api_secret = api_secret or os.getenv("PINATA_API_SECRET", "")
-        self.headers = {
-            "pinata_api_key": self.api_key,
-            "pinata_secret_api_key": self.api_secret,
-        }
+        self.jwt = os.getenv("PINATA_JWT", "").strip()
+        self.api_key = api_key or os.getenv("PINATA_API_KEY", "").strip()
+        self.api_secret = api_secret or os.getenv("PINATA_API_SECRET", "").strip() or os.getenv("PINATA_SECRET_KEY", "").strip()
+        
+        if self.jwt:
+            self.headers = {"Authorization": f"Bearer {self.jwt}"}
+        else:
+            self.headers = {
+                "pinata_api_key": self.api_key,
+                "pinata_secret_api_key": self.api_secret,
+            }
         self._local_cache: Dict[str, Any] = {}
 
     def compute_local_hash(self, payload: dict) -> str:
@@ -44,7 +49,7 @@ class IPFSStorageClient:
         synthetic_cid = self._generate_synthetic_cid(serialized)
         self._local_cache[synthetic_cid] = payload
 
-        if not self.api_key or not self.api_secret or self.api_key.startswith("<"):
+        if not self.jwt and (not self.api_key or not self.api_secret or self.api_key.startswith("<")):
             return {
                 "cid": synthetic_cid,
                 "url": f"{IPFS_PUBLIC_GATEWAY}/{synthetic_cid}",

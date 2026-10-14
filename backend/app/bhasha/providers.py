@@ -99,7 +99,8 @@ class SarvamAIConnector:
             payload = {
                 "inputs": [text[:500]],
                 "target_language_code": target_lang_code,
-                "speaker": speaker
+                "speaker": speaker,
+                "model": "bulbul:v3"
             }
             resp = httpx.post(self.endpoint, headers=headers, json=payload, timeout=12.0)
             if resp.status_code == 200:

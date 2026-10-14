@@ -261,6 +261,29 @@ class FinancialRiskEngine:
                 except Exception as e:
                     logger.debug(f"Gemini {g_model} call skipped: {e}")
 
+        # 3. Try OpenAI (GPT-4o-mini / GPT-4o)
+        if settings.OPENAI_API_KEY and settings.OPENAI_API_KEY.strip():
+            try:
+                url = "https://api.openai.com/v1/chat/completions"
+                resp = httpx.post(
+                    url,
+                    headers={"Authorization": f"Bearer {settings.OPENAI_API_KEY.strip()}", "Content-Type": "application/json"},
+                    json={
+                        "model": "gpt-4o-mini",
+                        "messages": [{"role": "user", "content": prompt}],
+                        "temperature": 0.3,
+                        "max_tokens": 250
+                    },
+                    timeout=4.0
+                )
+                if resp.status_code == 200:
+                    text = resp.json()["choices"][0]["message"]["content"].strip()
+                    if text:
+                        logger.info("OpenAI LLM generated live reasoning response.")
+                        return text
+            except Exception as e:
+                logger.debug(f"OpenAI call skipped: {e}")
+
         return None
 
     def synthesize_sarvam_speech(self, text: str, speaker: str = "priya") -> Optional[str]:
@@ -279,7 +302,8 @@ class FinancialRiskEngine:
                 json={
                     "inputs": [text[:500]],
                     "target_language_code": "hi-IN",
-                    "speaker": speaker
+                    "speaker": speaker,
+                    "model": "bulbul:v3"
                 },
                 timeout=12.0
             )
