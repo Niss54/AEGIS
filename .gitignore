@@ -68,3 +68,7 @@ blockchain/cache/
 # AI Harness & Local Agent Tooling
 .agents/
 skills-lock.json
+
+# Subprojects & Scratch
+terra/
+scratch/
