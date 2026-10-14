@@ -1,0 +1,14 @@
+{
+  "network": "polygonAmoy",
+  "chainId": 80002,
+  "deployer": "0x5346747A11100C4f2b74CEd4C3E21e25e98B82e3",
+  "backendWallet": "0x5346747A11100C4f2b74CEd4C3E21e25e98B82e3",
+  "timestamp": "2026-10-15T05:32:38.119Z",
+  "contracts": {
+    "MockUSDC": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "AEGISRiskLedger": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "DisasterBond": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "CarbonFloodCredit": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+  },
+  "explorer": "https://amoy.polygonscan.com/address/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+}
