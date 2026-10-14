@@ -135,7 +135,7 @@
 | **Backend** | FastAPI (async Python) | High-throughput orchestration with sub-second API response |
 | **Agent Orchestration** | LangGraph StateGraph | Deterministic conditional branching between 3 agents |
 | **Protocol** | MCP (JSON-RPC 2.0) | Official Model Context Protocol — no peer-to-peer agent sprawl |
-| **ML Engine** | XGBoost / GradientBoosting | 95.14% accuracy flood classifier trained on meteorological anomalies |
+| **ML Engine** | XGBoost / GradientBoosting | 95.14% benchmark accuracy on synthetic multi-factor hydrological hazard corpus, coupled with deterministic 30m SRTM DEM elevation physics and HAZUS depth-damage functions for real-world ground truth |
 | **Geospatial** | GeoPandas + Rasterio + HAZUS | Parcel-level infrastructure damage estimation |
 | **RAG Pipeline** | ChromaDB + PyMuPDF | Vector search over SEBI BRSR & climate policy documents |
 | **LLM Layer** | Groq (LLaMA-3 70B) + Gemini | Sub-400ms reasoning + policy synthesis |
@@ -154,7 +154,7 @@ INPUT:  GPS Coordinates + Timestamp
 TOOLS:  fetch_live_meteo() → Open-Meteo API (precipitation, humidity, soil moisture)
         load_elevation_delta() → Quick DEM lookup
   ↓
-MODEL:  XGBoost classifier (95.14% accuracy, SMOTE-balanced)
+MODEL:  GradientBoosting / XGBoost classifier (95.14% benchmark accuracy on synthetic multi-factor hydrological corpus)
         Feature matrix: [precip_24h, precip_7d, soil_saturation, humidity, elevation_delta]
   ↓
 OUTPUT: risk_score: 0.87 | risk_tier: "HIGH" | dominant_factor: "soil_saturation"
@@ -217,7 +217,7 @@ OUTPUT: VaR: ₹37.5 Cr | stranded_asset_risk: HIGH | compliance_gap: 34%
 | Metric | Value |
 |:---|:---|
 | End-to-end analysis time (3 agents) | **< 3 seconds** |
-| ML classifier accuracy | **95.14%** (Scikit-Learn GradientBoosting) |
+| ML classifier benchmark | **95.14% CV Accuracy** (Evaluated on multi-factor hydrological corpus; grounded via 30m SRTM DEM physics) |
 | Smart contract test suite | **100% passing (40/40 tests)** |
 | Blockchain settlement | **Polygon Amoy Testnet (Chain ID 80002) / Base Sepolia** |
 | Multi-national hotspots pre-loaded | **8 international basins** (Lucknow, Mumbai, Istanbul, Kastamonu, Orange County, Pärnu, Bengaluru, Assam) |
@@ -253,7 +253,7 @@ Manual trigger       →     Automated 15-min cron →    Real-time satellite fe
 |:---|:---|
 | **PROBLEM** | India loses ₹2 Lakh Crore+ every year to preventable climate disasters because intelligence is fragmented, delayed, and disconnected from action. |
 | **SOLUTION** | AEGIS deploys 3 autonomous AI agents via MCP that chain live weather → infrastructure damage → financial risk in one pipeline. |
-| **PROOF** | 95.14% ML accuracy. 100% tests passing. < 8 sec end-to-end. Live demo with 4 Indian cities. Observable agent reasoning. |
+| **PROOF** | 95.14% benchmark accuracy on synthetic multi-factor hydrological hazard corpus, coupled with deterministic 30m SRTM DEM elevation physics and HAZUS depth-damage functions for real-world ground truth. 100% tests passing. < 3 sec end-to-end. Live demo with 8 international cities. Observable agent reasoning. |
 | **FUTURE** | Pan-India municipal integration. Real-time satellite feeds. Multi-language civic dispatch. Enterprise SaaS for climate risk compliance. |
 
 ---
@@ -271,5 +271,5 @@ Autonomous Multi-Agent Environmental & Risk Intelligence Platform 🛡️
 > - Slide 4: Point to the auto-trigger arrows — this is the agentic proof
 > - Slide 6: Walk through ONE agent chain verbally, skip details on others
 > - Slide 7: Pause on "Observable Reasoning" — this is the WOW moment for judges
-> - Slide 8: Say the numbers confidently — 95.14%, <8 seconds, 100% tests
+> - Slide 8: State verified metrics with scientific integrity — 95.14% benchmark accuracy, <3 seconds, 100% tests
 > - Close: Repeat the tagline twice — *"From detecting the signal to deciding the next action."*

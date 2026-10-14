@@ -676,7 +676,7 @@ function TelemetryTicker() {
           <span className="marquee-emerald">LIVE TELEMETRY:</span> BHARAT MONSOON RADAR ACTIVE (IMD / OPEN-METEO)
         </span>
         <span className="marquee-item">
-          <span className="marquee-highlight">AGENT 1 (ACUTE RISK):</span> GRADIENT BOOSTING ML CLASSIFIER (95.14% ACCURACY)
+          <span className="marquee-highlight">AGENT 1 (ACUTE RISK):</span> GRADIENT BOOSTING ML CLASSIFIER (95.14% BENCHMARK ACCURACY)
         </span>
         <span className="marquee-item">
           <span className="marquee-amber">AGENT 2 (CHRONIC HAZARD):</span> 30m SRTM DEM & HAZUS DEPTH-DAMAGE ENGINE
@@ -2265,7 +2265,7 @@ export function App() {
                     <span className="mono" style={{ fontSize: "0.7rem", color: "var(--color-danger)", fontWeight: 700 }}>AGENT 1</span>
                     <h3 style={{ fontSize: "1rem", color: "#FFF" }}>Acute Physical Risk</h3>
                   </div>
-                  <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>ML Classifier • 95.14% Accuracy • F1: 0.90</div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>ML Classifier • 95.14% Benchmark Accuracy (Synthetic Multi-Factor Corpus) • F1: 0.90</div>
                 </div>
                 <span className={`badge ${getTierClass(result?.agent1?.risk_tier)}`}>
                   {result?.agent1?.risk_tier || "HIGH"}

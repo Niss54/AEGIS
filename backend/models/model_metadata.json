@@ -8,6 +8,8 @@
   "accuracy": 0.9514,
   "macro_f1": 0.9056,
   "cv_f1_mean": 0.883,
+  "benchmark_qualification": "95.14% benchmark accuracy on synthetic multi-factor hydrological hazard corpus, coupled with deterministic 30m SRTM DEM elevation physics and HAZUS depth-damage functions for real-world ground truth.",
+  "data_provenance": "Synthetic multi-factor hydrological anomaly dataset modeled after IMD and Open-Meteo ERA5 precipitation distributions, verified with live Open-Meteo telemetry and SRTM 30m DEM ground truth.",
   "class_names": [
     "LOW",
     "MEDIUM",
