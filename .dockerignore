@@ -1,0 +1,62 @@
+# ==============================================================================
+# TERRA-SENTINEL .dockerignore
+# Enforces ImageSize <= 250MB & Zero Attack Surface Leakage
+# ==============================================================================
+
+# Git & IDE configs
+.git
+.gitignore
+.github
+.vscode
+.idea
+*.swp
+*.swo
+
+# Virtual Environments & Python Cache
+.venv
+venv
+ENV
+env
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+dist/
+build/
+.pytest_cache
+.coverage
+htmlcov/
+.mypy_cache
+.ruff_cache
+
+# Node & Frontend Build Artifacts
+node_modules
+frontend/node_modules
+frontend/.vite
+frontend/dist
+
+# Documentation & Test Artifacts
+docs/
+tests/
+*.md
+!README.md
+!PRD.md
+blockchain/test
+blockchain/cache
+blockchain/artifacts
+
+# Local secrets & environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+credentials.json
+service-account*.json
+
+# OS specific files
+.DS_Store
+Thumbs.db

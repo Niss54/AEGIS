@@ -1,0 +1,13 @@
+{
+  "name": "terra-sentinel-platform",
+  "version": "2.0.0",
+  "private": true,
+  "description": "TERRA-SENTINEL: Autonomous Multi-Agent Planetary Risk & Climate Defense Platform",
+  "scripts": {
+    "start": "python3 backend/run.py",
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "install:all": "npm --prefix frontend install"
+  }
+}
