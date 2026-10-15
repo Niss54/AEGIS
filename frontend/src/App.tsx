@@ -428,9 +428,7 @@ function ParticleBackground() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 240, 255, ${p.alpha})`;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "#00F0FF";
+        ctx.fillStyle = `rgba(160, 185, 215, ${p.alpha * 0.25})`;
         ctx.fill();
 
         for (let j = i + 1; j < particleCount; j++) {
@@ -438,12 +436,12 @@ function ParticleBackground() {
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 110) {
+          if (dist < 100) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 110)})`;
-            ctx.lineWidth = 0.75;
+            ctx.strokeStyle = `rgba(160, 185, 215, ${0.05 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
@@ -1041,31 +1039,32 @@ export function App() {
           ======================================================== */}
       <header
         style={{
-          height: "60px",
-          background: "rgba(3, 7, 18, 0.97)",
-          borderBottom: "1px solid rgba(0, 240, 255, 0.1)",
+          height: "64px",
+          minHeight: "64px",
+          background: "#16181c",
+          borderBottom: "1px solid #232730",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0 24px",
+          padding: "0 20px",
           zIndex: 1000,
           position: "relative",
-          boxShadow: "0 2px 20px rgba(0, 0, 0, 0.5)"
+          boxShadow: "0 2px 12px rgba(0, 0, 0, 0.45)"
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
           <div
             style={{
               position: "relative",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "46px",
-              height: "46px",
-              borderRadius: "12px",
-              background: "linear-gradient(135deg, rgba(0, 240, 255, 0.12) 0%, rgba(3, 7, 18, 0.9) 100%)",
-              border: "1px solid rgba(0, 240, 255, 0.35)",
-              boxShadow: "0 0 20px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.08)",
+              width: "38px",
+              height: "38px",
+              borderRadius: "10px",
+              background: "#1c2027",
+              border: "1px solid #2c323e",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
               flexShrink: 0
             }}
           >
@@ -1073,69 +1072,68 @@ export function App() {
               src="/logo.png"
               alt="AEGIS-CLIMATE Logo"
               style={{
-                width: "36px",
-                height: "36px",
-                objectFit: "contain",
-                filter: "drop-shadow(0 2px 6px rgba(0, 0, 0, 0.7))"
+                width: "28px",
+                height: "28px",
+                objectFit: "contain"
               }}
             />
           </div>
-          <div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "2px", flexShrink: 0 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <h1 style={{ fontSize: "1.2rem", color: "#FFFFFF", letterSpacing: "0.03em", fontFamily: "var(--font-display)" }}>
-                AEGIS<span style={{ color: "var(--color-primary)", textShadow: "0 0 12px rgba(0, 240, 255, 0.4)" }}>-CLIMATE</span>
+              <h1 style={{ fontSize: "1.05rem", fontWeight: 700, color: "#FFFFFF", letterSpacing: "0.02em", margin: 0, lineHeight: 1.2, fontFamily: "var(--font-display)" }}>
+                AEGIS<span style={{ color: "#38BDF8" }}>-CLIMATE</span>
               </h1>
               <span className="cyber-badge">
                 BHARAT AGENTIC 2026
               </span>
             </div>
-            <p style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)" }}>
-              Autonomous Multi-Agent Environmental Intelligence Platform
+            <p style={{ fontSize: "0.68rem", color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.2, whiteSpace: "nowrap" }}>
+              Autonomous Multi-Agent Environmental &amp; Risk Intelligence
             </p>
           </div>
         </div>
 
         {/* Executive Mode Navigation Tabs */}
-        <nav className="nav-tab-container" aria-label="Module Navigation">
+        <nav className="nav-tab-container" aria-label="Module Navigation" style={{ flexShrink: 0 }}>
           <button
             className={`nav-tab-btn ${activeView === "command" ? "active" : ""}`}
             onClick={() => setActiveView("command")}
           >
-            <Globe size={14} color={activeView === "command" ? "var(--color-primary)" : "var(--color-text-secondary)"} />
+            <Globe size={13} color={activeView === "command" ? "#38BDF8" : "var(--color-text-secondary)"} />
             <span>Command Radar</span>
           </button>
           <button
             className={`nav-tab-btn ${activeView === "agents" ? "active" : ""}`}
             onClick={() => setActiveView("agents")}
           >
-            <Bot size={14} color={activeView === "agents" ? "var(--color-primary)" : "var(--color-text-secondary)"} />
+            <Bot size={13} color={activeView === "agents" ? "#38BDF8" : "var(--color-text-secondary)"} />
             <span>Multi-Agent Swarm</span>
           </button>
           <button
             className={`nav-tab-btn ${activeView === "mcp" ? "active" : ""}`}
             onClick={() => setActiveView("mcp")}
           >
-            <Zap size={14} color={activeView === "mcp" ? "#FFB800" : "var(--color-text-secondary)"} />
+            <Zap size={13} color={activeView === "mcp" ? "#F59E0B" : "var(--color-text-secondary)"} />
             <span>MCP Tool Hub</span>
           </button>
           <button
             className={`nav-tab-btn ${activeView === "finance" ? "active" : ""}`}
             onClick={() => setActiveView("finance")}
           >
-            <TrendingUp size={14} color={activeView === "finance" ? "var(--color-safe)" : "var(--color-text-secondary)"} />
+            <TrendingUp size={13} color={activeView === "finance" ? "#10B981" : "var(--color-text-secondary)"} />
             <span>Financial & BRSR</span>
           </button>
           <button
             className={`nav-tab-btn ${activeView === "blockchain" ? "active" : ""}`}
             onClick={() => setActiveView("blockchain")}
           >
-            <Shield size={14} color={activeView === "blockchain" ? "#8A2BE2" : "var(--color-text-secondary)"} />
+            <Shield size={13} color={activeView === "blockchain" ? "#A78BFA" : "var(--color-text-secondary)"} />
             <span>Web3 & Ledger</span>
           </button>
         </nav>
 
         {/* Right Action Controls */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
           {/* Prominent Connect MCP Button */}
           <button
             className="mcp-pill-btn"
@@ -1145,49 +1143,66 @@ export function App() {
             title="Connect external AI agents (Claude Desktop, Cursor, Custom Agents) to AEGIS MCP Server"
           >
             <span className="pulse-ping" style={{ width: "6px", height: "6px" }}>
-              <span className="pulse-ping-dot" style={{ backgroundColor: "#00F0FF" }}></span>
-              <span className="pulse-ping-core" style={{ backgroundColor: "#00F0FF" }}></span>
+              <span className="pulse-ping-dot" style={{ backgroundColor: "#38BDF8" }}></span>
+              <span className="pulse-ping-core" style={{ backgroundColor: "#38BDF8" }}></span>
             </span>
-            <Zap size={13} />
+            <Zap size={12} color="#38BDF8" />
             <span>Connect MCP</span>
           </button>
 
           <button
             className="btn-secondary"
             style={{
-              padding: "5px 12px",
-              fontSize: "0.75rem",
-              borderColor: "rgba(0, 240, 255, 0.25)",
-              color: "var(--color-text-primary)",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px"
+              padding: "4px 9px",
+              fontSize: "0.72rem"
             }}
             onClick={() => {
               setShowApiModal(true);
               fetchIntegrationStatus();
             }}
           >
-            <Key size={13} color="var(--color-primary)" />
+            <Key size={12} color="#9CA3AF" />
             <span>API Keys</span>
           </button>
 
           <button
             className="btn-primary"
             style={{
-              padding: "5px 12px",
-              fontSize: "0.75rem"
+              padding: "4px 10px",
+              fontSize: "0.72rem"
             }}
             onClick={() => setShowBriefingModal(true)}
           >
-            <FileDown size={14} />
+            <FileDown size={12} />
             <span>Briefing</span>
           </button>
 
           {/* Clean Live Status indicator */}
-          <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.72rem", color: "var(--color-text-muted)", marginLeft: "4px" }}>
-            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: wsConnected ? "var(--color-safe)" : "#FFB800", boxShadow: wsConnected ? "0 0 8px rgba(0, 255, 136, 0.5)" : "none" }}></span>
-            <span className="mono" style={{ color: "#FFF" }}>{wsConnected ? "LIVE" : "POLLING"}</span>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              fontSize: "0.68rem",
+              color: "var(--color-text-muted)",
+              padding: "3px 8px",
+              background: "#111316",
+              border: "1px solid #232730",
+              borderRadius: "9999px"
+            }}
+          >
+            <span
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: wsConnected ? "#10B981" : "#F59E0B",
+                boxShadow: wsConnected ? "0 0 6px rgba(16, 185, 129, 0.5)" : "none"
+              }}
+            />
+            <span className="mono" style={{ color: "#E5E7EB", fontWeight: 600 }}>
+              {wsConnected ? "LIVE" : "POLLING"}
+            </span>
           </div>
         </div>
       </header>
@@ -1205,8 +1220,8 @@ export function App() {
             ====================================================== */}
         <aside
           style={{
-            background: "rgba(3, 7, 18, 0.95)",
-            borderRight: "1px solid rgba(0, 240, 255, 0.08)",
+            background: "#16181c",
+            borderRight: "1px solid #232730",
             display: "flex",
             flexDirection: "column",
             padding: "16px",
@@ -1404,8 +1419,8 @@ export function App() {
             ====================================================== */}
         <section
           style={{
-            background: "rgba(3, 7, 18, 0.95)",
-            borderLeft: "1px solid rgba(0, 240, 255, 0.08)",
+            background: "#16181c",
+            borderLeft: "1px solid #232730",
             display: "flex",
             flexDirection: "column",
             padding: "16px",
