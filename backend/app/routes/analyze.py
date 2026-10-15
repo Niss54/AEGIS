@@ -221,6 +221,7 @@ async def fetch_open_meteo_telemetry(lat: float, lon: float) -> Dict[str, float]
     url = (
         f"https://api.open-meteo.com/v1/forecast?"
         f"latitude={lat}&longitude={lon}&hourly=precipitation,relative_humidity_2m,soil_moisture_0_to_1cm"
+        f"&daily=precipitation_sum&past_days=7"
         f"&current=temperature_2m,relative_humidity_2m,precipitation&timezone=auto"
     )
     try:
@@ -230,16 +231,19 @@ async def fetch_open_meteo_telemetry(lat: float, lon: float) -> Dict[str, float]
                 data = resp.json()
                 current = data.get("current", {})
                 hourly = data.get("hourly", {})
+                daily = data.get("daily", {})
                 
                 precip_hourly = hourly.get("precipitation", [0.0] * 24)
                 precip_24h = sum(precip_hourly[-24:]) if len(precip_hourly) >= 24 else sum(precip_hourly)
+                daily_sums = daily.get("precipitation_sum", [])
+                precip_7d = sum(daily_sums) if daily_sums else (precip_24h * 2.8)
                 
                 soil_hourly = hourly.get("soil_moisture_0_to_1cm", [0.35])
                 latest_soil = (soil_hourly[-1] if soil_hourly else 0.35) * 100  # convert m³/m³ to approx pct
                 
                 return {
                     "precipitation_24h_mm": round(precip_24h, 2),
-                    "precipitation_7d_mm": round(precip_24h * 2.8, 2),
+                    "precipitation_7d_mm": round(precip_7d, 2),
                     "soil_saturation_pct": round(min(100.0, max(20.0, latest_soil * 2.2)), 1),
                     "relative_humidity_pct": round(float(current.get("relative_humidity_2m", 78.0)), 1),
                     "temperature_c": round(float(current.get("temperature_2m", 28.5)), 1),
