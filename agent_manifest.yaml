@@ -1,4 +1,4 @@
-apiVersion: aikart.dev/v1
+apiVersion: aegis.dev/v1
 kind: AgentManifest
 
 metadata:

@@ -1084,7 +1084,7 @@ export function App() {
                 AEGIS<span style={{ color: "#38BDF8" }}>-CLIMATE</span>
               </h1>
               <span className="cyber-badge">
-                BHARAT AGENTIC 2026
+                ENTERPRISE INTELLIGENCE
               </span>
             </div>
             <p style={{ fontSize: "0.68rem", color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.2, whiteSpace: "nowrap" }}>
@@ -2583,7 +2583,7 @@ export function App() {
             {/* Modal Footer Controls */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "16px" }}>
               <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
-                Autonomous System Report • Team Syntrix • BHARAT AGENTIC 2026
+                Autonomous System Report • AEGIS Intelligence Core
               </div>
 
               <div style={{ display: "flex", gap: "10px" }}>

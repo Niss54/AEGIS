@@ -1,5 +1,5 @@
 # 🛡️ AEGIS-CLIMATE — Pitch Deck
-### *Bharat Agentic 2026 | Team Syntrix*
+### *Enterprise Executive Presentation | Team Syntrix*
 
 > **Deck Format:** 16:9 Widescreen | **Time:** 3–5 Minutes | **Slides:** 9
 > **Design Language:** Neon Black Cyber-Cockpit (`#0D1B2A` base, `#00F0FF` accent, `#E76F51` danger)
@@ -257,9 +257,7 @@ Manual trigger       →     Automated 15-min cron →    Real-time satellite fe
 ### **"From detecting the signal to deciding the next action — autonomously."**
 
 **AEGIS-CLIMATE** | Team Syntrix
-*Nishant Maurya · Navya Chaudhary · Om Tripathi · Nikita Chopde*
-
-Built for **Bharat Agentic 2026** 🇮🇳
+Autonomous Multi-Agent Environmental & Risk Intelligence Platform 🛡️
 
 ---
 

@@ -1,12 +1,12 @@
 # 📋 Product Requirements Document (PRD) — AEGIS-CLIMATE
 ### *Autonomous Multi-Agent Environmental & Climate Risk Intelligence Platform*
 
-> **Event:** BHARAT AGENTIC 2026 (12-Hour Hackathon powered by AIKart)  
+> **Platform:** AEGIS-CLIMATE Enterprise Environmental Intelligence Platform  
 > **Team:** Syntrix (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
 > **Repository:** [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS)  
-> **Version:** 1.0.0 (Hackathon Release)  
+> **Version:** 2.5.0 Production  
 > **Status:** 🟢 Approved & Active  
-> **Target Delivery:** 1 October 2026, 08:00 PM IST (Submission Deadline: 09:00 PM IST)
+> **Target Delivery:** Enterprise Autonomous Production Release
 
 ---
 
@@ -19,7 +19,7 @@
 6. [Core Functional Requirements](#6-core-functional-requirements)
 7. [Winning Edge: High-Impact Differentiators](#7-winning-edge-high-impact-differentiators)
 8. [API Keys & Live Integration Architecture Matrix](#8-api-keys--live-integration-architecture-matrix)
-9. [Phased Implementation Roadmap (12-Hour Sprint)](#9-phased-implementation-roadmap-12-hour-sprint)
+9. [Phased Implementation Roadmap](#9-phased-implementation-roadmap)
 10. [REST API & WebSocket Specifications](#10-rest-api--websocket-specifications)
 11. [Data Architecture & Schema](#11-data-architecture--schema)
 12. [Judging Evaluation Alignment & Success Metrics](#12-judging-evaluation-alignment--success-metrics)
@@ -211,41 +211,41 @@ AEGIS-CLIMATE implements an asynchronous **Hub-and-Spoke Multi-Agent Architectur
 ---
 
 ## 7. Winning Edge: High-Impact Differentiators
-*(Designed specifically to wow judges and secure 1st place in Bharat Agentic 2026)*
+*(Enterprise-Grade Multi-Agent Architectural Differentiators)*
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │                   🌟 AEGIS WINNING DIFFERENTIATORS                    │
 ├────────────────────────────────────────────────────────────────────────┤
 │ 1. 🔍 Agent Thought Log & Tool Trace (Real-time LangGraph Monologue)    │
-│ 2. 🇮🇳 Pre-Loaded Bharat Hotspots (Mumbai, Bengaluru, Assam, Chennai)   │
+│ 2. 🇮🇳 Pre-Loaded Regional Hotspots (Mumbai, Bengaluru, Assam, Chennai) │
 │ 3. 🧪 "What-If" Climate Anomaly Simulator (Live Rainfall Slider)        │
 │ 4. 🗣️ Bhasha-AI: Bilingual Hindi/English Audio & Text Alert Generator  │
 │ 5. 📄 One-Click Executive Briefing PDF/HTML Exporter                    │
 │ 6. 🔌 Multi-Provider API & LLM Arbitration Matrix (Gemini + Groq + OSS) │
-│ 7. ✨ High-Energy Cyber-Cockpit UI/UX (Inspired by nissh.info & UI-UX)  │
+│ 7. ✨ Modern C4ISR Cockpit UI/UX (#16181c Obsidian Dark Theme)         │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
 1. **Agent Thought Log & Tool Trace (Autonomous Proof):**
-   - *Why Judges Care:* Basic chatbots hide everything or fake responses. Judges evaluate *Agentic Capability*.
+   - *Architecture:* Full visibility into multi-agent reasoning cycles.
    - *Feature:* Live drawer on the UI displaying the agent's internal reasoning cycle (`Thought` ➔ `Tool Call: open_meteo_fetch` ➔ `Observation: 94mm rain` ➔ `Decision: Trigger Chronic Agent`).
-2. **Pre-Loaded Bharat Hotspots:**
-   - *Why Judges Care:* Demonstrates immediate *Bharat Relevance* without requiring judges to find coordinates.
+2. **Pre-Loaded Regional Hotspots:**
+   - *Relevance:* Demonstrates immediate climate risk relevance across high-density economic corridors.
    - *Included Presets:*
      - 📍 **Mumbai (Mithi River / Kurla Basin):** Severe urban waterlogging & suburban rail disruption.
      - 📍 **Bengaluru (Bellandur / Outer Ring Road):** Tech park stormwater overflow & lake breach risk.
      - 📍 **Assam (Brahmaputra / Kaziranga):** Severe riverine flood corridor.
      - 📍 **Chennai (Velachery / Adyar Basin):** Coastal monsoon storm surge.
 3. **"What-If" Climate Anomaly Simulator:**
-   - *Why Judges Care:* Lets judges interact with the agents dynamically. A slider adjusts simulated precipitation (+25mm to +150mm) or soil saturation and watches the 3 agents autonomously re-plan and re-calculate in real time.
+   - *Interactive Capability:* Real-time parametric simulation. A slider adjusts simulated precipitation (+25mm to +150mm) or soil saturation and watches the 3 agents autonomously re-plan and re-calculate in real time.
 4. **Bhasha-AI (Voice & Multilingual Civic Dispatch):**
-   - *Why Judges Care:* Bharat Agentic highlights *Bharat Languages & Accessibility*.
+   - *Accessibility:* Delivers seamless multilingual accessibility across regional languages.
    - *Feature:* Generates instant audio speech synthesis and Hindi/English localized broadcast text for field response teams using ElevenLabs / Sarvam AI / Web Speech.
 5. **One-Click Executive Briefing Exporter:**
-   - *Why Judges Care:* Proves end-to-end product utility from operational telemetry to C-suite boardroom briefing (`/api/v1/events/{id}/executive-briefing/html`).
-6. **Mission-Control Cyber Cockpit (Inspired by nissh.info & docs/UI-UX.md):**
-   - *Why Judges Care:* Instant visual WOW factor. Floating ambient particle canvas, live telemetry marquee, neon glassmorphic cards, and an interactive API integrations drawer.
+   - *Enterprise Utility:* Proves end-to-end product utility from operational telemetry to C-suite boardroom briefing (`/api/v1/events/{id}/executive-briefing/html`).
+6. **Mission-Control Cyber Cockpit (Obsidian C4ISR Design System):**
+   - *Modern UI:* Sleek obsidian light-black theme (`#16181c`), floating ambient particle canvas, live telemetry marquee, glass cards, and an interactive API integrations drawer.
 
 ---
 
@@ -276,26 +276,26 @@ In enterprise disaster response systems, **network outages or API quota limits m
 
 ---
 
-## 9. Phased Implementation Roadmap (12-Hour Sprint)
+## 9. Phased Implementation Roadmap
 
-Aligned with the hackathon sprint from 09:00 AM to 08:00 PM build freeze:
+Aligned with the multi-phase engineering milestones:
 
 ```
-[09:00 - 10:30] Phase 1: Foundation & Infrastructure (FastAPI + Docker + MCP Skeleton) [COMPLETE ✅]
-[10:30 - 12:00] Phase 2: Agent 1 - Acute Physical ML Classifier (Open-Meteo + GBM 95.14%) [COMPLETE ✅]
-[12:00 - 02:00] Phase 3: Agent 2 - Chronic Vulnerability & Geospatial Engine (GeoPandas + HAZUS) [COMPLETE ✅]
-[02:00 - 04:00] Phase 4: Agent 3 - Regulatory RAG & VaR Modeling (ChromaDB + LLM Fallback) [COMPLETE ✅]
-[04:00 - 06:00] Phase 5: Mission-Control Command Center & Real-Time GIS Leaflet Dashboard [COMPLETE ✅]
-[06:00 - 07:30] Phase 6: Winning Edge & Full API Integration Matrix [COMPLETE ✅]
+[Phase 1] Foundation & Infrastructure (FastAPI + Docker + MCP Skeleton) [COMPLETE ✅]
+[Phase 2] Agent 1 - Acute Physical ML Classifier (Open-Meteo + GBM 95.14%) [COMPLETE ✅]
+[Phase 3] Agent 2 - Chronic Vulnerability & Geospatial Engine (GeoPandas + HAZUS) [COMPLETE ✅]
+[Phase 4] Agent 3 - Regulatory RAG & VaR Modeling (ChromaDB + LLM Fallback) [COMPLETE ✅]
+[Phase 5] Mission-Control Command Center & Real-Time GIS Leaflet Dashboard [COMPLETE ✅]
+[Phase 6] Winning Edge & Full API Integration Matrix [COMPLETE ✅]
   ├── Phase 6.1: Live LLM Multi-Provider (Groq Sub-400ms 120B/20B + Gemini) [COMPLETE ✅]
   ├── Phase 6.2: Live Telemetry & Mapbox High-Res Satellite/Radar GIS [COMPLETE ✅]
   ├── Phase 6.3: Bhasha-AI Dual Voice Dispatch Pipeline (ElevenLabs + Sarvam AI) [COMPLETE ✅]
-  ├── Phase 6.4: UI/UX Master Overhaul (Ambient Particle Canvas, Ticker Marquee, nissh.info Style) [COMPLETE ✅]
+  ├── Phase 6.4: UI/UX Master Overhaul (#16181c Obsidian Dark Cockpit) [COMPLETE ✅]
   └── Phase 6.5: C-Suite Executive Briefing HTML/PDF Print-Ready Generator [COMPLETE ✅]
-[07:30 - 08:30] Phase 7: E2E Integration, Demo Scripting & Final Submission Packaging [COMPLETE ✅]
+[Phase 7] E2E Integration, Web3 Verification & Production Packaging [COMPLETE ✅]
   ├── Phase 7.1: Model Context Protocol (MCP) Official Spec & 10/10 E2E Tests Passing [COMPLETE ✅]
-  ├── Phase 7.2: Official aiKart Agent Manifest (agent_manifest.yaml) & Container Packaging [COMPLETE ✅]
-  ├── Phase 7.3: 5-Slide Winning Pitch Deck & 2.5-Minute Timed Demo Script [COMPLETE ✅]
+  ├── Phase 7.2: Open Agent Manifest (agent_manifest.yaml) & Container Packaging [COMPLETE ✅]
+  ├── Phase 7.3: Comprehensive Documentation & Executive Technical Blueprints [COMPLETE ✅]
   └── Phase 7.4: Structured Git Commits & Pushed to GitHub (origin main) [COMPLETE ✅]
 ```
 
@@ -348,22 +348,21 @@ Aligned with the hackathon sprint from 09:00 AM to 08:00 PM build freeze:
 
 ---
 
-## 13. Demo Execution & Deliverables Checklist
+## 13. Platform Deliverables & Production Checklist
 
-### Unstop / AIKart Required Submission Assets:
-- [ ] **Project Name:** AEGIS-CLIMATE
-- [ ] **Team Syntrix Roster:** Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde
-- [ ] **Domain:** Energy & ClimateTech / Citizen & GovTech
-- [ ] **Live Working Demo:** Local Docker / Deployed Web URL
-- [ ] **GitHub Repo:** `https://github.com/Niss54/AEGIS` (Clean history, documentation, `.gitignore`)
-- [ ] **2–3 Minute Demo Video:**
-  - 0:00–0:40: The Bharat climate crisis & why current tools fail.
-  - 0:40–1:40: Live AEGIS multi-agent orchestration across Mumbai/Bengaluru hotspots.
-  - 1:40–2:20: What-If simulation slider & executive VaR briefing output.
-  - 2:20–2:50: Technical architecture (MCP Hub + LangGraph) & team closing.
-- [ ] **5-Slide Pitch Deck:**
-  - Slide 1: Cover & Team Syntrix
-  - Slide 2: The Bharat Problem & Economic Exposure
-  - Slide 3: The AEGIS Solution & 3-Agent MCP Hub
-  - Slide 4: Real-time Demo Highlights & Tech Stack
-  - Slide 5: Scalability, Business Feasibility & Next Steps
+### Core Engineering Deliverables:
+- [x] **Project Name:** AEGIS-CLIMATE
+- [x] **Team Syntrix Roster:** Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde
+- [x] **Domain:** Energy & ClimateTech / Citizen & GovTech
+- [x] **Live Working Cockpit:** Local Docker / Vite Dev Server
+- [x] **GitHub Repo:** `https://github.com/Niss54/AEGIS` (Clean history, documentation, `.gitignore`)
+- [x] **Comprehensive Documentation:**
+  - Technical PRD & Architecture Blueprints
+  - Interactive What-If Simulation Sandbox
+  - Real-time Multi-Agent Thought Stream
+  - REST & WebSocket API Suite
+- [x] **Executive Technical Presentation:**
+  - Platform Architecture & Multi-Agent Flow
+  - Real-Time Hazard Detection & 30-Year VaR Projection
+  - Smart Contract Ledger & Parametric Disaster Bonds
+  - Scalability, SEBI BRSR Governance & Enterprise Feasibility

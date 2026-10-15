@@ -750,7 +750,7 @@ async def get_executive_briefing_html(event_id: str):
   </div>
 
   <div style="margin-top: 24px; padding-top: 12px; border-top: 1px solid #E2E8F0; font-size: 11px; color: #A0AEC0; text-align: center;">
-    Generated autonomously by <b>AEGIS-CLIMATE</b> • Team Syntrix (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde) • BHARAT AGENTIC 2026
+    Generated autonomously by <b>AEGIS-CLIMATE</b> • Team Syntrix (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde) • Autonomous Multi-Agent Environmental Intelligence Platform
   </div>
 </body>
 </html>"""

@@ -79,8 +79,7 @@ async def root():
         "platform": settings.APP_NAME,
         "version": settings.APP_VERSION,
         "status": "online",
-        "hackathon": "BHARAT AGENTIC 2026 (AIKart)",
-        "team": "Syntrix",
+        "edition": "Enterprise Climate Intelligence",
         "docs": "/docs",
         "api_v1": "/api/v1"
     }
