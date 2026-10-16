@@ -2,7 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { AEGISRiskLedger } from "./AEGISRiskLedger";
+export type { AgenticSettlementPool } from "./AgenticSettlementPool";
 export type { CarbonFloodCredit } from "./CarbonFloodCredit";
 export type { ClimateEvidenceRegistry } from "./ClimateEvidenceRegistry";
 export type { DisasterBond } from "./DisasterBond";
+export type { IZKTelemetryVerifier } from "./IZKTelemetryVerifier";
 export type { MockERC20 } from "./MockERC20";
+export type { MockZKTelemetryVerifier } from "./MockZKTelemetryVerifier";

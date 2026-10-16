@@ -41,6 +41,7 @@ export interface CarbonFloodCreditInterface extends Interface {
       | "owner"
       | "renounceOwnership"
       | "retireCredits"
+      | "retireOffsetForFloodResilience"
       | "setBackend"
       | "symbol"
       | "totalCFMCMinted"
@@ -57,6 +58,7 @@ export interface CarbonFloodCreditInterface extends Interface {
       | "BackendUpdated"
       | "CFMCRetired"
       | "MitigationCreditIssued"
+      | "OffsetRetiredForResilience"
       | "OwnershipTransferred"
       | "Transfer"
   ): EventFragment;
@@ -118,6 +120,10 @@ export interface CarbonFloodCreditInterface extends Interface {
   encodeFunctionData(
     functionFragment: "retireCredits",
     values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "retireOffsetForFloodResilience",
+    values: [BigNumberish, BytesLike, string]
   ): string;
   encodeFunctionData(
     functionFragment: "setBackend",
@@ -189,6 +195,10 @@ export interface CarbonFloodCreditInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "retireCredits",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "retireOffsetForFloodResilience",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setBackend", data: BytesLike): Result;
@@ -292,6 +302,34 @@ export namespace MitigationCreditIssuedEvent {
     lonScaled: bigint;
     riskScoreBps: bigint;
     demDepthCm: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace OffsetRetiredForResilienceEvent {
+  export type InputTuple = [
+    retiree: AddressLike,
+    amount: BigNumberish,
+    evidenceDigest: BytesLike,
+    memo: string,
+    timestamp: BigNumberish
+  ];
+  export type OutputTuple = [
+    retiree: string,
+    amount: bigint,
+    evidenceDigest: string,
+    memo: string,
+    timestamp: bigint
+  ];
+  export interface OutputObject {
+    retiree: string;
+    amount: bigint;
+    evidenceDigest: string;
+    memo: string;
+    timestamp: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -426,6 +464,12 @@ export interface CarbonFloodCredit extends BaseContract {
     "nonpayable"
   >;
 
+  retireOffsetForFloodResilience: TypedContractMethod<
+    [amount: BigNumberish, evidenceDigest: BytesLike, memo: string],
+    [void],
+    "nonpayable"
+  >;
+
   setBackend: TypedContractMethod<
     [newBackend: AddressLike],
     [void],
@@ -531,6 +575,13 @@ export interface CarbonFloodCredit extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "retireOffsetForFloodResilience"
+  ): TypedContractMethod<
+    [amount: BigNumberish, evidenceDigest: BytesLike, memo: string],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "setBackend"
   ): TypedContractMethod<[newBackend: AddressLike], [void], "nonpayable">;
   getFunction(
@@ -592,6 +643,13 @@ export interface CarbonFloodCredit extends BaseContract {
     MitigationCreditIssuedEvent.OutputObject
   >;
   getEvent(
+    key: "OffsetRetiredForResilience"
+  ): TypedContractEvent<
+    OffsetRetiredForResilienceEvent.InputTuple,
+    OffsetRetiredForResilienceEvent.OutputTuple,
+    OffsetRetiredForResilienceEvent.OutputObject
+  >;
+  getEvent(
     key: "OwnershipTransferred"
   ): TypedContractEvent<
     OwnershipTransferredEvent.InputTuple,
@@ -649,6 +707,17 @@ export interface CarbonFloodCredit extends BaseContract {
       MitigationCreditIssuedEvent.InputTuple,
       MitigationCreditIssuedEvent.OutputTuple,
       MitigationCreditIssuedEvent.OutputObject
+    >;
+
+    "OffsetRetiredForResilience(address,uint256,bytes32,string,uint256)": TypedContractEvent<
+      OffsetRetiredForResilienceEvent.InputTuple,
+      OffsetRetiredForResilienceEvent.OutputTuple,
+      OffsetRetiredForResilienceEvent.OutputObject
+    >;
+    OffsetRetiredForResilience: TypedContractEvent<
+      OffsetRetiredForResilienceEvent.InputTuple,
+      OffsetRetiredForResilienceEvent.OutputTuple,
+      OffsetRetiredForResilienceEvent.OutputObject
     >;
 
     "OwnershipTransferred(address,address)": TypedContractEvent<

@@ -2,7 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 export { AEGISRiskLedger__factory } from "./AEGISRiskLedger__factory";
+export { AgenticSettlementPool__factory } from "./AgenticSettlementPool__factory";
 export { CarbonFloodCredit__factory } from "./CarbonFloodCredit__factory";
 export { ClimateEvidenceRegistry__factory } from "./ClimateEvidenceRegistry__factory";
 export { DisasterBond__factory } from "./DisasterBond__factory";
+export { IZKTelemetryVerifier__factory } from "./IZKTelemetryVerifier__factory";
 export { MockERC20__factory } from "./MockERC20__factory";
+export { MockZKTelemetryVerifier__factory } from "./MockZKTelemetryVerifier__factory";
