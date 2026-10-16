@@ -72,26 +72,27 @@
 
 ---
 
-### SCENE 5: Cryptographic Evidence Cockpit & On-Chain Proof (1:55 – 2:20)
+### SCENE 5: Cryptographic Evidence, ZK Proofs & USDC Settlement (1:55 – 2:20)
 - **Visual:** Click **"Verify Evidence"** pill in the top navigation bar or switch to the **"Web3 & Ledger"** cockpit.
 - **Action:** Open the **Standalone Evidence Verifier & Tamper Sandbox**. Point to the canonical Keccak-256 digest (`0x4eaa87...`) anchored to Polygon Amoy `ClimateEvidenceRegistry.sol`.
+- **Action:** Point to the **Agentic USDC Settlement Pool** (`AgenticSettlementPool.sol`) and **Parametric Disaster Bonds** (`DisasterBond.sol`).
 - **Action:** Click **"Simulate Data Mutation (Forge Risk 0.88 ➔ 0.15)"**. The modal instantly flags:
   - `🚨 P0 TAMPER DETECTED: DIGEST MISMATCH`
   - Shows original expected digest vs forged computed digest.
   - Click **"Restore Original Bundle"** ➔ returns to `✅ CRYPTOGRAPHIC INTEGRITY: 100% VERIFIED`.
 - **Voiceover:**
   > *"AEGIS solves the greatest vulnerability in climate reporting: data tampering.*  
-  > *Every analysis is compiled into a deterministic canonical JSON evidence bundle, hashed with Keccak-256, and permanently anchored to the Polygon Amoy blockchain.*  
-  > *In our Standalone Verifier, judges can test adversarial tampering in real time. Mutating even one parameter instantly breaks the cryptographic digest, guaranteeing tamper-evident auditability for insurance and parametric bond settlement.*  
-  > *All 29 Hardhat smart contract tests and 81 backend pytest suites pass at 100%."*
+  > *Every analysis is compiled into a deterministic canonical RFC-8785 JSON evidence bundle, hashed with Keccak-256, pinned to IPFS, and permanently anchored to the Polygon Amoy blockchain.*  
+  > *When critical flood thresholds are breached, our smart contract releases autonomous USDC emergency liquidity directly to the verified municipal defense treasury—protected by anti-double-claiming registries and ZK proof verification.*  
+  > *All 40 Hardhat smart contract tests and 130 backend pytest suites pass at 100% (170/170 total tests passing)."*
 
 ---
 
 ### SCENE 6: Conclusion & Closing Vision (2:20 – 2:30)
 - **Visual:** Return to full-screen view of the glowing AEGIS-CLIMATE cockpit with all agents in `COMPLETE` state and live map pulsing.
 - **Voiceover (Inspiring, Confident):**
-  > *"AEGIS-CLIMATE transforms unpredictable climate volatility into transparent, anticipatory intelligence.*  
-  > *Built by Team Syntrix. Ready to protect citizens and critical infrastructure today. Thank you!"*
+  > *"From 1-click GPS detection in Lucknow to Baltic storm surges in Estonia and atmospheric rivers in California, AEGIS-CLIMATE transforms climate volatility into verifiable, autonomous defense.*  
+  > *Built by Team Syntrix for the IEEE ClimateChain Hackathon. Ready to protect citizens and critical infrastructure today. Thank you!"*
 
 ---
 
@@ -100,5 +101,6 @@
 - [ ] Run MCP hub: `py -3.12 mcp_hub/hub.py`
 - [ ] Run frontend: `cd frontend && npm run dev`
 - [ ] Open browser at `http://localhost:5173` or `http://localhost:3000` in full-screen (`F11`).
-- [ ] Ensure browser audio output is enabled so the Bhasha-AI voice synthesis is captured clearly.
-- [ ] Have the terminal with `py -3.12 -c "..."` ready in a side window for the 15-second code snippet.
+- [ ] Test the **"🛰️ Detect My Location"** button to ensure instant regional snapping.
+- [ ] Ensure browser audio output is enabled so the Bhasha-AI voice synthesis (Hindi, Marathi, Turkish, Estonian) is captured clearly.
+- [ ] Have the terminal with `py -3.12 -m pytest tests/` (130 passing) and `npm test` in `blockchain/` (40 passing) ready for the proof-of-verification overlay.
