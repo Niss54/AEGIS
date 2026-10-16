@@ -4,13 +4,13 @@
 
 <div align="center">
 
-# 🛡️ AEGIS-CLIMATE & AEGIS-CHAIN v2.0
+# 🛡️ AEGIS-CLIMATE & AEGIS-CHAIN v3.5
 ### *Autonomous Multi-Agent Environmental Risk & Tamper-Evident Climate Blockchain Platform*
 
 > **Translating Environmental Hazards into Actionable Business, Civic & On-Chain Financial Intelligence**
 
 Built for **IEEE ClimateChain Hackathon 2026** & **Enterprise Environmental Intelligence**  
-*Track 1: Climate Data Verification · Track 3: Carbon Markets · Track 5: Data Integrity & Accountability*
+*Track 4: AI & Cybersecurity (Primary) · Track 1: Climate Data Verification · Track 3: Carbon Markets · Track 5: Data Integrity*
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Niss54/AEGIS)
 [![Network](https://img.shields.io/badge/Network-Polygon%20Amoy%20(80002)-8A2BE2?style=for-the-badge&logo=polygon&logoColor=white)](https://amoy.polygonscan.com/address/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D)
@@ -18,11 +18,11 @@ Built for **IEEE ClimateChain Hackathon 2026** & **Enterprise Environmental Inte
 [![Domain](https://img.shields.io/badge/Domain-Energy%20%26%20ClimateTech-2ea44f?style=for-the-badge&logo=leaf&logoColor=white)](#-domain--bharat-impact)
 [![Architecture](https://img.shields.io/badge/Protocol-Official%20MCP%20JSON--RPC%202.0-ff6b35?style=for-the-badge&logo=anthropic&logoColor=white)](#-model-context-protocol-mcp-gateway)
 [![Team](https://img.shields.io/badge/Team-Syntrix-8a2be2?style=for-the-badge&logo=shield&logoColor=white)](#-team-syntrix)
-[![Tests](https://img.shields.io/badge/Test%20Suite-78%2F78%20Passing-brightgreen?style=for-the-badge&logo=checkmarx&logoColor=white)](#-automated-testing--verification)
+[![Tests](https://img.shields.io/badge/Test%20Suite-170%2F170%20Passing-brightgreen?style=for-the-badge&logo=checkmarx&logoColor=white)](#-automated-testing--verification)
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" alt="divider"/>
 
-[📋 Guidelines](./HACKATHON_GUIDELINES.md) · [📑 Technical Blueprint](./PRD_1_TECHNICAL_BLUEPRINT.md) · [📊 Product Strategy](./AEGIS_PRD_1_Product_Strategy.md) · [📊 Pitch Deck](./docs/PITCH_DECK.md) · [🎬 Demo Script](./docs/DEMO_SCRIPT.md) · [🤖 Agent Manifest](./agent_manifest.yaml)
+[🏆 IEEE Submission Dossier](./IEEE_SUBMISSION_DOSSIER.md) · [📋 Guidelines](./HACKATHON_GUIDELINES.md) · [📑 Technical Blueprint](./PRD_1_TECHNICAL_BLUEPRINT.md) · [📊 Product Strategy](./AEGIS_PRD_1_Product_Strategy.md) · [📊 Pitch Deck](./docs/PITCH_DECK.md) · [🎬 Demo Script](./docs/DEMO_SCRIPT.md) · [🤖 Agent Manifest](./agent_manifest.yaml)
 
 </div>
 
