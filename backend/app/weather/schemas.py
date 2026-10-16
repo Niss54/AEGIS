@@ -39,6 +39,8 @@ class WeatherVector(BaseModel):
     elevation_m: float = Field(..., description="Topographical elevation in meters")
     temperature_c: Optional[float] = Field(default=None, ge=-90.0, le=60.0, description="Current ambient temperature in Celsius")
     drainage_capacity_index: float = Field(default=65.0, ge=0.0, le=100.0)
+    historical_baseline_24h_mm: float = Field(default=30.0, ge=0.0, description="10-year climatological 24h rainfall baseline")
+    precipitation_anomaly_ratio: float = Field(default=1.0, ge=0.0, description="Ratio of measured 24h rainfall to baseline (dClimate pattern)")
 
 
 class WeatherAdapterResult(BaseModel):
