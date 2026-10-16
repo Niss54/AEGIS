@@ -230,16 +230,18 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
 
       if (res.ok) {
         const data = await res.json();
-        if (data.is_valid && !simulateTamper) {
+        const isValid = (data.is_valid || data.verified || data.status === "PASS") && !data.tamper_detected;
+        if (isValid && !simulateTamper) {
           setVerificationResult({
             status: "passed",
             message: "VERIFICATION PASSED: Cryptographic Keccak-256/SHA-256 digest matches on-chain anchor. Zero tampering detected.",
             details: data
           });
         } else {
+          const compDigest = (data.computed_sha256 || data.computed_digest || data.computed_keccak256 || "0x0000000000000000").substring(0, 18);
           setVerificationResult({
             status: "tampered",
-            message: `CRITICAL TAMPER DETECTED: Payload altered! Computed digest (${data.computed_sha256?.substring(0, 18)}...) does NOT match immutable ledger anchor.`,
+            message: `CRITICAL TAMPER DETECTED: Payload altered! Computed digest (${compDigest}...) does NOT match immutable ledger anchor.`,
             details: data
           });
         }

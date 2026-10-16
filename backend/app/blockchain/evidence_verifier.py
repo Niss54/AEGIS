@@ -53,19 +53,25 @@ class EvidenceVerifier:
         if matches:
             return {
                 "status": "PASS",
+                "is_valid": True,
                 "verified": True,
                 "tampered": False,
                 "message": "Cryptographic integrity verified. On-chain commitment matches report payload perfectly.",
                 "computed_digest": sha_digest,
+                "computed_sha256": sha_digest,
+                "computed_keccak256": keccak_digest,
                 "expected_digest": expected_digest,
             }
         else:
             return {
                 "status": "FAIL",
+                "is_valid": False,
                 "verified": False,
                 "tampered": True,
                 "message": "TAMPER DETECTED: Computed digest does NOT match on-chain commitment. Report payload has been altered post-anchoring.",
                 "computed_digest": sha_digest,
+                "computed_sha256": sha_digest,
+                "computed_keccak256": keccak_digest,
                 "expected_digest": expected_digest,
             }
 
