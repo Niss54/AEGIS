@@ -44,6 +44,9 @@ class Settings(BaseSettings):
     ELEVENLABS_API_KEY: str = ""
     ELEVENLABS_VOICE_ID: str = "21m00Tcm4TlvDq8ikWAM"
     SARVAM_API_KEY: str = ""
+    BHASHINI_API_KEY: str = ""
+    BHASHINI_USER_ID: str = ""
+    BHASHINI_PIPELINE_ID: str = ""
 
     # Blockchain Settings (Polygon Amoy Testnet & Local EVM)
     POLYGON_AMOY_RPC: str = "https://rpc-amoy.polygon.technology"
@@ -58,6 +61,7 @@ class Settings(BaseSettings):
     REGISTRY_CONTRACT_ADDRESS: str = "0x89C57973B8e72faFE2c510D12E6B1D0bB5d8C971"
     DISASTER_BOND_ADDRESS: str = "0x4b7868D9C0632a6773F2f89D5276B8E00B29b87B"
     CARBON_FLOOD_CREDIT_ADDRESS: str = "0x16b04D2e2051664C72B9a221f7B5A795eA0A8F25"
+    AGENTIC_SETTLEMENT_POOL_ADDRESS: str = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     BACKEND_WALLET_PRIVATE_KEY: Optional[str] = None
     BACKEND_WALLET_ADDRESS: str = "0x356345B6522c06F48fAc339CAbCfe7fe88f8d95D"
 

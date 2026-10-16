@@ -21,6 +21,7 @@ from backend.app.agent1_ml import flood_ml_engine
 from backend.app.agent2_geo import chronic_geo_engine
 from backend.app.agent3_financial import financial_risk_engine
 from backend.app.rag.hybrid_cache import hybrid_cache
+from backend.app.bhasha.engine import bhasha_engine
 
 router = APIRouter(tags=["Analysis & Agent Orchestration"])
 
@@ -152,8 +153,8 @@ async def get_model_info():
 async def bhasha_tts(payload: Dict[str, Any]):
     """
     Generates authentic neural voice speech:
-    - Indic/Hindi via Sarvam AI (priya, aditya)
-    - English/Multilingual via ElevenLabs
+    - Indic/Hindi/Marathi/Assamese via Sarvam AI & Bhashini
+    - Turkish/Estonian/Spanish/English via ElevenLabs Global Neural Voice
     With automatic cross-engine failover and browser Web Speech API fallback.
     """
     text = payload.get("text", "")
@@ -162,59 +163,29 @@ async def bhasha_tts(payload: Dict[str, Any]):
     voice_id = payload.get("voice_id", None)
     engine = payload.get("engine", "auto")
 
-    # Detect Devanagari Hindi characters
-    has_devanagari = any("\u0900" <= c <= "\u097F" for c in text)
-    if language == "auto":
-        language = "hi" if has_devanagari else "en"
+    # Call Bhasha-AI unified speech synthesis
+    audio_b64, engine_used = bhasha_engine.synthesize_speech(
+        text=text,
+        language_code=language,
+        speaker=speaker,
+        voice_id=voice_id
+    )
 
-    # Prioritize ElevenLabs for English or explicit request
-    if (engine == "elevenlabs") or (engine == "auto" and language == "en"):
-        audio_b64 = financial_risk_engine.synthesize_elevenlabs_speech(text, voice_id=voice_id)
-        if audio_b64:
-            return {
-                "status": "success",
-                "source": "elevenlabs",
-                "language": language,
-                "mime_type": "audio/mpeg",
-                "audio_b64": audio_b64
-            }
-
-    # Prioritize Sarvam AI for Hindi or explicit request
-    if (engine == "sarvam") or (engine == "auto" and language == "hi") or (language == "hi"):
-        audio_b64 = financial_risk_engine.synthesize_sarvam_speech(text, speaker=speaker)
-        if audio_b64:
-            return {
-                "status": "success",
-                "source": "sarvam_ai",
-                "speaker": speaker,
-                "language": "hi",
-                "mime_type": "audio/wav",
-                "audio_b64": audio_b64
-            }
-
-    # Cross-engine fallback: Try Sarvam if ElevenLabs failed, or vice versa
-    if language == "en":
-        audio_b64 = financial_risk_engine.synthesize_elevenlabs_speech(text, voice_id=voice_id)
-        if audio_b64:
-            return {
-                "status": "success",
-                "source": "elevenlabs",
-                "mime_type": "audio/mpeg",
-                "audio_b64": audio_b64
-            }
-    else:
-        audio_b64 = financial_risk_engine.synthesize_sarvam_speech(text, speaker=speaker)
-        if audio_b64:
-            return {
-                "status": "success",
-                "source": "sarvam_ai",
-                "mime_type": "audio/wav",
-                "audio_b64": audio_b64
-            }
+    if audio_b64:
+        mime = "audio/wav" if engine_used == "sarvam_ai" else "audio/mpeg"
+        return {
+            "status": "success",
+            "source": engine_used,
+            "speaker": speaker,
+            "language": language,
+            "mime_type": mime,
+            "audio_b64": audio_b64
+        }
 
     return {
         "status": "fallback",
         "source": "browser_speech",
+        "language": language,
         "message": "Cloud neural TTS engines unconfigured or unavailable, using Web Speech API."
     }
 
@@ -427,7 +398,10 @@ async def analyze_location(req: AnalyzeRequest):
             waterlogging_depth_cm=agent2_res.waterlogging_depth_cm,
             buildings_at_risk=agent2_res.buildings_at_risk,
             damage_estimate_inr=agent2_res.damage_estimate_inr,
-            sector="Industrial & Logistics Infrastructure"
+            sector="Industrial & Logistics Infrastructure",
+            lat=req.lat,
+            lon=req.lon,
+            telemetry=telemetry
         )
 
         var_usd = fin_result["var_estimate_usd"]
@@ -456,6 +430,11 @@ async def analyze_location(req: AnalyzeRequest):
             recommended_actions=recommended_actions,
             bilingual_alert_hindi=hindi_alert,
             bilingual_alert_english=english_alert,
+            bilingual_alert_regional=fin_result.get("bilingual_alert_regional"),
+            regional_language_code=fin_result.get("regional_language_code"),
+            regional_language_name=fin_result.get("regional_language_name"),
+            regional_language_flag=fin_result.get("regional_language_flag"),
+            mrv_provenance=fin_result.get("mrv_provenance"),
             execution_time_ms=fin_result["execution_time_ms"]
         )
 

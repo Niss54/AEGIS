@@ -83,6 +83,11 @@ class Agent3Result(BaseModel):
     recommended_actions: List[str] = Field(default_factory=list, description="Actionable mitigation recommendations")
     bilingual_alert_hindi: Optional[str] = Field(None, description="Localized Hindi civic alert for responders")
     bilingual_alert_english: Optional[str] = Field(None, description="Localized English civic alert")
+    bilingual_alert_regional: Optional[str] = Field(None, description="Localized native language alert (Turkish, Estonian, Spanish, Marathi, etc.)")
+    regional_language_code: Optional[str] = Field(None, description="BCP 47 language code (e.g. tr-TR, et-EE, es-US, mr-IN)")
+    regional_language_name: Optional[str] = Field(None, description="Native language autonym (e.g. Türkçe, Eesti keel, मराठी)")
+    regional_language_flag: Optional[str] = Field(None, description="Regional or national flag emoji")
+    mrv_provenance: Optional[Dict[str, Any]] = Field(None, description="Verifiable Blue-Carbon-MRV cryptographic provenance stamp")
     execution_time_ms: float
     timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat() + "Z")
 
