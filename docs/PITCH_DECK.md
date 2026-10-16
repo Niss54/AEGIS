@@ -205,6 +205,7 @@ OUTPUT: VaR: ₹37.5 Cr | stranded_asset_risk: HIGH | compliance_gap: 34%
 | 3 | **Bharat-First Design** | Pre-loaded Indian disaster hotspots (Mumbai, Bengaluru, Assam, Chennai). Hindi/English voice alerts. SEBI BRSR compliance analysis. | One-click demo with Indian coordinates; Sarvam AI Indic TTS |
 | 4 | **"What-If" Climate Simulator** | Interactive rainfall/saturation sliders that re-trigger the full agent pipeline in real-time. Judges can play. | Live anomaly sandbox in dashboard UI |
 | 5 | **Dual-Engine Resilience** | Offline ML fallback ensures zero downtime even without network. Online mode activates live LLM + satellite. | 100% test suite passes air-gapped; graceful API degradation |
+| 6 | **Cryptographic Evidence & Web3 Anchoring** | Canonical RFC 8785 JSON hashed via Keccak-256 & anchored to Polygon Amoy. Zero on-chain PII. Single-field tamper detection. | ClimateEvidenceRegistry.sol on Amoy + Interactive Tamper Simulator in Cockpit |
 
 ---
 
@@ -216,11 +217,13 @@ OUTPUT: VaR: ₹37.5 Cr | stranded_asset_risk: HIGH | compliance_gap: 34%
 | Metric | Value |
 |:---|:---|
 | End-to-end analysis time (3 agents) | **< 8 seconds** |
-| ML classifier accuracy | **95.14%** |
+| ML classifier accuracy | **95.14%** (Scikit-Learn GradientBoosting) |
+| Smart contract test suite | **100% passing (29/29 tests)** |
+| Blockchain settlement | **Polygon Amoy Testnet (Chain ID 80002)** |
 | Indian hotspots pre-loaded | **4 cities** (Mumbai, Bengaluru, Assam, Chennai) |
 | Voice alert languages | **2** (English + Hindi) |
 | API integrations live | **6+** (Open-Meteo, Groq, Gemini, ElevenLabs, Sarvam, Mapbox) |
-| Test suite | **100% passing** |
+| Full test suite | **100% passing (81 python + 29 hardhat)** |
 
 #### Projected Scale:
 ```

@@ -72,14 +72,18 @@
 
 ---
 
-### SCENE 5: Architecture & Production Readiness (1:55 – 2:20)
-- **Visual:** Brief screen-share transition to the terminal showing all 5 test suites passing (`ALL 5 TEST SUITES PASSED 100%!`), followed by `agent_manifest.yaml` and `mcp_hub/hub.py`.
+### SCENE 5: Cryptographic Evidence Cockpit & On-Chain Proof (1:55 – 2:20)
+- **Visual:** Click **"Verify Evidence"** pill in the top navigation bar or switch to the **"Web3 & Ledger"** cockpit.
+- **Action:** Open the **Standalone Evidence Verifier & Tamper Sandbox**. Point to the canonical Keccak-256 digest (`0x4eaa87...`) anchored to Polygon Amoy `ClimateEvidenceRegistry.sol`.
+- **Action:** Click **"Simulate Data Mutation (Forge Risk 0.88 ➔ 0.15)"**. The modal instantly flags:
+  - `🚨 P0 TAMPER DETECTED: DIGEST MISMATCH`
+  - Shows original expected digest vs forged computed digest.
+  - Click **"Restore Original Bundle"** ➔ returns to `✅ CRYPTOGRAPHIC INTEGRITY: 100% VERIFIED`.
 - **Voiceover:**
-  > *"Under the hood, AEGIS-CLIMATE is built with rigorous engineering standards:*  
-  > *All agent tool calls are coordinated through an asynchronous **Model Context Protocol (MCP) Hub** over JSON-RPC 2.0.*  
-  > *Our ML flood classifier is trained on 3,500 samples achieving **95.14% accuracy** and a **0.90 Macro F1 score**.*  
-  > *The entire platform is fully compliant with open agent specifications, complete with an official `agent_manifest.yaml` and multi-service Docker Compose architecture.*  
-  > *Every single unit, integration, and end-to-end test suite passes at 100%."*
+  > *"AEGIS solves the greatest vulnerability in climate reporting: data tampering.*  
+  > *Every analysis is compiled into a deterministic canonical JSON evidence bundle, hashed with Keccak-256, and permanently anchored to the Polygon Amoy blockchain.*  
+  > *In our Standalone Verifier, judges can test adversarial tampering in real time. Mutating even one parameter instantly breaks the cryptographic digest, guaranteeing tamper-evident auditability for insurance and parametric bond settlement.*  
+  > *All 29 Hardhat smart contract tests and 81 backend pytest suites pass at 100%."*
 
 ---
 
