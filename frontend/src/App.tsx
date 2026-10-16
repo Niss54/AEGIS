@@ -88,12 +88,20 @@ interface Agent1Data {
   execution_time_ms: number;
 }
 
+interface CriticalInfrastructureVector {
+  power_substations_at_risk: number;
+  healthcare_facilities_exposed: number;
+  evacuation_corridors_submerged: number;
+  drainage_conduits_overcapacity_pct: number;
+}
+
 interface Agent2Data {
   status: string;
   exposure_tier: string;
   waterlogging_depth_cm: number;
   buildings_at_risk: number;
   drainage_overflow_pct: number;
+  critical_infrastructure_vector?: CriticalInfrastructureVector;
   damage_estimate_inr: number;
   damage_estimate_usd: number;
   horizon_curves: {
@@ -1731,6 +1739,36 @@ export function App() {
                   <div style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", marginBottom: "8px" }}>
                     Municipal Drainage Overflow: <b className="mono" style={{ color: "var(--color-danger)" }}>{result.agent2.drainage_overflow_pct}%</b>
                   </div>
+
+                  {/* AquaFHIR Critical Lifeline Exposure */}
+                  {result.agent2.critical_infrastructure_vector && (
+                    <div style={{ background: "rgba(255,255,255,0.03)", padding: "8px 10px", borderRadius: "6px", marginBottom: "8px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                      <div style={{ fontSize: "0.68rem", color: "var(--color-primary)", fontWeight: 700, marginBottom: "4px", display: "flex", justifyContent: "space-between" }}>
+                        <span>⚡ AQUAFHIR CRITICAL LIFELINES</span>
+                        <span style={{ color: "var(--color-text-muted)", fontSize: "0.6rem" }}>Cross-Sector Standard</span>
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", textAlign: "center" }}>
+                        <div style={{ background: "rgba(0,0,0,0.25)", padding: "4px", borderRadius: "4px" }}>
+                          <div style={{ fontSize: "0.62rem", color: "var(--color-text-muted)" }}>Substations</div>
+                          <div className="mono" style={{ fontSize: "0.85rem", fontWeight: 700, color: result.agent2.critical_infrastructure_vector.power_substations_at_risk > 0 ? "var(--color-danger)" : "#FFF" }}>
+                            {result.agent2.critical_infrastructure_vector.power_substations_at_risk}
+                          </div>
+                        </div>
+                        <div style={{ background: "rgba(0,0,0,0.25)", padding: "4px", borderRadius: "4px" }}>
+                          <div style={{ fontSize: "0.62rem", color: "var(--color-text-muted)" }}>Hospitals</div>
+                          <div className="mono" style={{ fontSize: "0.85rem", fontWeight: 700, color: result.agent2.critical_infrastructure_vector.healthcare_facilities_exposed > 0 ? "#FF4060" : "#FFF" }}>
+                            {result.agent2.critical_infrastructure_vector.healthcare_facilities_exposed}
+                          </div>
+                        </div>
+                        <div style={{ background: "rgba(0,0,0,0.25)", padding: "4px", borderRadius: "4px" }}>
+                          <div style={{ fontSize: "0.62rem", color: "var(--color-text-muted)" }}>Cut Corridors</div>
+                          <div className="mono" style={{ fontSize: "0.85rem", fontWeight: 700, color: result.agent2.critical_infrastructure_vector.evacuation_corridors_submerged > 0 ? "var(--color-watch)" : "#FFF" }}>
+                            {result.agent2.critical_infrastructure_vector.evacuation_corridors_submerged}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* 10/20/30-Year Horizon Curves */}
                   <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>

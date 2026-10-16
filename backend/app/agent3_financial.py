@@ -21,132 +21,32 @@ except Exception as _chroma_err:
     HAS_CHROMADB = False
 
 from backend.app.config import settings
+from backend.app.rag.engine import global_rag_engine, normalize_jurisdiction_target, HybridRegulatoryRAGEngine
+from backend.app.rag.corpus import GLOBAL_REGULATORY_CORPUS
+from backend.app.rag.hybrid_cache import hybrid_cache
 
 logger = logging.getLogger("aegis.agent3_financial")
 
 CHROMA_DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "chromadata")
 
-# Regulatory Corpus Chunks for Bharat Climate Mandates
-REGULATORY_CORPUS = [
-    {
-        "id": "sebi-brsr-principle6",
-        "title": "SEBI BRSR Core Mandate — Principle 6 (Climate & Environmental Disclosure)",
-        "sector": "Enterprise & Financial",
-        "region": "India",
-        "text": (
-            "Under SEBI BRSR Core, top 1000 listed entities must quantify capital expenditure allocated to "
-            "acute physical weather adaptation and chronic infrastructure degradation. Facilities in flood-prone "
-            "corridors face mandatory tier-2 third-party ESG audits. Failure to disclose acute flood vulnerabilities "
-            "exceeding ₹50 Crores results in regulatory penalty surcharges and credit rating downgrade warnings."
-        )
-    },
-    {
-        "id": "mof-carbon-tax-2026",
-        "title": "Ministry of Finance — Heavy Carbon Transition & Environmental Risk Surcharge 2026",
-        "sector": "Industrial & Energy",
-        "region": "India",
-        "text": (
-            "Industrial logistics hubs, thermal plants, and chemical manufacturing zones face progressive carbon "
-            "surcharges of ₹2,500 to ₹6,500 per tonne of emissions. Facilities where stormwater drainage failures "
-            "cause hazardous effluent runoff into municipal waterways are subject to statutory environmental "
-            "remediation penalties and immediate suspension of operating licenses under the Water Act."
-        )
-    },
-    {
-        "id": "ndma-urban-flood-sop-sec14",
-        "title": "NDMA Standard Operating Procedure — Urban Flood Management & Critical Lifeline Protections",
-        "sector": "Civic & Infrastructure",
-        "region": "India",
-        "text": (
-            "Section 14 mandates that electrical substations, hospital auxiliary power systems, water treatment plants, "
-            "and metro rail corridors must maintain a minimum 1.5-meter freeboard clearance above the 100-year flood line. "
-            "Assets lacking certified flood barriers cannot claim civic municipal insurance indemnification in the event of "
-            "monsoon inundation damage."
-        )
-    },
-    {
-        "id": "rbi-climate-risk-guidelines",
-        "title": "Reserve Bank of India — Regulatory Framework on Climate Risk & Sustainable Finance",
-        "sector": "Banking & Lending",
-        "region": "India",
-        "text": (
-            "Commercial banks and NBFCs must stress-test collateral assets against physical flood risks. Properties "
-            "located in chronic inundation zones with 10-year degradation probabilities exceeding 40% are subjected to "
-            "mandatory loan-to-value (LTV) haircuts of 15% to 25%, categorizing exposed commercial infrastructure as "
-            "high-risk transition assets."
-        )
-    },
-    {
-        "id": "napcc-urban-mission",
-        "title": "National Action Plan on Climate Change (NAPCC) — National Mission on Sustainable Habitat",
-        "sector": "Urban Planning",
-        "region": "India",
-        "text": (
-            "Promotes climate-resilient infrastructure design across 500 AMRUT and Smart Cities in Bharat. Recommends "
-            "nature-based stormwater retention vaults, permeable pavements, and mandatory GIS mapping of flood inundation "
-            "zones with real-time sensor integration."
-        )
-    }
-]
+# Regulatory Corpus Chunks (Global Multi-Jurisdiction)
+REGULATORY_CORPUS = GLOBAL_REGULATORY_CORPUS
 
 
 class RegulatoryRAGVectorStore:
     def __init__(self):
-        self.client = None
-        self.collection = None
-        self._init_chroma()
+        self.engine = global_rag_engine
+        self.collection = global_rag_engine.collection
 
-    def _init_chroma(self):
-        """Initializes ChromaDB persistent client and indexes policy documents."""
-        if not HAS_CHROMADB or chromadb is None:
-            logger.info("ChromaDB not installed/available; using fast in-memory semantic fallback.")
-            return
-
-        try:
-            os.makedirs(CHROMA_DATA_DIR, exist_ok=True)
-            self.client = chromadb.PersistentClient(path=CHROMA_DATA_DIR)
-            self.collection = self.client.get_or_create_collection(
-                name="aegis_climate_regulations",
-                metadata={"hnsw:space": "cosine"}
-            )
-            # Seed corpus if empty
-            if self.collection.count() == 0:
-                self._seed_corpus()
-            logger.info(f"ChromaDB regulatory collection initialized with {self.collection.count()} chunks.")
-        except Exception as e:
-            logger.warning(f"Could not initialize ChromaDB persistent client: {e}. Falling back to in-memory matching.")
-
-    def _seed_corpus(self):
-        ids = [doc["id"] for doc in REGULATORY_CORPUS]
-        documents = [doc["text"] for doc in REGULATORY_CORPUS]
-        metadatas = [{"title": doc["title"], "sector": doc["sector"], "region": doc["region"]} for doc in REGULATORY_CORPUS]
-        self.collection.add(ids=ids, documents=documents, metadatas=metadatas)
-
-    def query(self, query_text: str, top_k: int = 3) -> List[Dict[str, Any]]:
-        """Queries vector collection for top-k matching regulatory clauses."""
-        if self.collection is not None:
-            try:
-                res = self.collection.query(query_texts=[query_text], n_results=min(top_k, self.collection.count()))
-                results = []
-                for i in range(len(res["ids"][0])):
-                    results.append({
-                        "id": res["ids"][0][i],
-                        "text": res["documents"][0][i],
-                        "metadata": res["metadatas"][0][i],
-                        "distance": res["distances"][0][i] if "distances" in res and res["distances"] else 0.0
-                    })
-                return results
-            except Exception as e:
-                logger.error(f"Error querying ChromaDB: {e}")
-
-        # Fallback keyword matching
-        words = set(query_text.lower().split())
-        scored = []
-        for doc in REGULATORY_CORPUS:
-            score = sum(1 for w in words if w in doc["text"].lower() or w in doc["title"].lower())
-            scored.append((score, doc))
-        scored.sort(key=lambda x: x[0], reverse=True)
-        return [{"id": d["id"], "text": d["text"], "metadata": {"title": d["title"], "sector": d["sector"], "region": d["region"]}, "distance": 0.25} for _, d in scored[:top_k]]
+    def query(
+        self,
+        query_text: str,
+        region: Optional[str] = None,
+        sector: Optional[str] = None,
+        top_k: int = 3
+    ) -> List[Dict[str, Any]]:
+        """Queries hybrid vector collection + Redis L1 cache for top-k matching regulatory clauses."""
+        return self.engine.query(query_text=query_text, region=region, sector=sector, top_k=top_k)
 
 
 class FinancialRiskEngine:
@@ -165,16 +65,17 @@ class FinancialRiskEngine:
     ) -> Dict[str, Any]:
         """
         Executes enterprise Value-at-Risk modeling and RAG regulatory retrieval:
-        1. Queries ChromaDB for sector regulations
+        1. Queries ChromaDB for sector regulations with multi-jurisdiction awareness
         2. Calculates 4-factor VaR: Physical Damage + Business Interruption + Regulatory Penalties + Insurance Surges
         3. Estimates Stranded Asset Probability
         4. Synthesizes Bilingual Civic & Enterprise Actions (Bhasha-AI)
         """
         t0 = time.time()
 
-        # Step 1: Semantic Query to Vector Store
-        rag_query = f"climate risk disclosure flood waterlogging penalties {sector} India"
-        retrieved_clauses = self.rag.query(rag_query, top_k=3)
+        # Step 1: Semantic Query to Vector Store with Geo-Jurisdiction Awareness
+        detected_region = normalize_jurisdiction_target(location_label) or "India"
+        rag_query = f"climate risk disclosure flood waterlogging penalties {sector} {detected_region}"
+        retrieved_clauses = self.rag.query(rag_query, region=detected_region, sector=sector, top_k=3)
         applicable_reg_titles = [c["metadata"].get("title", c["id"]) for c in retrieved_clauses]
 
         # Step 2: Multi-Factor Value-at-Risk (VaR) Formulation
