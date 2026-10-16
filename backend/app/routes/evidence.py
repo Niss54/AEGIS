@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 from backend.app.evidence.service import evidence_service
 from backend.app.evidence.schema import ClimateEvidenceBundle
 from backend.app.db.models import evidence_store
+from backend.app.blockchain.chain_client import chain_client
 from backend.app.errors import NotFoundError, ValidationError
 
 router = APIRouter(prefix="/evidence", tags=["Evidence & Cryptographic Integrity"])
@@ -95,3 +96,58 @@ async def verify_evidence(req: VerifyEvidenceRequest):
     """
     verification = evidence_service.verify_bundle(req.bundle, req.expected_digest)
     return verification
+
+
+@router.post("/{evidence_id}/anchor", summary="Anchor Evidence On-Chain")
+async def anchor_evidence_bundle(evidence_id: str):
+    """
+    Submits evidence digest to the on-chain ClimateEvidenceRegistry contract.
+    PRD 2: Section 8 & Section 9 (E-085 to E-096, E-100).
+    """
+    record = evidence_store.get_bundle(evidence_id)
+    if not record:
+        raise HTTPException(status_code=404, detail=f"Evidence bundle '{evidence_id}' not found")
+
+    result = await chain_client.anchor_evidence(
+        digest=record.digest,
+        report_ref=record.analysis_id,
+        schema_version=1,
+        evidence_id=evidence_id
+    )
+
+    return result
+
+
+@router.get("/{evidence_id}/anchor-status", summary="Get Evidence Anchoring Status")
+async def get_anchor_status(evidence_id: str):
+    """
+    Returns transaction confirmation status, mined block, and block explorer link.
+    PRD 2: Section 9 (E-101).
+    """
+    record = evidence_store.get_bundle(evidence_id)
+    if not record:
+        raise HTTPException(status_code=404, detail=f"Evidence bundle '{evidence_id}' not found")
+
+    tx_rec = evidence_store.get_transaction_by_evidence(evidence_id)
+    if not tx_rec:
+        return {
+            "evidence_id": evidence_id,
+            "digest": record.digest,
+            "anchor_status": record.anchor_status,
+            "tx_hash": record.tx_hash,
+            "confirmations": 0,
+            "explorer_url": None
+        }
+
+    return {
+        "evidence_id": evidence_id,
+        "digest": record.digest,
+        "anchor_status": tx_rec.status,
+        "tx_hash": tx_rec.tx_hash,
+        "block_number": tx_rec.block_number,
+        "confirmations": tx_rec.confirmations,
+        "registry_address": tx_rec.registry_address,
+        "explorer_url": f"https://amoy.polygonscan.com/tx/{tx_rec.tx_hash}",
+        "confirmed_at_utc": tx_rec.confirmed_at_utc
+    }
+
