@@ -13,16 +13,21 @@ class EvidenceVerifier:
     def canonicalize(payload: Dict[str, Any]) -> str:
         """Produce deterministic sorted canonical JSON representation."""
         # Extract core verifiable fields to eliminate transient network headers
+        loc = payload.get("location") or {}
+        a1 = payload.get("agent1") or {}
+        a2 = payload.get("agent2") or {}
+        a3 = payload.get("agent3") or {}
+
         verifiable_subset = {
             "location": {
-                "lat": round(float(payload.get("lat", payload.get("location", {}).get("lat", 0))), 4),
-                "lon": round(float(payload.get("lon", payload.get("location", {}).get("lon", 0))), 4),
-                "name": str(payload.get("location_name", payload.get("location", {}).get("name", "Asset"))),
+                "lat": round(float(payload.get("lat", loc.get("lat", 0.0)) or 0.0), 4),
+                "lon": round(float(payload.get("lon", loc.get("lon", 0.0)) or 0.0), 4),
+                "name": str(payload.get("location_name", loc.get("name", "Asset")) or "Asset"),
             },
-            "risk_score": round(float(payload.get("risk_score", payload.get("agent1", {}).get("risk_score", 0.0))), 4),
-            "risk_tier": str(payload.get("risk_tier", payload.get("agent1", {}).get("risk_tier", "LOW"))),
-            "waterlogging_depth_cm": int(payload.get("waterlogging_depth_cm", payload.get("agent2", {}).get("waterlogging_depth_cm", 0))),
-            "var_estimate_inr": int(payload.get("var_estimate_inr", payload.get("agent3", {}).get("var_estimate_inr", 0))),
+            "risk_score": round(float(payload.get("risk_score", a1.get("risk_score", 0.0)) or 0.0), 4),
+            "risk_tier": str(payload.get("risk_tier", a1.get("risk_tier", "LOW")) or "LOW"),
+            "waterlogging_depth_cm": int(payload.get("waterlogging_depth_cm", a2.get("waterlogging_depth_cm", 0)) or 0),
+            "var_estimate_inr": int(payload.get("var_estimate_inr", a3.get("var_estimate_inr", 0)) or 0),
         }
         return json.dumps(verifiable_subset, sort_keys=True, separators=(',', ':'))
 
