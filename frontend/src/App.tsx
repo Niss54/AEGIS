@@ -1326,10 +1326,13 @@ export function App() {
             {/* Slider 1: Simulated Rainfall */}
             <div style={{ marginBottom: "12px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Rainfall Cloudburst:</span>
+                <label htmlFor="sim-rain-slider" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Rainfall Cloudburst:</label>
                 <span className="mono" style={{ color: "var(--color-primary)", fontWeight: 700 }}>+{simRain} mm</span>
               </div>
               <input
+                id="sim-rain-slider"
+                name="sim-rain-slider"
+                aria-label="Rainfall Cloudburst in millimeters"
                 type="range"
                 min="0"
                 max="150"
@@ -1342,10 +1345,13 @@ export function App() {
             {/* Slider 2: Soil Saturation */}
             <div style={{ marginBottom: "14px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Soil Saturation Index:</span>
+                <label htmlFor="sim-sat-slider" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Soil Saturation Index:</label>
                 <span className="mono" style={{ color: "#F4A261", fontWeight: 700 }}>{simSat}%</span>
               </div>
               <input
+                id="sim-sat-slider"
+                name="sim-sat-slider"
+                aria-label="Soil Saturation Index percentage"
                 type="range"
                 min="20"
                 max="100"
@@ -2163,10 +2169,13 @@ export function App() {
 
               {/* Tool Selector */}
               <div>
-                <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                <label htmlFor="mcp-hub-tool-select" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                   Select Registered Tool:
                 </label>
                 <select
+                  id="mcp-hub-tool-select"
+                  name="mcp-hub-tool-select"
+                  aria-label="Select Registered Tool"
                   value={mcpToolName}
                   onChange={(e) => {
                     const t = e.target.value;
@@ -2193,10 +2202,13 @@ export function App() {
 
               {/* Arguments Editor */}
               <div>
-                <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                <label htmlFor="mcp-hub-params-json" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                   JSON Parameters (Input Schema):
                 </label>
                 <textarea
+                  id="mcp-hub-params-json"
+                  name="mcp-hub-params-json"
+                  aria-label="JSON Parameters (Input Schema)"
                   value={mcpParamsJson}
                   onChange={(e) => setMcpParamsJson(e.target.value)}
                   rows={4}
@@ -3104,10 +3116,13 @@ ANTHROPIC_API_KEY=`;
             {mcpModalTab === "playground" && (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 <div>
-                  <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                  <label htmlFor="mcp-modal-tool-select" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                     Target Tool:
                   </label>
                   <select
+                    id="mcp-modal-tool-select"
+                    name="mcp-modal-tool-select"
+                    aria-label="Target Tool"
                     value={mcpToolName}
                     onChange={(e) => {
                       const t = e.target.value;
@@ -3133,10 +3148,13 @@ ANTHROPIC_API_KEY=`;
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                  <label htmlFor="mcp-modal-params-json" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                     JSON Arguments (Input Schema):
                   </label>
                   <textarea
+                    id="mcp-modal-params-json"
+                    name="mcp-modal-params-json"
+                    aria-label="JSON Arguments (Input Schema)"
                     value={mcpParamsJson}
                     onChange={(e) => setMcpParamsJson(e.target.value)}
                     rows={4}
