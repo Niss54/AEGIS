@@ -33,28 +33,97 @@ To guarantee a clean 1st place sweep in **Track 4 (Climate Data & Environmental 
 
 ---
 
-## 2. TOP 10 COMPETITOR & REAL-WORLD REPOSITORIES: WHAT THEY DID VS. AEGIS SUPERIORITY
+## 2. TOP 10 COMPETITOR REPOSITORIES: HOW THEY BUILT IT & WHAT AEGIS EXTRACTS
 
-We conducted deep reconnaissance on the top 10 open-source and hackathon-winning climate-blockchain repositories to extract their best features and surpass them:
+We conducted deep reconnaissance into the codebase architectures of the top 10 winning and real-world climate-blockchain repositories. Instead of over-complicating or building bloatware, we surgically extract **only the highest-value architectural patterns** that guarantee an unfair advantage:
 
-| # | Repository / Project | What They Did Well (Features to Extract) | Where They Fall Short (Competitor Weakness) | AEGIS Winning Upgrade |
-|---|:---|:---|:---|:---|
-| 1 | **[`MrPrinceAli/zkanopy`](https://github.com/MrPrinceAli/zkanopy)** *(IEEE ClimateChain 2026 Competitor)* | Zero-knowledge deforestation-free proofs (EUDR) using Circom & Foundry on Base. | Single-domain (only deforestation); no live weather ingestion, no multi-agent inference, no frontend UX. | **Multi-Agent Pipeline**: Combines live Open-Meteo Doppler radar, ML classifier (95.14% acc), 30m SRTM DEM depth-damage, and financial VaR with EVM contracts. |
-| 2 | **[`YaleOpenLab/openclimate-demo`](https://github.com/YaleOpenLab/openclimate-demo)** | Nested jurisdictional climate accounting (country $\rightarrow$ state $\rightarrow$ city ledgers). | Complex, slow, lacks automated smart contract payout triggers; UI is heavy and academic. | **3-Second Autonomous Cascade**: Immediate real-time execution from 15m satellite telemetry to localized civic alert & on-chain bond anchor. |
-| 3 | **[`dClimate/dWeather-Python-Client`](https://github.com/dClimate/dWeather-Python-Client)** | Decentralized gridded weather dataset query client & historical weather data API. | Purely a data client library; no automated economic loss estimation, no multi-agent coordination. | **Built-in Meteorological Adapter**: Resilient Open-Meteo + IMD gateway with bounded exponential backoff, fixture fallbacks, and deterministic preimages. |
-| 4 | **[`ToucanProtocol/toucan-sdk`](https://github.com/ToucanProtocol/toucan-sdk)** | Programmatic ERC-20 carbon tokenization and retirement pools (BCT/NCT). | Disconnected from physical hazard risk; carbon credits do not hedge against flood damage. | **Carbon Flood Credit (`CarbonFloodCredit.sol`)**: Synthesizes carbon credits directly with acute flood mitigation and disaster bond yields. |
-| 5 | **[`sambitsargam/recycle`](https://github.com/sambitsargam/recycle)** *(GreenLink - DoraHacks Winner)* | IPFS file hashing, Web3 token incentives, and clean environmental dashboard. | Simple CRUD on IPFS; no live satellite GIS, no regulatory ESG compliance integration. | **Enterprise Hybrid RAG**: ChromaDB regulatory vector search + Redis caching + SEBI BRSR Principle 6 compliance directives. |
-| 6 | **[`KlimaDAO/klimadao-docs`](https://github.com/KlimaDAO/klimadao-docs)** | On-chain bonded liquidity protocols and treasury mechanisms. | High complexity DeFi tokenomics; lacks real-world civic defense alerts or multi-lingual citizen protection dispatches. | **Parametric Disaster Bond (`DisasterBond.sol`)**: Automated 48-hour trigger index releasing emergency liquidity to municipal relief funds upon verifiable depth breach. |
-| 7 | **[`untitledfinancial/dpx-mcp`](https://github.com/untitledfinancial/dpx-mcp)** | Model Context Protocol (MCP) tool server exposing macroeconomic signals to AI. | Generic financial signals; no geospatial raster DEM, no disaster presets, no bilingual audio readout. | **AEGIS MCP Tool Hub**: Full JSON-RPC 2.0 protocol engine on port 8001 exposing weather vectors, flood classifiers, DEM exposure, and policy RAG to Claude Desktop & Cursor. |
-| 8 | **[`DigitalForClimate/shared-national-carbon-registry`](https://github.com/DigitalForClimate/shared-national-carbon-registry)** *(UNDP)* | Double-counting prevention architecture and verifiable national registry templates. | Extremely slow enterprise Java stack; impossible to spin up or demo in a fast-paced hackathon. | **Lightweight Canonical Preimage Engine**: Deterministic RFC-8785 JSON normalization + Keccak-256 hash digests executing sub-10ms in Python & TypeScript. |
-| 9 | **[`AquaFHIR`](https://devpost.com/software/ieee-climatechain-global-hackathon)** *(Devpost Winner)* | Citizen science river quality verification combined with healthcare alerts. | Manual user input dependent; lacks 3D GIS satellite maps, automated LiDAR topography, or financial VaR synthesis. | **30m SRTM DEM Topographical Engine**: Automatic elevation profiling, municipal drainage capacity calculations, and HAZUS structural depth-damage curves. |
-| 10 | **[`shivachethanreddy/Blockchain-Based-Blue-Carbon-MRV-System`](https://github.com/shivachethanreddy/Blockchain-Based-Blue-Carbon-MRV-System)** | Coastal ecosystem MRV with cryptographic data integrity. | Static mockup; lacks real-time interactive sandbox, audio synthesis, or multi-lingual emergency broadcasting. | **Bhasha-AI Multilingual Engine**: Geolocation-aware emergency alerts across Indian (Bhashini/Sarvam), Turkish, Estonian, and English languages with Web Speech synthesis. |
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                COMPETITIVE EXTRACTION MATRIX                                    │
+└─────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+1. zkanopy (Circom/Foundry)         ──▶ ZK Attestation Interface (Cryptographic Data Privacy)
+2. OpenClimate (Yale)               ──▶ Nested Jurisdictional Tagging (Country/State/City/Basin)
+3. dClimate (dWeather Client)       ──▶ Gridded Telemetry Schema & Anomaly Baselines
+4. Toucan Protocol (toucan-sdk)     ──▶ Programmatic ERC-20 Carbon Offset Retirement Events
+5. GreenLink / sambitsargam         ──▶ Sub-5ms In-Memory / Redis Hybrid RAG Caching
+6. KlimaDAO (Bonds & Subgraph)      ──▶ Automated Parametric Yield & Catastrophe Payout Logic
+7. dpx-mcp (untitledfinancial)      ──▶ Standardized Model Context Protocol (MCP) Stdio JSON-RPC
+8. UNDP Carbon Registry (D4C)       ──▶ Cryptographic Double-Counting / Double-Claim Prevention
+9. AquaFHIR (Devpost Winner)        ──▶ Cross-Sector Critical Infrastructure Hazard Vectors
+10. Blue-Carbon-MRV (shivachethan)  ──▶ Verifiable MRV Provenance Struct (Weights, Timestamp, Digest)
+```
+
+### Detailed Breakdown of Extracted Mechanics:
+
+### 1. `MrPrinceAli/zkanopy` (IEEE ClimateChain 2026 Competitor)
+- **How they built it**: Uses Circom R1CS circuits to generate Groth16 proofs that satellite data satisfies EUDR regulations without revealing farmer GPS coordinates.
+- **What AEGIS extracts (Lean & Feasible)**: We implement an `IZKTelemetryVerifier` interface and a lightweight `ZKAttestationModule.sol` that verifies a telemetry validity proof on-chain, proving sensor data is unmanipulated and within plausible physical bounds without revealing proprietary sensor calibration constants.
+
+### 2. `YaleOpenLab/openclimate-demo` (Yale Open Lab)
+- **How they built it**: Nested jurisdictional ledger architecture connecting city $\rightarrow$ state $\rightarrow$ national levels with verifiable emissions attribution.
+- **What AEGIS extracts (Lean & Feasible)**: In `schemas.py`, add `JurisdictionHierarchy`:
+  ```python
+  class JurisdictionHierarchy(BaseModel):
+      country_iso: str        # e.g., "IN", "TR", "US", "EE"
+      admin1_state: str       # e.g., "Uttar Pradesh", "Istanbul", "California"
+      admin2_district: str    # e.g., "Lucknow", "Fatih", "Orange County"
+      basin_name: str         # e.g., "Gomti River Basin", "Golden Horn", "Santa Ana"
+  ```
+  Enables multi-tiered regulatory roll-up across municipal, state, and national bodies.
+
+### 3. `dClimate/dWeather-Python-Client` (dClimate / Arbol)
+- **How they built it**: Standardized gridded weather data client with GeoHash indexing and precipitation anomaly ratios against 10-year climatological baselines.
+- **What AEGIS extracts (Lean & Feasible)**: Add `precipitation_anomaly_ratio = precipitation_24h_mm / historical_baseline_24h_mm` to `WeatherVector`. If anomaly $> 2.5\times$, automatically flags acute flash flood probability.
+
+### 4. `ToucanProtocol/toucan-sdk` (Toucan Protocol)
+- **How they built it**: Programmatic ERC-20 carbon tokenization and retirement pools (BCT/NCT) with on-chain burning events.
+- **What AEGIS extracts (Lean & Feasible)**: In `CarbonFloodCredit.sol`, implement `retireOffsetForFloodResilience(uint256 amount, bytes32 evidenceDigest, string memo)`:
+  ```solidity
+  event CarbonOffsetRetired(address indexed retiree, uint256 amount, bytes32 indexed evidenceDigest, string memo);
+  ```
+  Directly ties voluntary corporate carbon credit retirements to funding acute flood defenses.
+
+### 5. `sambitsargam/recycle` (GreenLink - DoraHacks Winner)
+- **How they built it**: Low-latency caching layer to avoid repetitive IPFS network fetches.
+- **What AEGIS extracts (Lean & Feasible)**: `HybridVectorCache` in `backend/app/rag/hybrid_cache.py`. Combines in-memory LRU with optional Redis, hashing semantic queries (`jurisdiction + query_text`) to return cached SEBI BRSR and EU CSDDD compliance directives in $<5\text{ ms}$.
+
+### 6. `KlimaDAO/klimadao-docs` (KlimaDAO)
+- **How they built it**: On-chain bonded liquidity pools where treasury reserves back parametric payout triggers.
+- **What AEGIS extracts (Lean & Feasible)**: In `DisasterBond.sol`, implement `triggerParametricPayout(bytes32 evidenceDigest, uint256 depthCm)` which programmatically releases emergency liquidity to the municipality when verified inundation depth exceeds threshold.
+
+### 7. `untitledfinancial/dpx-mcp` (Model Context Protocol Engine)
+- **How they built it**: Python MCP server using `stdio` transport implementing the `2024-11-05` JSON-RPC specification.
+- **What AEGIS extracts (Lean & Feasible)**: 4 standardized, zero-overhead MCP tools (`fetch_weather_vectors`, `run_flood_classifier`, `compute_dem_exposure`, `query_policy_rag`) exposed over HTTP/stdio for Claude Desktop and Cursor.
+
+### 8. `DigitalForClimate/shared-national-carbon-registry` (UNDP)
+- **How they built it**: Double-counting prevention mapping preventing duplicate credit issuance or claim payouts against identical telemetry batches.
+- **What AEGIS extracts (Lean & Feasible)**: In `AgenticSettlementPool.sol`:
+  ```solidity
+  mapping(bytes32 => bool) public processedEvidenceDigests;
+  ```
+  Guarantees that an evidence digest can only trigger relief tranches or carbon claims once.
+
+### 9. `AquaFHIR` (Devpost Winner)
+- **How they built it**: Unified cross-sector alerting combining physical water metrics with critical civic infrastructure vulnerability.
+- **What AEGIS extracts (Lean & Feasible)**: In Agent 2's HAZUS output, add `CriticalInfrastructureVector`:
+  ```python
+  class CriticalInfrastructureVector(BaseModel):
+      power_substations_at_risk: int
+      healthcare_facilities_exposed: int
+      evacuation_corridors_submerged: int
+      drainage_conduits_overcapacity_pct: float
+  ```
+
+### 10. `shivachethanreddy/Blockchain-Based-Blue-Carbon-MRV-System`
+- **How they built it**: Verifiable MRV provenance struct containing model weight hashes, ingest timestamps, and data provider signatures.
+- **What AEGIS extracts (Lean & Feasible)**: Standardized `MRVProvenance` block inside every generated `ClimateEvidenceBundle`, ensuring 100% cryptographic reproducibility.
 
 ---
 
 ## 3. GLOBAL CLIMATE HOTSPOTS & GEOLOCATION INTELLIGENCE MATRIX
 
-The Command Radar is expanded from India-only to an **International Disaster Radar** representing the host country, judge regions, and high-vulnerability global economic corridors:
+The Command Radar expands from India-only to an **International Disaster Radar** covering host country Türkiye, judge regions (USA, Estonia), and high-vulnerability Indian economic corridors:
 
 ```mermaid
 graph TD
@@ -63,12 +132,12 @@ graph TD
     Detect -->|Latitude ~ 41.0°N / Türkiye| TR[Türkiye Hotspots: Istanbul & Kastamonu]
     Detect -->|Latitude ~ 33.7°N / USA| US[USA Hotspots: Orange County & LA Basin]
     Detect -->|Latitude ~ 58.3°N / Estonia| EE[Estonia Hotspots: Pärnu Bay & Tallinn]
-    Detect -->|Latitude ~ 19.0°N / India| IN[Bharat Hotspots: UP Lucknow, Mumbai, Assam]
+    Detect -->|Latitude ~ 19.0°N - 26.8°N / India| IN[Bharat Hotspots: UP Lucknow, Mumbai, Assam]
     
     TR --> TR_Lang[Turkish 'Türkçe' + English Global]
     US --> US_Lang[English US + Spanish Americas]
     EE --> EE_Lang[Estonian 'Eesti' + English Global]
-    IN --> IN_Lang[State-Specific: Hindi / Marathi / Kannada + English]
+    IN --> IN_Lang[State-Specific: Pure Hindi / Marathi / Assamese + English]
     
     TR_Lang --> Dispatch[Bilingual Multi-Voice Civic Dispatch]
     US_Lang --> Dispatch
@@ -76,7 +145,7 @@ graph TD
     IN_Lang --> Dispatch
 ```
 
-### Hotspots Catalog:
+### Hotspots Catalog (7 Strategic Hubs):
 1. **Istanbul — Marmara & Golden Horn Basin (Türkiye)**:
    - Coordinates: `41.0082°N, 28.9784°E`
    - Disaster Scenario: Dense urban flash flooding, low drainage capacity around Bosphorus estuaries.
@@ -119,7 +188,7 @@ graph TD
                                         ▼
                        ┌─────────────────────────────────┐
                        │   WEATHER SOURCE ADAPTER (EVM)  │
-                       │ Normalized Vectors + Provenance │
+                       │ Normalized Vectors + Anomaly    │
                        └────────────────┬────────────────┘
                                         │
                                         ▼
@@ -142,6 +211,7 @@ graph TD
 │  - ClimateEvidenceRegistry.sol Anchor   │   │  - Sarvam AI Indic Neural TTS            │
 │  - DisasterBond.sol (Auto-Payout Trigger│   │  - Turkish & Estonian Neural Dispatches  │
 │  - Stablecoin (USDC) Agent Settlement   │   │  - Web Speech Multi-Voice Audio Readout  │
+│  - Double-Counting Prevention (UNDP)    │   │  - Nested Jurisdictional Tagging         │
 └─────────────────────────────────────────┘   └──────────────────────────────────────────┘
 ```
 
@@ -154,18 +224,20 @@ Each phase is self-contained with **clear building instructions, strict automate
 ---
 
 ### 🚀 PHASE 1: Global Climate Hotspot & Multi-National Ingestion Engine
-**Theme**: Expand geospatial data models and telemetry ingestion from India-only to **Türkiye, USA, Estonia, and India (UP Lucknow focus)**.
+**Theme**: Expand geospatial data models and telemetry ingestion from India-only to **Türkiye (Istanbul, Kastamonu), USA (Orange County), Estonia (Pärnu), and India (UP Lucknow Gomti)** with Nested Jurisdictional Tagging (`YaleOpenLab`) and Gridded Telemetry Anomaly Ratios (`dClimate`).
 
 #### Tasks:
 1. **Update Hotspots Registry (`backend/app/schemas.py` & `backend/app/weather/adapter.py`)**:
-   - Add Istanbul (Türkiye), Kastamonu (Türkiye), Orange County (USA), Pärnu (Estonia), and Lucknow Gomti Basin (India - UP).
-   - Define localized bounding boxes, elevation baselines, typical annual losses, and historical disaster trigger parameters for each.
-2. **Weather Ingestion Normalizer**:
+   - Add Istanbul, Kastamonu, Orange County, Pärnu, and Lucknow Gomti Basin.
+   - Define localized bounding boxes, elevation baselines, typical annual losses, historical disaster trigger parameters, and `JurisdictionHierarchy` for each.
+2. **Weather Ingestion Normalizer with Anomaly Ratio**:
    - Ensure Open-Meteo API queries support global coordinates without edge-case latitude/longitude failures.
+   - Calculate `precipitation_anomaly_ratio` against 10-year historical monsoon baselines.
    - Cache results using normalized lat/lon (2 decimal places).
 3. **Tests (`tests/test_global_hotspots.py`)**:
    - Test coordinates ingestion for Istanbul (`41.0082, 28.9784`), Kastamonu, Orange County, Pärnu, and Lucknow.
    - Verify deterministic synthetic fixture fallbacks when network is offline.
+   - Verify `JurisdictionHierarchy` and anomaly ratio calculations.
 4. **DevTools / Verification**:
    - Run test suite until all pass: `pytest tests/test_global_hotspots.py -v`.
 5. **Commit Gate**:
@@ -174,7 +246,7 @@ Each phase is self-contained with **clear building instructions, strict automate
 ---
 
 ### 🚀 PHASE 2: Enterprise Hybrid RAG & Redis Vector Cache
-**Theme**: Upgrade Agent 3's regulatory retrieval engine to an enterprise-grade **Hybrid RAG** system combining **ChromaDB dense semantic embeddings** with a **Redis L1 vector/document cache**, integrating European, Turkish, and US climate compliance frameworks alongside SEBI BRSR.
+**Theme**: Upgrade Agent 3's regulatory retrieval engine to an enterprise-grade **Hybrid RAG** system combining **ChromaDB dense semantic embeddings** with a **Redis L1 vector/document cache** (`GreenLink`), integrating European (EU CSDDD), Turkish (SPK), and US (California SB 253) climate compliance frameworks alongside SEBI BRSR, with Cross-Sector Infrastructure Hazard Vectors (`AquaFHIR`).
 
 #### Tasks:
 1. **Multi-Jurisdiction Regulatory Corpus**:
@@ -185,17 +257,19 @@ Each phase is self-contained with **clear building instructions, strict automate
 2. **Redis Hybrid Cache Layer (`backend/app/rag/hybrid_cache.py`)**:
    - Implement in-memory L1 cache (with Redis connection fallback) for sub-5ms regulatory retrieval.
    - Hash query terms to avoid redundant ChromaDB dense vector searches.
-3. **Tests (`tests/test_hybrid_rag.py`)**:
+3. **Cross-Sector Infrastructure Vector (`AquaFHIR` integration)**:
+   - Output `CriticalInfrastructureVector` in Agent 2 (substations, healthcare facilities, evacuation corridors).
+4. **Tests (`tests/test_hybrid_rag.py`)**:
    - Verify retrieval for Turkish SPK regulations when querying Istanbul.
    - Verify California SB 253 retrieval for Orange County.
    - Verify sub-10ms cache hit response times.
-4. **Commit Gate**:
-   - `git add . && git commit -m "feat(phase-2-hybrid-rag): add multi-jurisdiction regulatory corpus and Redis L1 hybrid cache"`
+5. **Commit Gate**:
+   - `git add . && git commit -m "feat(phase-2-hybrid-rag): add multi-jurisdiction regulatory corpus, Redis L1 hybrid cache, and AquaFHIR infrastructure vector"`
 
 ---
 
 ### 🚀 PHASE 3: Hyper-Localized & International Multilingual Dispatch (Bhashini + Sarvam AI + Global Neural Voice)
-**Theme**: Build the intelligent dispatch engine that pairs **English** with **native regional languages** based on user/incident coordinates, integrating **Bhashini (Govt of India API)**, **Sarvam AI (Indic Speech)**, and **Turkish/Estonian** emergency linguistic synthesizers.
+**Theme**: Build the intelligent dispatch engine that pairs **English** with **native regional languages** based on user/incident coordinates, integrating **Bhashini (Govt of India API)**, **Sarvam AI (Indic Speech)**, and **Turkish/Estonian** emergency linguistic synthesizers, complete with Verifiable MRV Provenance (`Blue-Carbon-MRV`).
 
 #### Tasks:
 1. **Bhasha-AI Global Dispatcher (`backend/app/bhasha/engine.py`)**:
@@ -210,36 +284,44 @@ Each phase is self-contained with **clear building instructions, strict automate
 2. **Bhashini & Sarvam AI Service Connectors (`backend/app/bhasha/providers.py`)**:
    - Connector for Bhashini ULCA translation pipeline with graceful offline neural fallback.
    - Connector for Sarvam AI audio synthesis with fallback to standard Web Speech API.
-3. **Tests (`tests/test_bhasha_global.py`)**:
+3. **Verifiable MRV Metadata Struct**:
+   - Stamp all dispatches with cryptographic sensor provenance and canonical bundle digests.
+4. **Tests (`tests/test_bhasha_global.py`)**:
    - Test language resolution for all 7 hotspots.
    - Test Turkish emergency broadcast output.
    - Test Estonian flood warning output.
    - Test Lucknow UP Hindi dispatch.
-4. **Commit Gate**:
+5. **Commit Gate**:
    - `git add . && git commit -m "feat(phase-3-bhasha): implement Bhashini, Sarvam AI, and Turkish/Estonian multilingual dispatch engine"`
 
 ---
 
 ### 🚀 PHASE 4: Autonomous Stablecoin Settlement & Micro-Disaster Bond Liquidity Layer
-**Theme**: Direct answer to Judge Revanth Reddy Airre's IEEE research on *Stablecoin Settlement Architectures for AI Agents* — implement programmatic **USDC / ERC-20 stablecoin micro-settlements** triggered autonomously by Agent 2's verified depth threshold.
+**Theme**: Direct answer to Judge Revanth Reddy Airre's IEEE research on *Stablecoin Settlement Architectures for AI Agents* — implement programmatic **USDC / ERC-20 stablecoin micro-settlements** (`AgenticSettlementPool.sol`) with Double-Counting Prevention (`UNDP Carbon Registry`), Carbon Offset Retirement Events (`Toucan Protocol`), Parametric Bond Yields (`KlimaDAO`), and Zero-Knowledge Proof Verification interface (`zkanopy`).
 
 #### Tasks:
 1. **Smart Contract Enhancement (`blockchain/contracts/AgenticSettlementPool.sol`)**:
    - ERC-20 liquidity pool holding mock USDC/EURC stablecoins.
    - Function `settleEmergencyRelief(bytes32 evidenceDigest, uint256 depthCm, address municipalBeneficiary)`:
      - Verifies `ClimateEvidenceRegistry` holds a valid anchor.
+     - Checks `processedEvidenceDigests[evidenceDigest] == false` (UNDP double-counting prevention).
      - Auto-transfers stablecoin relief tranche if `depthCm >= triggerThreshold`.
-2. **Hardhat Test Suite (`blockchain/test/AgenticSettlement.test.ts`)**:
+2. **Carbon Offset Retirement (`CarbonFloodCredit.sol`)**:
+   - Add `retireOffsetForFloodResilience(uint256 amount, bytes32 evidenceDigest, string memo)`.
+3. **Zero-Knowledge Attestation Interface (`blockchain/contracts/IZKTelemetryVerifier.sol`)**:
+   - Lightweight interface for Groth16 proof verification of unmanipulated sensor bounds.
+4. **Hardhat Test Suite (`blockchain/test/AgenticSettlement.test.ts`)**:
    - Test unauthorized caller rejection.
+   - Test double-claiming rejection.
    - Test simulated stablecoin payout upon Agent 2 catastrophic flood verification.
-   - Test EIP-712 signature verification.
-3. **Commit Gate**:
-   - `git add . && git commit -m "feat(phase-4-stablecoin): implement autonomous agentic stablecoin settlement smart contract"`
+   - Test carbon offset retirement event emission.
+5. **Commit Gate**:
+   - `git add . && git commit -m "feat(phase-4-stablecoin): implement autonomous agentic stablecoin settlement, double-counting prevention, and ZK verifier interface"`
 
 ---
 
 ### 🚀 PHASE 5: Automated Geolocation-Aware Frontend & Global Radar UI Expansion
-**Theme**: Expand `App.tsx` and interactive UI components with a **1-Click "Detect My Location"** GPS trigger, international disaster presets, and dynamic language tabs verified via **Chrome DevTools MCP**.
+**Theme**: Expand `App.tsx` and interactive UI components with a **1-Click "Detect My Location"** GPS trigger, international disaster presets, Model Context Protocol (`untitledfinancial/dpx-mcp`) interactive playground, and dynamic language tabs verified via **Chrome DevTools MCP**.
 
 #### Tasks:
 1. **Geolocation Button & Reverse Geocoder**:
