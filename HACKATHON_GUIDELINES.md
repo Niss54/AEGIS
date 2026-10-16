@@ -53,13 +53,13 @@ India faces frequent climate extremities (flash floods, urban waterlogging, mons
 3. **Plans** multi-step tool invocations across ML models, GIS spatial overlays, and regulatory RAG.
 4. **Uses Tools** (Open-Meteo API, GeoPandas/DEM rasters, ChromaDB vector store, HAZUS damage curves).
 5. **Acts** autonomously triggering cascading agents and broadcasting WebSocket alerts.
-6. **Delivers** actionable civic and financial intelligence via an interactive Next.js command center.
+6. **Delivers** actionable civic and financial intelligence via an interactive React 19 + Vite + TypeScript command center.
 
 ```
        CORE AGENTIC EXECUTION CYCLE:
 ┌──────────────┐     ┌──────────┐     ┌──────────┐
 │  UNDERSTAND  │ ──> │  REASON  │ ──> │   PLAN   │
-└──────────────┐     └──────────┘     └──────────┘
+└──────────────┘     └──────────┘     └──────────┘
                                             │
                                             ▼
 ┌──────────────┐     ┌──────────┐     ┌──────────┐
@@ -73,7 +73,7 @@ India faces frequent climate extremities (flash floods, urban waterlogging, mons
 
 ```
                   ┌──────────────────────────────────────────────┐
-                  │    NEXT.JS 14 EXECUTIVE COMMAND CENTER       │
+                  │ REACT 19 / VITE EXECUTIVE COMMAND CENTER     │
                   │ (Live Geo-Map, Risk Gauges, VaR Breakdown)   │
                   └──────────────────────┬───────────────────────┘
                                          │ REST / WebSocket
@@ -112,7 +112,7 @@ The judging panel will score entries on the following core pillars:
 | :--- | :--- | :--- |
 | **1. Agentic Capability** | Autonomous reasoning, planning, multi-step workflows, tool calling, action taking. (No simple chatbot wrappers). | 3 distinct autonomous agents orchestrated via LangGraph & MCP Hub with automated conditional triggers and JSON-RPC dispatching. |
 | **2. Bharat Impact & Relevance** | Tackling critical Indian challenges (monsoon floods, urban infrastructure damage, civic planning). | Direct application to Indian urban and rural regions (Mumbai, Bengaluru, Assam flood corridors, coastal ports). |
-| **3. Technical Implementation** | Code quality, architecture robustness, asynchronous processing, modern stack. | Clean separation of concerns: FastAPI backend, scikit-learn/XGBoost, GeoPandas spatial processing, ChromaDB RAG, Next.js 14 frontend. |
+| **3. Technical Implementation** | Code quality, architecture robustness, asynchronous processing, modern stack. | Clean separation of concerns: FastAPI backend, scikit-learn/XGBoost, GeoPandas spatial processing, ChromaDB RAG, React 19 + Vite + TypeScript frontend. |
 | **4. Innovation** | Novel approach, unique synergy of physical ML + geospatial + regulatory risk. | Unifies operational response, civil engineering vulnerability, and corporate financial exposure under one pane of glass. |
 | **5. User Experience (UX)** | Intuitive, interactive, modern aesthetics, data density without clutter. | Sleek dark-mode interface, animated radial gauges, interactive Leaflet geo-overlays, instant WebSocket event feeds. |
 | **6. Scalability & Feasibility** | Microservices readiness, Dockerized containers, async message passing, real-world deployability. | Docker Compose multi-container setup (PostGIS, Redis, ChromaDB, MCP Hub, Backend, Frontend). |
@@ -130,7 +130,7 @@ Each team must submit before **09:00 PM, 1 October 2026**:
 - [ ] **Problem Statement:** Detailed problem & pain point articulation
 - [ ] **Solution Overview:** End-to-end multi-agent environmental intelligence system
 - [ ] **Agent Workflow & Architecture:** Diagram & step-by-step data flow explanation
-- [ ] **Technology Stack:** Next.js 14, FastAPI, LangGraph, MCP, XGBoost, GeoPandas, ChromaDB, PostGIS
+- [ ] **Technology Stack:** React 19 + Vite + TypeScript, FastAPI, LangGraph, MCP, XGBoost, GeoPandas, ChromaDB, PostGIS
 - [ ] **GitHub Repository:** [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS) (Clean code, setup instructions, architecture docs)
 - [ ] **Working Demo:** Live deployed link or reproducible local Docker run
 - [ ] **2–3 Minute Demo Video:** Clear walkthrough of problem, live agent orchestration, and impact
@@ -147,7 +147,7 @@ Each team must submit before **09:00 PM, 1 October 2026**:
 
 1. **Eligibility & Team:** Team Syntrix (4 members) registered under Team Leader Nishant Maurya.
 2. **Fresh Development:** Core hackathon project built during the 12-hour sprint window.
-3. **Open-Source & Libraries:** Open-source tools (LangGraph, FastAPI, GeoPandas, scikit-learn, Leaflet, Next.js) are encouraged; existing foundational architecture must be clearly explained.
+3. **Open-Source & Libraries:** Open-source tools (LangGraph, FastAPI, GeoPandas, scikit-learn, Leaflet, React 19/Vite) are encouraged; existing foundational architecture must be clearly explained.
 4. **Originality:** Zero plagiarism, authentic technical implementation and real-time execution.
 5. **Responsible AI:** Strictly compliant with safety guidelines, no hazardous data injection, sanitization of RAG inputs, and transparent probabilistic hazard modeling.
 6. **No Late Submissions:** The submission portal closes strictly at 9:00 PM. Target internal freeze by 8:00 PM.

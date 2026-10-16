@@ -147,6 +147,9 @@ class ChronicVulnerabilityEngine:
 
         return {
             "status": "COMPLETED",
+            "methodology": "topographical_heuristic_hazus",
+            "data_provenance": "HEURISTIC_ESTIMATE",
+            "limitation": "Derived via topographical pooling heuristics and HAZUS-MH depth-damage curves. Not surveyed LiDAR.",
             "exposure_tier": exposure_tier,
             "waterlogging_depth_cm": net_pooling_depth_cm,
             "buildings_at_risk": num_structures,

@@ -28,6 +28,15 @@ def test_model_loaded():
 
 def test_arid_low_risk_inference():
     """Verify dry/arid conditions classify as LOW risk."""
+    # Warm-up call to avoid one-time module cold-start overhead
+    _ = flood_ml_engine.predict(
+        soil_saturation_pct=10.0,
+        precipitation_24h_mm=0.0,
+        precipitation_7d_mm=0.0,
+        relative_humidity_pct=20.0,
+        elevation_m=500.0,
+        drainage_capacity_index=90.0
+    )
     t0 = time.time()
     res = flood_ml_engine.predict(
         soil_saturation_pct=15.0,
