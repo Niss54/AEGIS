@@ -3,5 +3,6 @@
 /* eslint-disable */
 export type { AEGISRiskLedger } from "./AEGISRiskLedger";
 export type { CarbonFloodCredit } from "./CarbonFloodCredit";
+export type { ClimateEvidenceRegistry } from "./ClimateEvidenceRegistry";
 export type { DisasterBond } from "./DisasterBond";
 export type { MockERC20 } from "./MockERC20";

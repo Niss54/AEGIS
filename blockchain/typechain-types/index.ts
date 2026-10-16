@@ -24,6 +24,8 @@ export type { AEGISRiskLedger } from "./contracts/AEGISRiskLedger";
 export { AEGISRiskLedger__factory } from "./factories/contracts/AEGISRiskLedger__factory";
 export type { CarbonFloodCredit } from "./contracts/CarbonFloodCredit";
 export { CarbonFloodCredit__factory } from "./factories/contracts/CarbonFloodCredit__factory";
+export type { ClimateEvidenceRegistry } from "./contracts/ClimateEvidenceRegistry";
+export { ClimateEvidenceRegistry__factory } from "./factories/contracts/ClimateEvidenceRegistry__factory";
 export type { DisasterBond } from "./contracts/DisasterBond";
 export { DisasterBond__factory } from "./factories/contracts/DisasterBond__factory";
 export type { MockERC20 } from "./contracts/MockERC20";
