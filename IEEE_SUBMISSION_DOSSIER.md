@@ -9,8 +9,8 @@
 |:---|:---|
 | **Project Name** | **AEGIS-CLIMATE & AEGIS-CHAIN v3.5** |
 | **Hackathon** | IEEE ClimateChain Hackathon 2026 |
-| **Primary Track** | **Track 4: AI & Cybersecurity for Climate Change** |
-| **Supporting Tracks** | **Track 1: Climate Data Verification** · **Track 3: Carbon Markets & MRV** · **Track 5: Data Integrity & Accountability** |
+| **Primary Track** | **Track 4: Climate Data & Environmental Monitoring** |
+| **Cross-Track Utility** | **Track 1: Carbon Markets & Emissions Transparency** |
 | **Key Innovations** | Autonomous Multi-Agent Swarm · Keccak-256 Verifiable Telemetry · Parametric USDC Disaster Liquidity · RFC-8785 Canonical IPFS Anchoring · Bhasha-AI Neural Voice Engine (Hindi/Turkish/Estonian/English) · Redis L1 Hybrid RAG |
 | **Smart Contracts** | Polygon Amoy (Chain ID: 80002) / Base Sepolia / Hardhat Verified (40/40 Unit Tests Passing) |
 | **Backend Reliability** | 130/130 Passing Pytest Suite (Zero Failures) |
@@ -21,27 +21,20 @@
 
 ## 🎯 Track Alignment & The Winning Edge
 
-### 1. Track 4: AI & Cybersecurity for Climate Change (Primary)
-- **Problem**: Catastrophic climate events (monsoon cloudbursts in Mumbai/Lucknow, flash surges in Kastamonu/Istanbul, atmospheric rivers in California, Baltic storm surges in Pärnu) overwhelm municipal emergency budgets and relief logistics due to fragmented, siloed data and slow, manual loss verification.
+### 1. Track 4: Climate Data & Environmental Monitoring (Primary Track)
+- **Problem Addressed**: Weather and environmental telemetry are prone to sensor failure, oracle tampering, jurisdictional silos, and retroactive data manipulation. Decision-makers lack independently verifiable environmental telemetry when extreme events occur.
 - **AEGIS AI Solution**: An autonomous **3-Agent Cascade (Acute Hazard ML $\rightarrow$ DEM Inundation $\rightarrow$ HAZUS Financial VaR)** computes physics-based hydrological depth, structural damages, and municipal Value-at-Risk in sub-3 seconds.
-- **Cybersecurity & Cryptographic Integrity**:
-  - **Keccak-256 Canonical Telemetry Preimages**: Every raw weather observation from Open-Meteo and GIS DEM layer is normalized according to RFC-8785 Canonical JSON and hashed with Keccak-256 before any decision is made.
-  - **Zero-Knowledge (ZK) Flood Proof Verification**: Smart contracts support ZK proof attestations preventing oracle spoofing and data tampering.
-  - **Anti-Double-Claiming Registry**: Unique Keccak-256 digests prevent disaster insurance double-counting across overlapping municipal or corporate jurisdictions.
+- **Verifiable Environmental Data & Cryptographic Tamper Defense**:
+  - **RFC-8785 Canonicalization & Keccak-256 Preimages**: Raw weather observations from Open-Meteo, 30m SRTM DEM rasters, and asset matrices are normalized under RFC-8785 and digested using Keccak-256 before any analytical conclusions or ledger transactions are generated.
+  - **Decentralized Storage (IPFS / Filecoin)**: Full canonical evidence bundles (`climate-evidence.v1.schema.json`) are permanently pinned to IPFS via Pinata.
+  - **Zero-Knowledge (ZK) Telemetry Verification**: Smart contracts feature a ZK proof verification interface (`IZKTelemetryVerifier.sol`) guaranteeing that telemetry satisfies depth thresholds without revealing sensitive municipal layout details.
+  - **Live Independent Tamper Detection**: The built-in Standalone Evidence Verifier allows judges to mutate any single parameter (e.g. forging risk score 0.88 ➔ 0.15) and witness mathematical rejection in real time.
 
-### 2. Track 1: Climate Data Verification & Provenance
-- Raw environmental telemetry is pinned to **IPFS / Filecoin** via deterministic canonical bundles (`climate-evidence.v1.schema.json`).
-- On-chain state anchors on `ClimateEvidenceRegistry.sol` and `AEGISRiskLedger.sol` on Polygon Amoy store immutable cryptographic hashes, report references, and timestamps.
-- Built-in tamper detection simulator verifies mathematical divergence if so much as a single decimal of rainfall or soil moisture is altered.
-
-### 3. Track 3: Carbon Markets, MRV & Parametric Mitigation
-- **Programmatic Carbon Retirement**: Implements `CarbonFloodCredit.sol` and `AgenticSettlementPool.sol` supporting direct integration with KlimaDAO and Toucan protocols.
+### 2. Track 1: Carbon Markets & Emissions Transparency (Cross-Track Application)
+- **Anti-Double-Claiming Registry**: Unique Keccak-256 evidence digests prevent environmental disaster claims and carbon mitigation credits from being double-claimed across overlapping municipal or corporate jurisdictions.
+- **Programmatic Carbon Retirement**: Implements `CarbonFloodCredit.sol` and `AgenticSettlementPool.sol` supporting direct programmatic offset retirement tied to flood resilience evidence (KlimaDAO / Toucan integration).
 - **Parametric Disaster Bonds (`DisasterBond.sol`)**: Escrows municipal relief funds and releases instant USDC liquidity to civil defense treasuries upon consecutive verifiable critical risk breaches.
 - **Blue Carbon MRV Provenance**: Cryptographically verifies coastal mangrove and wetland carbon storage integrity against saline inundation models.
-
-### 4. Track 5: Data Integrity & Accountability for Environmental Claims
-- Bridges physical sensor reality with enterprise ESG reporting (SEBI BRSR Principle 6, EU Corporate Sustainability Due Diligence Directive [CSDDD], EU Deforestation Regulation [EUDR]).
-- Redis L1 cache + ChromaDB hybrid RAG provides instant citation of official municipal master plans and NDMA/SDRF disaster protocols.
 
 ---
 
