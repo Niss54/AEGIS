@@ -100,11 +100,16 @@ AEGIS deploys **three autonomous, decoupled AI agents** executing in strict acco
 | Agent Spec | Agent 1: Acute Physical Risk | Agent 2: Chronic Vulnerability | Agent 3: Macro Transition & Financial VaR |
 | :--- | :--- | :--- | :--- |
 | **Operational Horizon** | **Immediate (0 – 24 Hours)** | **Tactical & Strategic (10 – 30 Years)** | **Executive & Boardroom (Corporate Balance Sheet)** |
-| **Core Engine** | Gradient Boosting Classifier (95.14% CV Accuracy) | 30m SRTM DEM Spatial Elevation + GeoPandas | ChromaDB Cosine Similarity RAG + Multi-LLM Reasoning |
+| **Core Engine** | Gradient Boosting Classifier (95.14% Benchmark Accuracy*) | 30m SRTM DEM Spatial Elevation + GeoPandas | ChromaDB Cosine Similarity RAG + Multi-LLM Reasoning |
 | **Input Vectors** | 24h/7d Rain, Soil Saturation %, Humidity, Elevation | Topographical Depressions, Inundation Depth, Drainage Capacity | Physical Asset Loss, SEBI BRSR Mandates, Carbon Penalties |
 | **Autonomous Trigger** | Telemetry ingestion on target coordinate `(lat, lon)` | Automatically triggered when **Agent 1 Risk Score > 0.65** | Automatically triggered when **Agent 2 Tier == INFRASTRUCTURE_FAILURE** |
 | **MCP Tools Called** | `fetch_weather_vectors`, `run_flood_classifier` | `compute_dem_exposure` | `query_policy_rag` |
 | **Key Output** | Flash flood probability `[0.0 - 1.0]`, Risk Tier (`CRITICAL/HIGH/MED/LOW`) | Waterlogging depth (cm), Exposed building count, Infrastructure Choke % | Value-at-Risk (INR/USD), Stranded asset risk, Bilingual Hindi/English Dispatch |
+
+> [!NOTE]
+> ***Scientific Benchmark Qualification & Ground Truth Verification**:
+> "95.14% benchmark accuracy on synthetic multi-factor hydrological hazard corpus, coupled with deterministic 30m SRTM DEM elevation physics and HAZUS depth-damage functions for real-world ground truth."
+> In production, Agent 1 ingests live Doppler/reanalysis atmospheric telemetry (Open-Meteo ERA5 / IMD baselines) and pairs probabilistic machine learning with deterministic physical elevation hydrology to ensure zero hallucination and verifiable civil defense outputs.
 
 ---
 

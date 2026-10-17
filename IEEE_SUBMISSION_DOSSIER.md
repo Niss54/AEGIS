@@ -49,7 +49,7 @@ flowchart TD
     end
 
     subgraph CORE["🧠 AEGIS Multi-Agent Core Engine"]
-        A1["Agent 1: Acute Physical Risk (XGBoost 95.14%)"]
+        A1["Agent 1: Acute Physical Risk (GBM 95.14% Benchmark)"]
         A2["Agent 2: Chronic Inundation (DEM Hydrology)"]
         A3["Agent 3: Transition & Financial VaR (HAZUS)"]
         RAG["Hybrid RAG: Redis L1 Cache + ChromaDB"]
@@ -120,7 +120,7 @@ AEGIS v3.5 natively supports jurisdictional cascading across local municipal, st
 
 ### [01:15 - 01:50] The 3-Agent Swarm Cascade
 - **Visual**: Click `"Trigger Multi-Agent Cascade"`. Live agent terminals illuminate in sequence.
-- **Narrator**: *"Watch our autonomous swarm execute: Agent 1 calculates acute physical risk using a 95.14% accurate XGBoost model. Because risk exceeds the 65% critical threshold, it immediately wakes Agent 2, which runs a 30-meter Digital Elevation Model simulation to calculate parcel-level waterlogging depth and exposed structures. Agent 3 instantly quantifies the balance-sheet Value-at-Risk (VaR) under international HAZUS standards."*
+- **Narrator**: *"Watch our autonomous swarm execute: Agent 1 calculates acute physical risk using a Gradient Boosting model (evaluated at 95.14% benchmark accuracy on a synthetic multi-factor hydrological hazard corpus, coupled with deterministic 30m SRTM DEM elevation physics and HAZUS depth-damage functions for real-world ground truth). Because risk exceeds the 65% critical threshold, it immediately wakes Agent 2, which runs a 30-meter Digital Elevation Model simulation to calculate parcel-level waterlogging depth and exposed structures. Agent 3 instantly quantifies the balance-sheet Value-at-Risk (VaR) under international HAZUS standards."*
 
 ### [01:50 - 02:25] Cryptographic Verification, ZK Proofs & USDC Settlement
 - **Visual**: Navigate to Web3 & Ledger tab. Highlight Keccak-256 digest, IPFS CID, and Agentic Settlement pool.

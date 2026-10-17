@@ -17,7 +17,7 @@
 | **0:25 – 0:50** | Command Center & GIS Map | Pan & zoom Leaflet map across Mumbai/Bengaluru | CartoDB Dark Matter tiles, multi-tier hazard polygons, asset pins. |
 | **0:50 – 1:30** | The Autonomous Multi-Agent Cascade | Move "What-If" slider (+110mm) ➔ Click Trigger | Agent 1 (ML) ➔ Agent 2 (DEM Geo) ➔ Agent 3 (VaR RAG) cascade. |
 | **1:30 – 1:55** | Bhasha-AI & Executive PDF Briefing | Play audio readout ➔ Click "Export C-Suite Briefing" | Hindi/English voice dispatch & print-ready executive PDF report. |
-| **1:55 – 2:20** | Under The Hood (MCP Hub & Code) | Terminal test pass ➔ MCP Hub code ➔ Manifest | 95.14% GBM accuracy, JSON-RPC 2.0 MCP Hub, Docker Compose. |
+| **1:55 – 2:20** | Under The Hood (MCP Hub & Code) | Terminal test pass ➔ MCP Hub code ➔ Manifest | 95.14% benchmark accuracy on synthetic multi-factor hydrological hazard corpus, coupled with deterministic 30m SRTM DEM elevation physics and HAZUS depth-damage functions. |
 | **2:20 – 2:30** | Closing Call to Action | Return to live dashboard with Team Syntrix tag | "Built by Team Syntrix. Ready to protect citizens and critical infrastructure today." |
 
 ---
