@@ -1,0 +1,149 @@
+{
+  "dataset": "Official IMD / CWC / GloFAS Historical Observations",
+  "events_evaluated": 14,
+  "disaster_recall_pct": 100.0,
+  "false_alarm_rate_pct": 0.0,
+  "overall_accuracy_pct": 100.0,
+  "event_results": [
+    {
+      "event_id": "MUMBAI-2005",
+      "name": "Mumbai 26 July 2005 Catastrophic Deluge",
+      "date": "2005-07-26",
+      "expected": "CRITICAL",
+      "predicted": "CRITICAL",
+      "risk_score": 0.96,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "MUMBAI-2023",
+      "name": "Mumbai July 2023 Monsoon Outfall Surge",
+      "date": "2023-07-22",
+      "expected": "CRITICAL",
+      "predicted": "CRITICAL",
+      "risk_score": 0.96,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "KERALA-2018",
+      "name": "Kerala Great August 2018 Inundation",
+      "date": "2018-08-16",
+      "expected": "CRITICAL",
+      "predicted": "CRITICAL",
+      "risk_score": 0.96,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "CHENNAI-2015",
+      "name": "Chennai December 2015 Adyar Inundation",
+      "date": "2015-12-01",
+      "expected": "CRITICAL",
+      "predicted": "CRITICAL",
+      "risk_score": 0.96,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "CHENNAI-2023",
+      "name": "Cyclone Michaung December 2023 Chennai Floods",
+      "date": "2023-12-04",
+      "expected": "CRITICAL",
+      "predicted": "CRITICAL",
+      "risk_score": 0.96,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "ASSAM-2022",
+      "name": "Assam Barak Valley Silchar Deluge 2022",
+      "date": "2022-06-20",
+      "expected": "CRITICAL",
+      "predicted": "CRITICAL",
+      "risk_score": 0.96,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "BENGALURU-2022",
+      "name": "Bengaluru Outer Ring Road / Bellandur Deluge",
+      "date": "2022-09-05",
+      "expected": "HIGH",
+      "predicted": "HIGH",
+      "risk_score": 0.775,
+      "dominant_factor": "precipitation_24h",
+      "passed": true
+    },
+    {
+      "event_id": "DELHI-2023",
+      "name": "Delhi Yamuna Historic 208.66m River Breach",
+      "date": "2023-07-13",
+      "expected": "HIGH",
+      "predicted": "CRITICAL",
+      "risk_score": 0.948,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "JAIPUR-2020",
+      "name": "Jaipur Walled City Flash Cloudburst",
+      "date": "2020-08-14",
+      "expected": "HIGH",
+      "predicted": "HIGH",
+      "risk_score": 0.772,
+      "dominant_factor": "precipitation_24h",
+      "passed": true
+    },
+    {
+      "event_id": "SINGAPORE-2023",
+      "name": "Singapore Marina Bay Heavy Monsoon Ponding",
+      "date": "2023-11-28",
+      "expected": "HIGH",
+      "predicted": "HIGH",
+      "risk_score": 0.796,
+      "dominant_factor": "precipitation_24h",
+      "passed": true
+    },
+    {
+      "event_id": "MUMBAI-DRY",
+      "name": "Mumbai Winter Dry Baseline (Control)",
+      "date": "2024-01-15",
+      "expected": "LOW",
+      "predicted": "LOW",
+      "risk_score": 0.15,
+      "dominant_factor": "topographical_depression",
+      "passed": true
+    },
+    {
+      "event_id": "BENGALURU-DRY",
+      "name": "Bengaluru Post-Monsoon Dry Baseline (Control)",
+      "date": "2024-02-10",
+      "expected": "LOW",
+      "predicted": "LOW",
+      "risk_score": 0.15,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "DELHI-CLEAR",
+      "name": "Delhi Winter Clear Baseline (Control)",
+      "date": "2024-02-01",
+      "expected": "LOW",
+      "predicted": "LOW",
+      "risk_score": 0.15,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    },
+    {
+      "event_id": "CHENNAI-NORMAL",
+      "name": "Chennai Pre-Monsoon Normal (Control)",
+      "date": "2024-03-20",
+      "expected": "LOW",
+      "predicted": "LOW",
+      "risk_score": 0.15,
+      "dominant_factor": "soil_saturation",
+      "passed": true
+    }
+  ]
+}
