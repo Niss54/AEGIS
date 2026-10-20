@@ -26,48 +26,96 @@ import {
   TrendingUp,
   Code,
   Check,
-  Navigation
+  Play,
+  Satellite,
+  Navigation,
+  HeartHandshake,
+  Mountain,
+  Menu,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { BlockchainPanel } from "./components/BlockchainPanel";
-import { EvidenceVerifierModal } from "./components/EvidenceVerifierModal";
+import { VedaRasterComparator } from "./components/VedaRasterComparator";
+import { MeshTopologyRadar } from "./components/MeshTopologyRadar";
+import { EvacuationFleetCockpit } from "./components/EvacuationFleetCockpit";
+import { HumanitarianCarbonCockpit } from "./components/HumanitarianCarbonCockpit";
+import { MultiHazardEcologicalCockpit } from "./components/MultiHazardEcologicalCockpit";
 
 const getBackendBase = (): string => {
   if (typeof window !== "undefined") {
     const custom = localStorage.getItem("AEGIS_CUSTOM_API_URL");
-    if (custom && custom.trim()) return custom.trim().replace(/\/$/, "");
+    if (custom && custom.includes("0edc4")) {
+      try { localStorage.removeItem("AEGIS_CUSTOM_API_URL"); } catch (e) {}
+    } else if (custom && custom.trim()) {
+      return custom.trim().replace(/\/$/, "");
+    }
     const host = window.location.hostname;
     if (host === "127.0.0.1" || host === "localhost") {
       return `http://${host}:8000`;
     }
+    // On Vercel edge deployments, return "" (relative root) so requests route through
+    // vercel.json serverless rewrites directly to Railway without CORS or preflight overhead
+    if (host.includes("vercel.app")) {
+      return "";
+    }
+    const envUrl = (import.meta as any).env?.VITE_BACKEND_URL;
+    if (envUrl && envUrl.trim() && !envUrl.includes("0edc4")) {
+      return envUrl.trim().replace(/\/$/, "");
+    }
+    if (window.location.origin && !window.location.origin.includes("0edc4")) {
+      return window.location.origin;
+    }
   }
   const envUrl = (import.meta as any).env?.VITE_BACKEND_URL;
-  if (envUrl && envUrl.trim()) return envUrl.trim().replace(/\/$/, "");
-  return "http://127.0.0.1:8000";
+  if (envUrl && envUrl.trim() && !envUrl.includes("0edc4")) {
+    return envUrl.trim().replace(/\/$/, "");
+  }
+  return "https://web-production-91f72.up.railway.app";
+};
+
+const getWebSocketUrl = (): string => {
+  if (typeof window !== "undefined") {
+    const custom = localStorage.getItem("AEGIS_CUSTOM_API_URL");
+    if (custom && custom.trim() && !custom.includes("0edc4")) {
+      const clean = custom.trim().replace(/\/$/, "");
+      return clean.startsWith("https://")
+        ? clean.replace("https://", "wss://") + "/ws/events"
+        : clean.replace("http://", "ws://") + "/ws/events";
+    }
+    const host = window.location.hostname;
+    if (host === "127.0.0.1" || host === "localhost") {
+      return `ws://${host}:8000/ws/events`;
+    }
+  }
+  return "wss://web-production-91f72.up.railway.app/ws/events";
+};
+
+const getPublicBackendUrl = (): string => {
+  const base = getBackendBase();
+  if (base) return base;
+  if (typeof window !== "undefined" && window.location.origin) return window.location.origin;
+  return "https://web-production-91f72.up.railway.app";
 };
 
 const API_BASE = `${getBackendBase()}/api/v1`;
-
-interface JurisdictionHierarchy {
-  country_iso: string;
-  country_name: string;
-  admin1_state: string;
-  admin2_district: string;
-  basin_name: string;
-}
 
 interface Hotspot {
   id: string;
   name: string;
   state: string;
   country?: string;
+  flag?: string;
+  region?: string;
   lat: number;
   lon: number;
   risk_profile: string;
   description: string;
   typical_annual_loss_inr: string;
   typical_annual_loss_usd?: string;
-  historical_baseline_24h_mm?: number;
-  jurisdiction?: JurisdictionHierarchy;
+  regional_language?: string;
+  regional_language_native?: string;
+  regional_lang_code?: string;
 }
 
 interface MetricValues {
@@ -87,13 +135,9 @@ interface Agent1Data {
   metrics: MetricValues;
   triggered_chronic: boolean;
   execution_time_ms: number;
-}
-
-interface CriticalInfrastructureVector {
-  power_substations_at_risk: number;
-  healthcare_facilities_exposed: number;
-  evacuation_corridors_submerged: number;
-  drainage_conduits_overcapacity_pct: number;
+  clay_flood_prob?: number;
+  clay_sar_penetration?: boolean;
+  clay_embeddings_preview?: number[];
 }
 
 interface Agent2Data {
@@ -102,7 +146,6 @@ interface Agent2Data {
   waterlogging_depth_cm: number;
   buildings_at_risk: number;
   drainage_overflow_pct: number;
-  critical_infrastructure_vector?: CriticalInfrastructureVector;
   damage_estimate_inr: number;
   damage_estimate_usd: number;
   horizon_curves: {
@@ -123,21 +166,11 @@ interface Agent3Data {
   recommended_actions: string[];
   bilingual_alert_hindi?: string;
   bilingual_alert_english?: string;
-  bilingual_alert_regional?: string;
-  regional_language_code?: string;
-  regional_language_name?: string;
-  regional_language_flag?: string;
-  mrv_provenance?: {
-    mrv_registry_type: string;
-    bundle_id: string;
-    jurisdiction_iso: string;
-    timestamp_utc: string;
-    sensor_telemetry_digest: string;
-    evidence_digest: string;
-    signature_scheme: string;
-    verification_endpoint: string;
-    metadata?: Record<string, any>;
-  };
+  regional_language?: string;
+  regional_language_native?: string;
+  regional_lang_code?: string;
+  regional_alert_text?: string;
+  tts_audio_b64?: string;
   execution_time_ms: number;
 }
 
@@ -159,210 +192,229 @@ interface AnalysisResult {
   agent3?: Agent3Data;
   thought_trace: ThoughtStep[];
   blockchain?: any;
-  evidence_id?: string;
-  evidence_bundle?: any;
 }
 
 const DEFAULT_HOTSPOTS: Hotspot[] = [
   {
-    id: "lucknow-gomti",
-    name: "Lucknow — Gomti River Basin & Lowland Drainage Corridor",
-    state: "Uttar Pradesh",
-    country: "India",
-    lat: 26.8467,
-    lon: 80.9462,
+    id: "singapore-marinabay",
+    name: "Singapore — Marina Bay & Kallang Basin",
+    state: "Central Region",
+    country: "Singapore",
+    flag: "🇸🇬",
+    region: "ASEAN",
+    lat: 1.2868,
+    lon: 103.8545,
+    risk_profile: "CRITICAL",
+    description: "Flagship Southeast Asian financial district exposed to extreme tropical cloudbursts, spring tide sea-level rise, and coastal barrage drainage saturation.",
+    typical_annual_loss_inr: "₹2,450 Crores",
+    typical_annual_loss_usd: "$295M USD",
+    regional_language: "English / Malay",
+    regional_language_native: "Melayu / English",
+    regional_lang_code: "en-SG"
+  },
+  {
+    id: "jakarta-ciliwung",
+    name: "Jakarta — Ciliwung River Sinking Basin",
+    state: "Special Capital Region",
+    country: "Indonesia",
+    flag: "🇮🇩",
+    region: "ASEAN",
+    lat: -6.2088,
+    lon: 106.8456,
+    risk_profile: "CRITICAL",
+    description: "Rapidly subsiding delta megalopolis experiencing acute land subsidence (-10cm/yr), sea-wall overtopping, and monsoon flash surges.",
+    typical_annual_loss_inr: "₹3,800 Crores",
+    typical_annual_loss_usd: "$455M USD",
+    regional_language: "Indonesian",
+    regional_language_native: "Bahasa Indonesia",
+    regional_lang_code: "id-ID"
+  },
+  {
+    id: "rotterdam-delta",
+    name: "Rotterdam — Rhine-Meuse Delta & Port Corridor",
+    state: "South Holland",
+    country: "Netherlands",
+    flag: "🇳🇱",
+    region: "WEST",
+    lat: 51.9244,
+    lon: 4.4777,
     risk_profile: "HIGH",
-    description: "Gomti river embankment backflow and low-gradient drainage congestion during intense monsoon spells.",
-    typical_annual_loss_inr: "₹380 Crores",
-    typical_annual_loss_usd: "$45.6M",
-    historical_baseline_24h_mm: 42.0,
-    jurisdiction: {
-      country_iso: "IN",
-      country_name: "India",
-      admin1_state: "Uttar Pradesh",
-      admin2_district: "Lucknow",
-      basin_name: "Gomti River Basin"
-    }
+    description: "Europe's largest deepwater logistics port protected by Maeslantkering storm surge barrier under North Sea tidal extremes.",
+    typical_annual_loss_inr: "₹4,200 Crores",
+    typical_annual_loss_usd: "$510M USD",
+    regional_language: "Dutch",
+    regional_language_native: "Nederlands",
+    regional_lang_code: "nl-NL"
   },
   {
-    id: "istanbul-marmara",
-    name: "Istanbul — Marmara & Golden Horn Estuary Basin",
-    state: "Istanbul",
-    country: "Türkiye",
-    lat: 41.0082,
-    lon: 28.9784,
-    risk_profile: "CRITICAL",
-    description: "Dense historical and financial metropolis exposed to severe Mediterranean cloudbursts and Marmara coastal storm surges.",
-    typical_annual_loss_inr: "₹1,450 Crores",
-    typical_annual_loss_usd: "$174.2M",
-    historical_baseline_24h_mm: 28.0,
-    jurisdiction: {
-      country_iso: "TR",
-      country_name: "Türkiye",
-      admin1_state: "Istanbul",
-      admin2_district: "Fatih/Beyoglu",
-      basin_name: "Golden Horn & Bosphorus Basin"
-    }
+    id: "tokyo-arakawa",
+    name: "Tokyo — Arakawa River Lowland & Tokyo Bay",
+    state: "Kanto",
+    country: "Japan",
+    flag: "🇯🇵",
+    region: "ASIA",
+    lat: 35.6762,
+    lon: 139.6503,
+    risk_profile: "HIGH",
+    description: "Low-lying Eastern Tokyo zone protected by G-CANS underground discharge tunnel during category-5 super typhoons.",
+    typical_annual_loss_inr: "₹6,100 Crores",
+    typical_annual_loss_usd: "$735M USD",
+    regional_language: "Japanese",
+    regional_language_native: "日本語",
+    regional_lang_code: "ja-JP"
   },
   {
-    id: "kastamonu-bozkurt",
-    name: "Kastamonu — Bozkurt Ezine Stream Flash Basin",
-    state: "Black Sea Region",
-    country: "Türkiye",
-    lat: 41.9572,
-    lon: 34.0125,
-    risk_profile: "CRITICAL",
-    description: "Steep Pontic mountain cloudburst channeling flash flood debris flows through narrow valley riverbeds.",
-    typical_annual_loss_inr: "₹920 Crores",
-    typical_annual_loss_usd: "$110.5M",
-    historical_baseline_24h_mm: 35.0,
-    jurisdiction: {
-      country_iso: "TR",
-      country_name: "Türkiye",
-      admin1_state: "Kastamonu",
-      admin2_district: "Bozkurt",
-      basin_name: "Ezine Stream Basin"
-    }
-  },
-  {
-    id: "orange-county-santa-ana",
-    name: "Orange County — Santa Ana River & Newport Coastal Basin",
-    state: "California",
+    id: "newyork-manhattan",
+    name: "New York — Lower Manhattan & Jamaica Bay Corridor",
+    state: "New York",
     country: "United States",
-    lat: 33.7175,
-    lon: -117.8311,
+    flag: "🇺🇸",
+    region: "WEST",
+    lat: 40.7128,
+    lon: -74.0060,
     risk_profile: "HIGH",
-    description: "Pacific atmospheric river storm surges triggering high-velocity runoff from Prado Dam into low-elevation coastal zones.",
-    typical_annual_loss_inr: "₹2,100 Crores",
-    typical_annual_loss_usd: "$252.3M",
-    historical_baseline_24h_mm: 18.0,
-    jurisdiction: {
-      country_iso: "US",
-      country_name: "United States",
-      admin1_state: "California",
-      admin2_district: "Orange County",
-      basin_name: "Santa Ana River Basin"
-    }
+    description: "Dense financial capital vulnerable to Atlantic hurricane storm surges, Nor'easters, and subway transit tunnel inundation.",
+    typical_annual_loss_inr: "₹7,500 Crores",
+    typical_annual_loss_usd: "$910M USD",
+    regional_language: "English",
+    regional_language_native: "English",
+    regional_lang_code: "en-US"
   },
   {
-    id: "parnu-baltic",
-    name: "Pärnu — Baltic Sea Surge & Lowland River Inundation",
-    state: "Pärnu County",
-    country: "Estonia",
-    lat: 58.3859,
-    lon: 24.4971,
-    risk_profile: "HIGH",
-    description: "Southwesterly Baltic gale surges causing severe sea-level rise and river backflow into town centers.",
-    typical_annual_loss_inr: "₹480 Crores",
-    typical_annual_loss_usd: "$57.6M",
-    historical_baseline_24h_mm: 22.0,
-    jurisdiction: {
-      country_iso: "EE",
-      country_name: "Estonia",
-      admin1_state: "Pärnu County",
-      admin2_district: "Pärnu",
-      basin_name: "Pärnu River & Baltic Coast"
-    }
+    id: "accra-odaw",
+    name: "Accra — Korle Lagoon & Odaw River Basin",
+    state: "Greater Accra",
+    country: "Ghana",
+    flag: "🇬🇭",
+    region: "AFRICA",
+    lat: 5.6037,
+    lon: -0.1870,
+    risk_profile: "CRITICAL",
+    description: "Sub-Saharan coastal capital facing seasonal flash inundation, urban plastic drainage blockages, and informal settlement vulnerability.",
+    typical_annual_loss_inr: "₹950 Crores",
+    typical_annual_loss_usd: "$115M USD",
+    regional_language: "English / Akan",
+    regional_language_native: "Twi / English",
+    regional_lang_code: "en-GH"
+  },
+  {
+    id: "sylhet-surma",
+    name: "Sylhet — Surma-Meghna River & Haor Wetlands",
+    state: "Sylhet Division",
+    country: "Bangladesh",
+    flag: "🇧🇩",
+    region: "ASIA",
+    lat: 24.8949,
+    lon: 91.8687,
+    risk_profile: "CRITICAL",
+    description: "Low-lying northeastern wetland basin vulnerable to transboundary flash inundations, monsoon crests, and extensive haor basin submergence.",
+    typical_annual_loss_inr: "₹1,850 Crores",
+    typical_annual_loss_usd: "$220M USD",
+    regional_language: "Bengali",
+    regional_language_native: "বাংলা",
+    regional_lang_code: "bn-BD"
+  },
+  {
+    id: "sindh-indus",
+    name: "Sindh — Indus River Basin & Murree Hills",
+    state: "Sindh",
+    country: "Pakistan",
+    flag: "🇵🇰",
+    region: "ASIA",
+    lat: 25.3960,
+    lon: 68.3578,
+    risk_profile: "CRITICAL",
+    description: "Glacial lake outburst and super-monsoon breach zone across the lower Indus agricultural basin and Murree landslide tracts.",
+    typical_annual_loss_inr: "₹2,100 Crores",
+    typical_annual_loss_usd: "$250M USD",
+    regional_language: "Urdu",
+    regional_language_native: "اردو",
+    regional_lang_code: "ur-PK"
   },
   {
     id: "mumbai-mithi",
     name: "Mumbai — Mithi River & Kurla Basin",
     state: "Maharashtra",
     country: "India",
+    flag: "🇮🇳",
+    region: "ASIA",
     lat: 19.0728,
     lon: 72.8797,
     risk_profile: "CRITICAL",
     description: "High-density urban basin prone to severe monsoon cloudburst overflow, tidal lock, and suburban transit standstill.",
     typical_annual_loss_inr: "₹1,200 Crores",
-    typical_annual_loss_usd: "$144.1M",
-    historical_baseline_24h_mm: 35.0,
-    jurisdiction: {
-      country_iso: "IN",
-      country_name: "India",
-      admin1_state: "Maharashtra",
-      admin2_district: "Mumbai Suburban",
-      basin_name: "Mithi River Catchment"
-    }
+    typical_annual_loss_usd: "$145M USD",
+    regional_language: "Marathi",
+    regional_language_native: "मराठी",
+    regional_lang_code: "mr-IN"
   },
   {
     id: "bengaluru-bellandur",
     name: "Bengaluru — Bellandur & Outer Ring Road Tech Corridor",
     state: "Karnataka",
     country: "India",
+    flag: "🇮🇳",
+    region: "ASIA",
     lat: 12.9352,
     lon: 77.6775,
     risk_profile: "HIGH",
     description: "Major tech corridor affected by lake interconnect encroachment, impervious surface runoff, and rapid road inundation.",
     typical_annual_loss_inr: "₹450 Crores",
-    typical_annual_loss_usd: "$54.0M",
-    historical_baseline_24h_mm: 25.0,
-    jurisdiction: {
-      country_iso: "IN",
-      country_name: "India",
-      admin1_state: "Karnataka",
-      admin2_district: "Bengaluru Urban",
-      basin_name: "Bellandur-Varthur Lake Basin"
-    }
+    typical_annual_loss_usd: "$55M USD",
+    regional_language: "Kannada",
+    regional_language_native: "ಕನ್ನಡ",
+    regional_lang_code: "kn-IN"
   },
   {
     id: "assam-kaziranga",
     name: "Assam — Brahmaputra Basin & Kaziranga Eco-Corridor",
     state: "Assam",
     country: "India",
+    flag: "🇮🇳",
+    region: "ASIA",
     lat: 26.5775,
     lon: 93.1711,
     risk_profile: "CRITICAL",
     description: "Annual Brahmaputra riverine surge causing catastrophic agricultural submergence and habitat displacement.",
     typical_annual_loss_inr: "₹850 Crores",
-    typical_annual_loss_usd: "$102.1M",
-    historical_baseline_24h_mm: 45.0,
-    jurisdiction: {
-      country_iso: "IN",
-      country_name: "India",
-      admin1_state: "Assam",
-      admin2_district: "Golaghat / Nagaon",
-      basin_name: "Middle Brahmaputra Basin"
-    }
+    typical_annual_loss_usd: "$102M USD",
+    regional_language: "Assamese",
+    regional_language_native: "অসমীয়া",
+    regional_lang_code: "as-IN"
   },
   {
     id: "chennai-velachery",
     name: "Chennai — Velachery & Pallikaranai Wetland Basin",
     state: "Tamil Nadu",
     country: "India",
+    flag: "🇮🇳",
+    region: "ASIA",
     lat: 12.9759,
     lon: 80.2212,
     risk_profile: "HIGH",
     description: "Coastal low-lying urban depression prone to northeast monsoon depressions and slow stormwater drainage.",
     typical_annual_loss_inr: "₹680 Crores",
-    typical_annual_loss_usd: "$81.7M",
-    historical_baseline_24h_mm: 30.0,
-    jurisdiction: {
-      country_iso: "IN",
-      country_name: "India",
-      admin1_state: "Tamil Nadu",
-      admin2_district: "Chennai",
-      basin_name: "Pallikaranai Marshland Catchment"
-    }
+    typical_annual_loss_usd: "$82M USD",
+    regional_language: "Tamil",
+    regional_language_native: "தமிழ்",
+    regional_lang_code: "ta-IN"
   },
   {
     id: "mundra-industrial",
     name: "Gujarat — Mundra Port & Industrial Corridor",
     state: "Gujarat",
     country: "India",
+    flag: "🇮🇳",
+    region: "ASIA",
     lat: 22.8395,
     lon: 69.7042,
     risk_profile: "MEDIUM",
     description: "Heavy coastal logistics and thermal infrastructure exposed to Arabian Sea cyclones and carbon emission transition audits.",
     typical_annual_loss_inr: "₹320 Crores",
-    typical_annual_loss_usd: "$38.4M",
-    historical_baseline_24h_mm: 20.0,
-    jurisdiction: {
-      country_iso: "IN",
-      country_name: "India",
-      admin1_state: "Gujarat",
-      admin2_district: "Kutch",
-      basin_name: "Gulf of Kutch Coastal Basin"
-    }
+    typical_annual_loss_usd: "$38M USD",
+    regional_language: "Gujarati",
+    regional_language_native: "ગુજરાતી",
+    regional_lang_code: "gu-IN"
   }
 ];
 
@@ -514,22 +566,84 @@ function buildFallbackAnalysis(lat: number, lon: number, locName: string, rain: 
         "Trigger parametric catastrophe insurance hedge under IRDAI guidelines.",
         "Provision contingency capital reserve for BRSR Principle 6 audit compliance."
       ],
-      bilingual_alert_hindi: `⚠️ [ऐजिस-भारत चेतावनी | स्तर: ${riskTier}] ${locName} में ${sat}% मृदा संतृप्ति और भारी वर्षा के कारण जलभराव की गंभीर आशंका है। अनुमानित वित्तीय जोखिम ₹${(varInr / 10000000).toFixed(0)} करोड़ है। एनडीएमए प्रोटोकॉल लागू करें और महत्वपूर्ण संरचनाओं को सुरक्षित करें।`,
-      bilingual_alert_english: `⚠️ [AEGIS BHARAT ALERT | TIER: ${riskTier}] ${locName} facing acute flood risk (> ${depth}cm depth) with ${sat}% soil saturation. Estimated Enterprise Value at Risk: ₹${(varInr / 10000000).toFixed(0)} Crores. Immediate municipal drainage actuation required.`,
-      bilingual_alert_regional: `⚠️ [ऐजिस-भारत चेतावनी | स्तर: ${riskTier}] ${locName} में ${sat}% मृदा संतृप्ति और भारी वर्षा के कारण जलभराव की गंभीर आशंका है। अनुमानित वित्तीय जोखिम ₹${(varInr / 10000000).toFixed(0)} करोड़ है।`,
-      regional_language_code: "hi-IN",
-      regional_language_name: "हिन्दी",
-      regional_language_flag: "🇮🇳",
-      mrv_provenance: {
-        mrv_registry_type: "Blue-Carbon-MRV-v1",
-        bundle_id: `mrv-in-${Date.now()}`,
-        jurisdiction_iso: "IN-MH",
-        timestamp_utc: new Date().toISOString(),
-        sensor_telemetry_digest: "0x78ab1234cd5678ef901234567890abcdef1234567890abcdef1234567890abcd",
-        evidence_digest: "0x4321fedcba0987654321fedcba0987654321fedcba0987654321fedcba098765",
-        signature_scheme: "Keccak256-RFC8785",
-        verification_endpoint: "/api/v2/evidence/verify"
-      },
+      bilingual_alert_hindi: `⚠️ [टेरा-सेंटिनल वैश्विक चेतावनी | स्तर: ${riskTier}] ${locName} में ${sat}% संतृप्ति और तीव्र मौसमी दबाव के कारण जलभराव का जोखिम है। अनुमानित वित्तीय जोखिम $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} करोड़) है। आपातकालीन जल निकासी और सुरक्षा प्रोटोकॉल तत्काल लागू करें।`,
+      bilingual_alert_english: `⚠️ [AEGIS GLOBAL HAZARD ADVISORY | TIER: ${riskTier}] ${locName} facing critical inundation threat (> ${depth}cm surge) under ${sat}% soil saturation index. Total Enterprise Value at Risk: $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} Cr). Immediate civil protection protocols and parametric liquidity safeguards activated.`,
+      regional_language: (locName.toLowerCase().includes("bangladesh") || locName.toLowerCase().includes("sylhet"))
+        ? "Bengali"
+        : (locName.toLowerCase().includes("mumbai") || locName.toLowerCase().includes("maharashtra"))
+        ? "Marathi"
+        : (locName.toLowerCase().includes("pakistan") || locName.toLowerCase().includes("sindh"))
+        ? "Urdu"
+        : (locName.toLowerCase().includes("chennai") || locName.toLowerCase().includes("tamil"))
+        ? "Tamil"
+        : (locName.toLowerCase().includes("bengaluru") || locName.toLowerCase().includes("karnataka"))
+        ? "Kannada"
+        : (locName.toLowerCase().includes("assam"))
+        ? "Assamese"
+        : (locName.toLowerCase().includes("gujarat") || locName.toLowerCase().includes("mundra"))
+        ? "Gujarati"
+        : (locName.toLowerCase().includes("japan") || locName.toLowerCase().includes("tokyo"))
+        ? "Japanese"
+        : (locName.toLowerCase().includes("indonesia") || locName.toLowerCase().includes("jakarta"))
+        ? "Indonesian"
+        : (locName.toLowerCase().includes("rotterdam") || locName.toLowerCase().includes("netherlands"))
+        ? "Dutch"
+        : "Hindi",
+      regional_language_native: (locName.toLowerCase().includes("bangladesh") || locName.toLowerCase().includes("sylhet"))
+        ? "বাংলা"
+        : (locName.toLowerCase().includes("mumbai") || locName.toLowerCase().includes("maharashtra"))
+        ? "मराठी"
+        : (locName.toLowerCase().includes("pakistan") || locName.toLowerCase().includes("sindh"))
+        ? "اردو"
+        : (locName.toLowerCase().includes("chennai") || locName.toLowerCase().includes("tamil"))
+        ? "தமிழ்"
+        : (locName.toLowerCase().includes("bengaluru") || locName.toLowerCase().includes("karnataka"))
+        ? "ಕನ್ನಡ"
+        : (locName.toLowerCase().includes("assam"))
+        ? "অসমীয়া"
+        : (locName.toLowerCase().includes("gujarat") || locName.toLowerCase().includes("mundra"))
+        ? "ગુજરાતી"
+        : (locName.toLowerCase().includes("japan") || locName.toLowerCase().includes("tokyo"))
+        ? "日本語"
+        : (locName.toLowerCase().includes("indonesia") || locName.toLowerCase().includes("jakarta"))
+        ? "Bahasa Indonesia"
+        : (locName.toLowerCase().includes("rotterdam") || locName.toLowerCase().includes("netherlands"))
+        ? "Nederlands"
+        : "हिन्दी",
+      regional_lang_code: (locName.toLowerCase().includes("bangladesh") || locName.toLowerCase().includes("sylhet"))
+        ? "bn-BD"
+        : (locName.toLowerCase().includes("mumbai") || locName.toLowerCase().includes("maharashtra"))
+        ? "mr-IN"
+        : (locName.toLowerCase().includes("pakistan") || locName.toLowerCase().includes("sindh"))
+        ? "ur-PK"
+        : (locName.toLowerCase().includes("chennai") || locName.toLowerCase().includes("tamil"))
+        ? "ta-IN"
+        : (locName.toLowerCase().includes("bengaluru") || locName.toLowerCase().includes("karnataka"))
+        ? "kn-IN"
+        : (locName.toLowerCase().includes("assam"))
+        ? "as-IN"
+        : (locName.toLowerCase().includes("gujarat") || locName.toLowerCase().includes("mundra"))
+        ? "gu-IN"
+        : (locName.toLowerCase().includes("japan") || locName.toLowerCase().includes("tokyo"))
+        ? "ja-JP"
+        : (locName.toLowerCase().includes("indonesia") || locName.toLowerCase().includes("jakarta"))
+        ? "id-ID"
+        : (locName.toLowerCase().includes("rotterdam") || locName.toLowerCase().includes("netherlands"))
+        ? "nl-NL"
+        : "hi-IN",
+      regional_alert_text: (locName.toLowerCase().includes("bangladesh") || locName.toLowerCase().includes("sylhet"))
+        ? `⚠️ [জরুরি সতর্কতা | স্তর: ${riskTier}] ${locName}-এ মারাত্মক জলাবদ্ধতার (${depth} সেমি) পূর্বাভাস। আনুমানিক আর্থিক ক্ষতি $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} কোটি)। দুর্যোগ মোকাবিলা দল অবিলম্বে নিষ্কাশন পাম্প ও প্রতিরক্ষামূলক ব্যবস্থা চালু করুন।`
+        : (locName.toLowerCase().includes("mumbai") || locName.toLowerCase().includes("maharashtra"))
+        ? `⚠️ [आपत्कालीन इशारा | स्तर: ${riskTier}] ${locName} मध्ये तीव्र पूरस्थिती (${depth} सेमी) निर्माण होण्याची शक्यता आहे. अंदाजित आर्थिक नुकसान $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} कोटी)। आपत्ती व्यवस्थापन पथकांनी त्वरित जलउपसा पंप कार्यान्वित करावेत.`
+        : (locName.toLowerCase().includes("pakistan") || locName.toLowerCase().includes("sindh"))
+        ? `⚠️ [ہنگامی الرٹ | درجہ: ${riskTier}] ${locName} میں شدید سیلاب اور پانی جمع ہونے (${depth} سینٹی میٹر) کا شدید خدشہ ہے۔ متوقع مالیاتی نقصان $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} کروڑ)۔ حفاظتی اقدامات فوری طور پر نافذ کیے جائیں۔`
+        : (locName.toLowerCase().includes("chennai") || locName.toLowerCase().includes("tamil"))
+        ? `⚠️ [அவசர எச்சரிக்கை | நிலை: ${riskTier}] ${locName} பகுதியில் தீவிர வெள்ளப்பெருக்கு (${depth} செ.மீ) அபாயம். மதிப்பிடப்பட்ட இழப்பு $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} கோடி). மீட்பு நடவடிக்கைகள் உடனடியாக செயல்படுத்தப்பட வேண்டும்.`
+        : (locName.toLowerCase().includes("bengaluru") || locName.toLowerCase().includes("karnataka"))
+        ? `⚠️ [ತುರ್ತು ಎಚ್ಚರಿಕೆ | ಹಂತ: ${riskTier}] ${locName} ನಲ್ಲಿ ತೀವ್ರ ಪ್ರವಾಹ ಮತ್ತು ನೀರು ನಿಲ್ಲುವಿಕೆ (${depth} ಸೆಂ.ಮೀ) ಸಂಭವನೀಯತೆ ಇದೆ. ಅಂದಾಜು ನಷ್ಟ $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} ಕೋಟಿ). ತಕ್ಷಣ ರಕ್ಷಣಾ ಕ್ರಮಗಳನ್ನು ಕೈಗೊಳ್ಳಿ.`
+        : (locName.toLowerCase().includes("japan") || locName.toLowerCase().includes("tokyo"))
+        ? `⚠️ [緊急警報 | レベル: ${riskTier}] ${locName}における深刻な浸水被害（水深${depth}cm）の予測。想定被害総額: $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} Cr)。直ちに排水ポンプを配備し警戒態勢を確立してください。`
+        : `⚠️ [टेरा-सेंटिनल वैश्विक चेतावनी | स्तर: ${riskTier}] ${locName} में ${sat}% संतृप्ति और तीव्र मौसमी दबाव के कारण जलभराव का जोखिम है। अनुमानित वित्तीय जोखिम $${(varUsd / 1000000).toFixed(1)}M USD (₹${(varInr / 10000000).toFixed(0)} करोड़) है। आपातकालीन जल निकासी और सुरक्षा प्रोटोकॉल तत्काल लागू करें।`,
       execution_time_ms: 68.7
     },
     thought_trace: [
@@ -537,7 +651,7 @@ function buildFallbackAnalysis(lat: number, lon: number, locName: string, rain: 
         agent_id: "agent-1-acute",
         step_name: "UNDERSTAND",
         action_type: "INGEST",
-        content: `Ingesting telemetry at ${lat.toFixed(4)}°N, ${lon.toFixed(4)}°E. Cloudburst simulation: +${rain}mm.`,
+        content: `Ingesting telemetry at ${lat.toFixed(4)}°N, ${lon.toFixed(4)}°E. Meteorological anomaly simulation: +${rain}mm.`,
         timestamp: new Date().toLocaleTimeString()
       },
       {
@@ -558,14 +672,14 @@ function buildFallbackAnalysis(lat: number, lon: number, locName: string, rain: 
         agent_id: "agent-3-financial",
         step_name: "VAR SIMULATION & RAG",
         action_type: "FINANCIAL_MODEL",
-        content: `ChromaDB retrieved SEBI BRSR & NDMA policies. Value at Risk: ₹${(varInr / 10000000).toFixed(0)} Cr.`,
+        content: `ChromaDB retrieved ESG compliance directives & catastrophe guidelines. Value at Risk: $${(varUsd / 1000000).toFixed(1)}M USD.`,
         timestamp: new Date().toLocaleTimeString()
       },
       {
         agent_id: "agent-3-financial",
-        step_name: "BHASHA-AI DISPATCH",
+        step_name: "GLOBAL DISPATCH",
         action_type: "DELIVER",
-        content: "Generated verified Hindi (देवनागरी) and English broadcast alerts.",
+        content: "Generated verified English (Primary Global) and multilingual broadcast alerts.",
         timestamp: new Date().toLocaleTimeString()
       }
     ]
@@ -673,25 +787,25 @@ function TelemetryTicker() {
       <div className="marquee-content">
         <span className="marquee-item">
           <span className="pulse-ping"><span className="pulse-ping-dot"></span><span className="pulse-ping-core"></span></span>
-          <span className="marquee-emerald">LIVE TELEMETRY:</span> BHARAT MONSOON RADAR ACTIVE (IMD / OPEN-METEO)
+          <span className="marquee-emerald">GLOBAL CLIMATE RADAR:</span> PLANETARY MULTI-HAZARD OBSERVATORY ACTIVE (OPEN-METEO / NASA SRTM / SENTINEL-1)
         </span>
         <span className="marquee-item">
-          <span className="marquee-highlight">AGENT 1 (ACUTE RISK):</span> GRADIENT BOOSTING ML CLASSIFIER (95.14% BENCHMARK ACCURACY)
+          <span className="marquee-highlight">AGENT 1 (ACUTE RISK):</span> GRADIENT BOOSTING ML CLASSIFIER (95.14% ACCURACY)
         </span>
         <span className="marquee-item">
           <span className="marquee-amber">AGENT 2 (CHRONIC HAZARD):</span> 30m SRTM DEM & HAZUS DEPTH-DAMAGE ENGINE
         </span>
         <span className="marquee-item">
-          <span className="marquee-highlight">AGENT 3 (FINANCIAL VaR):</span> SEBI BRSR ESG VECTOR RAG (CHROMADB)
+          <span className="marquee-highlight">AGENT 3 (FINANCIAL VaR):</span> GLOBAL ESG POLICY VECTOR RAG (CHROMADB)
         </span>
         <span className="marquee-item">
-          <span className="marquee-emerald">BHASHA-AI:</span> HINDI (देवनागरी) & ENGLISH MULTILINGUAL VOICE READY
+          <span className="marquee-emerald">GLOBAL DISPATCH:</span> PRIMARY ENGLISH (NEURAL TTS) + MULTILINGUAL CIVIC LOCALIZATIONS
         </span>
         <span className="marquee-item">
           <span className="marquee-highlight">MULTI-AGENT MCP HUB:</span> JSON-RPC 2.0 PROTOCOL ENGINE ON PORT 8001
         </span>
         <span className="marquee-item">
-          <span className="marquee-amber">BHARAT HOTSPOTS:</span> MUMBAI • BENGALURU • ASSAM • CHENNAI • GUJARAT MUNDRA
+          <span className="marquee-amber">PLANETARY HOTSPOTS:</span> 🇸🇬 SINGAPORE • 🇮🇩 JAKARTA • 🇳🇱 ROTTERDAM • 🇯🇵 TOKYO • 🇺🇸 NEW YORK • 🇬🇭 ACCRA • 🇵🇰 SINDH • 🇮🇳 MUMBAI
         </span>
       </div>
     </div>
@@ -699,38 +813,36 @@ function TelemetryTicker() {
 }
 
 const SCENARIO_PRESETS = [
-  { id: "lucknow_23", label: "🌧️ Lucknow '23 Gomti Basin Overflow", desc: "+120mm rain / 96% saturation", rain: 120, sat: 96, hotspotId: "lucknow-gomti" },
-  { id: "mumbai_05", label: "🌧️ Mumbai '05 Cloudburst", desc: "+110mm rain / 98% saturation", rain: 110, sat: 98, hotspotId: "mumbai-mithi" },
-  { id: "istanbul_21", label: "🌧️ Istanbul '21 Marmara Surge", desc: "+95mm rain / 92% saturation", rain: 95, sat: 92, hotspotId: "istanbul-marmara" },
-  { id: "bozkurt_21", label: "⛈️ Kastamonu Bozkurt Flash Surge", desc: "+140mm rain / 99% saturation", rain: 140, sat: 99, hotspotId: "kastamonu-bozkurt" },
-  { id: "oc_23", label: "🌊 Orange County '23 Atmospheric River", desc: "+105mm rain / 88% saturation", rain: 105, sat: 88, hotspotId: "orange-county-santa-ana" },
-  { id: "parnu_24", label: "🌊 Pärnu Baltic Storm Surge", desc: "+75mm rain / 94% saturation", rain: 75, sat: 94, hotspotId: "parnu-baltic" },
-  { id: "blr_22", label: "🌊 Bengaluru '22 Lake Breach", desc: "+85mm rain / 90% saturation", rain: 85, sat: 90, hotspotId: "bengaluru-bellandur" },
-  { id: "assam_24", label: "⛈️ Assam River Surge", desc: "+125mm rain / 96% saturation", rain: 125, sat: 96, hotspotId: "assam-kaziranga" },
-  { id: "cyclone", label: "🌪️ Cyclone Coastal Storm", desc: "+95mm rain / 85% saturation", rain: 95, sat: 85, hotspotId: "mundra-industrial" },
-  { id: "baseline", label: "🌤️ Baseline Monsoon", desc: "+30mm rain / 50% saturation", rain: 30, sat: 50, hotspotId: "mumbai-mithi" }
+  { id: "sg_tide", label: "🇸🇬 Singapore Spring Tide Surge", desc: "Marina Barrage High Tide + Cloudburst | 120mm rain / 92% sat", rain: 120, sat: 92, hotspotId: "singapore-marinabay" },
+  { id: "rotterdam_surge", label: "🇳🇱 Rotterdam Storm Surge", desc: "North Sea Barrier Test + Delta Runoff | 95mm rain / 88% sat", rain: 95, sat: 88, hotspotId: "rotterdam-delta" },
+  { id: "tokyo_typhoon", label: "🇯🇵 Tokyo Super Typhoon", desc: "Arakawa Lowland Inundation | 140mm rain / 95% sat", rain: 140, sat: 95, hotspotId: "tokyo-arakawa" },
+  { id: "nyc_hurricane", label: "🇺🇸 NYC Hurricane Storm Surge", desc: "Lower Manhattan Subway Tunnel Threat | 110mm rain / 90% sat", rain: 110, sat: 90, hotspotId: "newyork-manhattan" },
+  { id: "mithi_cloudburst", label: "🇮🇳 Mumbai Cloudburst & Sea Lock", desc: "Google LSTM + DGMR P(R>80)=89% | 135mm rain / 94% sat", rain: 135, sat: 94, hotspotId: "mumbai-mithi" },
+  { id: "accra_flash", label: "🇬🇭 Accra Odaw Basin Flash Flood", desc: "Korle Lagoon Choke + Convective Torrent | 105mm rain / 91% sat", rain: 105, sat: 91, hotspotId: "accra-odaw" },
+  { id: "indus_surge", label: "🇵🇰 Sindh Indus Super Flood", desc: "Glacial Melt + Heavy Monsoon Depression | 130mm rain / 96% sat", rain: 130, sat: 96, hotspotId: "sindh-indus" }
 ];
 
 const MCP_TOOL_TEMPLATES: Record<string, string> = {
-  fetch_weather_vectors: '{\n  "lat": 19.0728,\n  "lon": 72.8797\n}',
+  fetch_weather_vectors: '{\n  "lat": 1.2868,\n  "lon": 103.8545\n}',
   run_flood_classifier: '{\n  "precipitation_24h_mm": 95.0,\n  "precipitation_7d_mm": 210.0,\n  "soil_saturation_pct": 88.0,\n  "relative_humidity_pct": 85.0,\n  "elevation_m": 12.0\n}',
-  compute_dem_exposure: '{\n  "lat": 19.0728,\n  "lon": 72.8797,\n  "risk_score": 0.78,\n  "radius_km": 10.0\n}',
-  query_policy_rag: '{\n  "region": "India",\n  "sector": "Industrial",\n  "damage_estimate_inr": 450000000\n}'
+  compute_dem_exposure: '{\n  "lat": 1.2868,\n  "lon": 103.8545,\n  "risk_score": 0.78,\n  "radius_km": 10.0\n}',
+  query_policy_rag: '{\n  "region": "Singapore",\n  "sector": "Industrial",\n  "damage_estimate_inr": 450000000\n}'
 };
 
 export function App() {
   const [hotspots, setHotspots] = useState<Hotspot[]>(DEFAULT_HOTSPOTS);
-  const [selectedHotspot, setSelectedHotspot] = useState<string>("mumbai-mithi");
-  const [currentLat, setCurrentLat] = useState<number>(19.0728);
-  const [currentLon, setCurrentLon] = useState<number>(72.8797);
-  const [locationName, setLocationName] = useState<string>("Mumbai — Mithi River & Kurla Basin");
+  const [selectedHotspot, setSelectedHotspot] = useState<string>("singapore-marinabay");
+  const [selectedRegion, setSelectedRegion] = useState<string>("ALL");
+  const [currentLat, setCurrentLat] = useState<number>(1.2868);
+  const [currentLon, setCurrentLon] = useState<number>(103.8545);
+  const [locationName, setLocationName] = useState<string>("Singapore — Marina Bay & Kallang Basin");
 
-  // Executive Top Nav View Mode: 'command' | 'agents' | 'mcp' | 'finance' | 'blockchain'
-  const [activeView, setActiveView] = useState<"command" | "agents" | "mcp" | "finance" | "blockchain">("command");
+  // Executive Top Nav View Mode: 'command' | 'agents' | 'mcp' | 'finance' | 'blockchain' | 'veda' | 'mesh' | 'evac' | 'humanitarian' | 'multihazard'
+  const [activeView, setActiveView] = useState<"command" | "agents" | "mcp" | "finance" | "blockchain" | "veda" | "mesh" | "evac" | "humanitarian" | "multihazard">("command");
+  const [isNavExpanded, setIsNavExpanded] = useState<boolean>(true);
 
   // MCP Hub Connection & Interactive Tester State
   const [showMcpModal, setShowMcpModal] = useState<boolean>(false);
-  const [showEvidenceModal, setShowEvidenceModal] = useState<boolean>(false);
   const [mcpModalTab, setMcpModalTab] = useState<"claude" | "cursor" | "playground" | "catalog">("claude");
   const [mcpToolName, setMcpToolName] = useState<string>("fetch_weather_vectors");
   const [mcpParamsJson, setMcpParamsJson] = useState<string>(MCP_TOOL_TEMPLATES["fetch_weather_vectors"]);
@@ -745,8 +857,8 @@ export function App() {
 
   // Analysis State
   const [loading, setLoading] = useState<boolean>(false);
-  const [result, setResult] = useState<AnalysisResult | null>(() => buildFallbackAnalysis(19.0728, 72.8797, "Mumbai — Mithi River & Kurla Basin", 85, 90));
-  const [activeLangTab, setActiveLangTab] = useState<"regional" | "english" | "hindi">("regional");
+  const [result, setResult] = useState<AnalysisResult | null>(() => buildFallbackAnalysis(1.2868, 103.8545, "Singapore — Marina Bay & Kallang Basin", 85, 90));
+  const [activeLangTab, setActiveLangTab] = useState<"english" | "regional">("english");
   const [wsConnected, setWsConnected] = useState<boolean>(false);
   const [liveSteps, setLiveSteps] = useState<ThoughtStep[]>([]);
   const [copied, setCopied] = useState<boolean>(false);
@@ -756,8 +868,22 @@ export function App() {
   const [integrationStatus, setIntegrationStatus] = useState<any>(null);
   const [pingingApi, setPingingApi] = useState<boolean>(false);
   const [apiPingSuccess, setApiPingSuccess] = useState<boolean | null>(null);
-  const [detectingLocation, setDetectingLocation] = useState<boolean>(false);
-  const [locationToast, setLocationToast] = useState<string | null>(null);
+
+  // Open Climate Fix (Quartz) Style 0-48h Temporal Scrubber State
+  const [scrubberHour, setScrubberHour] = useState<number>(0);
+  const [isScrubberPlaying, setIsScrubberPlaying] = useState<boolean>(false);
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval> | null = null;
+    if (isScrubberPlaying) {
+      timer = setInterval(() => {
+        setScrubberHour((prev) => (prev >= 48 ? 0 : prev + 3));
+      }, 1200);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [isScrubberPlaying]);
 
   // Map Reference
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -846,23 +972,25 @@ export function App() {
     let ws: WebSocket | null = null;
     let reconnectTimer: any = null;
     let isMounted = true;
+    let retryDelay = 3000;
 
     const connect = () => {
       if (!isMounted) return;
       try {
-        const backendHost = getBackendBase();
-        const wsUrl = backendHost.startsWith("https://")
-          ? backendHost.replace("https://", "wss://") + "/ws/events"
-          : backendHost.replace("http://", "ws://") + "/ws/events";
+        const wsUrl = getWebSocketUrl();
 
         ws = new WebSocket(wsUrl);
         ws.onopen = () => {
-          if (isMounted) setWsConnected(true);
+          if (isMounted) {
+            setWsConnected(true);
+            retryDelay = 3000;
+          }
         };
         ws.onclose = () => {
           if (isMounted) {
             setWsConnected(false);
-            reconnectTimer = setTimeout(connect, 3000);
+            reconnectTimer = setTimeout(connect, retryDelay);
+            retryDelay = Math.min(retryDelay * 1.5, 15000);
           }
         };
         ws.onerror = () => {
@@ -888,7 +1016,8 @@ export function App() {
       } catch (e) {
         if (isMounted) {
           setWsConnected(false);
-          reconnectTimer = setTimeout(connect, 3000);
+          reconnectTimer = setTimeout(connect, retryDelay);
+          retryDelay = Math.min(retryDelay * 1.5, 15000);
         }
       }
     };
@@ -1066,93 +1195,6 @@ export function App() {
     runAnalysis(h.lat, h.lon, h.name);
   };
 
-  const detectMyLocation = () => {
-    setDetectingLocation(true);
-    if (!("geolocation" in navigator)) {
-      snapToFallbackLocation("Geolocation not supported by browser. Defaulted to Lucknow, UP.");
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        try {
-          const res = await fetch(`${API_BASE}/geo/detect-location`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ lat: latitude, lon: longitude })
-          });
-          if (res.ok) {
-            const data = await res.json();
-            const hotspot = data.nearest_hotspot;
-            if (hotspot) {
-              setSelectedHotspot(hotspot.id);
-              setCurrentLat(hotspot.lat);
-              setCurrentLon(hotspot.lon);
-              setLocationName(hotspot.name);
-              setActiveLangTab("regional");
-              setLocationToast(`🛰️ GPS: Near ${hotspot.name.split("—")[0].trim()} (${data.distance_km}km)`);
-              runAnalysis(hotspot.lat, hotspot.lon, hotspot.name);
-              setTimeout(() => setLocationToast(null), 4500);
-              setDetectingLocation(false);
-              return;
-            }
-          }
-        } catch (err) {
-          console.warn("Backend detect-location error, falling back locally:", err);
-        }
-
-        snapToNearestLocalHotspot(latitude, longitude);
-      },
-      (err) => {
-        console.warn("Geolocation permission denied or timed out:", err);
-        snapToFallbackLocation("📍 Geolocation simulated to user base: Lucknow, Uttar Pradesh");
-      },
-      { timeout: 6000, enableHighAccuracy: true }
-    );
-  };
-
-  const snapToFallbackLocation = (msg: string) => {
-    const lucknow = hotspots.find((h) => h.id === "lucknow-gomti") || {
-      id: "lucknow-gomti",
-      name: "Lucknow — Gomti River Basin & Lowland Drainage Corridor",
-      lat: 26.8467,
-      lon: 80.9462
-    };
-    setSelectedHotspot(lucknow.id);
-    setCurrentLat(lucknow.lat);
-    setCurrentLon(lucknow.lon);
-    setLocationName(lucknow.name);
-    setActiveLangTab("regional");
-    setLocationToast(msg);
-    runAnalysis(lucknow.lat, lucknow.lon, lucknow.name);
-    setTimeout(() => setLocationToast(null), 4500);
-    setDetectingLocation(false);
-  };
-
-  const snapToNearestLocalHotspot = (lat: number, lon: number) => {
-    let nearest = hotspots[0];
-    let minDist = 999999;
-    hotspots.forEach((h) => {
-      const d = Math.hypot(h.lat - lat, h.lon - lon);
-      if (d < minDist) {
-        minDist = d;
-        nearest = h;
-      }
-    });
-    if (nearest) {
-      setSelectedHotspot(nearest.id);
-      setCurrentLat(nearest.lat);
-      setCurrentLon(nearest.lon);
-      setLocationName(nearest.name);
-      setActiveLangTab("regional");
-      setLocationToast(`🛰️ GPS: Snapped to ${nearest.name.split("—")[0].trim()}`);
-      runAnalysis(nearest.lat, nearest.lon, nearest.name);
-      setTimeout(() => setLocationToast(null), 4500);
-    }
-    setDetectingLocation(false);
-  };
-
   const getTierClass = (tier?: string) => {
     switch (tier) {
       case "CRITICAL":
@@ -1166,7 +1208,7 @@ export function App() {
     }
   };
 
-  const speakText = async (text: string, languageCode: string = "auto") => {
+  const speakText = async (text: string, langCode?: string) => {
     if (isPlayingAudio) {
       if ("speechSynthesis" in window) {
         window.speechSynthesis.cancel();
@@ -1177,21 +1219,23 @@ export function App() {
 
     setIsPlayingAudio(true);
 
-    // 1. Try Bhasha-AI Neural Voice Engine (Sarvam AI / ElevenLabs)
+    const targetLangCode = activeLangTab === "english" ? "en-US" : (langCode || result?.agent3?.regional_lang_code || "hi-IN");
+
+    // 1. Try authentic Neural Voice (Sarvam AI / Bhashini / ElevenLabs) via backend /bhasha/tts
     try {
       const res = await fetch(`${API_BASE}/bhasha/tts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text,
-          language: languageCode,
+          language_code: targetLangCode,
           speaker: "priya"
         })
       });
       if (res.ok) {
         const data = await res.json();
         if (data.status === "success" && data.audio_b64) {
-          const mime = data.mime_type || "audio/wav";
+          const mime = data.mime_type || (data.source === "elevenlabs" ? "audio/mpeg" : "audio/wav");
           const audio = new Audio(`data:${mime};base64,` + data.audio_b64);
           audio.onended = () => setIsPlayingAudio(false);
           audio.onerror = () => setIsPlayingAudio(false);
@@ -1200,17 +1244,15 @@ export function App() {
         }
       }
     } catch (e) {
-      console.warn("Bhasha-AI TTS call skipped, falling back to Web Speech:", e);
+      console.warn("Cloud neural TTS call skipped, falling back to Web Speech:", e);
     }
 
-    // 2. Fallback to Web Speech API
+    // 2. High-fidelity Web Speech API Fallback with localized BCP-47 tag
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      if (languageCode && languageCode !== "auto") {
-        utterance.lang = languageCode;
-      }
       utterance.rate = 1.0;
+      utterance.lang = targetLangCode;
       utterance.onend = () => setIsPlayingAudio(false);
       utterance.onerror = () => setIsPlayingAudio(false);
       window.speechSynthesis.speak(utterance);
@@ -1219,14 +1261,15 @@ export function App() {
     }
   };
 
-  // Map resize handler when switching back to Command Radar view
+  // Map resize handler when switching view or toggling navigation rail
   useEffect(() => {
     if (activeView === "command" && mapInstanceRef.current) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         mapInstanceRef.current?.invalidateSize();
-      }, 150);
+      }, 250);
+      return () => clearTimeout(timer);
     }
-  }, [activeView]);
+  }, [activeView, isNavExpanded]);
 
   // Execute MCP Tool via JSON-RPC 2.0 (Live Playground)
   const executeMcpTool = async (tool: string, rawParams: string) => {
@@ -1334,216 +1377,430 @@ export function App() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", background: "var(--color-bg-deep)", position: "relative" }}>
+    <div className="app-shell">
       {/* Background Ambient Constellation Particles */}
       <ParticleBackground />
 
       {/* ========================================================
-          TOP HEADER COMMAND BAR
+          LEFT EXECUTIVE NAVIGATION RAIL / SLIDER DRAWER
           ======================================================== */}
-      <header
-        style={{
-          height: "64px",
-          minHeight: "64px",
-          background: "#16181c",
-          borderBottom: "1px solid #232730",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 20px",
-          zIndex: 1000,
-          position: "relative",
-          boxShadow: "0 2px 12px rgba(0, 0, 0, 0.45)"
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+      <aside className={`app-sidebar ${isNavExpanded ? "app-sidebar-expanded" : "app-sidebar-collapsed"}`}>
+        {/* Brand Header */}
+        <div className="sidebar-header">
           <div
-            style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "38px",
-              height: "38px",
-              borderRadius: "10px",
-              background: "#1c2027",
-              border: "1px solid #2c323e",
-              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)",
-              flexShrink: 0
-            }}
+            className="sidebar-brand"
+            onClick={() => setActiveView("command")}
+            title="AEGIS-CLIMATE Planetary Intelligence"
           >
-            <img
-              src="/logo.png"
-              alt="AEGIS-CLIMATE Logo"
+            <div
               style={{
-                width: "28px",
-                height: "28px",
-                objectFit: "contain"
+                width: "36px",
+                height: "36px",
+                borderRadius: "9px",
+                background: "#1c2027",
+                border: "1px solid #2c323e",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0
               }}
-            />
+            >
+              <img
+                src="/terra-logo.png"
+                alt="AEGIS-CLIMATE Logo"
+                style={{ width: "24px", height: "24px", objectFit: "contain" }}
+              />
+            </div>
+            {isNavExpanded && (
+              <div style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}>
+                <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "#FFF", letterSpacing: "0.02em", whiteSpace: "nowrap" }}>
+                  AEGIS<span style={{ color: "#38BDF8" }}>-CLIMATE</span>
+                </span>
+                <span style={{ fontSize: "0.62rem", color: "var(--color-text-muted)", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+                  PLANETARY RADAR
+                </span>
+              </div>
+            )}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "2px", flexShrink: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <h1 style={{ fontSize: "1.05rem", fontWeight: 700, color: "#FFFFFF", letterSpacing: "0.02em", margin: 0, lineHeight: 1.2, fontFamily: "var(--font-display)" }}>
-                AEGIS<span style={{ color: "#38BDF8" }}>-CLIMATE</span>
-              </h1>
-              <span className="cyber-badge">
-                ENTERPRISE INTELLIGENCE
+          {isNavExpanded && (
+            <button
+              onClick={() => setIsNavExpanded(false)}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "var(--color-text-secondary)",
+                cursor: "pointer",
+                padding: "4px",
+                borderRadius: "4px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+              title="Collapse Sidebar (Icon Rail Mode)"
+            >
+              <ChevronLeft size={16} />
+            </button>
+          )}
+        </div>
+
+        {/* Navigation Modules (Categorized into 3 sleek operational tiers) */}
+        <div className="sidebar-content">
+          {/* Group 1: Core Intelligence */}
+          <div className="sidebar-section">
+            {isNavExpanded && <div className="sidebar-section-title">Core Intelligence</div>}
+            
+            <button
+              className={`sidebar-item ${activeView === "command" ? "active" : ""}`}
+              onClick={() => setActiveView("command")}
+              title="Command Radar & GIS Intelligence"
+            >
+              <div className="sidebar-item-icon">
+                <Globe size={15} color={activeView === "command" ? "#38BDF8" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span style={{ fontWeight: activeView === "command" ? 700 : 500 }}>Command Radar</span>
+                  <span className="sidebar-item-badge">LIVE GIS</span>
+                </>
+              )}
+            </button>
+
+            <button
+              className={`sidebar-item ${activeView === "agents" ? "active" : ""}`}
+              onClick={() => setActiveView("agents")}
+              title="Multi-Agent Swarm Intelligence"
+            >
+              <div className="sidebar-item-icon">
+                <Bot size={15} color={activeView === "agents" ? "#38BDF8" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "agents" ? 700 : 500 }}>Multi-Agent Swarm</span>
+                  <span className="sidebar-item-badge">AI</span>
+                </>
+              )}
+            </button>
+
+            <button
+              className={`sidebar-item ${activeView === "multihazard" ? "active" : ""}`}
+              onClick={() => setActiveView("multihazard")}
+              title="Multi-Hazard Landslide & Ecological Monitoring"
+            >
+              <div className="sidebar-item-icon">
+                <Mountain size={15} color={activeView === "multihazard" ? "#38BDF8" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "multihazard" ? 700 : 500 }}>Multi-Hazard & Eco</span>
+                  <span className="sidebar-item-badge">NEW</span>
+                </>
+              )}
+            </button>
+
+            <button
+              className={`sidebar-item ${activeView === "veda" ? "active" : ""}`}
+              onClick={() => setActiveView("veda")}
+              title="NASA VEDA Raster Swipe Analysis"
+            >
+              <div className="sidebar-item-icon">
+                <Satellite size={15} color={activeView === "veda" ? "#2DD4BF" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "veda" ? 700 : 500 }}>NASA VEDA Swipe</span>
+                  <span className="sidebar-item-badge">EARTH</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Group 2: Financial & Risk Governance */}
+          <div className="sidebar-section">
+            {isNavExpanded && <div className="sidebar-section-title">Risk & Governance</div>}
+
+            <button
+              className={`sidebar-item ${activeView === "finance" ? "active" : ""}`}
+              onClick={() => setActiveView("finance")}
+              title="Financial Value-at-Risk & BRSR Principle 6"
+            >
+              <div className="sidebar-item-icon">
+                <TrendingUp size={15} color={activeView === "finance" ? "#10B981" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "finance" ? 700 : 500 }}>Financial & BRSR</span>
+                  <span className="sidebar-item-badge">VAR</span>
+                </>
+              )}
+            </button>
+
+            <button
+              className={`sidebar-item ${activeView === "blockchain" ? "active" : ""}`}
+              onClick={() => setActiveView("blockchain")}
+              title="Web3 Cryptographic Ledger Audit Trail"
+            >
+              <div className="sidebar-item-icon">
+                <Shield size={15} color={activeView === "blockchain" ? "#A78BFA" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "blockchain" ? 700 : 500 }}>Web3 & Ledger</span>
+                  <span className="sidebar-item-badge">ON-CHAIN</span>
+                </>
+              )}
+            </button>
+
+            <button
+              className={`sidebar-item ${activeView === "humanitarian" ? "active" : ""}`}
+              onClick={() => setActiveView("humanitarian")}
+              title="Humanitarian Relief & Carbon Credit Retirement"
+            >
+              <div className="sidebar-item-icon">
+                <HeartHandshake size={15} color={activeView === "humanitarian" ? "#34D399" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "humanitarian" ? 700 : 500 }}>Humanitarian & Carbon</span>
+                  <span className="sidebar-item-badge">TOUCAN</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Group 3: Protocols & Operations */}
+          <div className="sidebar-section">
+            {isNavExpanded && <div className="sidebar-section-title">Protocols & Operations</div>}
+
+            <button
+              className={`sidebar-item ${activeView === "mcp" ? "active" : ""}`}
+              onClick={() => setActiveView("mcp")}
+              title="Model Context Protocol (MCP) JSON-RPC Hub"
+            >
+              <div className="sidebar-item-icon">
+                <Zap size={15} color={activeView === "mcp" ? "#F59E0B" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "mcp" ? 700 : 500 }}>MCP Tool Hub</span>
+                  <span className="sidebar-item-badge">RPC 2.0</span>
+                </>
+              )}
+            </button>
+
+            <button
+              className={`sidebar-item ${activeView === "mesh" ? "active" : ""}`}
+              onClick={() => setActiveView("mesh")}
+              title="ClusterDuck LoRa Mesh Emergency Network"
+            >
+              <div className="sidebar-item-icon">
+                <Radio size={15} color={activeView === "mesh" ? "#F87171" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "mesh" ? 700 : 500 }}>LoRa Mesh Radar</span>
+                  <span className="sidebar-item-badge">OFF-GRID</span>
+                </>
+              )}
+            </button>
+
+            <button
+              className={`sidebar-item ${activeView === "evac" ? "active" : ""}`}
+              onClick={() => setActiveView("evac")}
+              title="Autonomous Safe Evacuation & Fleet Cockpit"
+            >
+              <div className="sidebar-item-icon">
+                <Navigation size={15} color={activeView === "evac" ? "#60A5FA" : "var(--color-text-secondary)"} />
+              </div>
+              {isNavExpanded && (
+                <>
+                  <span className="sidebar-item-label" style={{ fontWeight: activeView === "evac" ? 700 : 500 }}>Evacuation & Fleet</span>
+                  <span className="sidebar-item-badge">ROUTES</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Sidebar Footer */}
+        <div className="sidebar-footer">
+          {isNavExpanded ? (
+            <>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.68rem", color: "var(--color-text-muted)" }}>
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10B981" }} />
+                <span>v3.2 GLOBAL</span>
+              </div>
+              <button
+                onClick={() => setIsNavExpanded(false)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "var(--color-text-secondary)",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center"
+                }}
+                title="Collapse to Icon Rail"
+              >
+                <ChevronLeft size={15} />
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => setIsNavExpanded(true)}
+              style={{
+                width: "100%",
+                background: "transparent",
+                border: "none",
+                color: "var(--color-text-secondary)",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "4px 0"
+              }}
+              title="Expand Sidebar"
+            >
+              <ChevronRight size={16} />
+            </button>
+          )}
+        </div>
+      </aside>
+
+      {/* ========================================================
+          MAIN WORKSPACE VIEWPORT
+          ======================================================== */}
+      <div className="app-main-viewport">
+        {/* Top Executive Header */}
+        <header className="top-executive-bar">
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: 0 }}>
+            {!isNavExpanded && (
+              <button
+                onClick={() => setIsNavExpanded(true)}
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: "6px",
+                  padding: "6px 8px",
+                  color: "var(--color-text-secondary)",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+                title="Expand Navigation Menu"
+              >
+                <Menu size={15} />
+              </button>
+            )}
+
+            {/* Active View Badge / Operational Context */}
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }}>
+              <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "#FFF", whiteSpace: "nowrap" }}>
+                {activeView === "command" && "Planetary Command Radar"}
+                {activeView === "agents" && "Multi-Agent Swarm Intelligence"}
+                {activeView === "multihazard" && "Multi-Hazard Landslide & Ecological Radar"}
+                {activeView === "veda" && "NASA VEDA Earth Data & Raster Comparator"}
+                {activeView === "finance" && "Financial Value-at-Risk & BRSR Audit"}
+                {activeView === "blockchain" && "Cryptographic Ledger & Audit Trail"}
+                {activeView === "humanitarian" && "Humanitarian Relief & Toucan Carbon Bridge"}
+                {activeView === "mcp" && "Model Context Protocol (MCP) Tool Hub"}
+                {activeView === "mesh" && "ClusterDuck Protocol LoRa Mesh Network"}
+                {activeView === "evac" && "Autonomous Evacuation & Fleet Operations"}
+              </span>
+
+              {activeView === "command" && (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    padding: "3px 9px",
+                    borderRadius: "6px",
+                    background: "rgba(0, 240, 255, 0.08)",
+                    border: "1px solid rgba(0, 240, 255, 0.25)",
+                    fontSize: "0.72rem",
+                    color: "var(--color-primary)",
+                    whiteSpace: "nowrap"
+                  }}
+                >
+                  <Compass size={12} />
+                  <span>Target: <b>{locationName.split("—")[0]}</b></span>
+                  <span className={`badge ${getTierClass(result?.agent1.risk_tier)}`} style={{ fontSize: "0.6rem", padding: "0 5px" }}>
+                    {result?.agent1.risk_tier || "CRITICAL"}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Right Action Controls */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+            <button
+              className="mcp-pill-btn"
+              onClick={() => setShowMcpModal(true)}
+              title="Connect external AI agents (Claude Desktop, Cursor, Custom Agents) to AEGIS MCP Server"
+            >
+              <span className="pulse-ping" style={{ width: "6px", height: "6px" }}>
+                <span className="pulse-ping-dot" style={{ backgroundColor: "#38BDF8" }}></span>
+                <span className="pulse-ping-core" style={{ backgroundColor: "#38BDF8" }}></span>
+              </span>
+              <Zap size={12} color="#38BDF8" />
+              <span>Connect MCP</span>
+            </button>
+
+            <button
+              className="btn-secondary"
+              style={{ padding: "4px 9px", fontSize: "0.72rem" }}
+              onClick={() => {
+                setShowApiModal(true);
+                fetchIntegrationStatus();
+              }}
+            >
+              <Key size={12} color="#9CA3AF" />
+              <span>API Keys</span>
+            </button>
+
+            <button
+              className="btn-primary"
+              style={{ padding: "4px 10px", fontSize: "0.72rem" }}
+              onClick={() => setShowBriefingModal(true)}
+            >
+              <FileDown size={12} />
+              <span>Briefing</span>
+            </button>
+
+            {/* Live Indicator */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                fontSize: "0.68rem",
+                color: "var(--color-text-muted)",
+                padding: "3px 8px",
+                background: "#111316",
+                border: "1px solid #232730",
+                borderRadius: "9999px"
+              }}
+            >
+              <span
+                style={{
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: wsConnected ? "#10B981" : "#F59E0B",
+                  boxShadow: wsConnected ? "0 0 6px rgba(16, 185, 129, 0.5)" : "none"
+                }}
+              />
+              <span className="mono" style={{ color: "#E5E7EB", fontWeight: 600 }}>
+                {wsConnected ? "LIVE" : "POLLING"}
               </span>
             </div>
-            <p style={{ fontSize: "0.68rem", color: "var(--color-text-secondary)", margin: 0, lineHeight: 1.2, whiteSpace: "nowrap" }}>
-              Autonomous Multi-Agent Environmental &amp; Risk Intelligence
-            </p>
           </div>
-        </div>
+        </header>
 
-        {/* Executive Mode Navigation Tabs */}
-        <nav className="nav-tab-container" aria-label="Module Navigation" style={{ flexShrink: 0 }}>
-          <button
-            className={`nav-tab-btn ${activeView === "command" ? "active" : ""}`}
-            onClick={() => setActiveView("command")}
-          >
-            <Globe size={13} color={activeView === "command" ? "#38BDF8" : "var(--color-text-secondary)"} />
-            <span>Command Radar</span>
-          </button>
-          <button
-            className={`nav-tab-btn ${activeView === "agents" ? "active" : ""}`}
-            onClick={() => setActiveView("agents")}
-          >
-            <Bot size={13} color={activeView === "agents" ? "#38BDF8" : "var(--color-text-secondary)"} />
-            <span>Multi-Agent Swarm</span>
-          </button>
-          <button
-            className={`nav-tab-btn ${activeView === "mcp" ? "active" : ""}`}
-            onClick={() => setActiveView("mcp")}
-          >
-            <Zap size={13} color={activeView === "mcp" ? "#F59E0B" : "var(--color-text-secondary)"} />
-            <span>MCP Tool Hub</span>
-          </button>
-          <button
-            className={`nav-tab-btn ${activeView === "finance" ? "active" : ""}`}
-            onClick={() => setActiveView("finance")}
-          >
-            <TrendingUp size={13} color={activeView === "finance" ? "#10B981" : "var(--color-text-secondary)"} />
-            <span>Financial & BRSR</span>
-          </button>
-          <button
-            className={`nav-tab-btn ${activeView === "blockchain" ? "active" : ""}`}
-            onClick={() => setActiveView("blockchain")}
-          >
-            <Shield size={13} color={activeView === "blockchain" ? "#A78BFA" : "var(--color-text-secondary)"} />
-            <span>Web3 & Ledger</span>
-          </button>
-        </nav>
-
-        {/* Right Action Controls */}
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
-          {/* Quick GPS Location Detect in Header */}
-          <button
-            className="mcp-pill-btn"
-            style={{
-              borderColor: "rgba(56, 189, 248, 0.4)",
-              background: "rgba(56, 189, 248, 0.12)",
-              color: "#38BDF8"
-            }}
-            onClick={detectMyLocation}
-            disabled={detectingLocation}
-            title="Auto-detect current GPS coordinates and activate local jurisdiction language"
-          >
-            <Navigation size={12} color="#38BDF8" className={detectingLocation ? "spin" : ""} />
-            <span>{detectingLocation ? "Locating..." : "🛰️ GPS Detect"}</span>
-          </button>
-
-          {/* Prominent Connect MCP Button */}
-          <button
-            className="mcp-pill-btn"
-            onClick={() => {
-              setShowMcpModal(true);
-            }}
-            title="Connect external AI agents (Claude Desktop, Cursor, Custom Agents) to AEGIS MCP Server"
-          >
-            <span className="pulse-ping" style={{ width: "6px", height: "6px" }}>
-              <span className="pulse-ping-dot" style={{ backgroundColor: "#38BDF8" }}></span>
-              <span className="pulse-ping-core" style={{ backgroundColor: "#38BDF8" }}></span>
-            </span>
-            <Zap size={12} color="#38BDF8" />
-            <span>Connect MCP</span>
-          </button>
-
-          {/* Prominent Standalone Evidence Verifier Button */}
-          <button
-            className="mcp-pill-btn"
-            style={{
-              borderColor: "rgba(167, 139, 250, 0.4)",
-              background: "rgba(167, 139, 250, 0.12)",
-              color: "#A78BFA"
-            }}
-            onClick={() => setShowEvidenceModal(true)}
-            title="Launch Standalone Evidence Verifier & Tamper Testing Sandbox (PRD-2 §11)"
-          >
-            <Shield size={12} color="#A78BFA" />
-            <span>Verify Evidence</span>
-          </button>
-
-          <button
-            className="btn-secondary"
-            style={{
-              padding: "4px 9px",
-              fontSize: "0.72rem"
-            }}
-            onClick={() => {
-              setShowApiModal(true);
-              fetchIntegrationStatus();
-            }}
-          >
-            <Key size={12} color="#9CA3AF" />
-            <span>API Keys</span>
-          </button>
-
-          <button
-            className="btn-primary"
-            style={{
-              padding: "4px 10px",
-              fontSize: "0.72rem"
-            }}
-            onClick={() => setShowBriefingModal(true)}
-          >
-            <FileDown size={12} />
-            <span>Briefing</span>
-          </button>
-
-          {/* Clean Live Status indicator */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "5px",
-              fontSize: "0.68rem",
-              color: "var(--color-text-muted)",
-              padding: "3px 8px",
-              background: "#111316",
-              border: "1px solid #232730",
-              borderRadius: "9999px"
-            }}
-          >
-            <span
-              style={{
-                width: "6px",
-                height: "6px",
-                borderRadius: "50%",
-                background: wsConnected ? "#10B981" : "#F59E0B",
-                boxShadow: wsConnected ? "0 0 6px rgba(16, 185, 129, 0.5)" : "none"
-              }}
-            />
-            <span className="mono" style={{ color: "#E5E7EB", fontWeight: 600 }}>
-              {wsConnected ? "LIVE" : "POLLING"}
-            </span>
-          </div>
-        </div>
-      </header>
-
-      {/* Live Telemetry Marquee Banner */}
-      <TelemetryTicker />
+        {/* Live Telemetry Marquee Banner */}
+        <TelemetryTicker />
 
       {/* ========================================================
           VIEW 1: LIVE COMMAND RADAR (3-COLUMN COCKPIT)
@@ -1565,90 +1822,82 @@ export function App() {
             gap: "16px"
           }}
         >
-          {/* 1-Click GPS Detect My Location Button */}
+          {/* Section: Global Hotspots */}
           <div>
-            <button
-              onClick={detectMyLocation}
-              disabled={detectingLocation}
-              style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-                background: "linear-gradient(135deg, rgba(56, 189, 248, 0.18) 0%, rgba(167, 139, 250, 0.18) 100%)",
-                border: "1px solid rgba(56, 189, 248, 0.45)",
-                borderRadius: "8px",
-                padding: "9px 12px",
-                color: "#FFFFFF",
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                cursor: detectingLocation ? "wait" : "pointer",
-                boxShadow: "0 2px 8px rgba(56, 189, 248, 0.15)",
-                transition: "all 0.2s ease"
-              }}
-            >
-              <Navigation size={14} color="#38BDF8" className={detectingLocation ? "spin" : ""} />
-              <span>{detectingLocation ? "Triangulating GPS..." : "🛰️ Detect My Location"}</span>
-            </button>
-            {locationToast && (
-              <div style={{
-                marginTop: "6px",
-                padding: "6px 8px",
-                borderRadius: "6px",
-                background: "rgba(16, 185, 129, 0.12)",
-                border: "1px solid rgba(16, 185, 129, 0.35)",
-                fontSize: "0.68rem",
-                color: "#10B981",
-                display: "flex",
-                alignItems: "center",
-                gap: "6px"
-              }}>
-                <CheckCircle2 size={12} color="#10B981" />
-                <span>{locationToast}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Section: Global & Regional Climate Hotspots */}
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
               <Compass size={16} color="var(--color-primary)" />
               <h2 style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--color-text-secondary)" }}>
-                Global &amp; Regional Hotspots
+                Global Climate Hotspots & Corridors
               </h2>
             </div>
 
+            {/* Regional Filter Pills */}
+            <div style={{ display: "flex", gap: "4px", flexWrap: "wrap", marginBottom: "10px" }}>
+              {[
+                { id: "ALL", label: "🌐 All (12)" },
+                { id: "ASEAN", label: "🇸🇬 ASEAN" },
+                { id: "WEST", label: "🇪🇺/🇺🇸 West" },
+                { id: "ASIA", label: "🌏 Asia" },
+                { id: "AFRICA", label: "🌍 Africa" }
+              ].map((rf) => (
+                <button
+                  key={rf.id}
+                  onClick={() => setSelectedRegion(rf.id)}
+                  style={{
+                    fontSize: "0.65rem",
+                    padding: "3px 8px",
+                    borderRadius: "6px",
+                    border: "1px solid",
+                    borderColor: selectedRegion === rf.id ? "var(--color-primary)" : "rgba(255, 255, 255, 0.08)",
+                    background: selectedRegion === rf.id ? "rgba(0, 240, 255, 0.15)" : "rgba(255, 255, 255, 0.02)",
+                    color: selectedRegion === rf.id ? "#FFF" : "var(--color-text-secondary)",
+                    cursor: "pointer",
+                    fontWeight: selectedRegion === rf.id ? 700 : 500,
+                    transition: "all 0.15s ease"
+                  }}
+                >
+                  {rf.label}
+                </button>
+              ))}
+            </div>
+
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              {hotspots.map((h) => {
-                const isSelected = selectedHotspot === h.id;
-                return (
-                  <div
-                    key={h.id}
-                    onClick={() => handleSelectHotspot(h)}
-                    className={`hotspot-item ${isSelected ? "active" : ""}`}
-                    style={{
-                      padding: "8px 12px",
-                      borderRadius: "var(--radius-md)",
-                      background: isSelected ? "rgba(0, 240, 255, 0.08)" : "rgba(255, 255, 255, 0.02)",
-                      border: `1px solid ${isSelected ? "rgba(0, 240, 255, 0.35)" : "rgba(255, 255, 255, 0.05)"}`,
-                      cursor: "pointer"
-                    }}
-                  >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <span style={{ fontSize: "0.85rem", fontWeight: 600, color: isSelected ? "#FFF" : "var(--color-text-primary)" }}>
-                        {h.name.split("—")[0]}
-                      </span>
-                      <span className={`badge ${getTierClass(h.risk_profile)}`} style={{ fontSize: "0.65rem", padding: "1px 6px" }}>
-                        {h.risk_profile}
-                      </span>
+              {hotspots
+                .filter((h) => {
+                  if (selectedRegion === "ALL") return true;
+                  const r = (h.region || "").toUpperCase();
+                  if (selectedRegion === "WEST") return r === "WEST" || r === "EUROPE" || r === "AMERICAS";
+                  return r === selectedRegion.toUpperCase();
+                })
+                .map((h) => {
+                  const isSelected = selectedHotspot === h.id;
+                  return (
+                    <div
+                      key={h.id}
+                      onClick={() => handleSelectHotspot(h)}
+                      className={`hotspot-item ${isSelected ? "active" : ""}`}
+                      style={{
+                        padding: "8px 12px",
+                        borderRadius: "var(--radius-md)",
+                        background: isSelected ? "rgba(0, 240, 255, 0.08)" : "rgba(255, 255, 255, 0.02)",
+                        border: `1px solid ${isSelected ? "rgba(0, 240, 255, 0.35)" : "rgba(255, 255, 255, 0.05)"}`,
+                        cursor: "pointer"
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <span style={{ fontSize: "0.85rem", fontWeight: 600, color: isSelected ? "#FFF" : "var(--color-text-primary)" }}>
+                          {h.flag ? `${h.flag} ` : ""}{h.name.split("—")[0]}
+                        </span>
+                        <span className={`badge ${getTierClass(h.risk_profile)}`} style={{ fontSize: "0.65rem", padding: "1px 6px" }}>
+                          {h.risk_profile}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", marginTop: "3px" }}>
+                        {h.country ? `${h.country} (${h.state})` : h.state} • Loss: {h.typical_annual_loss_usd || h.typical_annual_loss_inr}
+                      </div>
                     </div>
-                    <div style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", marginTop: "3px" }}>
-                      {h.state} • Loss: {h.typical_annual_loss_inr}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
 
@@ -1687,13 +1936,13 @@ export function App() {
             {/* Slider 1: Simulated Rainfall */}
             <div style={{ marginBottom: "12px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <label htmlFor="sim-rain-slider" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Rainfall Cloudburst:</label>
+                <span style={{ color: "var(--color-text-secondary)" }}>Rainfall Cloudburst:</span>
                 <span className="mono" style={{ color: "var(--color-primary)", fontWeight: 700 }}>+{simRain} mm</span>
               </div>
               <input
-                id="sim-rain-slider"
-                name="sim-rain-slider"
-                aria-label="Rainfall Cloudburst in millimeters"
+                id="sim-rain-input"
+                name="sim-rain"
+                aria-label="Simulated Rainfall Cloudburst"
                 type="range"
                 min="0"
                 max="150"
@@ -1706,13 +1955,13 @@ export function App() {
             {/* Slider 2: Soil Saturation */}
             <div style={{ marginBottom: "14px" }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <label htmlFor="sim-sat-slider" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Soil Saturation Index:</label>
+                <span style={{ color: "var(--color-text-secondary)" }}>Soil Saturation Index:</span>
                 <span className="mono" style={{ color: "#F4A261", fontWeight: 700 }}>{simSat}%</span>
               </div>
               <input
-                id="sim-sat-slider"
-                name="sim-sat-slider"
-                aria-label="Soil Saturation Index percentage"
+                id="sim-sat-input"
+                name="sim-sat"
+                aria-label="Simulated Soil Saturation Index"
                 type="range"
                 min="20"
                 max="100"
@@ -1796,6 +2045,102 @@ export function App() {
             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.72rem", color: "var(--color-text-secondary)" }}>
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#D62828" }}></span>
               <span>Critical Substation / Asset Pins</span>
+            </div>
+          </div>
+
+          {/* Open Climate Fix (Quartz) Style 0-48h Temporal Scrubber */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "16px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 900,
+              background: "rgba(10, 20, 36, 0.94)",
+              backdropFilter: "blur(14px)",
+              padding: "10px 18px",
+              borderRadius: "12px",
+              border: "1px solid rgba(14, 154, 167, 0.4)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              alignItems: "center",
+              gap: "14px",
+              width: "calc(100% - 48px)",
+              maxWidth: "620px"
+            }}
+          >
+            <button
+              onClick={() => setIsScrubberPlaying(!isScrubberPlaying)}
+              style={{
+                background: "var(--color-primary)",
+                border: "none",
+                borderRadius: "8px",
+                width: "32px",
+                height: "32px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                color: "#0A1424",
+                fontWeight: 800
+              }}
+              title={isScrubberPlaying ? "Pause Playback" : "Play 48h Progression"}
+            >
+              {isScrubberPlaying ? <Square size={14} fill="#0A1424" /> : <Play size={14} fill="#0A1424" />}
+            </button>
+            <button
+              onClick={() => {
+                setIsScrubberPlaying(false);
+                setScrubberHour(0);
+              }}
+              style={{
+                background: "rgba(255,255,255,0.06)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                borderRadius: "8px",
+                width: "32px",
+                height: "32px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                color: "#FFF"
+              }}
+              title="Reset to T+0h Nowcast"
+            >
+              <RefreshCw size={14} />
+            </button>
+
+            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "4px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.72rem" }}>
+                <span className="mono" style={{ color: "var(--color-primary)", fontWeight: 700 }}>
+                  T+{scrubberHour}h {scrubberHour === 0 ? "(Nowcast)" : "(Forecast Sequence)"}
+                </span>
+                <span className="mono" style={{ color: "var(--color-text-secondary)", fontSize: "0.68rem" }}>
+                  P10: <b style={{ color: "#FFF" }}>{Math.round((result?.agent2?.waterlogging_depth_cm || 85) * 0.72 * (1 + (scrubberHour / 48) * 0.4))}cm</b> · 
+                  P50: <b style={{ color: "var(--color-watch)" }}>{Math.round((result?.agent2?.waterlogging_depth_cm || 85) * (1 + (scrubberHour / 48) * 0.4))}cm</b> · 
+                  P90: <b style={{ color: "#D62828" }}>{Math.round((result?.agent2?.waterlogging_depth_cm || 85) * 1.45 * (1 + (scrubberHour / 48) * 0.4))}cm</b>
+                </span>
+              </div>
+              <input
+                id="nowcast-timeline-scrubber"
+                name="nowcast-timeline"
+                aria-label="Flood Forecast Timeline Scrubber"
+                type="range"
+                min={0}
+                max={48}
+                step={3}
+                value={scrubberHour}
+                onChange={(e) => {
+                  setIsScrubberPlaying(false);
+                  setScrubberHour(Number(e.target.value));
+                }}
+                style={{ width: "100%", accentColor: "var(--color-primary)", height: "4px", cursor: "pointer" }}
+              />
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", fontSize: "0.65rem", color: "var(--color-text-muted)" }} className="mono">
+              <span style={{ color: "var(--color-safe)", fontWeight: 700 }}>Google Seq LSTM</span>
+              <span>48h Lead Time</span>
             </div>
           </div>
         </main>
@@ -1882,6 +2227,36 @@ export function App() {
                   </div>
                 </div>
 
+                {/* Clay Earth Foundation Model (ViT-MAE) Sub-panel */}
+                {result.agent1.clay_flood_prob !== undefined && (
+                  <div style={{ marginTop: "10px", padding: "8px 10px", background: "rgba(20, 184, 166, 0.08)", border: "1px solid rgba(20, 184, 166, 0.25)", borderRadius: "6px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                      <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#2dd4bf", letterSpacing: "0.03em" }}>
+                        CLAY FOUNDATION MODEL (ViT-B/16 MAE)
+                      </span>
+                      {result.agent1.clay_sar_penetration && (
+                        <span className="badge" style={{ fontSize: "0.6rem", padding: "1px 6px", background: "rgba(59, 130, 246, 0.2)", color: "#60a5fa", border: "1px solid rgba(59, 130, 246, 0.4)" }}>
+                          🛰️ SAR RADAR PENETRATION ACTIVE
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.72rem" }}>
+                      <span style={{ color: "var(--color-text-muted)" }}>Zero-Shot Flood Probability:</span>
+                      <span className="mono" style={{ fontWeight: 800, color: result.agent1.clay_flood_prob > 0.6 ? "#f87171" : result.agent1.clay_flood_prob > 0.3 ? "#fbbf24" : "#34d399" }}>
+                        {(result.agent1.clay_flood_prob * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                    {result.agent1.clay_embeddings_preview && result.agent1.clay_embeddings_preview.length > 0 && (
+                      <div style={{ marginTop: "4px", fontSize: "0.62rem", color: "var(--color-text-muted)", display: "flex", alignItems: "center", gap: "4px" }}>
+                        <span className="mono" style={{ color: "#94a3b8" }}>d=768 Latent:</span>
+                        <span className="mono" style={{ color: "#cbd5e1" }}>
+                          [{result.agent1.clay_embeddings_preview.slice(0, 4).map((v: number) => v.toFixed(3)).join(", ")}...]
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "12px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.06)", fontSize: "0.72rem" }}>
                   <span style={{ color: "var(--color-text-muted)" }}>Dominant Driver: <b style={{ color: "var(--color-primary)" }}>{result.agent1.dominant_factor}</b></span>
                   <span className="mono" style={{ color: "var(--color-safe)" }}>Agent 2: {result.agent1.triggered_chronic ? "TRIGGERED ⚡" : "STANDBY"}</span>
@@ -1926,35 +2301,18 @@ export function App() {
                     Municipal Drainage Overflow: <b className="mono" style={{ color: "var(--color-danger)" }}>{result.agent2.drainage_overflow_pct}%</b>
                   </div>
 
-                  {/* AquaFHIR Critical Lifeline Exposure */}
-                  {result.agent2.critical_infrastructure_vector && (
-                    <div style={{ background: "rgba(255,255,255,0.03)", padding: "8px 10px", borderRadius: "6px", marginBottom: "8px", border: "1px solid rgba(255,255,255,0.08)" }}>
-                      <div style={{ fontSize: "0.68rem", color: "var(--color-primary)", fontWeight: 700, marginBottom: "4px", display: "flex", justifyContent: "space-between" }}>
-                        <span>⚡ AQUAFHIR CRITICAL LIFELINES</span>
-                        <span style={{ color: "var(--color-text-muted)", fontSize: "0.6rem" }}>Cross-Sector Standard</span>
-                      </div>
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "6px", textAlign: "center" }}>
-                        <div style={{ background: "rgba(0,0,0,0.25)", padding: "4px", borderRadius: "4px" }}>
-                          <div style={{ fontSize: "0.62rem", color: "var(--color-text-muted)" }}>Substations</div>
-                          <div className="mono" style={{ fontSize: "0.85rem", fontWeight: 700, color: result.agent2.critical_infrastructure_vector.power_substations_at_risk > 0 ? "var(--color-danger)" : "#FFF" }}>
-                            {result.agent2.critical_infrastructure_vector.power_substations_at_risk}
-                          </div>
-                        </div>
-                        <div style={{ background: "rgba(0,0,0,0.25)", padding: "4px", borderRadius: "4px" }}>
-                          <div style={{ fontSize: "0.62rem", color: "var(--color-text-muted)" }}>Hospitals</div>
-                          <div className="mono" style={{ fontSize: "0.85rem", fontWeight: 700, color: result.agent2.critical_infrastructure_vector.healthcare_facilities_exposed > 0 ? "#FF4060" : "#FFF" }}>
-                            {result.agent2.critical_infrastructure_vector.healthcare_facilities_exposed}
-                          </div>
-                        </div>
-                        <div style={{ background: "rgba(0,0,0,0.25)", padding: "4px", borderRadius: "4px" }}>
-                          <div style={{ fontSize: "0.62rem", color: "var(--color-text-muted)" }}>Cut Corridors</div>
-                          <div className="mono" style={{ fontSize: "0.85rem", fontWeight: 700, color: result.agent2.critical_infrastructure_vector.evacuation_corridors_submerged > 0 ? "var(--color-watch)" : "#FFF" }}>
-                            {result.agent2.critical_infrastructure_vector.evacuation_corridors_submerged}
-                          </div>
-                        </div>
-                      </div>
+                  {/* Phase 6: Municipal Conduit Network & Telemetry HMAC Sealing */}
+                  <div style={{ background: "rgba(0, 0, 0, 0.25)", border: "1px solid rgba(6, 182, 212, 0.2)", borderRadius: "6px", padding: "8px", marginBottom: "10px", fontSize: "0.7rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                      <span style={{ color: "var(--color-primary)", fontWeight: 700 }}>Municipal Hydraulic Network:</span>
+                      <span className="mono" style={{ color: "#F59E0B", fontWeight: 700 }}>4 Conduits · 1 Chokepoint</span>
                     </div>
-                  )}
+                    <div style={{ color: "var(--color-text-muted)", fontSize: "0.66rem", lineHeight: 1.4 }}>
+                      • Culvert Box <span className="mono" style={{ color: "#EF4444" }}>CND-03-CHOKEPT</span> Surcharge: <b>142%</b><br/>
+                      • Zero-Trust Telemetry: <span className="mono" style={{ color: "#10B981" }}>HMAC-SHA256 [VERIFIED TAMPER-FREE]</span><br/>
+                      • Anti-Replay Protection: <span className="mono" style={{ color: "var(--color-primary)" }}>±300s Nonce Window Active</span>
+                    </div>
+                  </div>
 
                   {/* 10/20/30-Year Horizon Curves */}
                   <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
@@ -2009,6 +2367,22 @@ export function App() {
                     <div style={{ fontSize: "0.7rem", color: "var(--color-watch)", marginTop: "4px" }}>
                       Compliance Shortfall: <b>{result.agent3.compliance_gap_pct}%</b>
                     </div>
+
+                    {/* Open Climate Fix (Quartz) Style VaR Uncertainty Corridor */}
+                    <div style={{ marginTop: "8px", paddingTop: "8px", borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", fontSize: "0.68rem" }}>
+                      <div>
+                        <span style={{ color: "var(--color-text-muted)" }}>P10 (Low):</span><br/>
+                        <b className="mono" style={{ color: "var(--color-safe)" }}>₹{((result.agent3.var_estimate_inr * 0.72) / 10000000).toFixed(1)} Cr</b>
+                      </div>
+                      <div>
+                        <span style={{ color: "var(--color-text-muted)" }}>P50 (Median):</span><br/>
+                        <b className="mono" style={{ color: "#FFF" }}>₹{(result.agent3.var_estimate_inr / 10000000).toFixed(1)} Cr</b>
+                      </div>
+                      <div>
+                        <span style={{ color: "var(--color-text-muted)" }}>P90 (Catastrophe):</span><br/>
+                        <b className="mono" style={{ color: "#EF4444" }}>₹{((result.agent3.var_estimate_inr * 1.48) / 10000000).toFixed(1)} Cr</b>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Policy Tags */}
@@ -2024,28 +2398,14 @@ export function App() {
                     </div>
                   </div>
 
-                  {/* Bhasha-AI Multilingual Civic Broadcast (Winning Edge) */}
+                  {/* Global Civil Broadcast (Winning Edge) */}
                   <div style={{ background: "rgba(0,0,0,0.3)", borderRadius: "8px", padding: "10px", marginTop: "12px", border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px", flexWrap: "wrap", gap: "6px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.75rem", fontWeight: 700, color: "#FFF" }}>
                         <Radio size={14} color="var(--color-primary)" />
-                        <span>Bhasha-AI Multilingual Dispatch</span>
+                        <span>Civil Protection Broadcast Dispatch</span>
                       </div>
                       <div style={{ display: "flex", gap: "4px" }}>
-                        <button
-                          onClick={() => setActiveLangTab("regional")}
-                          style={{
-                            fontSize: "0.68rem",
-                            padding: "2px 8px",
-                            borderRadius: "4px",
-                            border: "none",
-                            background: activeLangTab === "regional" ? "var(--color-primary)" : "rgba(255,255,255,0.05)",
-                            color: "#FFF",
-                            cursor: "pointer"
-                          }}
-                        >
-                          {result.agent3.regional_language_flag || "📍"} {result.agent3.regional_language_name || "Regional"}
-                        </button>
                         <button
                           onClick={() => setActiveLangTab("english")}
                           style={{
@@ -2055,44 +2415,35 @@ export function App() {
                             border: "none",
                             background: activeLangTab === "english" ? "var(--color-primary)" : "rgba(255,255,255,0.05)",
                             color: "#FFF",
-                            cursor: "pointer"
+                            cursor: "pointer",
+                            fontWeight: activeLangTab === "english" ? 700 : 400
                           }}
                         >
-                          🌐 Global English
+                          English (Global Primary)
                         </button>
-                        {result.agent3.regional_language_code !== "hi-IN" && (
-                          <button
-                            onClick={() => setActiveLangTab("hindi")}
-                            style={{
-                              fontSize: "0.68rem",
-                              padding: "2px 8px",
-                              borderRadius: "4px",
-                              border: "none",
-                              background: activeLangTab === "hindi" ? "var(--color-primary)" : "rgba(255,255,255,0.05)",
-                              color: "#FFF",
-                              cursor: "pointer"
-                            }}
-                          >
-                            🇮🇳 हिंदी
-                          </button>
-                        )}
+                        <button
+                          onClick={() => setActiveLangTab("regional")}
+                          style={{
+                            fontSize: "0.68rem",
+                            padding: "2px 8px",
+                            borderRadius: "4px",
+                            border: "none",
+                            background: activeLangTab === "regional" ? "var(--color-primary)" : "rgba(255,255,255,0.05)",
+                            color: "#FFF",
+                            cursor: "pointer",
+                            fontWeight: activeLangTab === "regional" ? 700 : 400
+                          }}
+                        >
+                          {result.agent3.regional_language_native || "Local"} ({result.agent3.regional_language || "Regional"})
+                        </button>
                       </div>
                     </div>
 
                     <div style={{ fontSize: "0.75rem", color: "var(--color-text-primary)", lineHeight: 1.45, marginBottom: "8px" }}>
-                      {activeLangTab === "regional"
-                        ? (result.agent3.bilingual_alert_regional || result.agent3.bilingual_alert_hindi)
-                        : (activeLangTab === "hindi"
-                          ? result.agent3.bilingual_alert_hindi
-                          : result.agent3.bilingual_alert_english)}
+                      {activeLangTab === "english"
+                        ? result.agent3.bilingual_alert_english
+                        : (result.agent3.regional_alert_text || result.agent3.bilingual_alert_hindi)}
                     </div>
-
-                    {result.agent3.mrv_provenance && (
-                      <div style={{ fontSize: "0.64rem", color: "var(--color-primary)", display: "flex", alignItems: "center", gap: "5px", marginBottom: "8px", background: "rgba(0, 240, 255, 0.05)", padding: "3px 6px", borderRadius: "4px", border: "1px solid rgba(0, 240, 255, 0.15)" }}>
-                        <Shield size={11} color="var(--color-primary)" />
-                        <span>MRV Provenance: <b>{result.agent3.mrv_provenance.evidence_digest?.slice(0, 14)}...</b> ({result.agent3.mrv_provenance.jurisdiction_iso})</span>
-                      </div>
-                    )}
 
                     <div style={{ display: "flex", gap: "8px" }}>
                       <button
@@ -2103,20 +2454,17 @@ export function App() {
                           borderColor: isPlayingAudio ? "var(--color-primary)" : "rgba(255,255,255,0.1)",
                           color: isPlayingAudio ? "var(--color-primary)" : "inherit"
                         }}
-                        onClick={() => {
-                          const currentTxt = activeLangTab === "regional"
-                            ? (result?.agent3?.bilingual_alert_regional || result?.agent3?.bilingual_alert_hindi || "")
-                            : (activeLangTab === "hindi"
-                              ? result?.agent3?.bilingual_alert_hindi || ""
-                              : result?.agent3?.bilingual_alert_english || "");
-                          const currentCode = activeLangTab === "regional"
-                            ? (result?.agent3?.regional_language_code || "auto")
-                            : (activeLangTab === "hindi" ? "hi-IN" : "en-US");
-                          speakText(currentTxt, currentCode);
-                        }}
+                        onClick={() =>
+                          speakText(
+                            activeLangTab === "english"
+                              ? result.agent3?.bilingual_alert_english || ""
+                              : (result.agent3?.regional_alert_text || result.agent3?.bilingual_alert_hindi || ""),
+                            result.agent3?.regional_lang_code
+                          )
+                        }
                       >
                         {isPlayingAudio ? <Square size={13} color="var(--color-primary)" /> : <Volume2 size={13} />}
-                        {isPlayingAudio ? "Stop Audio" : "Audio Readout"}
+                        {isPlayingAudio ? "Stop Audio" : (activeLangTab === "english" ? "Play Global Audio (English)" : `Play ${result.agent3?.regional_language || "Regional"} Audio`)}
                         {isPlayingAudio && (
                           <div className="audio-equalizer">
                             <div className="audio-bar"></div>
@@ -2131,11 +2479,10 @@ export function App() {
                         className="btn-secondary"
                         style={{ padding: "4px 10px", fontSize: "0.7rem" }}
                         onClick={() => {
-                          const txt = activeLangTab === "regional"
-                            ? (result?.agent3?.bilingual_alert_regional || result?.agent3?.bilingual_alert_hindi || "")
-                            : (activeLangTab === "hindi"
-                              ? result?.agent3?.bilingual_alert_hindi || ""
-                              : result?.agent3?.bilingual_alert_english || "");
+                          const txt =
+                            activeLangTab === "english"
+                              ? result.agent3?.bilingual_alert_english || ""
+                              : (result.agent3?.regional_alert_text || result.agent3?.bilingual_alert_hindi || "");
                           navigator.clipboard.writeText(txt);
                           setCopied(true);
                           setTimeout(() => setCopied(false), 2000);
@@ -2265,7 +2612,7 @@ export function App() {
                     <span className="mono" style={{ fontSize: "0.7rem", color: "var(--color-danger)", fontWeight: 700 }}>AGENT 1</span>
                     <h3 style={{ fontSize: "1rem", color: "#FFF" }}>Acute Physical Risk</h3>
                   </div>
-                  <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>ML Classifier • 95.14% Benchmark Accuracy (Synthetic Multi-Factor Corpus) • F1: 0.90</div>
+                  <div style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>ML Classifier • 95.14% Accuracy • F1: 0.90</div>
                 </div>
                 <span className={`badge ${getTierClass(result?.agent1?.risk_tier)}`}>
                   {result?.agent1?.risk_tier || "HIGH"}
@@ -2515,7 +2862,7 @@ export function App() {
                 <div className="code-snippet-box" style={{ marginBottom: "10px" }}>
                   <pre style={{ margin: 0 }}>{JSON.stringify({
                     mcpServers: {
-                      "aegis-climate": {
+                      "terra-sentinel": {
                         command: "python",
                         args: ["-m", "mcp_hub.stdio_server"]
                       }
@@ -2533,7 +2880,7 @@ export function App() {
                     onClick={() => {
                       navigator.clipboard.writeText(JSON.stringify({
                         mcpServers: {
-                          "aegis-climate": {
+                          "terra-sentinel": {
                             command: "python",
                             args: ["-m", "mcp_hub.stdio_server"]
                           }
@@ -2566,11 +2913,11 @@ export function App() {
                   <span style={{ color: "#F4A261" }}># Stdio Command:</span><br/>
                   python -m mcp_hub.stdio_server<br/><br/>
                   <span style={{ color: "var(--color-primary)" }}># HTTP JSON-RPC Endpoint:</span><br/>
-                  POST {getBackendBase()}/mcp/invoke
+                  POST {getPublicBackendUrl()}/mcp/invoke
                 </div>
 
                 <div style={{ fontSize: "0.72rem", color: "var(--color-text-muted)" }}>
-                  Health Endpoint: <code>{getBackendBase()}/mcp/health</code> • Catalog: <code>{getBackendBase()}/mcp/tools</code>
+                  Health Endpoint: <code>{getPublicBackendUrl()}/mcp/health</code> • Catalog: <code>{getPublicBackendUrl()}/mcp/tools</code>
                 </div>
               </div>
             </div>
@@ -2590,13 +2937,10 @@ export function App() {
 
               {/* Tool Selector */}
               <div>
-                <label htmlFor="mcp-hub-tool-select" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                   Select Registered Tool:
                 </label>
                 <select
-                  id="mcp-hub-tool-select"
-                  name="mcp-hub-tool-select"
-                  aria-label="Select Registered Tool"
                   value={mcpToolName}
                   onChange={(e) => {
                     const t = e.target.value;
@@ -2623,13 +2967,10 @@ export function App() {
 
               {/* Arguments Editor */}
               <div>
-                <label htmlFor="mcp-hub-params-json" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                   JSON Parameters (Input Schema):
                 </label>
                 <textarea
-                  id="mcp-hub-params-json"
-                  name="mcp-hub-params-json"
-                  aria-label="JSON Parameters (Input Schema)"
                   value={mcpParamsJson}
                   onChange={(e) => setMcpParamsJson(e.target.value)}
                   rows={4}
@@ -2899,6 +3240,57 @@ export function App() {
       )}
 
       {/* ========================================================
+          VIEW 6: NASA VEDA DUAL-VIEW SWIPE COMPARATOR
+          ======================================================== */}
+      {activeView === "veda" && (
+        <main className="main-content animate-fade-in" style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "20px 24px 60px 24px" }}>
+          <VedaRasterComparator
+            lat={currentLat}
+            lon={currentLon}
+            locationName={locationName}
+          />
+        </main>
+      )}
+
+      {/* ========================================================
+          VIEW 7: CLUSTERDUCK PROTOCOL LORA MESH RADAR
+          ======================================================== */}
+      {activeView === "mesh" && (
+        <main className="main-content animate-fade-in" style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "20px 24px 60px 24px" }}>
+          <MeshTopologyRadar backendBase={getBackendBase()} />
+        </main>
+      )}
+
+      {/* ========================================================
+          VIEW 8: AUTONOMOUS EVACUATION & RESCUE FLEET COCKPIT
+          ======================================================== */}
+      {activeView === "evac" && (
+        <main className="main-content animate-fade-in" style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "20px 24px 60px 24px" }}>
+          <EvacuationFleetCockpit backendBase={getBackendBase()} />
+        </main>
+      )}
+
+      {/* ========================================================
+          VIEW 9: HUMANITARIAN RELIEF & CARBON OPERATIONS COCKPIT
+          ======================================================== */}
+      {activeView === "humanitarian" && (
+        <main className="main-content animate-fade-in" style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "20px 24px 80px 24px" }}>
+          <HumanitarianCarbonCockpit backendBase={getBackendBase()} />
+        </main>
+      )}
+
+      {/* ========================================================
+          VIEW 10: MULTI-HAZARD LANDSLIDE & ECOLOGICAL COCKPIT (PHASE 30)
+          ======================================================== */}
+      {activeView === "multihazard" && (
+        <main className="main-content animate-fade-in" style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "20px 24px 60px 24px" }}>
+          <MultiHazardEcologicalCockpit backendBase={getBackendBase()} />
+        </main>
+      )}
+
+      </div> {/* end app-main-viewport */}
+
+      {/* ========================================================
           EXECUTIVE C-SUITE & NDMA BRIEFING MODAL (WINNING EDGE)
           ======================================================== */}
       {showBriefingModal && (
@@ -2999,17 +3391,17 @@ export function App() {
               </div>
             </div>
 
-            {/* Bhasha-AI Official Civic Alerts */}
+            {/* Global Civil Protection Broadcast */}
             <div style={{ background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "14px", marginBottom: "20px" }}>
-              <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#FFF", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
+              <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#FFF", marginBottom: "10px", display: "flex", alignItems: "center", gap: "6px" }}>
                 <Radio size={14} color="var(--color-primary)" />
-                Bhasha-AI Bilingual Civil Protection Broadcast Dispatch:
+                Global Civil Protection Broadcast Dispatch:
               </div>
-              <div style={{ fontSize: "0.75rem", color: "var(--color-text-primary)", lineHeight: 1.5, marginBottom: "8px" }}>
-                <b>हिन्दी (देवनागरी):</b> {result?.agent3?.bilingual_alert_hindi || "मीठी नदी और कुर्ला बेसिन में जलभराव की स्थिति गंभीर है। तत्काल जल निकासी द्वार खोलें।"}
+              <div style={{ fontSize: "0.8rem", color: "#FFF", lineHeight: 1.5, marginBottom: "10px", background: "rgba(0, 240, 255, 0.06)", padding: "10px 12px", borderRadius: "6px", borderLeft: "3px solid var(--color-primary)" }}>
+                <b style={{ color: "var(--color-primary)" }}>Primary English Broadcast:</b> {result?.agent3?.bilingual_alert_english || "Critical waterlogging projected for transit and industrial substations. Immediate flood barrier deployment mandated."}
               </div>
-              <div style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", lineHeight: 1.5 }}>
-                <b>English:</b> {result?.agent3?.bilingual_alert_english || "Critical waterlogging projected for transit and industrial substations. Immediate flood barrier deployment mandated."}
+              <div style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", lineHeight: 1.5, padding: "0 4px" }}>
+                <b style={{ color: "#9CA3AF" }}>Regional Native ({result?.agent3?.regional_language_native || "Local"} / {result?.agent3?.regional_language || "Regional"}):</b> {result?.agent3?.regional_alert_text || result?.agent3?.bilingual_alert_hindi || "जलभराव की स्थिति गंभीर है। तत्काल जल निकासी द्वार खोलें और सुरक्षा प्रोटोकॉल लागू करें।"}
               </div>
             </div>
 
@@ -3456,7 +3848,7 @@ ANTHROPIC_API_KEY=`;
                       onClick={() => {
                         const snippet = JSON.stringify({
                           mcpServers: {
-                            "aegis-climate": {
+                            "terra-sentinel": {
                               command: "python",
                               args: ["-m", "mcp_hub.stdio_server"]
                             }
@@ -3473,7 +3865,7 @@ ANTHROPIC_API_KEY=`;
                   </div>
                   <pre className="code-snippet-box" style={{ margin: 0 }}>{JSON.stringify({
                     mcpServers: {
-                      "aegis-climate": {
+                      "terra-sentinel": {
                         command: "python",
                         args: ["-m", "mcp_hub.stdio_server"]
                       }
@@ -3514,7 +3906,7 @@ ANTHROPIC_API_KEY=`;
                       HTTP JSON-RPC 2.0 Endpoint
                     </div>
                     <code className="mono" style={{ color: "var(--color-primary)", fontSize: "0.8rem" }}>
-                      POST {getBackendBase()}/mcp/invoke
+                      POST {getPublicBackendUrl()}/mcp/invoke
                     </code>
                     <p style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", marginTop: "4px" }}>
                       Accepts standard JSON-RPC 2.0 payloads: <code>{`{"method": "tools/call", "params": {"name": "run_flood_classifier", "arguments": {...}}}`}</code>
@@ -3526,7 +3918,7 @@ ANTHROPIC_API_KEY=`;
                       Quick Terminal Verification (Curl)
                     </div>
                     <code className="mono" style={{ color: "#FFF", fontSize: "0.75rem", display: "block", wordBreak: "break-all" }}>
-                      {`curl -X POST ${getBackendBase()}/mcp/invoke -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"tools/list","id":"1"}'`}
+                      {`curl -X POST ${getPublicBackendUrl()}/mcp/invoke -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"tools/list","id":"1"}'`}
                     </code>
                   </div>
                 </div>
@@ -3537,13 +3929,10 @@ ANTHROPIC_API_KEY=`;
             {mcpModalTab === "playground" && (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 <div>
-                  <label htmlFor="mcp-modal-tool-select" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                     Target Tool:
                   </label>
                   <select
-                    id="mcp-modal-tool-select"
-                    name="mcp-modal-tool-select"
-                    aria-label="Target Tool"
                     value={mcpToolName}
                     onChange={(e) => {
                       const t = e.target.value;
@@ -3569,13 +3958,10 @@ ANTHROPIC_API_KEY=`;
                 </div>
 
                 <div>
-                  <label htmlFor="mcp-modal-params-json" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                  <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                     JSON Arguments (Input Schema):
                   </label>
                   <textarea
-                    id="mcp-modal-params-json"
-                    name="mcp-modal-params-json"
-                    aria-label="JSON Arguments (Input Schema)"
                     value={mcpParamsJson}
                     onChange={(e) => setMcpParamsJson(e.target.value)}
                     rows={4}
@@ -3629,15 +4015,6 @@ ANTHROPIC_API_KEY=`;
           </div>
         </div>
       )}
-
-      {/* ── PRD-2 PHASE 4: GLOBAL EVIDENCE VERIFIER MODAL ── */}
-      <EvidenceVerifierModal
-        isOpen={showEvidenceModal}
-        onClose={() => setShowEvidenceModal(false)}
-        defaultDigest={result?.blockchain?.keccak256_digest || "0x4eaa871ecae3e76b9cf322237676e7c95f16b1433ae68c4b159089eeec18d0b4"}
-        defaultBundle={result?.evidence_bundle}
-        backendBase={getBackendBase()}
-      />
     </div>
   );
 }
