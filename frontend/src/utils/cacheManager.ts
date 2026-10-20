@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Frontend Distributed Cache & Token Bucket Client
+ * AEGIS-CLIMATE Frontend Distributed Cache & Token Bucket Client
  * Module: frontend/src/utils/cacheManager.ts
  * Governance: Gravitas Reliability Runtime · Phase 13 Compliance
  *

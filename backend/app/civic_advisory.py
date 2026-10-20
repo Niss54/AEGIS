@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 17
+AEGIS-CLIMATE Production Specification: Phase 17
 Module: terra_sentinel.phase_17.civic_advisory
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -19,7 +19,7 @@ import httpx
 
 from backend.app.config import settings
 
-logger = logging.getLogger("terra_sentinel.phase_17")
+logger = logging.getLogger("aegis.phase_17")
 
 
 class CivicAdvisoryModel(BaseModel):

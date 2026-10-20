@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL — Real-World Historical Flood Disaster Benchmark
+AEGIS-CLIMATE — Real-World Historical Flood Disaster Benchmark
 Evaluates the physical flood risk model against empirical meteorological ground truth
 recorded by IMD (India Meteorological Department), CWC, and Copernicus GloFAS during
 major real-world extreme flood events across Bharat and Southeast Asia.
@@ -264,7 +264,7 @@ HISTORICAL_FLOOD_BENCHMARK = [
 def run_benchmark():
     model = FloodRiskMLModel()
     print("=" * 80)
-    print("TERRA-SENTINEL: HISTORICAL FLOOD EVENT EMPIRICAL VALIDATION BENCHMARK")
+    print("AEGIS-CLIMATE: HISTORICAL FLOOD EVENT EMPIRICAL VALIDATION BENCHMARK")
     print(f"Model Engine: GradientBoostingClassifier (n_estimators=120, max_depth=4)")
     print("Ground Truth Source: IMD, CWC, KSNDMC, MCGM, and PUB Official Gauge Archives")
     print("=" * 80)

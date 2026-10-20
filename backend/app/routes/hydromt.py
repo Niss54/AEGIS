@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Deltares HydroMT Computational Hydrography Router
+AEGIS-CLIMATE: Deltares HydroMT Computational Hydrography Router
 Phase 30.2: REST API Endpoints for D8 Watershed Delineation & Topographic Wetness Index (TWI)
 """
 
@@ -15,7 +15,7 @@ from backend.app.hydromt_engine import (
     LandCoverType
 )
 
-logger = logging.getLogger("terra_sentinel.routes.hydromt")
+logger = logging.getLogger("aegis.routes.hydromt")
 
 router = APIRouter(tags=["Deltares HydroMT Computational Hydrography"])
 

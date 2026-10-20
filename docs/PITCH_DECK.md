@@ -1,7 +1,7 @@
 # 🛡️ AEGIS-CLIMATE — Pitch Deck
 ### *Enterprise Executive Presentation | Team Syntrix*
 
-> **Deck Format:** 16:9 Widescreen | **Time:** 3–5 Minutes | **Slides:** 9
+> **Deck Format:** 16:9 Widescreen | **Time:** 3–5 Minutes | **Slides:** 11
 > **Design Language:** Neon Black Cyber-Cockpit (`#0D1B2A` base, `#00F0FF` accent, `#E76F51` danger)
 
 ---
@@ -194,7 +194,7 @@ OUTPUT: VaR: ₹37.5 Cr | stranded_asset_risk: HIGH | compliance_gap: 34%
 
 ---
 
-## SLIDE 7 — WHAT MAKES AEGIS DIFFERENT (5 Concrete Differentiators)
+## SLIDE 7 — WHAT MAKES AEGIS-CLIMATE DIFFERENT (5 Concrete Differentiators)
 
 ### **Why this isn't "just another API wrapper"**
 
@@ -265,6 +265,37 @@ Autonomous Multi-Agent Environmental & Risk Intelligence Platform 🛡️
 
 ---
 
+## SLIDE 10: Google Cloud Decisive Advantage & Hackathon Edge
+
+### **Deep research, serverless resilience, and state-of-the-art AI foundations.**
+
+- **Google Cloud Run:** Multi-region, serverless container orchestration providing sub-80ms API response latency and auto-scaling to zero.
+- **Google Vertex AI & Gemini:** Enterprise multimodal synthesis powered by Gemini 2.0 Flash with an autonomous 5-tier circuit breaker and graceful deterministic fallback.
+- **Model Context Protocol (MCP):** Standards-compliant tool execution matrix connecting heterogeneous agents across risk, spatial, and financial layers via JSON-RPC 2.0.
+- **Deep Research Moats:**
+  - **Google Research LSTM:** State-handoff hydrologic runoff transfer architecture for ungauged watershed basins.
+  - **DeepMind DGMR Nowcasting:** Radar-generative precipitation exceedance matrix capturing sudden convective anomalies.
+  - **Open Climate Fix Quartz:** Continuous nowcasting scrubber providing high-frequency satellite solar and cloud irradiance calibration.
+- **Observed Accuracy:** 95.14% benchmark validation on multi-factor hydrological disaster datasets, calibrated against Copernicus 30m DEM elevation physics.
+
+---
+
+## SLIDE 11: Singapore Grand Finale Strategy & JAPAC Expansion Roadmap
+
+### **Championship pitch execution at Marina Bay Sands and regional expansion.**
+
+- **Singapore Grand Finale Live Demonstration:**
+  - Real-time stress test on the **Singapore Marina Barrage** tidal and stormwater catchment corridor (`1.2800°N, 103.8636°E`).
+  - Autonomous simulation of sudden 150mm tropical convective cloudburst synchronized with 2.5m high astronomical tide.
+  - Live execution of 3-agent cascade: Acute ML prediction ➔ Copernicus DEM terrain slope pooling ➔ Parametric bond liquidity release.
+- **JAPAC Expansion Roadmap:**
+  - **Phase 1 (Months 1–3):** National disaster command deployment across Bharat (NDMA, BMC Mumbai, BBMP Bengaluru, ASDMA Assam).
+  - **Phase 2 (Months 4–8):** JAPAC cross-border pilot targeting coastal surge corridors in Singapore, Jakarta, Tokyo, and Manila.
+  - **Phase 3 (Months 9–12):** Global catastrophe reinsurance API and municipal micro-disaster bond integration on institutional ledgers.
+- **Team Syntrix Commitment:** Delivering verifiable, sovereign, and autonomous planetary resilience.
+
+---
+
 > **Speaker Notes Summary:**
 > - Open with the Mumbai monsoon story — make it personal
 > - Slide 2: Let the statistics sink in for 5 seconds before speaking
@@ -272,4 +303,6 @@ Autonomous Multi-Agent Environmental & Risk Intelligence Platform 🛡️
 > - Slide 6: Walk through ONE agent chain verbally, skip details on others
 > - Slide 7: Pause on "Observable Reasoning" — this is the WOW moment for judges
 > - Slide 8: State verified metrics with scientific integrity — 95.14% benchmark accuracy, <3 seconds, 100% tests
+> - Slide 10: Emphasize Google Cloud Run, Vertex AI Gemini 2.0 Flash, DeepMind DGMR Nowcasting, and Google Research LSTM
+> - Slide 11: Spotlight the Singapore Marina Barrage championship demo and JAPAC expansion
 > - Close: Repeat the tagline twice — *"From detecting the signal to deciding the next action."*

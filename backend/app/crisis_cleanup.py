@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Crisis Cleanup 4R Inter-Agency Collaborative Relief Engine
+AEGIS-CLIMATE: Crisis Cleanup 4R Inter-Agency Collaborative Relief Engine
 Phase 29.3: Collaborative Disaster Response & Work Order Lifecycle Core
 
 Synthesizes architectural patterns from CrisisCleanup/crisiscleanup-4-web:
@@ -19,7 +19,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.crisis_cleanup")
+logger = logging.getLogger("aegis.crisis_cleanup")
 
 
 class CaseStatus(str, Enum):

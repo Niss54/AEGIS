@@ -1,53 +1,31 @@
 """
-Document Management Route for Regulatory Climate Corpus
-Handles listing and mock/vector indexing of climate policies, carbon tax schemas, and disclosure mandates.
+Document Management & Phase 8 Hybrid Statutory RAG Router
+Handles listing, ingestion, and dual-retriever RAG (Dense Vector + BM25 Sparse + Reciprocal Rank Fusion).
 """
-from typing import List, Dict, Any
-from fastapi import APIRouter, UploadFile, File
-from datetime import datetime
+import time
+from typing import List, Dict, Any, Optional
+from datetime import datetime, timezone
+from fastapi import APIRouter, HTTPException
 
-router = APIRouter(tags=["Regulatory Documents"])
+from backend.app.hybrid_rag import (
+    statutory_rag_controller,
+    HybridRAGQueryRequest,
+    HybridRAGQueryResponse,
+    HybridRAGModel
+)
+
+router = APIRouter(tags=["Regulatory Documents & Hybrid RAG"])
 
 INITIAL_DOCUMENTS = [
     {
         "id": "doc-brsr-core-2024",
         "title": "SEBI BRSR Core Mandate — ESG & Climate Disclosure Guidelines for Top 1000 Listed Entities",
-        "region": "India",
+        "region": "India (National)",
         "sector": "Enterprise & Financial",
         "doc_type": "REGULATORY_COMPLIANCE",
         "chunks_indexed": 142,
         "summary": "Mandates Scope 1, 2 emissions reporting, climate financial impact assessments, and physical asset risk audits.",
         "ingested_at": "2026-09-28T10:00:00Z"
-    },
-    {
-        "id": "doc-spk-sustainability-tr",
-        "title": "SPK Sustainability Principles Compliance Framework (Sürdürülebilirlik İlkeleri Uyum Çerçevesi)",
-        "region": "Türkiye",
-        "sector": "Enterprise & Financial",
-        "doc_type": "REGULATORY_COMPLIANCE",
-        "chunks_indexed": 118,
-        "summary": "Capital Markets Board of Türkiye mandates physical flood vulnerability audits and ESG capital adaptation budgets for BIST entities.",
-        "ingested_at": "2026-10-01T08:30:00Z"
-    },
-    {
-        "id": "doc-california-sb253-sb261",
-        "title": "California Climate Corporate Data Accountability Act (SB 253 & SB 261)",
-        "region": "USA",
-        "sector": "Enterprise & Financial",
-        "doc_type": "REGULATORY_COMPLIANCE",
-        "chunks_indexed": 164,
-        "summary": "Requires $1B+ corporations to disclose Scope 1-3 GHG inventories and biennial TCFD physical flood/atmospheric river risk audits.",
-        "ingested_at": "2026-10-02T11:15:00Z"
-    },
-    {
-        "id": "doc-eu-csddd-2024",
-        "title": "EU Corporate Sustainability Due Diligence Directive (CSDDD 2024/1760)",
-        "region": "European Union / Estonia",
-        "sector": "Enterprise & Financial",
-        "doc_type": "REGULATORY_COMPLIANCE",
-        "chunks_indexed": 195,
-        "summary": "Mandates 1.5°C Paris Agreement transition plans and strict corporate civil liability for unmitigated coastal storm surge damages.",
-        "ingested_at": "2026-10-03T14:45:00Z"
     },
     {
         "id": "doc-carbon-tax-bharat-2026",
@@ -62,7 +40,7 @@ INITIAL_DOCUMENTS = [
     {
         "id": "doc-ndma-urban-flood-sop",
         "title": "NDMA Standard Operating Procedure — Management of Urban Flooding and Critical Lifeline Infrastructure",
-        "region": "India",
+        "region": "India (Municipalities)",
         "sector": "Civic & Infrastructure",
         "doc_type": "CIVIC_RESILIENCE",
         "chunks_indexed": 210,
@@ -81,7 +59,8 @@ async def list_documents():
 @router.post("/documents/ingest")
 async def ingest_document(title: str, region: str = "India", sector: str = "General"):
     """Mock document ingestion endpoint for RAG expansion."""
-    doc_id = f"doc-{int(datetime.utcnow().timestamp())}"
+    doc_id = f"doc-{int(time.time())}"
+    now_str = datetime.now(timezone.utc).isoformat()
     new_doc = {
         "id": doc_id,
         "title": title,
@@ -90,11 +69,67 @@ async def ingest_document(title: str, region: str = "India", sector: str = "Gene
         "doc_type": "USER_UPLOADED_POLICY",
         "chunks_indexed": 48,
         "summary": f"Custom policy ingested: {title}. Chunked into 512-token segments and indexed.",
-        "ingested_at": datetime.utcnow().isoformat() + "Z"
+        "ingested_at": now_str
     }
     INITIAL_DOCUMENTS.append(new_doc)
     return {
         "status": "success",
         "message": f"Document '{title}' successfully chunked and embedded in ChromaDB vector collection.",
         "document": new_doc
+    }
+
+
+@router.post("/documents/hybrid-query", response_model=HybridRAGQueryResponse)
+async def query_hybrid_rag(req: HybridRAGQueryRequest):
+    """
+    Phase 8 Dual-Retriever Statutory Legal RAG:
+    Fuses dense vector cosine rankings with BM25 Okapi sparse keyword rankings using Reciprocal Rank Fusion:
+    RRF(d) = 0.55 / (60 + r_dense(d)) + 0.45 / (60 + r_sparse(d))
+    """
+    t0 = time.perf_counter()
+    try:
+        results = statutory_rag_controller.execute_hybrid_search(
+            query=req.query,
+            top_k=req.top_k,
+            alpha_dense=req.alpha_dense,
+            alpha_sparse=req.alpha_sparse,
+            sector_filter=req.sector_filter
+        )
+        latency = round((time.perf_counter() - t0) * 1000, 2)
+        return HybridRAGQueryResponse(
+            query=req.query,
+            total_corpus_chunks=len(statutory_rag_controller.corpus),
+            returned_count=len(results),
+            results=results,
+            latency_ms=latency
+        )
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Hybrid RAG query failure: {str(exc)}")
+
+
+@router.post("/documents/pipeline", response_model=HybridRAGModel)
+async def execute_phase8_pipeline(payload: Dict[str, Any]):
+    """
+    Standard PRD.md Section 16 Phase 8 Execution Pipeline returning HybridRAGModel.
+    """
+    try:
+        return await statutory_rag_controller.execute_phase_pipeline(payload)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Phase 8 pipeline execution failed: {str(exc)}")
+
+
+@router.get("/documents/corpus-stats")
+async def get_corpus_statistics():
+    """
+    Returns indexing statistics for dense and BM25 sparse retrieval engines.
+    """
+    bm25 = statutory_rag_controller.bm25
+    return {
+        "status": "INDEXED_OPERATIONAL",
+        "total_statutory_chunks": len(statutory_rag_controller.corpus),
+        "bm25_hyperparameters": {"k1": bm25.k1, "b": bm25.b},
+        "average_chunk_length_tokens": round(bm25.avg_doc_len, 1),
+        "unique_lexical_terms_indexed": len(bm25.doc_freqs),
+        "circuit_breaker_state": statutory_rag_controller.circuit_state,
+        "supported_mandates": [c["title"] for c in statutory_rag_controller.corpus]
     }

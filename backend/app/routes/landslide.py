@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: SailabAlert Multi-Hazard Landslide Coupling & Trilingual Advisory Router
+AEGIS-CLIMATE: SailabAlert Multi-Hazard Landslide Coupling & Trilingual Advisory Router
 Phase 30.1: REST API Endpoints for Compound Slope & Flood Hazard Assessment
 """
 
@@ -16,7 +16,7 @@ from backend.app.sailab_landslide import (
     BilingualAdvisoryRequest
 )
 
-logger = logging.getLogger("terra_sentinel.routes.landslide")
+logger = logging.getLogger("aegis.routes.landslide")
 
 router = APIRouter(tags=["Multi-Hazard Landslide & SailabAlert Intelligence"])
 

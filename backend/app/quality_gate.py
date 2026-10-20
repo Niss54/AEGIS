@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 23
+AEGIS-CLIMATE Production Specification: Phase 23
 Module: terra_sentinel.phase_23.qualitygatecontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -15,7 +15,7 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_23")
+logger = logging.getLogger("aegis.phase_23")
 
 MIN_MANDATORY_PASSED_TESTS = 52
 MAX_PERMISSIBLE_FAILURES = 0

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Autonomous Disaster Evacuation Routing & Fleet Dispatch Engine
+AEGIS-CLIMATE: Autonomous Disaster Evacuation Routing & Fleet Dispatch Engine
 Phase 28: Mission-Critical Municipal Evacuation Navigation under Extreme Flooding
 
 Implements:
@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.evacuation_routing")
+logger = logging.getLogger("aegis.evacuation_routing")
 
 
 class VehicleType(str, Enum):

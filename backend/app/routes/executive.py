@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Phase 5 Executive VC Documentation & Singapore Grand Finale API Router
+AEGIS-CLIMATE: Phase 5 Executive VC Documentation & Singapore Grand Finale API Router
 Provides institutional VC investment metrics, unit economics, Pitch Deck slides,
 and Singapore Grand Finale execution strategy for Google Cloud AI Builder Cup.
 """
@@ -9,7 +9,7 @@ from typing import Dict, Any, List
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.routes.executive")
+logger = logging.getLogger("aegis.routes.executive")
 
 router = APIRouter(prefix="/api/v1/executive", tags=["Executive VC & Singapore Strategy"])
 
@@ -32,7 +32,7 @@ class MarketSizingModel(BaseModel):
 
 class VCMemoResponse(BaseModel):
     status: str = "success"
-    company_name: str = "TERRA-SENTINEL Inc."
+    company_name: str = "AEGIS-CLIMATE Inc."
     team_name: str = "Syntrix"
     funding_round: str = "Series Seed ($2.5M USD)"
     key_cloud_partner: str = "Google Cloud Platform"

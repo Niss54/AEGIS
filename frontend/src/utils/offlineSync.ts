@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Frontend Offline Synchronization Engine
+ * AEGIS-CLIMATE Frontend Offline Synchronization Engine
  * Module: frontend/src/utils/offlineSync.ts
  * Governance: Gravitas Reliability Runtime · Mathematical Invariant Adherence
  *

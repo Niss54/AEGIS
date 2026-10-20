@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Redis Distributed Caching & Token Bucket Rate Limiting Router
+AEGIS-CLIMATE Redis Distributed Caching & Token Bucket Rate Limiting Router
 Module: backend.app.routes.cache
 Phase 13: Distributed Cache, Pub/Sub Bus, & Token Bucket Rate Limiting
 """
@@ -12,7 +12,7 @@ from fastapi import APIRouter, HTTPException, Depends, Response
 from backend.app.cache import redis_bus_controller, CacheControlModel
 from backend.app.rate_limiter import token_bucket_limiter, RateLimitResult, rate_limit_guard
 
-logger = logging.getLogger("terra_sentinel.routes.cache")
+logger = logging.getLogger("aegis.routes.cache")
 
 router = APIRouter(prefix="/cache", tags=["Distributed Caching & Token Bucket Rate Limiting"])
 

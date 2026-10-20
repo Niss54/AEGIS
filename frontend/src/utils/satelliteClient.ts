@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Phase 16 Multimodal Earth Observation Client
+ * AEGIS-CLIMATE Phase 16 Multimodal Earth Observation Client
  * Module: frontend/src/utils/satelliteClient.ts
  * Governance: Gravitas Reliability Runtime · Copernicus Sentinel-2 & ISRO Bhuvan Ingestion
  *

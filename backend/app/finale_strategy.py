@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 25
+AEGIS-CLIMATE Production Specification: Phase 25
 Module: backend.app.finale_strategy
 Focus: 10-Slide Executive VC Pitch Deck, TAM/SAM/SOM & Grand Finale Strategy
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_25")
+logger = logging.getLogger("aegis.phase_25")
 
 # Canonical Market Sizing Constants (Phase 25 Governing Equations)
 EXACT_TAM_USD_B = 12.8   # $12.8 Billion Total Addressable Market
@@ -164,7 +164,7 @@ def audit_pitch_deck_structure(deck_path: Optional[str] = None) -> Dict[str, Any
         "slide_4_solution": "Technical Depth" in content or "SLIDE 4" in content,
         "slide_5_market": "Market Opportunity" in content or "SLIDE 5" in content,
         "slide_6_intelligence": "THE INTELLIGENCE LAYER" in content or "SLIDE 6" in content,
-        "slide_7_differentiators": "WHAT MAKES TERRA-SENTINEL DIFFERENT" in content or "SLIDE 7" in content,
+        "slide_7_differentiators": "WHAT MAKES AEGIS-CLIMATE DIFFERENT" in content or "SLIDE 7" in content,
         "slide_8_impact": "IMPACT & SCALABILITY" in content or "SLIDE 8" in content,
         "slide_9_closing": "CLOSING" in content or "SLIDE 9" in content,
         "slide_10_google_cloud": "Google Cloud" in content or "SLIDE 10" in content,

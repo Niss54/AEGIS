@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException
 
 from backend.app.storage_sync import storage_sync_controller, OfflineSyncModel
 
-logger = logging.getLogger("terra_sentinel.sync")
+logger = logging.getLogger("aegis.sync")
 
 router = APIRouter(prefix="/sync", tags=["Multi-Tier Storage & Offline Sync"])
 
@@ -113,7 +113,7 @@ async def get_sync_status():
     Returns health status of the bi-directional offline sync engine and multi-tier store.
     """
     return {
-        "engine": "TERRA-SENTINEL Bi-Directional Offline Sync & Fallback Protocol",
+        "engine": "AEGIS-CLIMATE Bi-Directional Offline Sync & Fallback Protocol",
         "state": "OPERATIONAL",
         "cloud_database_connectivity": "CONNECTED",
         "local_storage_tier_active": True,

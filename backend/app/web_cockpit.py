@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 18
+AEGIS-CLIMATE Production Specification: Phase 18
 Module: terra_sentinel.phase_18.webcockpitcontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -15,7 +15,7 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_18")
+logger = logging.getLogger("aegis.phase_18")
 
 FRAME_BUDGET_MS = 16.6667  # 60 FPS target budget threshold (1000ms / 60 frames)
 

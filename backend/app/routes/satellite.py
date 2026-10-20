@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Satellite & Earth Observation REST Router
+AEGIS-CLIMATE Satellite & Earth Observation REST Router
 Provides endpoints for Copernicus Sentinel-2 MSI, ISRO Bhuvan NRSC, Google Earth Engine DEM,
 and Gemini 2.0 Flash Multimodal Spatial Reasoning.
 """

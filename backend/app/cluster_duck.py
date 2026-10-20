@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: ClusterDuck Protocol LoRa Ad-Hoc Mesh Gateway Engine
+AEGIS-CLIMATE: ClusterDuck Protocol LoRa Ad-Hoc Mesh Gateway Engine
 Derived from ClusterDuck-Protocol/ClusterDuck-Protocol
 
 Provides:
@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.cluster_duck")
+logger = logging.getLogger("aegis.cluster_duck")
 
 
 class DuckTopic(int, Enum):

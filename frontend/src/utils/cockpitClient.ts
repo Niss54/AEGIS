@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Phase 18 Mission-Control Cockpit Client & Frame Budget Monitor
+ * AEGIS-CLIMATE Phase 18 Mission-Control Cockpit Client & Frame Budget Monitor
  * Module: frontend/src/utils/cockpitClient.ts
  * Governance: Gravitas Reliability Runtime · 60fps GIS Web Cockpit
  *

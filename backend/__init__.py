@@ -1,3 +1,3 @@
 """
-TERRA-SENTINEL Backend Package
+AEGIS-CLIMATE Backend Package
 """

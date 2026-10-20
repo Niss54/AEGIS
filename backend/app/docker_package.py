@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 20
+AEGIS-CLIMATE Production Specification: Phase 20
 Module: terra_sentinel.phase_20.dockerpackagingcontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -14,7 +14,7 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_20")
+logger = logging.getLogger("aegis.phase_20")
 
 MAX_IMAGE_SIZE_MB = 250.0
 MAX_VULNERABILITIES = 0
@@ -136,7 +136,7 @@ def inspect_dockerfile_security(dockerfile_path: Optional[str] = None) -> Dict[s
 def get_cloud_run_spec() -> Dict[str, Any]:
     """Returns the production Google Cloud Run serverless deployment specification."""
     return {
-        "service_name": "terra-sentinel-api",
+        "service_name": "aegis-climate-api",
         "region": "asia-south1",
         "platform": "managed",
         "resources": {

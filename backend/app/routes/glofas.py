@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Open-Meteo GloFAS River Discharge & Ensemble Forecast Router
+AEGIS-CLIMATE: Open-Meteo GloFAS River Discharge & Ensemble Forecast Router
 Phase 29.1: Copernicus GloFAS LISFLOOD REST API Endpoints
 """
 
@@ -14,7 +14,7 @@ from backend.app.openmeteo_glofas import (
     CatchmentSeverityResponse
 )
 
-logger = logging.getLogger("terra_sentinel.routes.glofas")
+logger = logging.getLogger("aegis.routes.glofas")
 
 router = APIRouter(tags=["Open-Meteo GloFAS Hydrological Forecasting"])
 

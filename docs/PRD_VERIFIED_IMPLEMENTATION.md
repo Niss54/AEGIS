@@ -1,11 +1,11 @@
-# 🛡️ TERRA-SENTINEL: Complete Product Requirements & Verified Implementation Specification (PRD)
+# 🛡️ AEGIS-CLIMATE: Complete Product Requirements & Verified Implementation Specification (PRD)
 ## Google Cloud AI Builder Cup 2026 | Comprehensive Technical Architecture & Verification Dossier
 
 ---
 
 ## Executive Summary
 
-**TERRA-SENTINEL** is an autonomous, multi-agent planetary resilience and climate intelligence engine designed to transition disaster management from reactive civic panic to proactive, provable, and hedgeable parametric response. 
+**AEGIS-CLIMATE** is an autonomous, multi-agent planetary resilience and climate intelligence engine designed to transition disaster management from reactive civic panic to proactive, provable, and hedgeable parametric response. 
 
 The architecture bridges physical meteorological hazard observation, computational hydro-topography, enterprise financial balance sheet modeling, and cryptographic decentralized ledger provenance.
 
@@ -32,7 +32,7 @@ flowchart TD
     subgraph Provenance_Layer["Cryptographic Provenance & Parametric Layer"]
         C1 --> D1[Canonical IPFS CIDv1 Multihash]
         D1 --> D2[Polygon Amoy Web3 EIP-155 Relayer]
-        D2 --> D3[TerraSentinelRiskLedger Contract]
+        D2 --> D3[AEGISRiskLedger Contract]
         D2 --> D4[DisasterBond Parametric Escrow]
         D2 --> D5[CarbonFloodCredit ERC-20 CFMC]
     end
@@ -44,8 +44,8 @@ flowchart TD
 
 | Technical Area | Prior Gap Identified | Verified Resolution & Architectural Hardening | Gravitas Verification Status |
 |:---|:---|:---|:---:|
-| **P0 · Relayer Key Security** | Predictable fallback key derived from SHA256 string in source code (`TERRA_SENTINEL_POLYGON_AMOY_RELAYER_KEY_V2`). | **Eliminated predictable fallback key entirely.** Key must be explicitly injected via `POLYGON_AMOY_PRIVATE_KEY` / `PRIVATE_KEY`. If unconfigured, the system fails closed into read-only mode (`can_transact = False`), recording state transitions locally without fake signatures or unauthorized wallet execution. | **PASS** · Verified fail-closed |
-| **P0 · Contract ABIs & Addresses** | Compiled artifacts missing from ZIP checkouts, causing empty ABIs and empty calldata; all contracts shared the risk ledger ABI. | **Embedded canonical Hardhat-compiled ABIs** for all 3 contracts (`TerraSentinelRiskLedger`, `DisasterBond`, `CarbonFloodCredit`) directly in `backend/app/blockchain/abi_definitions.py`. Route calldata specifically to dedicated contract instances. | **PASS** · Verified valid Solidity calldata |
+| **P0 · Relayer Key Security** | Predictable fallback key derived from SHA256 string in source code (`AEGIS_CLIMATE_POLYGON_AMOY_RELAYER_KEY_V2`). | **Eliminated predictable fallback key entirely.** Key must be explicitly injected via `POLYGON_AMOY_PRIVATE_KEY` / `PRIVATE_KEY`. If unconfigured, the system fails closed into read-only mode (`can_transact = False`), recording state transitions locally without fake signatures or unauthorized wallet execution. | **PASS** · Verified fail-closed |
+| **P0 · Contract ABIs & Addresses** | Compiled artifacts missing from ZIP checkouts, causing empty ABIs and empty calldata; all contracts shared the risk ledger ABI. | **Embedded canonical Hardhat-compiled ABIs** for all 3 contracts (`AEGISRiskLedger`, `DisasterBond`, `CarbonFloodCredit`) directly in `backend/app/blockchain/abi_definitions.py`. Route calldata specifically to dedicated contract instances. | **PASS** · Verified valid Solidity calldata |
 | **P0 · Transaction Confirmation & Nonce** | Broadcast treated as confirmed without waiting for mined receipts; first transaction nonce bug (`max(0+1, live)` skipped nonce 0). | **Fixed pending nonce calculation** (`self._nonce = live_nonce` when `None`). Added **`wait_for_transaction_receipt(sent_hash, timeout=6.0)`** verifying `receipt.status == 1`. Returns `ONCHAIN_MINED_CONFIRMED` only when verified in a mined block. | **PASS** · Verified lifecycle |
 | **P1 · IPFS CID & Provenance** | Uncredentialed local fallback returned `is_fallback: False` and claimed remote IPFS pinning. | **Enforced strict provenance separation.** Uncredentialed local buffer explicitly returns `is_fallback: True`, `verified_pinned: False`, and `storage_protocol: "Local RFC-Compliant CIDv1 Buffer"`. Remote Pinata cluster returns `is_fallback: False` and `verified_pinned: True` only upon HTTP 200 confirmation. | **PASS** · Verified transparent |
 | **P1 · ML Empirical Disaster Ground Truth** | Model trained on synthetic formulas without historical empirical calibration. | **Calibrated training pipeline directly against authentic empirical disaster records** from IMD, CWC, and GloFAS (Mumbai 2005/2023, Kerala 2018, Chennai 2015/2023, Assam 2022, Delhi 2023, Bengaluru 2022). Achieved **100% catastrophic disaster recall** and **0% false alarms** on dry baseline controls. | **PASS** · 18/18 Benchmark tests pass |
@@ -130,7 +130,7 @@ The Chronic Climate Vulnerability Engine (`backend/app/agent2_geo.py`) replaces 
 
 ### 4.2 Dedicated Smart Contract ABIs
 `backend/app/blockchain/abi_definitions.py` embeds the exact Hardhat-compiled JSON ABIs:
-1. `TerraSentinelRiskLedger`: Function selector `0x9a1d69b3` (`anchorRiskAssessment`), `anchorDEMCascade`, `anchorVaRCascade`.
+1. `AEGISRiskLedger`: Function selector `0x9a1d69b3` (`anchorRiskAssessment`), `anchorDEMCascade`, `anchorVaRCascade`.
 2. `DisasterBond`: Function selector `0x2c7fd52a` (`notifyAssessment(int256,int256,uint256,bytes32)`).
 3. `CarbonFloodCredit`: Function selector `0x3c604ca5` (`issueMitigationCredit(address,bytes32,int256,int256,uint256,uint256)`).
 

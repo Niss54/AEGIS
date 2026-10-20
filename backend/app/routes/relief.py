@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Crisis Cleanup 4R Collaborative Relief Router
+AEGIS-CLIMATE: Crisis Cleanup 4R Collaborative Relief Router
 Phase 29.3: Inter-Agency Disaster Relief Work Order REST API Endpoints
 """
 
@@ -18,7 +18,7 @@ from backend.app.crisis_cleanup import (
     ReliefAgency
 )
 
-logger = logging.getLogger("terra_sentinel.routes.relief")
+logger = logging.getLogger("aegis.routes.relief")
 
 router = APIRouter(tags=["Crisis Cleanup 4R Collaborative Relief"])
 

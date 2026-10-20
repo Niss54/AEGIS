@@ -1406,7 +1406,7 @@ export function App() {
               }}
             >
               <img
-                src="/terra-logo.png"
+                src="/logo.png"
                 alt="AEGIS-CLIMATE Logo"
                 style={{ width: "24px", height: "24px", objectFit: "contain" }}
               />
@@ -2862,7 +2862,7 @@ export function App() {
                 <div className="code-snippet-box" style={{ marginBottom: "10px" }}>
                   <pre style={{ margin: 0 }}>{JSON.stringify({
                     mcpServers: {
-                      "terra-sentinel": {
+                      "aegis-climate": {
                         command: "python",
                         args: ["-m", "mcp_hub.stdio_server"]
                       }
@@ -2880,7 +2880,7 @@ export function App() {
                     onClick={() => {
                       navigator.clipboard.writeText(JSON.stringify({
                         mcpServers: {
-                          "terra-sentinel": {
+                          "aegis-climate": {
                             command: "python",
                             args: ["-m", "mcp_hub.stdio_server"]
                           }
@@ -3848,7 +3848,7 @@ ANTHROPIC_API_KEY=`;
                       onClick={() => {
                         const snippet = JSON.stringify({
                           mcpServers: {
-                            "terra-sentinel": {
+                            "aegis-climate": {
                               command: "python",
                               args: ["-m", "mcp_hub.stdio_server"]
                             }
@@ -3865,7 +3865,7 @@ ANTHROPIC_API_KEY=`;
                   </div>
                   <pre className="code-snippet-box" style={{ margin: 0 }}>{JSON.stringify({
                     mcpServers: {
-                      "terra-sentinel": {
+                      "aegis-climate": {
                         command: "python",
                         args: ["-m", "mcp_hub.stdio_server"]
                       }

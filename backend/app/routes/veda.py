@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: NASA VEDA STAC & Raster Tiling REST API Endpoints
+AEGIS-CLIMATE: NASA VEDA STAC & Raster Tiling REST API Endpoints
 Derived from NASA-IMPACT/veda-backend (TiTiler + STAC FastAPI Architecture)
 """
 
@@ -15,7 +15,7 @@ from backend.app.veda_raster import (
     ZonalStatsResponse
 )
 
-logger = logging.getLogger("terra_sentinel.routes.veda")
+logger = logging.getLogger("aegis.routes.veda")
 
 router = APIRouter(tags=["NASA VEDA STAC & Raster Service"])
 

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Sentinel Flood-Watch Ecological Encroachment & Wetland Threat Engine
+AEGIS-CLIMATE: Sentinel Flood-Watch Ecological Encroachment & Wetland Threat Engine
 Phase 30.4: Multi-Temporal Remote Sensing Change Detection (NDBI, MNDWI, NDVI) & Ecological Threat Index (ETI)
 Synthesized from Hou-dini/sentinel-flood-watch (Google Cloud Rapid Agent Hackathon Winner)
 """
@@ -11,7 +11,7 @@ from typing import Dict, List, Optional, Tuple, Any
 from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.ecological_watch")
+logger = logging.getLogger("aegis.ecological_watch")
 
 
 class EcologicalThreatTier(str, Enum):

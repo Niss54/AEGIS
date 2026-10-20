@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Phase 26 Hydrological Sequence & DeepMind DGMR Nowcasting Engine
+AEGIS-CLIMATE: Phase 26 Hydrological Sequence & DeepMind DGMR Nowcasting Engine
 Architectural Synthesis derived from:
 - Google Research (google-research/flood-forecasting): State-Handoff LSTM & Ungauged Catchment Attributes
 - DeepMind / Open Climate Fix (openclimatefix/skillful_nowcasting): Spatio-Temporal Nowcasting & Exceedance Probabilities

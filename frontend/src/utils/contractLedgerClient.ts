@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Phase 14 Contract Ledger Client
+ * AEGIS-CLIMATE Phase 14 Contract Ledger Client
  * Module: frontend/src/utils/contractLedgerClient.ts
  * Governance: Gravitas Reliability Runtime · Polygon Amoy Smart Contract Integration
  *

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: NASA VEDA Backend STAC & Dynamic COG Raster Service
+AEGIS-CLIMATE: NASA VEDA Backend STAC & Dynamic COG Raster Service
 Derived from NASA-IMPACT/veda-backend (TiTiler + STAC FastAPI Architecture)
 
 Provides:
@@ -24,7 +24,7 @@ except ImportError:
     Image = None
     HAS_PIL = False
 
-logger = logging.getLogger("terra_sentinel.veda_raster")
+logger = logging.getLogger("aegis.veda_raster")
 
 
 # ---------------------------------------------------------------------------

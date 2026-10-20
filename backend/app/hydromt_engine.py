@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Deltares HydroMT Computational Hydrography & TWI Catchment Engine
+AEGIS-CLIMATE: Deltares HydroMT Computational Hydrography & TWI Catchment Engine
 Phase 30.2: Automated Watershed Delineation, D8 Flow Direction & Topographic Wetness Index
 Synthesized from Deltares/hydromt (wflow, pyflwdir, SFINCS)
 """
@@ -10,7 +10,7 @@ from enum import Enum
 from typing import Dict, List, Optional, Tuple, Any
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.hydromt_engine")
+logger = logging.getLogger("aegis.hydromt_engine")
 
 
 class FlowDirectionD8(int, Enum):

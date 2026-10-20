@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Ushahidi Citizen Crisis Crowdsourcing & Verification Router
+AEGIS-CLIMATE: Ushahidi Citizen Crisis Crowdsourcing & Verification Router
 Phase 29.2: Ushahidi Platform REST API Endpoints
 """
 
@@ -14,7 +14,7 @@ from backend.app.ushahidi_crisis import (
     IncidentStatus
 )
 
-logger = logging.getLogger("terra_sentinel.routes.crisis")
+logger = logging.getLogger("aegis.routes.crisis")
 
 router = APIRouter(tags=["Ushahidi Citizen Crisis Crowdsourcing"])
 

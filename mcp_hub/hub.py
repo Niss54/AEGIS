@@ -58,7 +58,7 @@ async def mcp_health():
     """Health check endpoint reporting protocol and registered tools status."""
     return {
         "status": "healthy",
-        "service": "TERRA-SENTINEL MCP Hub",
+        "service": "AEGIS-CLIMATE MCP Hub",
         "registered_tools_count": len(TOOLS_REGISTRY),
         "protocol": "JSON-RPC 2.0",
         "mcp_version": "2024-11-05",

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Panda Protocol Satellite Algorithmic Carbon MRV Router
+AEGIS-CLIMATE: Panda Protocol Satellite Algorithmic Carbon MRV Router
 Phase 30.3: REST API Endpoints for Remote Sensing Biomass Quantification & Verification Proofs
 """
 
@@ -16,7 +16,7 @@ from backend.app.panda_carbon_mrv import (
     BIOME_KAPPA_FACTORS
 )
 
-logger = logging.getLogger("terra_sentinel.routes.mrv")
+logger = logging.getLogger("aegis.routes.mrv")
 
 router = APIRouter(tags=["Panda Protocol Satellite Carbon MRV"])
 

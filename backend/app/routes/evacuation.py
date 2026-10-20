@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Evacuation Routing & Fleet Dispatch REST API Router
+AEGIS-CLIMATE: Evacuation Routing & Fleet Dispatch REST API Router
 Phase 28: Mission-Critical Municipal Disaster Navigation Endpoints
 """
 
@@ -15,7 +15,7 @@ from backend.app.evacuation_routing import (
     FleetUnit
 )
 
-logger = logging.getLogger("terra_sentinel.routes.evacuation")
+logger = logging.getLogger("aegis.routes.evacuation")
 
 router = APIRouter(tags=["Disaster Evacuation & Rescue Fleet"])
 

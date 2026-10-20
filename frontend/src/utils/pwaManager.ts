@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Phase 19: PWA Edge Manager & Offline Mutation Buffer
+ * AEGIS-CLIMATE Phase 19: PWA Edge Manager & Offline Mutation Buffer
  * Module: frontend/src/utils/pwaManager.ts
  * Governance: Gravitas Reliability Runtime · 100% Offline Edge Availability
  *
@@ -72,10 +72,10 @@ export class PwaManager {
     try {
       const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
       this.registration = reg;
-      console.log('[TERRA-SENTINEL PWA] Service Worker registered in scope:', reg.scope);
+      console.log('[AEGIS-CLIMATE PWA] Service Worker registered in scope:', reg.scope);
       return true;
     } catch (err) {
-      console.warn('[TERRA-SENTINEL PWA] Service Worker registration deferred:', err);
+      console.warn('[AEGIS-CLIMATE PWA] Service Worker registration deferred:', err);
       return false;
     }
   }
@@ -93,7 +93,7 @@ export class PwaManager {
 
   private handleNetworkChange(online: boolean): void {
     this.isOnlineState = online;
-    console.log(`[TERRA-SENTINEL PWA] Network state shifted: ${online ? 'ONLINE' : 'OFFLINE'}`);
+    console.log(`[AEGIS-CLIMATE PWA] Network state shifted: ${online ? 'ONLINE' : 'OFFLINE'}`);
     for (const listener of this.networkListeners) {
       listener(online);
     }

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Multi-Sensor Parametric Catastrophe Oracle & Auto-Settlement Engine
+AEGIS-CLIMATE: Multi-Sensor Parametric Catastrophe Oracle & Auto-Settlement Engine
 Phase 28: Autonomous Climate Risk Smart Contract Oracles for Web3 Parametric Payouts
 
 Synthesizes:
@@ -18,7 +18,7 @@ from typing import Dict, List, Any, Optional
 from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.parametric_oracle")
+logger = logging.getLogger("aegis.parametric_oracle")
 
 
 class OracleConditionInput(BaseModel):

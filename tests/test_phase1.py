@@ -89,6 +89,41 @@ def test_analyze_cascading_high_risk_scenario():
     assert len(data["thought_trace"]) >= 5
 
 
+def test_llm_status_google_cloud_alignment():
+    """Verify Google Cloud Tech Alignment: Vertex AI is the primary LLM provider."""
+    res = client.get("/api/v1/tools/llm-status")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "success"
+    assert data["primary_provider"] == "Google Vertex AI / Gemini"
+    assert data["primary_model"] in ["gemini-2.0-flash", "gemini-3.5-flash"]
+    assert data["secondary_model"] in ["gemini-1.5-pro", "gemini-3.8-flash"]
+    assert data["tertiary_model"] in ["gemini-3.8-flash", "gemini-flash-latest"]
+    assert data["cloud_region"] == "asia-south1"
+    assert data["google_cloud_alignment_score"] == "100%"
+
+
+def test_financial_risk_engine_model_hierarchy():
+    """Verify Agent 3 Financial Risk Engine model hierarchy and circuit breaker failover tracking."""
+    from backend.app.agent3_financial import financial_risk_engine
+    status = financial_risk_engine.get_llm_status()
+    assert "primary_provider" in status
+    assert "Google Vertex AI" in status["primary_provider"]
+    assert status["failover_provider"] == "Groq Cloud Llama-3"
+    assert isinstance(status["recent_failovers"], list)
+
+
+def test_cloudbuild_yaml_integrity():
+    """Verify cloudbuild.yaml exists and contains Google Cloud Run deployment configuration."""
+    assert os.path.exists("cloudbuild.yaml")
+    with open("cloudbuild.yaml", "r", encoding="utf-8") as f:
+        content = f.read()
+    assert "gcr.io/google.com/cloudsdktool/cloud-sdk" in content
+    assert "asia-south1" in content
+    assert "min-instances=0" in content
+    assert "max-instances=10" in content
+
+
 if __name__ == "__main__":
     print("Running AEGIS Phase 1 Integration Tests...")
     test_health_endpoint()

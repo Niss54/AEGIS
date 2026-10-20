@@ -85,7 +85,7 @@ async def quality_summary_endpoint():
     """
     audit = discover_and_audit_test_suites()
     return {
-        "platform": "TERRA-SENTINEL",
+        "platform": "AEGIS-CLIMATE",
         "phase": 23,
         "gate_status": "PASSED" if audit["meets_minimum_volume"] else "INCOMPLETE",
         "total_test_suites": audit["total_test_suites"],

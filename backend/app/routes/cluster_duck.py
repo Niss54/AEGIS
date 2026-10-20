@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: ClusterDuck Protocol LoRa Mesh REST API Router
+AEGIS-CLIMATE: ClusterDuck Protocol LoRa Mesh REST API Router
 Derived from ClusterDuck-Protocol/ClusterDuck-Protocol
 """
 
@@ -15,7 +15,7 @@ from backend.app.cluster_duck import (
     SosSimulationRequest
 )
 
-logger = logging.getLogger("terra_sentinel.routes.cluster_duck")
+logger = logging.getLogger("aegis.routes.cluster_duck")
 
 router = APIRouter(tags=["ClusterDuck LoRa Ad-Hoc Mesh Gateway"])
 

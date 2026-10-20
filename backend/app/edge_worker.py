@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 19
+AEGIS-CLIMATE Production Specification: Phase 19
 Module: terra_sentinel.phase_19.edgeworkercontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -14,7 +14,7 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_19")
+logger = logging.getLogger("aegis.phase_19")
 
 PWA_CACHE_NAME = "terra-sentinel-cache-v1.0.0"
 

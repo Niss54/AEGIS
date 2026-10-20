@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Panda Protocol Satellite Algorithmic Carbon MRV Engine
+AEGIS-CLIMATE: Panda Protocol Satellite Algorithmic Carbon MRV Engine
 Phase 30.3: Remote Sensing Biomass Verification, Stoichiometric CO2 Sequestration & On-Chain Minting
 Synthesized from karanjaxyz/panda (Sentinel-2 NDVI, Nature-Based Solutions, Polygon Token Proofs)
 """
@@ -13,7 +13,7 @@ from typing import Dict, List, Optional, Tuple, Any
 from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.panda_carbon_mrv")
+logger = logging.getLogger("aegis.panda_carbon_mrv")
 
 # Stoichiometric ratio: Molecular weight of CO2 (44) / Atomic weight of Carbon (12)
 STOICHIOMETRIC_CO2_RATIO: float = 44.0 / 12.0  # ~3.6667

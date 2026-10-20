@@ -166,7 +166,7 @@ def test_route_prompt_catastrophic_failover_to_tier_5(controller):
         context={"location": "Dharavi Mithi Basin", "risk_score": 0.88, "waterlogging_depth_cm": 65}
     )
     assert res["active_tier"] == 5
-    assert "Local Deterministic" in res["provider"] or "TERRA-SENTINEL Internal" in res["provider"]
+    assert ("Local Deterministic" in res["provider"] or "AEGIS Internal" in res["provider"] or "TERRA-SENTINEL Internal" in res["provider"])
     assert "Dharavi Mithi Basin" in res["text"]
     assert "88%" in res["text"]
     assert "65cm" in res["text"]

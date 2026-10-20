@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Toucan Protocol Web3 Carbon Resilience Bridge & Retirement Registry
+AEGIS-CLIMATE: Toucan Protocol Web3 Carbon Resilience Bridge & Retirement Registry
 Phase 29.4: Toucan Protocol SDK & On-Chain Climate Offset Core
 
 Synthesizes architectural patterns from ToucanProtocol/toucan-sdk:
@@ -20,7 +20,7 @@ from datetime import datetime, timezone
 from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.toucan")
+logger = logging.getLogger("aegis.toucan")
 
 
 class CarbonPool(str, Enum):

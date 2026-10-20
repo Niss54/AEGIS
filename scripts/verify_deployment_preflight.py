@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Multi-Cloud Deployment Pre-Flight Verifier (Phase 3)
+AEGIS-CLIMATE: Multi-Cloud Deployment Pre-Flight Verifier (Phase 3)
 Verifies:
 1. Railway Nixpacks/Docker backend readiness (healthcheck, routes, config).
 2. Vercel Edge frontend build artifacts (dist/ assets, rewrites).
@@ -19,7 +19,7 @@ from fastapi.testclient import TestClient
 
 def run_preflight_checks():
     print("=" * 70)
-    print("[PRE-FLIGHT] TERRA-SENTINEL: Multi-Cloud Pre-Flight Deployment Gate (Vercel + Railway)")
+    print("[PRE-FLIGHT] AEGIS-CLIMATE: Multi-Cloud Pre-Flight Deployment Gate (Vercel + Railway)")
     print("=" * 70)
 
     # 1. Verify Railway Configuration

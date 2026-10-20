@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Multimodal Earth Observation & Satellite Ingestion Engine
+AEGIS-CLIMATE Multimodal Earth Observation & Satellite Ingestion Engine
 Phase 3 Specification: Copernicus Sentinel-2, ISRO Bhuvan, Google Earth Engine DEM Rasters,
 and Google Vertex AI Gemini 2.0 Flash Multimodal Contour Inspection.
 """
@@ -13,7 +13,7 @@ from pydantic import BaseModel, Field
 
 from backend.app.config import settings
 
-logger = logging.getLogger("terra-sentinel.satellite")
+logger = logging.getLogger("aegis.satellite")
 
 
 class EarthObservationEngine:

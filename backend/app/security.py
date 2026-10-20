@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 11 / Cybersecurity Invariant
+AEGIS-CLIMATE Production Specification: Phase 11 / Cybersecurity Invariant
 Module: terra_sentinel.security.telemetryintegritycontroller
 Governance: Gravitas Reliability Runtime · Zero-Trust Cryptographic Data Integrity
 
@@ -19,7 +19,7 @@ import logging
 from typing import Dict, Any, Optional, Set, Tuple, List
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.security")
+logger = logging.getLogger("aegis.security")
 
 
 class VerifiableTelemetryModel(BaseModel):

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Ushahidi Multi-Channel Citizen Crisis Crowdsourcing & Verification Engine
+AEGIS-CLIMATE: Ushahidi Multi-Channel Citizen Crisis Crowdsourcing & Verification Engine
 Phase 29.2: Ushahidi Platform v3/v5 Architectural Synthesis
 
 Key Capabilities extracted from ushahidi/platform:
@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.ushahidi")
+logger = logging.getLogger("aegis.ushahidi")
 
 
 class IncidentCategory(str, Enum):

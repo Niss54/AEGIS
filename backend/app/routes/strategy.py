@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL REST API Router: Phase 25
+AEGIS-CLIMATE REST API Router: Phase 25
 Module: backend.app.routes.strategy
 Focus: 10-Slide Executive VC Pitch Deck, TAM/SAM/SOM & Grand Finale Strategy
 """
@@ -18,7 +18,7 @@ from backend.app.finale_strategy import (
     generate_singapore_grand_finale_playbook
 )
 
-logger = logging.getLogger("terra_sentinel.routes.strategy")
+logger = logging.getLogger("aegis.routes.strategy")
 
 router = APIRouter(prefix="/strategy", tags=["Phase 25: Executive VC Strategy & Grand Finale"])
 controller = FinaleStrategyController()

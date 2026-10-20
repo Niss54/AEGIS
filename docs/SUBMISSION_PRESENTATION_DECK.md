@@ -1,5 +1,5 @@
 # 🏆 GOOGLE CLOUD AI BUILDER CUP — OFFICIAL SUBMISSION DECK
-## Team Syntrix | Project: TERRA-SENTINEL v3.6.0-ENTERPRISE
+## Team Syntrix | Project: AEGIS-CLIMATE v3.6.0-ENTERPRISE
 ### Template Mapping: `Submission Template - AI Builder Cup.pptx`
 
 ---
@@ -19,7 +19,7 @@
 ---
 
 ### SLIDE 3: Brief about the idea
-- **Project Name:** TERRA-SENTINEL v3.6.0-ENTERPRISE
+- **Project Name:** AEGIS-CLIMATE v3.6.0-ENTERPRISE
 - **Core Concept:** An Autonomous Multi-Agent Environmental & Climate Risk Intelligence Cockpit that converts petabytes of Earth observation data (Sentinel-1 SAR, DEM elevation, Open-Meteo telemetry) into instantaneous physical, structural, financial, and on-chain resilience actions.
 - **Key Tenets:**
   - **Zero-Latency Ingestion:** Ingests live precipitation and SAR radar data within 15 minutes of satellite pass.
@@ -31,7 +31,7 @@
 ### SLIDE 4: Opportunities
 - **How different is it from existing ideas?**
   - Existing platforms (e.g., standard weather apps or static GIS dashboards) only display historical maps or raw charts. They do not calculate building damage, do not simulate canal overflow, and never quantify corporate balance-sheet exposure.
-  - TERRA-SENTINEL connects physical weather telemetry directly to financial solvency and smart contract execution in a single automated pipeline.
+  - AEGIS-CLIMATE connects physical weather telemetry directly to financial solvency and smart contract execution in a single automated pipeline.
 - **How will it be able to solve the problem?**
   - **Predictive Lead Time:** Delivers a 48-hour LSTM flood forecast with P10/P50/P90 confidence intervals, giving municipal teams hours of preemptive evacuation lead time.
   - **Deterministic Hydrology:** Deltares HydroMT Topographic Wetness Index (TWI) identifies low-lying choke points before runoff accumulates.
@@ -164,9 +164,9 @@ flowchart TD
 ---
 
 ### SLIDE 14: Provide links to your:
-- **GitHub Public Repository:** [https://github.com/Niss54/TERRA-SENTINEL](https://github.com/Niss54/TERRA-SENTINEL)
+- **GitHub Public Repository:** [https://github.com/Niss54/AEGIS-CLIMATE](https://github.com/Niss54/AEGIS-CLIMATE)
 - **Demo Video Link (3 Minutes):** [https://youtu.be/YOUR_DEMO_VIDEO_URL_HERE](https://youtu.be/YOUR_DEMO_VIDEO_URL_HERE) *(Paste your YouTube/Drive link)*
-- **Final Product Link (Live App):** [https://terra-sentinel-demo.web.app](https://terra-sentinel-demo.web.app) *(Paste your deployed URL)*
+- **Final Product Link (Live App):** [https://aegis-climate-demo.web.app](https://aegis-climate-demo.web.app) *(Paste your deployed URL)*
 
 ---
 
@@ -181,4 +181,4 @@ flowchart TD
 ### SLIDE 16: Thank You
 - **Built for:** Google Cloud AI Builder Cup Singapore Grand Finale
 - **Team Syntrix:** Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde
-- **Contact / GitHub:** [https://github.com/Niss54/TERRA-SENTINEL](https://github.com/Niss54/TERRA-SENTINEL)
+- **Contact / GitHub:** [https://github.com/Niss54/AEGIS-CLIMATE](https://github.com/Niss54/AEGIS-CLIMATE)

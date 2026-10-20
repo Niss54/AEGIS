@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Entrypoint & Autonomous Self-Healing Server Runner
+AEGIS-CLIMATE Production Entrypoint & Autonomous Self-Healing Server Runner
 Hardened for Railway, Google Cloud Run, Render, and Docker Container Runtimes.
 Guarantees 100% container survival, multi-port healthcheck resolution, and zero unhandled crash exits.
 """
@@ -30,7 +30,7 @@ SHUTDOWN_REQUESTED = False
 def _signal_handler(signum, frame):
     global SHUTDOWN_REQUESTED
     SHUTDOWN_REQUESTED = True
-    print(f"[TERRA-SENTINEL] Received termination signal ({signum}). Graceful shutdown initiated...", flush=True)
+    print(f"[AEGIS-CLIMATE] Received termination signal ({signum}). Graceful shutdown initiated...", flush=True)
     sys.exit(0)
 
 try:
@@ -88,7 +88,7 @@ def _start_auxiliary_port_forwarder(source_port: int, target_port: int):
             srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             srv.bind(("0.0.0.0", source_port))
             srv.listen(128)
-            print(f"[TERRA-SENTINEL ROUTER] Auxiliary port forwarder active: 0.0.0.0:{source_port} -> 127.0.0.1:{target_port}", flush=True)
+            print(f"[AEGIS-CLIMATE ROUTER] Auxiliary port forwarder active: 0.0.0.0:{source_port} -> 127.0.0.1:{target_port}", flush=True)
             while not SHUTDOWN_REQUESTED:
                 client_sock, _ = srv.accept()
                 dest_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -113,7 +113,7 @@ def create_rescue_app():
     from fastapi.middleware.cors import CORSMiddleware
     from fastapi.responses import JSONResponse
 
-    rescue = FastAPI(title="TERRA-SENTINEL Autonomous Recovery Shield", version="2.0.0")
+    rescue = FastAPI(title="AEGIS-CLIMATE Autonomous Recovery Shield", version="2.0.0")
     rescue.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -129,7 +129,7 @@ def create_rescue_app():
             "status": "operational",
             "mode": "autonomous_recovery",
             "version": "2.0.0",
-            "platform": "TERRA-SENTINEL",
+            "platform": "AEGIS-CLIMATE",
             "services": {
                 "fastapi_backend": "online",
                 "recovery_shield": "active",
@@ -140,7 +140,7 @@ def create_rescue_app():
     @rescue.get("/")
     async def rescue_root():
         return {
-            "platform": "TERRA-SENTINEL",
+            "platform": "AEGIS-CLIMATE",
             "status": "online",
             "version": "2.0.0",
             "mode": "autonomous_recovery"
@@ -206,7 +206,7 @@ def create_rescue_app():
             status_code=200,
             content={
                 "status": "operational",
-                "platform": "TERRA-SENTINEL",
+                "platform": "AEGIS-CLIMATE",
                 "path": f"/{path}",
                 "mode": "autonomous_recovery",
                 "message": "Request acknowledged by resilience shield"
@@ -222,12 +222,12 @@ def main():
     host = os.environ.get("HOST", "0.0.0.0")
 
     print("=" * 60, flush=True)
-    print(f"[TERRA-SENTINEL] Booting production container runtime...", flush=True)
-    print(f"[TERRA-SENTINEL] Python: {sys.version}", flush=True)
-    print(f"[TERRA-SENTINEL] Executable: {sys.executable}", flush=True)
-    print(f"[TERRA-SENTINEL] Working Dir: {os.getcwd()}", flush=True)
-    print(f"[TERRA-SENTINEL] App Root: {root_dir}", flush=True)
-    print(f"[TERRA-SENTINEL] Primary Bind: {host}:{port}", flush=True)
+    print(f"[AEGIS-CLIMATE] Booting production container runtime...", flush=True)
+    print(f"[AEGIS-CLIMATE] Python: {sys.version}", flush=True)
+    print(f"[AEGIS-CLIMATE] Executable: {sys.executable}", flush=True)
+    print(f"[AEGIS-CLIMATE] Working Dir: {os.getcwd()}", flush=True)
+    print(f"[AEGIS-CLIMATE] App Root: {root_dir}", flush=True)
+    print(f"[AEGIS-CLIMATE] Primary Bind: {host}:{port}", flush=True)
     print("=" * 60, flush=True)
 
     # Launch auxiliary port forwarders for 8000 and 8080 if primary port differs
@@ -241,9 +241,9 @@ def main():
     try:
         from backend.app.main import app as primary_app
         target_app = primary_app
-        print(f"[TERRA-SENTINEL] Primary application loaded and validated successfully.", flush=True)
+        print(f"[AEGIS-CLIMATE] Primary application loaded and validated successfully.", flush=True)
     except Exception as exc:
-        print(f"[TERRA-SENTINEL RESILIENCE SHIELD] Primary app import encountered: {exc}", file=sys.stderr, flush=True)
+        print(f"[AEGIS-CLIMATE RESILIENCE SHIELD] Primary app import encountered: {exc}", file=sys.stderr, flush=True)
         traceback.print_exc(file=sys.stderr)
         target_app = rescue_app
 
@@ -252,7 +252,7 @@ def main():
     # Self-healing supervisor loop: guarantees container never exits or crashes
     while not SHUTDOWN_REQUESTED:
         try:
-            print(f"[TERRA-SENTINEL SUPERVISOR] Launching Uvicorn ASGI listener on {host}:{port}...", flush=True)
+            print(f"[AEGIS-CLIMATE SUPERVISOR] Launching Uvicorn ASGI listener on {host}:{port}...", flush=True)
             uvicorn.run(
                 target_app,
                 host=host,
@@ -264,18 +264,18 @@ def main():
             )
             if SHUTDOWN_REQUESTED:
                 break
-            print("[TERRA-SENTINEL SUPERVISOR] Uvicorn stopped cleanly. Re-arming listener in 1 second...", flush=True)
+            print("[AEGIS-CLIMATE SUPERVISOR] Uvicorn stopped cleanly. Re-arming listener in 1 second...", flush=True)
             time.sleep(1)
         except KeyboardInterrupt:
             break
         except SystemExit as se:
             if se.code == 0 or SHUTDOWN_REQUESTED:
                 break
-            print(f"[TERRA-SENTINEL SUPERVISOR] System exit {se.code} caught. Falling back to rescue shield...", flush=True)
+            print(f"[AEGIS-CLIMATE SUPERVISOR] System exit {se.code} caught. Falling back to rescue shield...", flush=True)
             target_app = rescue_app
             time.sleep(1)
         except Exception as exc:
-            print(f"[TERRA-SENTINEL SUPERVISOR] Runtime anomaly: {exc}. Re-arming with rescue shield...", file=sys.stderr, flush=True)
+            print(f"[AEGIS-CLIMATE SUPERVISOR] Runtime anomaly: {exc}. Re-arming with rescue shield...", file=sys.stderr, flush=True)
             traceback.print_exc(file=sys.stderr)
             target_app = rescue_app
             time.sleep(1)

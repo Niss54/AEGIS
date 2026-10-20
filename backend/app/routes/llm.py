@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL REST API: Phase 10 LLM Resilience & Circuit Breaker Gateway
+AEGIS-CLIMATE REST API: Phase 10 LLM Resilience & Circuit Breaker Gateway
 Exposes real-time circuit breaker status and resilient multi-model routing endpoints.
 """
 from typing import Dict, Any, List, Optional

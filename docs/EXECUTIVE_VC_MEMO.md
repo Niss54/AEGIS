@@ -1,10 +1,10 @@
-# 🏛️ TERRA-SENTINEL: Institutional Venture Capital Investment Memo
+# 🏛️ AEGIS-CLIMATE: Institutional Venture Capital Investment Memo
 ### *Series Seed · $2.5M USD · Autonomous Climate Risk Intelligence & Parametric Insurance Shield*
 
 > **Confidential Document**  
 > **Prepared For:** Institutional Climate-Tech, AI Infrastructure & FinTech VCs  
 > **Target Event:** Google Cloud AI Builder Cup — JAPAC Grand Finale (Singapore)  
-> **Company:** TERRA-SENTINEL Inc. (Team Syntrix: Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
+> **Company:** AEGIS-CLIMATE Inc. (Team Syntrix: Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
 > **Jurisdiction:** India / Singapore (Holding Co. Structure)  
 > **Key Cloud Partner:** Google Cloud Platform (Google Vertex AI & Cloud Run Native)
 
@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary & Investment Thesis
 
-**TERRA-SENTINEL** is building the world’s first autonomous, multi-agent environmental risk intelligence and decentralized parametric insurance platform. While legacy climate intelligence relies on static PDF warnings and disconnected weather sensors, TERRA-SENTINEL chains **real-time weather telemetry**, **multimodal satellite earth observation (Copernicus Sentinel-2 MSI + Google Earth Engine DEM)**, and **Vertex AI Gemini 2.0 Flash spatial reasoning** into an automated loop that triggers immediate parametric liquidity via smart contracts in under 90 seconds.
+**AEGIS-CLIMATE** is building the world’s first autonomous, multi-agent environmental risk intelligence and decentralized parametric insurance platform. While legacy climate intelligence relies on static PDF warnings and disconnected weather sensors, AEGIS-CLIMATE chains **real-time weather telemetry**, **multimodal satellite earth observation (Copernicus Sentinel-2 MSI + Google Earth Engine DEM)**, and **Vertex AI Gemini 2.0 Flash spatial reasoning** into an automated loop that triggers immediate parametric liquidity via smart contracts in under 90 seconds.
 
 ### The Problem: The Climate Latency Paradox
 Across the JAPAC region (India, ASEAN, East Asia), extreme climate anomalies inflict **$16 Billion+ in direct economic damage** annually. The catastrophic loss of capital and lives is not due to a lack of data—petabytes of satellite and radar data exist. The root failure is **decision and settlement latency**:
@@ -20,7 +20,7 @@ Across the JAPAC region (India, ASEAN, East Asia), extreme climate anomalies inf
 2. **Insurance Payout Latency:** Traditional commercial property & casualty (P&C) insurers take 3 to 9 months to assess flood adjusters' claims, forcing municipal and industrial assets into liquidity paralysis during critical recovery windows.
 
 ### The Solution: The 90-Second Autonomous Cognitive Loop
-TERRA-SENTINEL eliminates the human-in-the-loop bottleneck:
+AEGIS-CLIMATE eliminates the human-in-the-loop bottleneck:
 - **Agent 1 (Acute Physical ML):** Supervised Gradient Boosting Classifier evaluates physical flood probability in 12ms with 95.14% accuracy.
 - **Agent 2 (Spatial Digital Twin):** Fuses Copernicus Sentinel-2 MSI NDWI water fractions with GEE 30m SRTM DEM slope contours to model structural inundation across hundreds of parcels.
 - **Agent 3 (Vertex AI Gemini 2.0 Flash Financial/Civic Controller):** Synthesizes bilingual emergency voice alerts (Bhasha-AI Hindi/English), audits SEBI BRSR / NDMA regulatory compliance, and triggers automated parametric liquidity via Hedera/Polygon smart contracts.
@@ -57,7 +57,7 @@ TERRA-SENTINEL eliminates the human-in-the-loop bottleneck:
 
 ## 3. Business Model & Unit Economics
 
-TERRA-SENTINEL operates a high-margin, dual-stream business model combining **recurring B2G/B2B SaaS subscriptions** with **FinTech transaction facilitation fees**:
+AEGIS-CLIMATE operates a high-margin, dual-stream business model combining **recurring B2G/B2B SaaS subscriptions** with **FinTech transaction facilitation fees**:
 
 | Revenue Stream | Target Customer | Pricing Structure | Gross Margin |
 | :--- | :--- | :--- | :--- |
@@ -76,7 +76,7 @@ TERRA-SENTINEL operates a high-margin, dual-stream business model combining **re
 
 ## 4. Competitive Moat & Technical Defensibility
 
-| Competitive Dimension | Traditional GIS (ArcGIS, Mapbox) | Generic AI Chatbots (OpenAI GPT-4) | TERRA-SENTINEL (Google Cloud Native) |
+| Competitive Dimension | Traditional GIS (ArcGIS, Mapbox) | Generic AI Chatbots (OpenAI GPT-4) | AEGIS-CLIMATE (Google Cloud Native) |
 | :--- | :--- | :--- | :--- |
 | **Multi-Agent Autonomy** | ❌ Manual operator required | ❌ Text-only chatbot; no auto-cascade | ✅ **Autonomous 3-Agent cascade via MCP** |
 | **Inference Latency** | ❌ Hours/days batch processing | ❌ 3–5 seconds text delay | ✅ **< 15ms ML + sub-second Gemini 2.0 Flash** |
@@ -100,7 +100,7 @@ TERRA-SENTINEL operates a high-margin, dual-stream business model combining **re
 
 ## 5. Google Cloud Tech Alignment — The Decisive Edge
 
-TERRA-SENTINEL’s architecture is co-engineered with Google Cloud technologies to maximize operational speed, multi-tenant security, and competition-winning performance:
+AEGIS-CLIMATE’s architecture is co-engineered with Google Cloud technologies to maximize operational speed, multi-tenant security, and competition-winning performance:
 
 1. **Google Cloud Run:**
    - Serverless microservices containerized via `cloudbuild.yaml`.

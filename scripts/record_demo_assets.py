@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-TERRA-SENTINEL: Phase 24 Pitch Video Asset Recorder & Teleprompter Generator
+AEGIS-CLIMATE: Phase 24 Pitch Video Asset Recorder & Teleprompter Generator
 Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)
 
 Validates 180s timing invariants, checks live API connectivity,
@@ -28,7 +28,7 @@ logger = logging.getLogger("record_demo_assets")
 
 
 def main():
-    logger.info("Initializing TERRA-SENTINEL Phase 24 Demo Asset Verification...")
+    logger.info("Initializing AEGIS-CLIMATE Phase 24 Demo Asset Verification...")
 
     # 1. Timing budget validation
     timing = evaluate_screenplay_timing_budget(
@@ -56,7 +56,7 @@ def main():
     logger.info(f"Exported teleprompter cues to: {cue_path}")
 
     print("\n=======================================================")
-    print("  TERRA-SENTINEL 3-MINUTE VIDEO RECORDING ASSETS READY")
+    print("  AEGIS-CLIMATE 3-MINUTE VIDEO RECORDING ASSETS READY")
     print(f"  Exact Duration: {EXACT_TOTAL_DURATION_S}s (180s)")
     print(f"  Acts Verified: 4/4")
     print("=======================================================\n")

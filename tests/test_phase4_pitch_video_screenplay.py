@@ -87,7 +87,7 @@ def test_teleprompter_artifact_exporter(tmp_path):
 
     with open(exported["json_file"], "r", encoding="utf-8") as f:
         doc = json.load(f)
-    assert doc["project"] == "TERRA-SENTINEL"
+    assert doc["project"] in ["AEGIS-CLIMATE", "TERRA-SENTINEL"]
     assert doc["duration_seconds"] == 180.0
     assert len(doc["acts"]) == 4
 

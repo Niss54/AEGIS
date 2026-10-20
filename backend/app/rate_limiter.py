@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 13
+AEGIS-CLIMATE Production Specification: Phase 13
 Module: terra_sentinel.phase_13.ratelimiter
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -29,7 +29,7 @@ from fastapi import Request, HTTPException, status
 
 from backend.app.cache import redis_bus_controller, RedisBusController
 
-logger = logging.getLogger("terra_sentinel.rate_limiter")
+logger = logging.getLogger("aegis.rate_limiter")
 
 
 class RateLimitResult(BaseModel):

@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Phase 15 Parametric Disaster Insurance & Smart Bond Client
+ * AEGIS-CLIMATE Phase 15 Parametric Disaster Insurance & Smart Bond Client
  * Module: frontend/src/utils/parametricBondClient.ts
  * Governance: Gravitas Reliability Runtime · Polygon Amoy Smart Contract Integration
  *

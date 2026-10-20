@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 15
+AEGIS-CLIMATE Production Specification: Phase 15
 Module: terra_sentinel.phase_15.parametricbondcontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -17,7 +17,7 @@ import hashlib
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_15")
+logger = logging.getLogger("aegis.phase_15")
 
 # ─── PYDANTIC SCHEMAS ────────────────────────────────────────────────────────
 

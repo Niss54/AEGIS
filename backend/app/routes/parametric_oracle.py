@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Multi-Sensor Parametric Oracle REST API Router
+AEGIS-CLIMATE: Multi-Sensor Parametric Oracle REST API Router
 Phase 28: Autonomous Climate Risk Smart Contract Oracles for Web3 Parametric Payouts
 """
 
@@ -13,7 +13,7 @@ from backend.app.parametric_oracle import (
     OracleSettlementResponse
 )
 
-logger = logging.getLogger("terra_sentinel.routes.parametric_oracle")
+logger = logging.getLogger("aegis.routes.parametric_oracle")
 
 router = APIRouter(tags=["Multi-Sensor Parametric Oracle"])
 

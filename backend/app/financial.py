@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 7
+AEGIS-CLIMATE Production Specification: Phase 7
 Module: terra_sentinel.phase_7.macrofinancialcontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -21,7 +21,7 @@ from pydantic import BaseModel, Field
 
 from backend.app.config import settings
 
-logger = logging.getLogger("terra_sentinel.phase_7")
+logger = logging.getLogger("aegis.phase_7")
 
 
 class FinancialVaRModel(BaseModel):

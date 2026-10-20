@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 21
+AEGIS-CLIMATE Production Specification: Phase 21
 Module: terra_sentinel.phase_21.cloudcicontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -20,7 +20,7 @@ except ImportError:
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_21")
+logger = logging.getLogger("aegis.phase_21")
 
 MANDATORY_PIPELINE_SEQUENCE = ["test", "build", "push", "deploy"]
 
@@ -166,7 +166,7 @@ def inspect_cloudbuild_yaml(yaml_path: Optional[str] = None) -> Dict[str, Any]:
             "has_cloud_run_deploy": True,
             "region": "asia-south1",
             "timeout": "1200s",
-            "target_service": "terra-sentinel"
+            "target_service": "aegis-climate"
         }
 
     try:
@@ -198,7 +198,7 @@ def inspect_cloudbuild_yaml(yaml_path: Optional[str] = None) -> Dict[str, Any]:
         "has_cloud_run_deploy": has_deploy_step,
         "region": "asia-south1",
         "timeout": data.get("timeout", "1200s"),
-        "target_service": "terra-sentinel"
+        "target_service": "aegis-climate"
     }
 
 
@@ -220,7 +220,7 @@ def simulate_ci_trigger(branch: str = "main", commit_sha: str = "HEAD") -> Dict[
         "pipeline_compliant": eval_res.is_compliant,
         "pipeline_verdict": eval_res.verdict,
         "destination": "gcr.io/$PROJECT_ID/terra-sentinel" if branch == "main" else "NONE",
-        "cloud_run_service": "terra-sentinel" if branch == "main" else "NONE"
+        "cloud_run_service": "aegis-climate" if branch == "main" else "NONE"
     }
 
 

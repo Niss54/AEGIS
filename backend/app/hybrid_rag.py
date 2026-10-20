@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 8
+AEGIS-CLIMATE Production Specification: Phase 8
 Module: terra_sentinel.phase_8.statutoryragcontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -22,7 +22,7 @@ from pydantic import BaseModel, Field
 
 from backend.app.config import settings
 
-logger = logging.getLogger("terra_sentinel.phase_8")
+logger = logging.getLogger("aegis.phase_8")
 
 
 class HybridRAGModel(BaseModel):

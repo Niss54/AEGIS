@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Phase 4 Pitch Video Screenplay & Teleprompter API Router
+AEGIS-CLIMATE: Phase 4 Pitch Video Screenplay & Teleprompter API Router
 Governs the 3-minute (180s) competition demo screenplay, scene visual cues,
 and real-time teleprompter timing engine for Google Cloud AI Builder Cup JAPAC Grand Finale.
 """
@@ -8,7 +8,7 @@ from typing import Dict, Any, List
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.routes.demo")
+logger = logging.getLogger("aegis.routes.demo")
 
 router = APIRouter(prefix="/api/v1/demo", tags=["Demo Screenplay"])
 
@@ -29,12 +29,12 @@ DEMO_ACTS = [
             "dollars in economic destruction each year. Satellite elevation models, Doppler radar, and disaster policies "
             "already exist—but they are trapped in disconnected, static bureaucratic silos. Emergency dispatches take "
             "four to six hours, and insurance compensation takes six months. We are Team Syntrix from India, and this "
-            "is TERRA-SENTINEL—the world's first autonomous multi-agent climate resilience and parametric finance platform, "
+            "is AEGIS-CLIMATE—the world's first autonomous multi-agent climate resilience and parametric finance platform, "
             "built natively on Google Cloud."
         ),
         "visual_cues": [
             "[00:00-00:10] Fast montage: Mithi river breach & coastal surge; overlay red neon banner: 1.4B LIVES AT RISK",
-            "[00:10-00:30] Dynamic zoom to TERRA-SENTINEL live dashboard; highlight glowing Vertex AI & Cloud Run badges"
+            "[00:10-00:30] Dynamic zoom to AEGIS-CLIMATE live dashboard; highlight glowing Vertex AI & Cloud Run badges"
         ]
     },
     {
@@ -52,7 +52,7 @@ DEMO_ACTS = [
             "Bhasha-AI Hindi TTS"
         ],
         "voiceover_lines": (
-            "Notice that TERRA-SENTINEL is not a passive chatbot. It is a live, autonomous cognitive loop. "
+            "Notice that AEGIS-CLIMATE is not a passive chatbot. It is a live, autonomous cognitive loop. "
             "Watch: we trigger the Mithi River Cloudburst preset with 135mm rainfall and 94% soil saturation. In under twenty milliseconds, "
             "Agent 1 executes Google Research State-Handoff LSTM sequence hydrology combined with DeepMind DGMR radar nowcasting, "
             "detecting an 89% catastrophic flood exceedance probability. Crossing the critical safety threshold, Agent 1 "
@@ -82,7 +82,7 @@ DEMO_ACTS = [
             "Model Context Protocol (JSON-RPC 2.0)"
         ],
         "voiceover_lines": (
-            "Here is our decisive technical advantage for the Google Cloud AI Builder Cup: TERRA-SENTINEL is engineered "
+            "Here is our decisive technical advantage for the Google Cloud AI Builder Cup: AEGIS-CLIMATE is engineered "
             "cloud-native from day one. Our entire backend runs containerized on Google Cloud Run, orchestrated through "
             "our production cloudbuild.yaml pipeline for serverless auto-scaling from zero to thousands of concurrent "
             "telemetry streams. At our AI core, we leverage Google Vertex AI Gemini 2.0 Flash. Gemini synthesizes multispectral "
@@ -113,12 +113,12 @@ DEMO_ACTS = [
             "Singapore Grand Finale"
         ],
         "voiceover_lines": (
-            "The financial transformation is immediate: when catastrophic thresholds are breached, TERRA-SENTINEL triggers "
+            "The financial transformation is immediate: when catastrophic thresholds are breached, AEGIS-CLIMATE triggers "
             "decentralized smart contracts—unlocking instant parametric liquidity for civic authorities within seconds rather than "
             "months. By slashing emergency decision latency from six hours down to ninety seconds, we reduce direct municipal "
             "asset losses by up to forty percent. From safeguarding the rivers of Bharat to shielding coastal megacities across "
-            "ASEAN, TERRA-SENTINEL is ready to scale across the JAPAC region. We are Team Syntrix, and we look forward to presenting "
-            "TERRA-SENTINEL live at the Grand Finale in Singapore. Autonomous planetary resilience, powered by Google Cloud. Thank you!"
+            "ASEAN, AEGIS-CLIMATE is ready to scale across the JAPAC region. We are Team Syntrix, and we look forward to presenting "
+            "AEGIS-CLIMATE live at the Grand Finale in Singapore. Autonomous planetary resilience, powered by Google Cloud. Thank you!"
         ),
         "visual_cues": [
             "[02:30-02:45] Zoom in on Hedera/Ethereum parametric bond panel; highlight automated $500,000 CFMC liquidity release & IPFS CID",
@@ -143,7 +143,7 @@ class ActSchema(BaseModel):
 class ScreenplayResponse(BaseModel):
     status: str = "success"
     competition: str = "Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)"
-    project_name: str = "TERRA-SENTINEL"
+    project_name: str = "AEGIS-CLIMATE"
     team_name: str = "Syntrix"
     total_duration_seconds: float = 180.0
     budget_verified: bool = True
@@ -188,7 +188,7 @@ def get_teleprompter_cue_sheet() -> Dict[str, Any]:
     sections = []
     plain_text_lines = [
         "=" * 70,
-        "TERRA-SENTINEL — 3-MINUTE TELEPROMPTER SCRIPT (GOOGLE CLOUD AI BUILDER CUP)",
+        "AEGIS-CLIMATE — 3-MINUTE TELEPROMPTER SCRIPT (GOOGLE CLOUD AI BUILDER CUP)",
         "=" * 70,
         ""
     ]

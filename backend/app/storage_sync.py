@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 12
+AEGIS-CLIMATE Production Specification: Phase 12
 Module: terra_sentinel.phase_12.storagesynccontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -17,7 +17,7 @@ import logging
 from typing import Dict, Any, List, Optional
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_12")
+logger = logging.getLogger("aegis.phase_12")
 
 
 class OfflineSyncModel(BaseModel):

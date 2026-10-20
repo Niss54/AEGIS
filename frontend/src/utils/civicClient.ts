@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Phase 17 Bilingual Civic Advisory Synthesis Client
+ * AEGIS-CLIMATE Phase 17 Bilingual Civic Advisory Synthesis Client
  * Module: frontend/src/utils/civicClient.ts
  * Governance: Gravitas Reliability Runtime · Bilingual Civic Advisory Generator
  *

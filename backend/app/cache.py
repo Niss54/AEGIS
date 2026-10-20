@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 13
+AEGIS-CLIMATE Production Specification: Phase 13
 Module: terra_sentinel.phase_13.redisbuscontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -26,7 +26,7 @@ from pydantic import BaseModel, Field
 
 from backend.app.config import settings
 
-logger = logging.getLogger("terra_sentinel.phase_13")
+logger = logging.getLogger("aegis.phase_13")
 
 
 class CacheControlModel(BaseModel):

@@ -87,6 +87,11 @@ class Agent3Result(BaseModel):
     regional_language_code: Optional[str] = Field(None, description="BCP 47 language code (e.g. tr-TR, et-EE, es-US, mr-IN)")
     regional_language_name: Optional[str] = Field(None, description="Native language autonym (e.g. Türkçe, Eesti keel, मराठी)")
     regional_language_flag: Optional[str] = Field(None, description="Regional or national flag emoji")
+    regional_language: Optional[str] = Field(None, description="Regional language name identifier")
+    regional_language_native: Optional[str] = Field(None, description="Regional native script representation")
+    regional_lang_code: Optional[str] = Field(None, description="Regional language short or BCP code")
+    regional_alert_text: Optional[str] = Field(None, description="Regional localized broadcast text")
+    last_active_model: Optional[str] = Field(None, description="LLM provider and model identifier")
     mrv_provenance: Optional[Dict[str, Any]] = Field(None, description="Verifiable Blue-Carbon-MRV cryptographic provenance stamp")
     execution_time_ms: float
     timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat() + "Z")

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 14
+AEGIS-CLIMATE Production Specification: Phase 14
 Module: terra_sentinel.phase_14.contractledgercontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -33,7 +33,7 @@ except ImportError:
 from backend.app.blockchain.chain_client import chain_client, TerraSentinelChainClient
 from backend.app.ipfs.storage import ipfs_client, IPFSStorageClient
 
-logger = logging.getLogger("terra_sentinel.phase_14")
+logger = logging.getLogger("aegis.phase_14")
 
 
 class BlockchainAnchorModel(BaseModel):

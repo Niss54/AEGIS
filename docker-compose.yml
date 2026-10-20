@@ -72,6 +72,8 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - CHROMADB_HOST=chromadb
       - CHROMADB_PORT=8000
+    security_opt:
+      - no-new-privileges:true
     depends_on:
       postgres:
         condition: service_healthy

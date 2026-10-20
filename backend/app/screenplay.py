@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 24
+AEGIS-CLIMATE Production Specification: Phase 24
 Module: terra_sentinel.phase_24.screenplaycontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -15,7 +15,7 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_24")
+logger = logging.getLogger("aegis.phase_24")
 
 EXACT_TOTAL_DURATION_S = 180.0
 ACT1_CRISIS_TARGET_S = 30.0
@@ -173,7 +173,7 @@ def generate_teleprompter_cue_sheet() -> Dict[str, Any]:
     time markers, and spoken dialogue blocks.
     """
     return {
-        "project": "TERRA-SENTINEL",
+        "project": "AEGIS-CLIMATE",
         "competition": "Google Cloud AI Builder Cup 2026",
         "target_track": "JAPAC Track · Singapore Grand Finale",
         "total_duration_seconds": 180.0,
@@ -203,7 +203,7 @@ def generate_teleprompter_cue_sheet() -> Dict[str, Any]:
                 "duration_seconds": 60.0,
                 "visual_anchor": "System architecture diagram, Google Cloud Run container, MCP Hub JSON-RPC 2.0 stream",
                 "key_callout": "Google Cloud Run, Vertex AI Circuit Breaker, Model Context Protocol 2024-11-05",
-                "dialogue_snippet": "Under the hood, TERRA-SENTINEL runs natively on Google Cloud Serverless infrastructure..."
+                "dialogue_snippet": "Under the hood, AEGIS-CLIMATE runs natively on Google Cloud Serverless infrastructure..."
             },
             {
                 "act": 4,
@@ -212,7 +212,7 @@ def generate_teleprompter_cue_sheet() -> Dict[str, Any]:
                 "duration_seconds": 30.0,
                 "visual_anchor": "Smart contract parametric bond liquidation & Singapore Finale roadmap",
                 "key_callout": "Instant Parametric Liquidity, Singapore Finale, Planetary Shield",
-                "dialogue_snippet": "TERRA-SENTINEL replaces months of paper claims with instant cryptographic liquidity..."
+                "dialogue_snippet": "AEGIS-CLIMATE replaces months of paper claims with instant cryptographic liquidity..."
             }
         ]
     }

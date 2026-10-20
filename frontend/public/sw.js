@@ -1,5 +1,5 @@
 /**
- * TERRA-SENTINEL Phase 19: Edge Network Resilience Service Worker
+ * AEGIS-CLIMATE Phase 19: Edge Network Resilience Service Worker
  * Module: frontend/public/sw.js
  * Governance: Gravitas Reliability Runtime · 100% Offline Availability
  *
@@ -7,7 +7,8 @@
  * Availability = 100% (Cached Shell ⊕ Local Heuristics)
  */
 
-const CACHE_NAME = 'terra-sentinel-v1.0.0';
+const CACHE_NAME = 'aegis-climate-v1.0.0';
+// Alias for backwards compatibility: terra-sentinel-v1.0.0
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -19,9 +20,9 @@ const STATIC_ASSETS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[TERRA-SENTINEL SW] Pre-caching Core Application Shell...');
+      console.log('[AEGIS-CLIMATE SW] Pre-caching Core Application Shell...');
       return cache.addAll(STATIC_ASSETS).catch((err) => {
-        console.warn('[TERRA-SENTINEL SW] Non-fatal pre-cache skip:', err);
+        console.warn('[AEGIS-CLIMATE SW] Non-fatal pre-cache skip:', err);
       });
     }).then(() => self.skipWaiting())
   );

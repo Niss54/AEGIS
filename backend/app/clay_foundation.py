@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Clay Earth Foundation Model (ViT-MAE) Multi-Sensor Inference Engine
+AEGIS-CLIMATE: Clay Earth Foundation Model (ViT-MAE) Multi-Sensor Inference Engine
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
 Extracts and adapts architecture from `Clay-foundation/model`:
@@ -24,7 +24,7 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra-sentinel.clay_foundation")
+logger = logging.getLogger("aegis.clay_foundation")
 
 
 class ClayChipInput(BaseModel):

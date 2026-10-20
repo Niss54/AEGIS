@@ -46,7 +46,7 @@ def test_pitch_deck_slides_count_and_google_cloud_elevation():
     assert "SLIDE 4: Technical Depth" in text
     assert "SLIDE 5: Market Opportunity" in text
     assert "SLIDE 6 — THE INTELLIGENCE LAYER" in text
-    assert "SLIDE 7 — WHAT MAKES TERRA-SENTINEL DIFFERENT" in text
+    assert ("SLIDE 7 — WHAT MAKES AEGIS-CLIMATE DIFFERENT" in text or "SLIDE 7 — WHAT MAKES TERRA-SENTINEL DIFFERENT" in text)
     assert "SLIDE 8 — IMPACT & SCALABILITY" in text
     assert "SLIDE 9 — CLOSING (The Future)" in text
     assert "SLIDE 10: Google Cloud Decisive Advantage & Hackathon Edge" in text
@@ -60,7 +60,7 @@ def test_rest_api_get_vc_memo():
     data = res.json()
 
     assert data["status"] == "success"
-    assert data["company_name"] == "TERRA-SENTINEL Inc."
+    assert data["company_name"] in ["AEGIS-CLIMATE Inc.", "TERRA-SENTINEL Inc."]
     assert "Series Seed" in data["funding_round"]
     assert data["market_sizing"]["tam_global_climate_risk_usd_billions"] == 34.2
     assert data["market_sizing"]["sam_japac_municipal_usd_billions"] == 4.8

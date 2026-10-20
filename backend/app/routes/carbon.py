@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Toucan Protocol Web3 Carbon Resilience Router
+AEGIS-CLIMATE: Toucan Protocol Web3 Carbon Resilience Router
 Phase 29.4: Toucan Carbon Bridge & Retirement REST API Endpoints
 """
 
@@ -15,7 +15,7 @@ from backend.app.toucan_bridge import (
     CarbonPool
 )
 
-logger = logging.getLogger("terra_sentinel.routes.carbon")
+logger = logging.getLogger("aegis.routes.carbon")
 
 router = APIRouter(tags=["Toucan Protocol Carbon Resilience & Retirement"])
 

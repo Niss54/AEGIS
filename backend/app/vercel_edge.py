@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 22
+AEGIS-CLIMATE Production Specification: Phase 22
 Module: terra_sentinel.phase_22.verceledgecontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -15,7 +15,7 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_22")
+logger = logging.getLogger("aegis.phase_22")
 
 MAX_TTFB_MS = 80.0
 MIN_LIGHTHOUSE_SCORE = 98

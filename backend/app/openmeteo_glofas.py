@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Open-Meteo GloFAS River Discharge & Ensemble Flood Engine
+AEGIS-CLIMATE: Open-Meteo GloFAS River Discharge & Ensemble Flood Engine
 Phase 29.1: Copernicus GloFAS LISFLOOD Hydrological Forecast Core
 
 Synthesizes high-resolution hydrological modeling from open-meteo/open-meteo:
@@ -18,7 +18,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Tuple
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.glofas")
+logger = logging.getLogger("aegis.glofas")
 
 
 class GloFASHazardLevel(str, Enum):

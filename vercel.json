@@ -5,8 +5,48 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/api/v1/(.*)",
+      "destination": "https://aegis-climate-api-cwc7fdf4eq-el.a.run.app/api/v1/$1"
+    },
+    {
+      "source": "/api/v2/(.*)",
+      "destination": "https://aegis-climate-api-cwc7fdf4eq-el.a.run.app/api/v2/$1"
+    },
+    {
+      "source": "/mcp/(.*)",
+      "destination": "https://aegis-climate-api-cwc7fdf4eq-el.a.run.app/mcp/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
     }
   ]
 }

@@ -772,6 +772,25 @@ class ChronicVulnerabilityEngine:
 
         elapsed_ms = round((time.time() - start_time) * 1000, 2)
 
+        # Step 5b: AquaFHIR Critical Infrastructure Vector Calculation
+        if is_infrastructure_failure or (risk_score >= 0.70 and net_pooling_depth_cm >= 50):
+            power_substations = max(1, int(counts_by_cat.get("critical_infrastructure", 0) * 0.4) + 1)
+            healthcare = max(1, int(num_structures * 0.02) + 1)
+            evac_corridors = max(1, int(net_pooling_depth_cm / 30.0))
+            drainage_overcap = min(100.0, max(75.0, float(drainage_overflow_pct)))
+        else:
+            power_substations = 0 if risk_score < 0.5 else 1
+            healthcare = 0  # minor waterlogging has 0 exposed
+            evac_corridors = 0 if net_pooling_depth_cm < 40 else 1
+            drainage_overcap = min(65.0, float(drainage_overflow_pct))
+
+        civ_dict = {
+            "power_substations_at_risk": power_substations,
+            "healthcare_facilities_exposed": healthcare,
+            "evacuation_corridors_submerged": evac_corridors,
+            "drainage_conduits_overcapacity_pct": round(drainage_overcap, 1)
+        }
+
         # Step 6: Provenance & Judge Proof Verification Block
         hash_input = f"{lat}:{lon}:{net_pooling_depth_cm}:{num_structures}:{total_loss_inr}"
         provenance_hash = hashlib.sha256(hash_input.encode("utf-8")).hexdigest()
@@ -782,6 +801,7 @@ class ChronicVulnerabilityEngine:
             "waterlogging_depth_cm": net_pooling_depth_cm,
             "buildings_at_risk": num_structures,
             "drainage_overflow_pct": drainage_overflow_pct,
+            "critical_infrastructure_vector": civ_dict,
             "damage_estimate_inr": total_loss_inr,
             "damage_estimate_usd": total_loss_usd,
             "asset_breakdown": detailed_damages,

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-TERRA-SENTINEL: Phase 4 Pitch Video Screenplay Runner & Teleprompter Generator
+AEGIS-CLIMATE: Phase 4 Pitch Video Screenplay Runner & Teleprompter Generator
 Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)
 
 Validates 180s timing invariants, queries live system health, generates
@@ -84,7 +84,7 @@ def export_teleprompter_artifacts(output_dir: str = None) -> Dict[str, str]:
 
     text_lines = [
         "================================================================================",
-        "  TERRA-SENTINEL: 3-MINUTE PITCH VIDEO TELEPROMPTER CUE SHEET",
+        "  AEGIS-CLIMATE: 3-MINUTE PITCH VIDEO TELEPROMPTER CUE SHEET",
         "  Google Cloud AI Builder Cup · JAPAC Grand Finale · Singapore",
         "================================================================================",
         ""
@@ -114,7 +114,7 @@ def export_teleprompter_artifacts(output_dir: str = None) -> Dict[str, str]:
         f.write("\n".join(text_lines))
 
     data_payload = {
-        "project": "TERRA-SENTINEL",
+        "project": "AEGIS-CLIMATE",
         "competition": "Google Cloud AI Builder Cup (JAPAC Track)",
         "duration_seconds": TOTAL_DEMO_BUDGET_SECONDS,
         "acts": DEMO_ACTS
@@ -131,7 +131,7 @@ def simulate_live_pacing(fast_mode: bool = True):
     """
     metrics = verify_timing_invariants()
     print("\n" + "=" * 70)
-    print(f"🎬 TERRA-SENTINEL 3-MINUTE PITCH PACING SIMULATOR")
+    print(f"🎬 AEGIS-CLIMATE 3-MINUTE PITCH PACING SIMULATOR")
     print(f"Target Duration: {metrics['total_duration_seconds']}s | Word Count: {metrics['total_words']} | WPM: {metrics['wpm_pacing']}")
     print("=" * 70 + "\n")
 
@@ -157,7 +157,7 @@ def simulate_live_pacing(fast_mode: bool = True):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="TERRA-SENTINEL Pitch Video Screenplay Runner")
+    parser = argparse.ArgumentParser(description="AEGIS-CLIMATE Pitch Video Screenplay Runner")
     parser.add_argument("--verify", action="store_true", help="Validate 180s timing invariants and tech keywords")
     parser.add_argument("--export-cues", action="store_true", help="Export teleprompter text and JSON cue markers")
     parser.add_argument("--simulate", action="store_true", help="Simulate teleprompter pacing in console")

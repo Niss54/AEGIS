@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 6
+AEGIS-CLIMATE Production Specification: Phase 6
 Module: terra_sentinel.phase_6.hydraulicdrainagecontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -16,7 +16,7 @@ import logging
 from typing import Dict, Any, List, Optional
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.phase_6")
+logger = logging.getLogger("aegis.phase_6")
 
 
 class GeoContourModel(BaseModel):

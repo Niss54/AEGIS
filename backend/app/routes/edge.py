@@ -93,8 +93,8 @@ async def pwa_manifest_endpoint():
     Returns PWA Web App Manifest metadata for offline installation.
     """
     return {
-        "short_name": "TERRA-SENTINEL",
-        "name": "TERRA-SENTINEL: Autonomous Climate Risk Intelligence Platform",
+        "short_name": "AEGIS-CLIMATE",
+        "name": "AEGIS-CLIMATE: Autonomous Climate Risk Intelligence Platform",
         "description": "Enterprise Climate & Environmental Risk Intelligence Cockpit with 100% Offline Edge Availability",
         "icons": [
             {

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Sentinel Flood-Watch Ecological Encroachment Router
+AEGIS-CLIMATE: Sentinel Flood-Watch Ecological Encroachment Router
 Phase 30.4: REST API Endpoints for Multi-Temporal Change Detection & Ecological Threat Index (ETI)
 """
 
@@ -15,7 +15,7 @@ from backend.app.ecological_watch import (
     EcologicalThreatTier
 )
 
-logger = logging.getLogger("terra_sentinel.routes.ecological")
+logger = logging.getLogger("aegis.routes.ecological")
 
 router = APIRouter(tags=["Sentinel Flood-Watch Ecological Encroachment"])
 

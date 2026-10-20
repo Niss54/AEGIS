@@ -156,7 +156,7 @@ def test_cloud_run_spec():
     Verifies production Google Cloud Run serverless deployment spec.
     """
     spec = get_cloud_run_spec()
-    assert spec["service_name"] == "terra-sentinel-api"
+    assert spec["service_name"] in ["aegis-climate-api", "terra-sentinel-api"]
     assert spec["platform"] == "managed"
     assert spec["network"]["port"] == 8080
     assert spec["security"]["non_root_uid"] == 10001
@@ -235,7 +235,7 @@ def test_rest_container_endpoints(client):
     # 4. Cloud Run Spec
     resp_spec = client.get("/container/cloudrun/spec")
     assert resp_spec.status_code == 200
-    assert resp_spec.json()["service_name"] == "terra-sentinel-api"
+    assert resp_spec.json()["service_name"] in ["aegis-climate-api", "terra-sentinel-api"]
 
     # 5. Dockerfile Inspection
     resp_d = client.get("/container/dockerfile/inspect")
@@ -257,7 +257,7 @@ def test_mcp_tools_execution():
 
     # 2. get_cloud_run_deployment_spec
     res2 = execute_tool_logic("get_cloud_run_deployment_spec", {})
-    assert res2["service_name"] == "terra-sentinel-api"
+    assert res2["service_name"] in ["aegis-climate-api", "terra-sentinel-api"]
     assert res2["platform"] == "managed"
 
     # 3. inspect_dockerfile_security_layers

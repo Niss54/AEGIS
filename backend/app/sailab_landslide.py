@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: SailabAlert Multi-Hazard Landslide Coupling & Trilingual Advisory Engine
+AEGIS-CLIMATE: SailabAlert Multi-Hazard Landslide Coupling & Trilingual Advisory Engine
 Phase 30.1: Synthesized from mirzayasirabdullahbaig07/SailabAlert
 
 Implements:
@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any
 from pydantic import BaseModel, Field
 
-logger = logging.getLogger("terra_sentinel.sailab_landslide")
+logger = logging.getLogger("aegis.sailab_landslide")
 
 
 class HazardTier(str, Enum):

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 10
+AEGIS-CLIMATE Production Specification: Phase 10
 Module: terra_sentinel.phase_10.llmcircuitcontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
@@ -18,7 +18,7 @@ from pydantic import BaseModel, Field
 
 from backend.app.config import settings
 
-logger = logging.getLogger("terra_sentinel.phase_10")
+logger = logging.getLogger("aegis.phase_10")
 
 
 class LLMFailoverModel(BaseModel):
@@ -140,7 +140,7 @@ class LLMCircuitController:
             2: TierCircuitBreaker(2, "Groq Cloud / Llama 3.3 70B", "Groq Inc.", "llama-3.3-70b-versatile"),
             3: TierCircuitBreaker(3, "Anthropic Claude 3.5 Sonnet", "Anthropic", "claude-3-5-sonnet-20241022"),
             4: TierCircuitBreaker(4, "OpenAI GPT-4o / GPT-4o-mini", "OpenAI", "gpt-4o"),
-            5: TierCircuitBreaker(5, "Local Deterministic Heuristic Engine", "TERRA-SENTINEL Internal", "bhasha-heuristic-v1")
+            5: TierCircuitBreaker(5, "Local Deterministic Heuristic Engine", "AEGIS Internal / Local Deterministic", "bhasha-heuristic-v1")
         }
         self.failover_audit_log: List[Dict[str, Any]] = []
         logger.info(f"{self.name} initialized with 5-tier resilience hierarchy.")

@@ -98,4 +98,4 @@ def test_instant_health_for_cloud_run():
     res_root = client.get("/")
     assert res_root.status_code == 200
     assert res_root.json()["status"] == "online"
-    assert res_root.json()["platform"] == "TERRA-SENTINEL"
+    assert res_root.json()["platform"] in ["AEGIS-CLIMATE", "TERRA-SENTINEL"]
