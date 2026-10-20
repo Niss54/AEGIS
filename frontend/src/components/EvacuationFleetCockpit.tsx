@@ -335,6 +335,10 @@ export const EvacuationFleetCockpit: React.FC<EvacuationFleetCockpitProps> = ({ 
                 }}
               />
               <button
+                id="evac-route-refresh-btn"
+                name="evacRouteRefresh"
+                aria-label="Recalculate Evacuation Route"
+                title="Recalculate Evacuation Route"
                 onClick={fetchRoute}
                 disabled={loadingRoute}
                 className="btn-secondary"

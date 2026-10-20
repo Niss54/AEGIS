@@ -39,8 +39,8 @@
 
   /* ── TYPOGRAPHY ── */
   --color-text-primary: #F3F4F6;
-  --color-text-secondary: #9CA3AF;
-  --color-text-muted: #6B7280;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
   --color-text-accent: #38BDF8;
 
   /* ── FONT STACK ── */
@@ -208,9 +208,9 @@ aside > *, section > * {
 }
 
 .badge-high {
-  background: rgba(239, 68, 68, 0.14);
-  color: var(--color-danger);
-  border: 1px solid rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.16);
+  color: #FCA5A5;
+  border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
 .badge-critical {
@@ -838,7 +838,7 @@ a:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #6B7280;
+  color: var(--color-text-muted);
   padding: 4px 10px 6px 10px;
   white-space: nowrap;
   overflow: hidden;

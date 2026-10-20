@@ -956,7 +956,14 @@ export function App() {
   // Fetch Hotspots on Mount
   useEffect(() => {
     fetch(`${API_BASE}/hotspots`)
-      .then((res) => res.json())
+      .then(async (res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const contentType = res.headers.get("content-type");
+        if (contentType && !contentType.includes("application/json")) {
+          throw new Error("Invalid response content type");
+        }
+        return res.json();
+      })
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           setHotspots(data);
@@ -973,6 +980,8 @@ export function App() {
     let reconnectTimer: any = null;
     let isMounted = true;
     let retryDelay = 3000;
+    let retryCount = 0;
+    const MAX_IMMEDIATE_RETRIES = 5;
 
     const connect = () => {
       if (!isMounted) return;
@@ -984,13 +993,23 @@ export function App() {
           if (isMounted) {
             setWsConnected(true);
             retryDelay = 3000;
+            retryCount = 0;
           }
         };
         ws.onclose = () => {
           if (isMounted) {
             setWsConnected(false);
-            reconnectTimer = setTimeout(connect, retryDelay);
-            retryDelay = Math.min(retryDelay * 1.5, 15000);
+            retryCount++;
+            if (retryCount <= MAX_IMMEDIATE_RETRIES) {
+              reconnectTimer = setTimeout(connect, retryDelay);
+              retryDelay = Math.min(retryDelay * 1.5, 15000);
+            } else {
+              // Pause aggressive reconnect when backend is offline to prevent socket storm; retry every 45s
+              reconnectTimer = setTimeout(() => {
+                retryCount = 0;
+                connect();
+              }, 45000);
+            }
           }
         };
         ws.onerror = () => {
@@ -1016,8 +1035,16 @@ export function App() {
       } catch (e) {
         if (isMounted) {
           setWsConnected(false);
-          reconnectTimer = setTimeout(connect, retryDelay);
-          retryDelay = Math.min(retryDelay * 1.5, 15000);
+          retryCount++;
+          if (retryCount <= MAX_IMMEDIATE_RETRIES) {
+            reconnectTimer = setTimeout(connect, retryDelay);
+            retryDelay = Math.min(retryDelay * 1.5, 15000);
+          } else {
+            reconnectTimer = setTimeout(() => {
+              retryCount = 0;
+              connect();
+            }, 45000);
+          }
         }
       }
     };
@@ -2134,7 +2161,7 @@ export function App() {
                   setIsScrubberPlaying(false);
                   setScrubberHour(Number(e.target.value));
                 }}
-                style={{ width: "100%", accentColor: "var(--color-primary)", height: "4px", cursor: "pointer" }}
+                style={{ width: "100%", accentColor: "var(--color-primary)", height: "24px", cursor: "pointer" }}
               />
             </div>
 
@@ -2937,10 +2964,13 @@ export function App() {
 
               {/* Tool Selector */}
               <div>
-                <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                <label htmlFor="mcp-tool-select-tab" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                   Select Registered Tool:
                 </label>
                 <select
+                  id="mcp-tool-select-tab"
+                  name="mcpToolNameTab"
+                  aria-label="Select Registered MCP Tool"
                   value={mcpToolName}
                   onChange={(e) => {
                     const t = e.target.value;
@@ -2967,10 +2997,13 @@ export function App() {
 
               {/* Arguments Editor */}
               <div>
-                <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                <label htmlFor="mcp-params-textarea-tab" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                   JSON Parameters (Input Schema):
                 </label>
                 <textarea
+                  id="mcp-params-textarea-tab"
+                  name="mcpParamsJsonTab"
+                  aria-label="MCP Tool JSON Parameters"
                   value={mcpParamsJson}
                   onChange={(e) => setMcpParamsJson(e.target.value)}
                   rows={4}
@@ -3929,10 +3962,13 @@ ANTHROPIC_API_KEY=`;
             {mcpModalTab === "playground" && (
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 <div>
-                  <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                  <label htmlFor="mcp-target-tool-select" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                     Target Tool:
                   </label>
                   <select
+                    id="mcp-target-tool-select"
+                    name="mcpTargetTool"
+                    aria-label="Target MCP Tool"
                     value={mcpToolName}
                     onChange={(e) => {
                       const t = e.target.value;
@@ -3958,10 +3994,13 @@ ANTHROPIC_API_KEY=`;
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
+                  <label htmlFor="mcp-arguments-textarea" style={{ fontSize: "0.72rem", color: "var(--color-text-muted)", textTransform: "uppercase", display: "block", marginBottom: "4px" }}>
                     JSON Arguments (Input Schema):
                   </label>
                   <textarea
+                    id="mcp-arguments-textarea"
+                    name="mcpArguments"
+                    aria-label="MCP Tool JSON Arguments"
                     value={mcpParamsJson}
                     onChange={(e) => setMcpParamsJson(e.target.value)}
                     rows={4}

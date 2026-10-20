@@ -1,0 +1,11 @@
+# AEGIS-CLIMATE: Planetary Risk & Climate Defense Platform
+
+> Translating environmental hazards into actionable civic and financial intelligence via Autonomous Multi-Agent AI Swarms.
+
+## System Intelligence & Endpoints
+- [Platform Dashboard](https://aegis-climate.vercel.app/): Interactive planetary command radar and GIS telemetry.
+- [Technical Architecture](https://aegis-climate.vercel.app/docs/blueprint): Multi-agent architecture and mathematical invariants.
+- [Model Context Protocol Hub](https://aegis-climate.vercel.app/mcp): MCP JSON-RPC 2.0 protocol specifications and tools.
+- [Acute Risk Classifier](https://aegis-climate.vercel.app/api/v1/analyze): Gradient Boosting ML classifier for flash flood forecasting.
+- [DEM Exposure Engine](https://aegis-climate.vercel.app/api/v1/dem): 30m SRTM elevation and HAZUS structural vulnerability model.
+- [Financial VaR & ESG](https://aegis-climate.vercel.app/api/v1/var): Value-at-Risk modeling and SEBI BRSR Principle 6 compliance.

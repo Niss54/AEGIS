@@ -1783,8 +1783,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
                 </h3>
                 <form onSubmit={handleSubmitSos} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                   <div>
-                    <label style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Incident Title</label>
+                    <label htmlFor="sos-title-input" style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Incident Title</label>
                     <input
+                      id="sos-title-input"
+                      name="sosTitle"
+                      aria-label="Incident Title"
                       type="text"
                       className="form-input"
                       value={newSosTitle}
@@ -1796,8 +1799,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
                   </div>
 
                   <div>
-                    <label style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Category</label>
+                    <label htmlFor="sos-category-select" style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Category</label>
                     <select
+                      id="sos-category-select"
+                      name="sosCategory"
+                      aria-label="Category"
                       className="form-input"
                       value={newSosCategory}
                       onChange={(e) => setNewSosCategory(e.target.value)}
@@ -1811,8 +1817,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
                   </div>
 
                   <div>
-                    <label style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Location Name</label>
+                    <label htmlFor="sos-location-input" style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Location Name</label>
                     <input
+                      id="sos-location-input"
+                      name="sosLocation"
+                      aria-label="Location Name"
                       type="text"
                       className="form-input"
                       value={newSosLocation}
@@ -1822,8 +1831,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
                   </div>
 
                   <div>
-                    <label style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Description & Civilian Impact</label>
+                    <label htmlFor="sos-desc-textarea" style={{ fontSize: "12px", color: "var(--color-text-muted)" }}>Description & Civilian Impact</label>
                     <textarea
+                      id="sos-desc-textarea"
+                      name="sosDescription"
+                      aria-label="Description & Civilian Impact"
                       className="form-input"
                       rows={3}
                       value={newSosDesc}
@@ -2674,10 +2686,13 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
               {/* Tonnage Slider */}
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <label style={{ fontSize: "11px", color: "var(--color-text-muted)", fontWeight: 600 }}>Carbon Tonnes Retired</label>
+                  <label htmlFor="calc-tons-slider" style={{ fontSize: "11px", color: "var(--color-text-muted)", fontWeight: 600, cursor: "pointer" }}>Carbon Tonnes Retired</label>
                   <span style={{ fontSize: "12px", fontWeight: 800, color: "#34D399" }}>{calcTons} tCO₂e</span>
                 </div>
                 <input
+                  id="calc-tons-slider"
+                  name="calcTons"
+                  aria-label="Carbon Tonnes Retired"
                   type="range"
                   min="10"
                   max="1000"
@@ -2691,10 +2706,13 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
               {/* Asset Exposure Slider */}
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <label style={{ fontSize: "11px", color: "var(--color-text-muted)", fontWeight: 600 }}>Asset Exposure at Risk</label>
+                  <label htmlFor="calc-asset-slider" style={{ fontSize: "11px", color: "var(--color-text-muted)", fontWeight: 600, cursor: "pointer" }}>Asset Exposure at Risk</label>
                   <span style={{ fontSize: "12px", fontWeight: 800, color: "#F59E0B" }}>₹{calcAssetValueCr} Crores</span>
                 </div>
                 <input
+                  id="calc-asset-slider"
+                  name="calcAssetValue"
+                  aria-label="Asset Exposure at Risk"
                   type="range"
                   min="10"
                   max="500"
@@ -2803,8 +2821,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
 
             <form onSubmit={handleRetireCarbon} style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr 100px 140px", gap: "12px", marginTop: "14px", alignItems: "flex-end" }}>
               <div>
-                <label style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Beneficiary Organization</label>
+                <label htmlFor="retire-beneficiary-input" style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Beneficiary Organization</label>
                 <input
+                  id="retire-beneficiary-input"
+                  name="retireBeneficiary"
+                  aria-label="Beneficiary Organization"
                   type="text"
                   className="form-input"
                   value={retireBeneficiary}
@@ -2815,8 +2836,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
               </div>
 
               <div>
-                <label style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Corporate CIN / LEI</label>
+                <label htmlFor="retire-cin-input" style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Corporate CIN / LEI</label>
                 <input
+                  id="retire-cin-input"
+                  name="retireCin"
+                  aria-label="Corporate CIN / LEI"
                   type="text"
                   className="form-input"
                   value={retireCin}
@@ -2827,8 +2851,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
               </div>
 
               <div>
-                <label style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Carbon Pool</label>
+                <label htmlFor="retire-pool-select" style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Carbon Pool</label>
                 <select
+                  id="retire-pool-select"
+                  name="retirePool"
+                  aria-label="Carbon Pool"
                   className="form-input"
                   value={retirePool}
                   onChange={(e) => setRetirePool(e.target.value)}
@@ -2841,8 +2868,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
               </div>
 
               <div>
-                <label style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Tons (tCO₂e)</label>
+                <label htmlFor="retire-tons-input" style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Tons (tCO₂e)</label>
                 <input
+                  id="retire-tons-input"
+                  name="retireTons"
+                  aria-label="Tons (tCO₂e)"
                   type="number"
                   min="1"
                   max="5000"
@@ -2878,8 +2908,11 @@ export const HumanitarianCarbonCockpit: React.FC<Props> = ({ backendBase = "" })
             </form>
 
             <div style={{ marginTop: "10px" }}>
-              <label style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Retirement Reason / Regulatory Mandate</label>
+              <label htmlFor="retire-reason-input" style={{ fontSize: "11px", color: "var(--color-text-muted)" }}>Retirement Reason / Regulatory Mandate</label>
               <input
+                id="retire-reason-input"
+                name="retireReason"
+                aria-label="Retirement Reason / Regulatory Mandate"
                 type="text"
                 className="form-input"
                 value={retireReason}

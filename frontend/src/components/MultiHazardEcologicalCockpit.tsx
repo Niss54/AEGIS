@@ -328,34 +328,75 @@ export function MultiHazardEcologicalCockpit({ backendBase }: MultiHazardEcologi
             {/* Sliders */}
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>24h Precipitation:</span>
+                <label htmlFor="ls-rain-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>24h Precipitation:</label>
                 <span className="mono" style={{ color: "#38BDF8", fontWeight: 700 }}>{lsRain} mm</span>
               </div>
-              <input type="range" min="0" max="250" value={lsRain} onChange={(e) => setLsRain(Number(e.target.value))} style={{ width: "100%", accentColor: "#38BDF8" }} />
+              <input
+                id="ls-rain-input"
+                name="lsRain"
+                aria-label="24h Precipitation"
+                type="range"
+                min="0"
+                max="250"
+                value={lsRain}
+                onChange={(e) => setLsRain(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#38BDF8" }}
+              />
             </div>
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>River Gauge Level:</span>
+                <label htmlFor="ls-river-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>River Gauge Level:</label>
                 <span className="mono" style={{ color: "#60A5FA", fontWeight: 700 }}>{lsRiver.toFixed(1)} m</span>
               </div>
-              <input type="range" min="0" max="12" step="0.1" value={lsRiver} onChange={(e) => setLsRiver(Number(e.target.value))} style={{ width: "100%", accentColor: "#60A5FA" }} />
+              <input
+                id="ls-river-input"
+                name="lsRiver"
+                aria-label="River Gauge Level"
+                type="range"
+                min="0"
+                max="12"
+                step="0.1"
+                value={lsRiver}
+                onChange={(e) => setLsRiver(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#60A5FA" }}
+              />
             </div>
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Soil Moisture Saturation:</span>
+                <label htmlFor="ls-soil-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Soil Moisture Saturation:</label>
                 <span className="mono" style={{ color: "#F4A261", fontWeight: 700 }}>{lsSoil}%</span>
               </div>
-              <input type="range" min="0" max="100" value={lsSoil} onChange={(e) => setLsSoil(Number(e.target.value))} style={{ width: "100%", accentColor: "#F4A261" }} />
+              <input
+                id="ls-soil-input"
+                name="lsSoil"
+                aria-label="Soil Moisture Saturation"
+                type="range"
+                min="0"
+                max="100"
+                value={lsSoil}
+                onChange={(e) => setLsSoil(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#F4A261" }}
+              />
             </div>
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Terrain Slope Gradient:</span>
+                <label htmlFor="ls-slope-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Terrain Slope Gradient:</label>
                 <span className="mono" style={{ color: "#F87171", fontWeight: 700 }}>{lsSlope}°</span>
               </div>
-              <input type="range" min="0" max="65" value={lsSlope} onChange={(e) => setLsSlope(Number(e.target.value))} style={{ width: "100%", accentColor: "#F87171" }} />
+              <input
+                id="ls-slope-input"
+                name="lsSlope"
+                aria-label="Terrain Slope Gradient"
+                type="range"
+                min="0"
+                max="65"
+                value={lsSlope}
+                onChange={(e) => setLsSlope(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#F87171" }}
+              />
             </div>
 
             <button
@@ -453,8 +494,11 @@ export function MultiHazardEcologicalCockpit({ backendBase }: MultiHazardEcologi
             </div>
 
             <div>
-              <label style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", display: "block", marginBottom: "6px" }}>Target River Basin:</label>
+              <label htmlFor="hydro-basin-select" style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", display: "block", marginBottom: "6px" }}>Target River Basin:</label>
               <select
+                id="hydro-basin-select"
+                name="hydroBasin"
+                aria-label="Target River Basin"
                 value={hydroBasin}
                 onChange={(e) => setHydroBasin(e.target.value)}
                 style={{ width: "100%", background: "#0D1117", color: "#FFF", padding: "8px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.15)" }}
@@ -468,8 +512,11 @@ export function MultiHazardEcologicalCockpit({ backendBase }: MultiHazardEcologi
             </div>
 
             <div>
-              <label style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", display: "block", marginBottom: "6px" }}>Surface Land Cover / Manning Roughness:</label>
+              <label htmlFor="hydro-landcover-select" style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", display: "block", marginBottom: "6px" }}>Surface Land Cover / Manning Roughness:</label>
               <select
+                id="hydro-landcover-select"
+                name="hydroLandCover"
+                aria-label="Surface Land Cover / Manning Roughness"
                 value={hydroLandCover}
                 onChange={(e) => setHydroLandCover(e.target.value)}
                 style={{ width: "100%", background: "#0D1117", color: "#FFF", padding: "8px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.15)" }}
@@ -484,18 +531,39 @@ export function MultiHazardEcologicalCockpit({ backendBase }: MultiHazardEcologi
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Rainfall Inflow:</span>
+                <label htmlFor="hydro-precip-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Rainfall Inflow:</label>
                 <span className="mono" style={{ color: "#38BDF8", fontWeight: 700 }}>{hydroPrecip} mm</span>
               </div>
-              <input type="range" min="20" max="200" value={hydroPrecip} onChange={(e) => setHydroPrecip(Number(e.target.value))} style={{ width: "100%", accentColor: "#38BDF8" }} />
+              <input
+                id="hydro-precip-input"
+                name="hydroPrecip"
+                aria-label="Rainfall Inflow"
+                type="range"
+                min="20"
+                max="200"
+                value={hydroPrecip}
+                onChange={(e) => setHydroPrecip(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#38BDF8" }}
+              />
             </div>
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>DEM Raster Grid Dimension:</span>
+                <label htmlFor="hydro-gridsize-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>DEM Raster Grid Dimension:</label>
                 <span className="mono" style={{ color: "#A78BFA", fontWeight: 700 }}>{hydroGridSize}x{hydroGridSize} ({hydroGridSize * hydroGridSize} cells)</span>
               </div>
-              <input type="range" min="4" max="16" step="2" value={hydroGridSize} onChange={(e) => setHydroGridSize(Number(e.target.value))} style={{ width: "100%", accentColor: "#A78BFA" }} />
+              <input
+                id="hydro-gridsize-input"
+                name="hydroGridSize"
+                aria-label="DEM Raster Grid Dimension"
+                type="range"
+                min="4"
+                max="16"
+                step="2"
+                value={hydroGridSize}
+                onChange={(e) => setHydroGridSize(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#A78BFA" }}
+              />
             </div>
 
             <button
@@ -605,8 +673,11 @@ export function MultiHazardEcologicalCockpit({ backendBase }: MultiHazardEcologi
             </div>
 
             <div>
-              <label style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", display: "block", marginBottom: "6px" }}>Registered Sponge Project:</label>
+              <label htmlFor="mrv-project-select" style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", display: "block", marginBottom: "6px" }}>Registered Sponge Project:</label>
               <select
+                id="mrv-project-select"
+                name="mrvProjectId"
+                aria-label="Registered Sponge Project"
                 value={mrvProjectId}
                 onChange={(e) => setMrvProjectId(e.target.value)}
                 style={{ width: "100%", background: "#0D1117", color: "#FFF", padding: "8px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.15)" }}
@@ -621,31 +692,67 @@ export function MultiHazardEcologicalCockpit({ backendBase }: MultiHazardEcologi
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Baseline NDVI (t0):</span>
+                <label htmlFor="mrv-baseline-ndvi-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Baseline NDVI (t0):</label>
                 <span className="mono" style={{ color: "#9CA3AF" }}>{mrvBaselineNdvi.toFixed(2)}</span>
               </div>
-              <input type="range" min="0.10" max="0.70" step="0.01" value={mrvBaselineNdvi} onChange={(e) => setMrvBaselineNdvi(Number(e.target.value))} style={{ width: "100%", accentColor: "#9CA3AF" }} />
+              <input
+                id="mrv-baseline-ndvi-input"
+                name="mrvBaselineNdvi"
+                aria-label="Baseline NDVI"
+                type="range"
+                min="0.10"
+                max="0.70"
+                step="0.01"
+                value={mrvBaselineNdvi}
+                onChange={(e) => setMrvBaselineNdvi(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#9CA3AF" }}
+              />
             </div>
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Current Sentinel-2 NDVI (t1):</span>
+                <label htmlFor="mrv-current-ndvi-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Current Sentinel-2 NDVI (t1):</label>
                 <span className="mono" style={{ color: "#34D399", fontWeight: 700 }}>{mrvCurrentNdvi.toFixed(2)}</span>
               </div>
-              <input type="range" min="0.10" max="0.95" step="0.01" value={mrvCurrentNdvi} onChange={(e) => setMrvCurrentNdvi(Number(e.target.value))} style={{ width: "100%", accentColor: "#34D399" }} />
+              <input
+                id="mrv-current-ndvi-input"
+                name="mrvCurrentNdvi"
+                aria-label="Current Sentinel-2 NDVI"
+                type="range"
+                min="0.10"
+                max="0.95"
+                step="0.01"
+                value={mrvCurrentNdvi}
+                onChange={(e) => setMrvCurrentNdvi(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#34D399" }}
+              />
             </div>
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Canopy Coverage Fraction:</span>
+                <label htmlFor="mrv-canopy-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Canopy Coverage Fraction:</label>
                 <span className="mono" style={{ color: "#38BDF8", fontWeight: 700 }}>{(mrvCanopy * 100).toFixed(0)}%</span>
               </div>
-              <input type="range" min="0.30" max="1.00" step="0.02" value={mrvCanopy} onChange={(e) => setMrvCanopy(Number(e.target.value))} style={{ width: "100%", accentColor: "#38BDF8" }} />
+              <input
+                id="mrv-canopy-input"
+                name="mrvCanopy"
+                aria-label="Canopy Coverage Fraction"
+                type="range"
+                min="0.30"
+                max="1.00"
+                step="0.02"
+                value={mrvCanopy}
+                onChange={(e) => setMrvCanopy(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#38BDF8" }}
+              />
             </div>
 
             <div>
-              <label style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", display: "block", marginBottom: "4px" }}>Beneficiary EVM Wallet:</label>
+              <label htmlFor="mrv-wallet-input" style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", display: "block", marginBottom: "4px" }}>Beneficiary EVM Wallet:</label>
               <input
+                id="mrv-wallet-input"
+                name="mrvWallet"
+                aria-label="Beneficiary EVM Wallet"
                 type="text"
                 value={mrvWallet}
                 onChange={(e) => setMrvWallet(e.target.value)}
@@ -743,8 +850,11 @@ export function MultiHazardEcologicalCockpit({ backendBase }: MultiHazardEcologi
             </div>
 
             <div>
-              <label style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", display: "block", marginBottom: "6px" }}>Target Ecological Conservation Zone:</label>
+              <label htmlFor="eco-site-select" style={{ fontSize: "0.75rem", color: "var(--color-text-secondary)", display: "block", marginBottom: "6px" }}>Target Ecological Conservation Zone:</label>
               <select
+                id="eco-site-select"
+                name="ecoSiteId"
+                aria-label="Target Ecological Conservation Zone"
                 value={ecoSiteId}
                 onChange={(e) => setEcoSiteId(e.target.value)}
                 style={{ width: "100%", background: "#0D1117", color: "#FFF", padding: "8px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.15)" }}
@@ -759,26 +869,59 @@ export function MultiHazardEcologicalCockpit({ backendBase }: MultiHazardEcologi
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Observed NDBI (Concrete Built-Up):</span>
+                <label htmlFor="eco-ndbi-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Observed NDBI (Concrete Built-Up):</label>
                 <span className="mono" style={{ color: "#F87171", fontWeight: 700 }}>{ecoNdbi.toFixed(2)}</span>
               </div>
-              <input type="range" min="-0.40" max="0.60" step="0.02" value={ecoNdbi} onChange={(e) => setEcoNdbi(Number(e.target.value))} style={{ width: "100%", accentColor: "#F87171" }} />
+              <input
+                id="eco-ndbi-input"
+                name="ecoNdbi"
+                aria-label="Observed NDBI (Concrete Built-Up)"
+                type="range"
+                min="-0.40"
+                max="0.60"
+                step="0.02"
+                value={ecoNdbi}
+                onChange={(e) => setEcoNdbi(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#F87171" }}
+              />
             </div>
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Observed NDVI (Vegetation Canopy):</span>
+                <label htmlFor="eco-ndvi-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Observed NDVI (Vegetation Canopy):</label>
                 <span className="mono" style={{ color: "#34D399", fontWeight: 700 }}>{ecoNdvi.toFixed(2)}</span>
               </div>
-              <input type="range" min="0.05" max="0.80" step="0.02" value={ecoNdvi} onChange={(e) => setEcoNdvi(Number(e.target.value))} style={{ width: "100%", accentColor: "#34D399" }} />
+              <input
+                id="eco-ndvi-input"
+                name="ecoNdvi"
+                aria-label="Observed NDVI (Vegetation Canopy)"
+                type="range"
+                min="0.05"
+                max="0.80"
+                step="0.02"
+                value={ecoNdvi}
+                onChange={(e) => setEcoNdvi(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#34D399" }}
+              />
             </div>
 
             <div>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", marginBottom: "4px" }}>
-                <span style={{ color: "var(--color-text-secondary)" }}>Observed MNDWI (Wetland Water Index):</span>
+                <label htmlFor="eco-mndwi-input" style={{ color: "var(--color-text-secondary)", cursor: "pointer" }}>Observed MNDWI (Wetland Water Index):</label>
                 <span className="mono" style={{ color: "#38BDF8", fontWeight: 700 }}>{ecoMndwi.toFixed(2)}</span>
               </div>
-              <input type="range" min="-0.20" max="0.70" step="0.02" value={ecoMndwi} onChange={(e) => setEcoMndwi(Number(e.target.value))} style={{ width: "100%", accentColor: "#38BDF8" }} />
+              <input
+                id="eco-mndwi-input"
+                name="ecoMndwi"
+                aria-label="Observed MNDWI (Wetland Water Index)"
+                type="range"
+                min="-0.20"
+                max="0.70"
+                step="0.02"
+                value={ecoMndwi}
+                onChange={(e) => setEcoMndwi(Number(e.target.value))}
+                style={{ width: "100%", accentColor: "#38BDF8" }}
+              />
             </div>
 
             <button

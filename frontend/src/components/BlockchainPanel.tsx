@@ -1295,10 +1295,13 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
               Retire CFMC for ESG Compliance
             </div>
             <div>
-              <label style={{ fontSize: "11px", color: "var(--color-text-secondary)", display: "block", marginBottom: "4px" }}>
+              <label htmlFor="bc-retire-amount-input" style={{ fontSize: "11px", color: "var(--color-text-secondary)", display: "block", marginBottom: "4px" }}>
                 Amount to Retire (CFMC):
               </label>
               <input
+                id="bc-retire-amount-input"
+                name="bcRetireAmount"
+                aria-label="Amount to Retire (CFMC)"
                 type="number"
                 min="1"
                 max={cfmcBalance}
@@ -1317,10 +1320,13 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
               />
             </div>
             <div>
-              <label style={{ fontSize: "11px", color: "var(--color-text-secondary)", display: "block", marginBottom: "4px" }}>
+              <label htmlFor="bc-retire-reason-input" style={{ fontSize: "11px", color: "var(--color-text-secondary)", display: "block", marginBottom: "4px" }}>
                 ESG Retirement Reason:
               </label>
               <input
+                id="bc-retire-reason-input"
+                name="bcRetireReason"
+                aria-label="ESG Retirement Reason"
                 type="text"
                 value={retireReason}
                 onChange={e => setRetireReason(e.target.value)}

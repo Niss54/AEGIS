@@ -431,6 +431,9 @@ export const MapCockpit: React.FC<MapCockpitProps> = ({
             </span>
           </div>
           <input
+            id="map-timeline-scrubber"
+            name="mapTimelineScrubber"
+            aria-label="Flood Forecast Timeline Scrubber"
             type="range"
             min={0}
             max={48}

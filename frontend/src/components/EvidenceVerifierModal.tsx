@@ -467,6 +467,7 @@ export const EvidenceVerifierModal: React.FC<EvidenceVerifierModalProps> = ({
             )}
 
             <label
+              htmlFor="evidence-json-upload-input"
               style={{
                 background: "rgba(255, 255, 255, 0.05)",
                 border: "1px solid rgba(255, 255, 255, 0.15)",
@@ -483,7 +484,15 @@ export const EvidenceVerifierModal: React.FC<EvidenceVerifierModalProps> = ({
             >
               <Upload size={13} />
               Upload .json Evidence
-              <input type="file" accept=".json" onChange={handleFileUpload} style={{ display: "none" }} />
+              <input
+                id="evidence-json-upload-input"
+                name="evidenceJsonUpload"
+                aria-label="Upload JSON Evidence File"
+                type="file"
+                accept=".json"
+                onChange={handleFileUpload}
+                style={{ display: "none" }}
+              />
             </label>
           </div>
         </div>
