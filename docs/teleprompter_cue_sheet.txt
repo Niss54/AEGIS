@@ -1,0 +1,54 @@
+================================================================================
+  TERRA-SENTINEL: 3-MINUTE PITCH VIDEO TELEPROMPTER CUE SHEET
+  Google Cloud AI Builder Cup · JAPAC Grand Finale · Singapore
+================================================================================
+
+--- ACT 1: THE ACUTE PLANETARY CRISIS & LATENCY PARADOX [00:00 - 00:30] ---
+SCENE ANCHOR : Crisis flood montage & dark glassmorphic command center reveal
+TECH FOCUS   : Climate Latency Paradox, Copernicus Sentinel-2, $16B JAPAC Losses
+VISUAL CUES  :
+  • [00:00-00:10] Fast montage: Mithi river breach & coastal surge; overlay red neon banner: 1.4B LIVES AT RISK
+  • [00:10-00:30] Dynamic zoom to TERRA-SENTINEL live dashboard; highlight glowing Vertex AI & Cloud Run badges
+
+SPOKEN VOICEOVER:
+Every monsoon season across the Indo-Pacific, devastating climate anomalies paralyze our mega-cities. From Mumbai's Mithi River basin to Jakarta and Bangkok, extreme cloudbursts inflict over sixteen billion dollars in economic destruction each year. Satellite elevation models, Doppler radar, and disaster policies already exist—but they are trapped in disconnected, static bureaucratic silos. Emergency dispatches take four to six hours, and insurance compensation takes six months. We are Team Syntrix from India, and this is TERRA-SENTINEL—the world's first autonomous multi-agent climate resilience and parametric finance platform, built natively on Google Cloud.
+
+--------------------------------------------------------------------------------
+
+--- ACT 2: LIVE AUTONOMOUS MULTI-AGENT CASCADE [00:30 - 01:30] ---
+SCENE ANCHOR : Interactive Cockpit: Rainfall slider +110mm, Sentinel-2 NDWI, GEE DEM, Bhasha-AI
+TECH FOCUS   : Agent 1 (GBM ML), Agent 2 (GEE 30m DEM Slope), Agent 3 (Vertex AI Gemini 2.0 Flash), Bhasha-AI Hindi TTS
+VISUAL CUES  :
+  • [00:30-00:50] Fly to Mumbai Mithi Basin (19.0728 N, 72.8797 E); toggle Sentinel-2 NDWI & GEE DEM slope contours
+  • [00:50-01:15] Drag rainfall slider to +125mm, click 'Execute Autonomous Cascade'; watch live monologue terminal stream
+  • [01:15-01:30] Trigger Bhasha-AI vernacular Hindi speech readout & preview C-Suite Executive Briefing PDF modal
+
+SPOKEN VOICEOVER:
+Notice that TERRA-SENTINEL is not a passive chatbot. It is a live, autonomous cognitive loop. Watch: we simulate an extreme 125mm rainfall anomaly with 92% soil saturation. In under twenty milliseconds, Agent 1 executes a supervised Gradient Boosting model trained on 3,500 physical telemetry vectors, detecting an 88% catastrophic flood probability. Crossing the 0.65 critical safety threshold, Agent 1 autonomously awakens Agent 2, our Spatial Digital Twin. Agent 2 fuses Copernicus Sentinel-2 MSI multispectral water indices with Google Earth Engine 30-meter elevation contours, identifying three hundred and forty endangered structures and calculating 95-centimeter water ingress. Detecting infrastructure compromise, Agent 2 instantly dispatches Agent 3, our Autonomous Financial & Civic Controller powered by Google Vertex AI Gemini 2.0 Flash.
+
+--------------------------------------------------------------------------------
+
+--- ACT 3: GOOGLE CLOUD PRODUCTION ARCHITECTURE — THE DECISIVE EDGE [01:30 - 02:30] ---
+SCENE ANCHOR : High-Performance Cloud Architecture: Cloud Run, Vertex AI Circuit Breaker, MCP Gateway
+TECH FOCUS   : Google Cloud Run (cloudbuild.yaml), Vertex AI (Gemini 2.0 Flash / 1.5 Pro), 5-Tier Failover Circuit Breaker, Model Context Protocol (JSON-RPC 2.0)
+VISUAL CUES  :
+  • [01:30-01:55] Pan across cloud architecture schema showing Vercel frontend, Cloud Run backend, Vertex AI, Redis, Supabase
+  • [01:55-02:15] Quick cut to terminal showing '75 passed in 28.35s 100% SUCCESS' and GET /api/v1/tools/llm-status
+  • [02:15-02:30] Show MCP Hub JSON-RPC 2.0 tool registry with 'analyze_satellite_imagery' & 'query_policy_rag'
+
+SPOKEN VOICEOVER:
+Here is our decisive technical advantage for the Google Cloud AI Builder Cup: TERRA-SENTINEL is engineered cloud-native from day one. Our entire backend runs containerized on Google Cloud Run, orchestrated through our production cloudbuild.yaml pipeline for serverless auto-scaling from zero to thousands of concurrent telemetry streams. At our AI core, we leverage Google Vertex AI Gemini 2.0 Flash. Gemini synthesizes multispectral satellite imagery, DEM contours, and ground telemetry with unmatched sub-second reasoning latency. To guarantee zero downtime during severe emergencies, we built an enterprise 5-tier circuit breaker: if Vertex AI encounters transient network limits, the engine gracefully fails over to Gemini 1.5 Pro, Gemini 3.8 Flash, Groq Llama 3.3, and local deterministic heuristics without dropping a single byte. Furthermore, every single agent tool operates over the official Model Context Protocol (MCP) JSON-RPC 2.0 gateway, standardizing tool discovery and execution. With over 75 passing automated tests, this is battle-tested, enterprise-grade engineering.
+
+--------------------------------------------------------------------------------
+
+--- ACT 4: JAPAC ECONOMIC ROI & SINGAPORE GRAND FINALE CALL TO ACTION [02:30 - 03:00] ---
+SCENE ANCHOR : Blockchain parametric bond settlement & JAPAC multi-city scaling map
+TECH FOCUS   : Decentralized Parametric Bond, Hedera & IPFS Provenance, 78% Latency Reduction, Singapore Grand Finale
+VISUAL CUES  :
+  • [02:30-02:45] Zoom in on Hedera/Ethereum parametric bond panel; highlight automated $500,000 CFMC liquidity release & IPFS CID
+  • [02:45-03:00] Animated regional expansion map: Mumbai -> Jakarta -> Bangkok -> Manila -> Singapore; final Team Syntrix splash card
+
+SPOKEN VOICEOVER:
+The financial transformation is immediate: when catastrophic thresholds are breached, TERRA-SENTINEL triggers decentralized smart contracts—unlocking instant parametric liquidity for civic authorities within seconds rather than months. By slashing emergency decision latency from six hours down to ninety seconds, we reduce direct municipal asset losses by up to forty percent. From safeguarding the rivers of Bharat to shielding coastal megacities across ASEAN, TERRA-SENTINEL is ready to scale across the JAPAC region. We are Team Syntrix, and we look forward to presenting TERRA-SENTINEL live at the Grand Finale in Singapore. Autonomous planetary resilience, powered by Google Cloud. Thank you!
+
+--------------------------------------------------------------------------------

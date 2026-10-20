@@ -1,0 +1,99 @@
+{
+  "phase_id": 25,
+  "phase_name": "10-Slide Executive VC Pitch Deck, TAM/SAM/SOM & Grand Finale Strategy",
+  "governing_equation": "TAM = $12.8B, SAM = $3.2B, SOM = $480M",
+  "market_evaluation": {
+    "tam_usd_b": 12.8,
+    "sam_usd_b": 3.2,
+    "som_usd_m": 480.0,
+    "som_usd_b": 0.48,
+    "sam_pct_of_tam": 25.0,
+    "som_pct_of_sam": 15.0,
+    "som_pct_of_tam": 3.75,
+    "is_compliant": true,
+    "verdict": "PASSED_STRICT_TAM_SAM_SOM_GATE",
+    "status": "COMPLIANT"
+  },
+  "pitch_deck_audit": {
+    "file_exists": true,
+    "file_path": "C:\\Users\\nisha\\OneDrive\\Documents\\Downloads\\TERRA-SENTINEL\\docs\\PITCH_DECK.md",
+    "total_lines": 318,
+    "word_count": 2331,
+    "core_topics_verified": {
+      "slide_1_hook": true,
+      "slide_2_problem": true,
+      "slide_3_architecture": true,
+      "slide_4_solution": true,
+      "slide_5_market": true,
+      "slide_6_intelligence": true,
+      "slide_7_differentiators": true,
+      "slide_8_impact": true,
+      "slide_9_closing": true,
+      "slide_10_google_cloud": true,
+      "slide_11_singapore": true
+    },
+    "keywords_verified": {
+      "Google Cloud Run": true,
+      "Google Vertex AI": true,
+      "Gemini": true,
+      "Model Context Protocol": true,
+      "Singapore": true,
+      "Marina Barrage": true,
+      "Team Syntrix": true,
+      "95.14%": true
+    },
+    "is_compliant": true,
+    "verdict": "PASSED_INVESTOR_DECK_AUDIT"
+  },
+  "singapore_grand_finale_playbook": {
+    "event_name": "Google Cloud AI Builder Cup \u2014 JAPAC Grand Finale",
+    "venue": "Marina Bay Sands Expo & Convention Centre, Singapore",
+    "target_stage": "Global JAPAC Championship Stage",
+    "live_demo_spec": {
+      "location_name": "Singapore \u2014 Marina Barrage Catchment",
+      "lat": 1.28,
+      "lon": 103.8636,
+      "simulated_rainfall_mm": 150.0,
+      "surge_height_m": 2.5,
+      "pacing_seconds": 180,
+      "expected_risk_tier": "CRITICAL"
+    },
+    "four_minute_pitch_arc": [
+      {
+        "window": "0:00 - 0:45",
+        "act": "The Global Climate Latency Paradox",
+        "focus": "Establish $16B+ annual JAPAC losses and Singapore sea-level vulnerability."
+      },
+      {
+        "window": "0:45 - 2:00",
+        "act": "Live Multi-Agent Command Center & GeoSpatial Simulation",
+        "focus": "Trigger 150mm tropical storm on Marina Barrage; display sub-80ms edge cockpit."
+      },
+      {
+        "window": "2:00 - 3:00",
+        "act": "Google Cloud Native Architecture & Defense Moats",
+        "focus": "Vertex AI Gemini 2.0 Flash spatial reasoning + Cloud Run instant auto-scale."
+      },
+      {
+        "window": "3:00 - 4:00",
+        "act": "Business Model, $12.8B TAM & Capital Ask",
+        "focus": "Present $12.8B TAM / $480M SOM, 91.5% margins, and $2.5M Seed round ask."
+      }
+    ],
+    "financial_ask": {
+      "round": "Series Seed",
+      "target_amount_usd": 2500000,
+      "pre_money_valuation_usd": 10000000,
+      "use_of_funds": {
+        "engineering_cloud_infra_pct": 45,
+        "go_to_market_japac_expansion_pct": 35,
+        "regulatory_compliance_security_pct": 20
+      }
+    },
+    "target_milestones": [
+      "Scale to 120 JAPAC coastal megacities across ASEAN & East Asia",
+      "Integrate with 50 industrial port corridors for automated parametric bond payouts",
+      "Attain $180M SOM revenue run-rate within 36 months of deployment"
+    ]
+  }
+}

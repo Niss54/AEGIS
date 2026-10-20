@@ -1,0 +1,44 @@
+{
+  "project": "TERRA-SENTINEL",
+  "competition": "Google Cloud AI Builder Cup 2026",
+  "target_track": "JAPAC Track \u00b7 Singapore Grand Finale",
+  "total_duration_seconds": 180.0,
+  "cues": [
+    {
+      "act": 1,
+      "title": "The Acute Planetary Crisis",
+      "timestamp_range": "00:00 - 00:30",
+      "duration_seconds": 30.0,
+      "visual_anchor": "Satellite flood breach montage & dark glassmorphic cockpit reveal",
+      "key_callout": "$16B Annual Urban Climate Losses in JAPAC",
+      "dialogue_snippet": "Every monsoon season across the Indo-Pacific, devastating climate anomalies paralyze our mega-cities..."
+    },
+    {
+      "act": 2,
+      "title": "Live Autonomous Multi-Agent Cascade",
+      "timestamp_range": "00:30 - 01:30",
+      "duration_seconds": 60.0,
+      "visual_anchor": "Interactive Cockpit: Rainfall slider +125mm, Sentinel-2 NDWI, GEE DEM slope overlay",
+      "key_callout": "Agent 1 (ML) -> Agent 2 (DEM Slope) -> Agent 3 (Vertex AI Gemini 2.0 Flash)",
+      "dialogue_snippet": "Let's zoom into Mumbai's Mithi River basin. When extreme rainfall strikes, our 3-agent cascade executes..."
+    },
+    {
+      "act": 3,
+      "title": "Google Cloud & Enterprise Architecture Alignment",
+      "timestamp_range": "01:30 - 02:30",
+      "duration_seconds": 60.0,
+      "visual_anchor": "System architecture diagram, Google Cloud Run container, MCP Hub JSON-RPC 2.0 stream",
+      "key_callout": "Google Cloud Run, Vertex AI Circuit Breaker, Model Context Protocol 2024-11-05",
+      "dialogue_snippet": "Under the hood, TERRA-SENTINEL runs natively on Google Cloud Serverless infrastructure..."
+    },
+    {
+      "act": 4,
+      "title": "JAPAC Economic ROI & Singapore Grand Finale",
+      "timestamp_range": "02:30 - 03:00",
+      "duration_seconds": 30.0,
+      "visual_anchor": "Smart contract parametric bond liquidation & Singapore Finale roadmap",
+      "key_callout": "Instant Parametric Liquidity, Singapore Finale, Planetary Shield",
+      "dialogue_snippet": "TERRA-SENTINEL replaces months of paper claims with instant cryptographic liquidity..."
+    }
+  ]
+}
