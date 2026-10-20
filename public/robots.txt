@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aegis-climate.vercel.app/sitemap.xml
+Sitemap: https://aegis-eight-delta.vercel.app/sitemap.xml
