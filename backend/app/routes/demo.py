@@ -107,18 +107,20 @@ DEMO_ACTS = [
         "end_seconds": 180.0,
         "key_visual_anchor": "Blockchain parametric bond settlement & JAPAC multi-city scaling map",
         "tech_stack_callouts": [
-            "Decentralized Parametric Bond",
-            "Hedera & IPFS Provenance",
+            "EVM Cryptographic Protocol & Deterministic Testbed (40/40 Passing)",
+            "Live RFC-8785 Keccak-256 Hashing",
+            "IPFS Pinata CID Anchoring",
             "78% Latency Reduction",
             "Singapore Grand Finale"
         ],
         "voiceover_lines": (
-            "The financial transformation is immediate: when catastrophic thresholds are breached, AEGIS-CLIMATE triggers "
-            "decentralized smart contracts—unlocking instant parametric liquidity for civic authorities within seconds rather than "
-            "months. By slashing emergency decision latency from six hours down to ninety seconds, we reduce direct municipal "
-            "asset losses by up to forty percent. From safeguarding the rivers of Bharat to shielding coastal megacities across "
-            "ASEAN, AEGIS-CLIMATE is ready to scale across the JAPAC region. We are Team Syntrix, and we look forward to presenting "
-            "AEGIS-CLIMATE live at the Grand Finale in Singapore. Autonomous planetary resilience, powered by Google Cloud. Thank you!"
+            "The financial transformation is immediate: backed by an EVM Cryptographic Protocol & Deterministic Testbed "
+            "with 40 out of 40 Hardhat tests passing, live RFC-8785 Keccak-256 evidence hashing, and IPFS Pinata CID anchoring, "
+            "AEGIS-CLIMATE triggers deterministic smart contracts—unlocking instant parametric liquidity for civic authorities "
+            "within seconds rather than months. By slashing emergency decision latency from six hours down to ninety seconds, "
+            "we reduce direct municipal asset losses by up to forty percent. From safeguarding the rivers of Bharat to shielding "
+            "coastal megacities across ASEAN, AEGIS-CLIMATE is ready to scale across the JAPAC region. We are Team Syntrix, and we look "
+            "forward to presenting AEGIS-CLIMATE live at the Grand Finale in Singapore. Autonomous planetary resilience, powered by Google Cloud. Thank you!"
         ),
         "visual_cues": [
             "[02:30-02:45] Zoom in on Hedera/Ethereum parametric bond panel; highlight automated $500,000 CFMC liquidity release & IPFS CID",

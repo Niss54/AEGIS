@@ -9,3 +9,4 @@ export type { DisasterBond } from "./DisasterBond";
 export type { IZKTelemetryVerifier } from "./IZKTelemetryVerifier";
 export type { MockERC20 } from "./MockERC20";
 export type { MockZKTelemetryVerifier } from "./MockZKTelemetryVerifier";
+export type { TerraSentinelRiskLedger } from "./TerraSentinelRiskLedger";

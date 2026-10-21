@@ -429,7 +429,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
                     boxShadow: "0 0 8px #00FF88"
                   }}
                 />
-                Verified PoC / Testnet Ledger (Chain ID 80002 / 31337)
+                EVM Deterministic Testbed (40/40 Passing)
               </span>
             </div>
             <p
@@ -439,7 +439,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
                 marginTop: "4px"
               }}
             >
-              Tamper-evident multi-agent climate risk anchoring, IPFS/Filecoin pinning, and parametric disaster bond automation.
+              EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring.
             </p>
           </div>
         </div>

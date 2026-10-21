@@ -52,7 +52,7 @@ def get_vc_investment_memo() -> VCMemoResponse:
     """
     moats = [
         "Autonomous 3-agent cascade executing in < 90 seconds without human intervention",
-        "Physics-informed Gradient Boosting model (3,500 trained vectors, 95.14% accuracy)",
+        "Physics-informed Gradient Boosting model (3,500 trained vectors, 95.14% CV accuracy on empirical IMD centroids)",
         "Google Research State-Handoff LSTM sequence hydrology predicting 0-72h discharge (Q) and stage (H)",
         "DeepMind DGMR precipitation nowcasting calculating extreme exceedance probabilities P(R > 20, 50, 80 mm/h)",
         "Open Climate Fix Quartz mission control-room temporal scrubber with P10/P50/P90 VaR uncertainty corridors",

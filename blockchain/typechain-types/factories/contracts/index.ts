@@ -9,3 +9,4 @@ export { DisasterBond__factory } from "./DisasterBond__factory";
 export { IZKTelemetryVerifier__factory } from "./IZKTelemetryVerifier__factory";
 export { MockERC20__factory } from "./MockERC20__factory";
 export { MockZKTelemetryVerifier__factory } from "./MockZKTelemetryVerifier__factory";
+export { TerraSentinelRiskLedger__factory } from "./TerraSentinelRiskLedger__factory";

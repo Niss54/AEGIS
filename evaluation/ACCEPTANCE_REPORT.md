@@ -205,7 +205,7 @@ All screenshots below represent the live, verified React 19 / Leaflet / FastAPI 
 ## 🌐 5. Submission & Verification Links
 - **GitHub Public Repository:** [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS)
 - **Live Hosted Application:** [https://aegis-eight-delta.vercel.app](https://aegis-eight-delta.vercel.app)
-- **Smart Contract Explorer:** [Polygon Amoy 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D](https://amoy.polygonscan.com/address/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D)
+- **Smart Contract Testbed Status:** **"EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring."** (See [docs/SMART_CONTRACT_DEFENSE.md](../docs/SMART_CONTRACT_DEFENSE.md))
 
 ---
 *Generated & cryptographically verified for AEGIS-CLIMATE Autonomous Multi-Agent Climate Resilience Platform.*

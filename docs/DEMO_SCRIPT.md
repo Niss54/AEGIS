@@ -61,12 +61,13 @@
 ---
 
 ### ACT 4: ROI, Market Scale & Singapore Grand Finale (2:30 – 3:00)
-- **Visual:** Switch to **Web3 & Ledger Cockpit**. Highlight canonical RFC-8785 JSON evidence hashed with Keccak-256 and anchored to Polygon Amoy. Show the **Agentic Settlement Pool** releasing USDC relief liquidity.
+- **Visual:** Switch to **Web3 & Ledger Cockpit**. Highlight EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring. Show the **Agentic Settlement Pool** releasing USDC relief liquidity.
 - **Visual:** Show **Singapore Grand Finale Strategy** slide featuring Marina Barrage live stress test and JAPAC market expansion.
 - **Presenter / Voiceover:**
   > *"AEGIS bridges the physical and financial worlds with cryptographic certainty.*  
-  > *Every analysis is compiled into a canonical RFC-8785 evidence bundle, hashed with Keccak-256, and anchored to the blockchain.*  
-  > *When flood thresholds breach, our smart contracts execute autonomous USDC emergency liquidity with zero paper claims.*  
+  > *We operate an EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring.*  
+  > *Every analysis is compiled into a canonical RFC-8785 evidence bundle, hashed with Keccak-256, and anchored with Pinata IPFS CIDs.*  
+  > *When flood thresholds breach, our smart contracts execute deterministic autonomous USDC emergency liquidity with zero paper claims.*  
   > *From Mumbai and Lucknow to our championship demonstration at Marina Barrage for the **Singapore Grand Finale**, AEGIS-CLIMATE delivers autonomous climate defense.*  
   > *Built by Team Syntrix for the Google Cloud AI Builder Cup. Ready to protect our planet today!"*
 

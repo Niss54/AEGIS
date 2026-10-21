@@ -36,3 +36,5 @@ export type { MockERC20 } from "./contracts/MockERC20";
 export { MockERC20__factory } from "./factories/contracts/MockERC20__factory";
 export type { MockZKTelemetryVerifier } from "./contracts/MockZKTelemetryVerifier";
 export { MockZKTelemetryVerifier__factory } from "./factories/contracts/MockZKTelemetryVerifier__factory";
+export type { TerraSentinelRiskLedger } from "./contracts/TerraSentinelRiskLedger";
+export { TerraSentinelRiskLedger__factory } from "./factories/contracts/TerraSentinelRiskLedger__factory";

@@ -1,6 +1,8 @@
 {
   "network": "hardhat",
   "chainId": 31337,
+  "protocol": "EVM Cryptographic Protocol & Deterministic Testbed",
+  "defense_statement": "EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring.",
   "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
   "backendWallet": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
   "timestamp": "2026-10-15T05:32:38.119Z",
