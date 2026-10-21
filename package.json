@@ -3,8 +3,8 @@
   "version": "3.6.0",
   "description": "AEGIS-CLIMATE: Autonomous Multi-Agent Planetary Risk & Climate Defense Platform",
   "bin": {
-    "aegis": "./bin/aegis.js",
-    "aegis-climate": "./bin/aegis.js"
+    "aegis": "bin/aegis.js",
+    "aegis-climate": "bin/aegis.js"
   },
   "files": [
     "bin",
