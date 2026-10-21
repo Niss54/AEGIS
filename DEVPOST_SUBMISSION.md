@@ -14,11 +14,15 @@
 * **Elevator Pitch / Tagline (Under 100 Characters):**  
   `From physical climate signal to automated municipal relief liquidity in sub-3s via AI & EVM.`
 
-* **Primary Track:**  
+* **Primary Track (Core Engine):**  
   **Track 4: Climate Data & Environmental Monitoring**
 
-* **Cross-Track Integration:**  
+* **Cross-Track Integration (Downstream Settlement):**  
   **Track 1: Carbon Markets & Emissions Transparency** (via `CarbonFloodCredit.sol` CFMC programmatic token issuance and retirement)
+
+* **Track Alignment Thesis:**  
+  **"Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)."**  
+  AEGIS-CLIMATE is anchored in Track 4: multi-agent climate hazard detection, 30m NASA SRTM elevation modeling, and RFC-8785 Keccak-256 evidence hashing. Track 1 features (disaster bonds, carbon mitigation credits) function exclusively as downstream programmable consequences of mathematically verified environmental telemetry.
 
 * **Team Name:**  
   `Team Syntrix`

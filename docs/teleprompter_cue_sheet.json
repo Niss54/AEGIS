@@ -37,8 +37,8 @@
       "timestamp_range": "02:30 - 03:00",
       "duration_seconds": 30.0,
       "visual_anchor": "Smart contract parametric bond liquidation & Singapore Finale roadmap",
-      "key_callout": "EVM Cryptographic Protocol & Deterministic Testbed (40/40 Passing), Live RFC-8785 Keccak-256 Hashing & Pinata IPFS",
-      "dialogue_snippet": "The financial transformation is immediate: backed by an EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring..."
+      "key_callout": "Track 4 Primary Truth & Track 1 Downstream Settlement (40/40 Passing Hardhat Tests)",
+      "dialogue_snippet": "Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1). Backed by an EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring..."
     }
   ]
 }

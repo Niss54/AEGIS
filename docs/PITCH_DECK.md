@@ -205,7 +205,8 @@ OUTPUT: VaR: ₹37.5 Cr | stranded_asset_risk: HIGH | compliance_gap: 34%
 | 3 | **Bharat-First Design** | Pre-loaded Indian disaster hotspots (Mumbai, Bengaluru, Assam, Chennai). Hindi/English voice alerts. SEBI BRSR compliance analysis. | One-click demo with Indian coordinates; Sarvam AI Indic TTS |
 | 4 | **"What-If" Climate Simulator** | Interactive rainfall/saturation sliders that re-trigger the full agent pipeline in real-time. Judges can play. | Live anomaly sandbox in dashboard UI |
 | 5 | **Dual-Engine Resilience** | Offline ML fallback ensures zero downtime even without network. Online mode activates live LLM + satellite. | 100% test suite passes air-gapped; graceful API degradation |
-| 6 | **EVM Cryptographic Protocol & Deterministic Testbed** | Canonical RFC 8785 JSON hashed via Keccak-256 & Pinata IPFS CID anchoring. Zero on-chain PII. Single-field tamper detection. | EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring |
+| 6 | **Track 4 Verifiable Truth ➔ Track 1 Settlement** | "Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)." | Primary Track 4 (NASA 30m SRTM + ERA5) triggers downstream Track 1 (DisasterBond + CFMC) |
+| 7 | **EVM Cryptographic Protocol & Deterministic Testbed** | Canonical RFC 8785 JSON hashed via Keccak-256 & Pinata IPFS CID anchoring. Zero on-chain PII. Single-field tamper detection. | EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring |
 
 ---
 

@@ -9,8 +9,9 @@
 |:---|:---|
 | **Project Name** | **AEGIS-CLIMATE & AEGIS-CHAIN v3.5** |
 | **Hackathon** | IEEE ClimateChain Hackathon 2026 |
-| **Primary Track** | **Track 4: Climate Data & Environmental Monitoring** |
-| **Cross-Track Utility** | **Track 1: Carbon Markets & Emissions Transparency** |
+| **Primary Track (Core Engine)** | **Track 4: Climate Data & Environmental Monitoring** |
+| **Cross-Track Utility (Downstream Settlement)** | **Track 1: Carbon Markets & Emissions Transparency** |
+| **Track Alignment Thesis** | **"Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)."** |
 | **Key Innovations** | Autonomous Multi-Agent Swarm · Keccak-256 Verifiable Telemetry · Parametric USDC Disaster Liquidity · RFC-8785 Canonical IPFS Anchoring · Bhasha-AI Neural Voice Engine (Hindi/Turkish/Estonian/English) · Redis L1 Hybrid RAG |
 | **Smart Contracts** | Polygon Amoy (Chain ID: 80002) / Base Sepolia / Hardhat Verified (40/40 Unit Tests Passing) |
 | **Backend Reliability** | 130/130 Passing Pytest Suite (Zero Failures) |
@@ -22,7 +23,10 @@
 
 ## 🎯 Track Alignment & The Winning Edge
 
-### 1. Track 4: Climate Data & Environmental Monitoring (Primary Track)
+### 1. Track 4: Climate Data & Environmental Monitoring (Primary Architectural Core)
+
+> **Core Track Thesis:** **"Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)."**  
+> Every analytical capability in AEGIS-CLIMATE originates from Track 4: physical weather ingestion, satellite remote sensing, 30m NASA SRTM terrain modeling, and cryptographic provenance. Track 1 exists only as the programmatic consequence once environmental truth is proven.
 - **Problem Addressed**: Weather and environmental telemetry are prone to sensor failure, oracle tampering, jurisdictional silos, and retroactive data manipulation. Decision-makers lack independently verifiable environmental telemetry when extreme events occur.
 - **AEGIS AI Solution**: An autonomous **3-Agent Cascade (Acute Hazard ML $\rightarrow$ DEM Inundation $\rightarrow$ HAZUS Financial VaR)** computes physics-based hydrological depth, structural damages, and municipal Value-at-Risk in sub-3 seconds.
 - **Verifiable Environmental Data & Cryptographic Tamper Defense**:

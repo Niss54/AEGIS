@@ -941,7 +941,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
                   border: "1px solid var(--color-primary)"
                 }}
               >
-                Track 1 & 5 Feature
+                Track 1 Downstream Settlement (Triggered by Track 4 Data Truth)
               </span>
             </div>
             <p style={{ fontSize: "12px", color: "var(--color-text-secondary)", marginTop: "4px" }}>

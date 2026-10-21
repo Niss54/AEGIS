@@ -10,7 +10,12 @@
 > **Translating Environmental Hazards into Actionable Business, Civic & On-Chain Financial Intelligence**
 
 Built for **IEEE ClimateChain Hackathon 2026** & **Enterprise Environmental Intelligence**  
-*Primary Track: Track 4 — Climate Data & Environmental Monitoring · Cross-Track Utility: Track 1 — Carbon Markets & Emissions Transparency*
+*Primary Core Track: Track 4 — Climate Data & Environmental Monitoring (Verifiable Environmental Truth) · Downstream Settlement: Track 1 — Carbon Markets & Emissions Transparency (Automated Consequence)*
+
+> [!IMPORTANT]
+> **Track Alignment & Unbroken Causal Chain:**  
+> **"Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)."**  
+> AEGIS-CLIMATE is laser-focused on **Track 4 (Climate Data & Environmental Monitoring)** as our primary architectural core. Physical sensing, Doppler radar, Copernicus Sentinel-2 MSI, 30m NASA SRTM elevation physics, and cryptographic evidence hashing form the foundational bedrock. Carbon mitigation credits (CFMC) and parametric disaster bonds (Track 1) exist strictly as *downstream, automated programmable settlements* that trigger only when verified environmental thresholds are breached. Data truth always precedes financial execution.
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Niss54/AEGIS)
 [![EVM Protocol](https://img.shields.io/badge/EVM_Protocol-Deterministic_Testbed_(40%2F40_Passing)-8A2BE2?style=for-the-badge&logo=ethereum&logoColor=white)](./docs/SMART_CONTRACT_DEFENSE.md)

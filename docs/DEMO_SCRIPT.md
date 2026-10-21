@@ -65,6 +65,7 @@
 - **Visual:** Show **Singapore Grand Finale Strategy** slide featuring Marina Barrage live stress test and JAPAC market expansion.
 - **Presenter / Voiceover:**
   > *"AEGIS bridges the physical and financial worlds with cryptographic certainty.*  
+  > *Our guiding thesis for the judges is clear: **Data is the verifiable truth under Track 4; financial settlement is the automated consequence under Track 1.***  
   > *We operate an EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring.*  
   > *Every analysis is compiled into a canonical RFC-8785 evidence bundle, hashed with Keccak-256, and anchored with Pinata IPFS CIDs.*  
   > *When flood thresholds breach, our smart contracts execute deterministic autonomous USDC emergency liquidity with zero paper claims.*  

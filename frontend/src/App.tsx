@@ -857,6 +857,7 @@ export function App() {
 
   // Analysis State
   const [loading, setLoading] = useState<boolean>(false);
+  const [isRateLimited, setIsRateLimited] = useState<boolean>(false);
   const [result, setResult] = useState<AnalysisResult | null>(() => buildFallbackAnalysis(1.2868, 103.8545, "Singapore — Marina Bay & Kallang Basin", 85, 90));
   const [activeLangTab, setActiveLangTab] = useState<"english" | "regional">("english");
   const [wsConnected, setWsConnected] = useState<boolean>(false);
@@ -1153,9 +1154,13 @@ export function App() {
       }
 
       if (!res.ok) {
+        if (res.status === 429) {
+          throw new Error(`HTTP 429: Railway Backend Rate Limited`);
+        }
         throw new Error(`HTTP ${res.status}`);
       }
 
+      setIsRateLimited(false);
       const data: AnalysisResult = await res.json();
       setResult(data);
       setLiveSteps(data.thought_trace || []);
@@ -1176,9 +1181,11 @@ export function App() {
       } catch (geoErr) {
         renderGeoLayer(generateFallbackGeoJson(lat, lon, data.agent2?.waterlogging_depth_cm || 75));
       }
-    } catch (err) {
-      console.warn("Backend API offline or unreachable, simulating autonomous response:", err);
-      const fallbackData = buildFallbackAnalysis(lat, lon, locName, simRain, simSat);
+    } catch (err: any) {
+      console.warn("Backend API offline, throttled (HTTP 429), or unreachable, engaging autonomous edge fallback:", err);
+      const is429 = Boolean(err?.message?.includes("429") || (typeof err === "string" && err.includes("429")));
+      setIsRateLimited(is429);
+      const fallbackData = buildFallbackAnalysis(lat, lon, locName, customRain, customSat);
       setResult(fallbackData);
       setLiveSteps(fallbackData.thought_trace);
       renderGeoLayer(generateFallbackGeoJson(lat, lon, fallbackData.agent2?.waterlogging_depth_cm || 75));
@@ -1795,6 +1802,26 @@ export function App() {
               <FileDown size={12} />
               <span>Briefing</span>
             </button>
+
+            {isRateLimited && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "5px",
+                  fontSize: "0.68rem",
+                  color: "#F59E0B",
+                  padding: "3px 8px",
+                  background: "rgba(245, 158, 11, 0.12)",
+                  border: "1px solid rgba(245, 158, 11, 0.35)",
+                  borderRadius: "9999px"
+                }}
+                title="Railway API Rate Limited (HTTP 429). Autonomous Edge Fallback active with zero downtime."
+              >
+                <Activity size={12} color="#F59E0B" />
+                <span className="mono" style={{ fontWeight: 600 }}>AUTONOMOUS FALLBACK</span>
+              </div>
+            )}
 
             {/* Live Indicator */}
             <div
