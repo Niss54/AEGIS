@@ -52,9 +52,9 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
     total_payout_usdc: 0,
     cfmc_minted: 0,
     contracts: {
-      risk_ledger: "0x89C57973B8e72faFE2c510D12E6B1D0bB5d8C971",
-      disaster_bond: "0x4b7868D9C0632a6773F2f89D5276B8E00B29b87B",
-      carbon_flood_credit: "0x16b04D2e2051664C72B9a221f7B5A795eA0A8F25",
+      risk_ledger: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      disaster_bond: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      carbon_flood_credit: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       mock_usdc: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     }
   });
@@ -184,14 +184,14 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
   // Derive latest assessment blockchain metadata
   const bcMeta = currentAssessment?.blockchain || {
     version: "v2.0.0",
-    network: "Polygon Amoy Testnet (Chain ID 80002)",
+    network: "Polygon Amoy Testnet (Chain ID 80002) / EVM Testbed",
     assessment_id: "0xa3f4b18972e210dc89a19c62391b4fa0921e1029c7820bbdaef12999081273aa",
-    tx_hash: "0x89f7b1029da1e72b43b6728091ab762e5891ca18a7b3b901a88df552091763aa",
+    tx_hash: "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
     block_number: 14829105,
-    ipfs_cid: "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
-    ipfs_url: "https://gateway.pinata.cloud/ipfs/bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
-    explorer_url: "https://amoy.polygonscan.com/tx/0x89f7b1029da1e72b43b6728091ab762e5891ca18a7b3b901a88df552091763aa",
-    contract_address: stats.contracts?.risk_ledger || "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+    ipfs_cid: "QmSAtKeT642mSKW96fnYsnP4tn6d3rE6WQdBeosDfPgS5Q",
+    ipfs_url: "https://gateway.pinata.cloud/ipfs/QmSAtKeT642mSKW96fnYsnP4tn6d3rE6WQdBeosDfPgS5Q",
+    explorer_url: "https://amoy.polygonscan.com/address/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    contract_address: stats.contracts?.risk_ledger || "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
     evidence_digest: "sha256:4a81bc261298c4146a84f3ec18a99db3bc123019f9f8c679a95574c83fa99b12",
     keccak256_digest: "0x78ab10c382e7b1a2049e29a830b5819df515e024508ec39755b721869305ecbf"
   };
@@ -466,7 +466,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
             <span>Sync Ledger</span>
           </button>
           <a
-            href={stats.explorer || "https://amoy.polygonscan.com/address/0x89C57973B8e72faFE2c510D12E6B1D0bB5d8C971"}
+            href={stats.explorer || "https://amoy.polygonscan.com/address/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -941,7 +941,7 @@ export const BlockchainPanel: React.FC<BlockchainPanelProps> = ({
                   border: "1px solid var(--color-primary)"
                 }}
               >
-                Track 1 Downstream Settlement (Triggered by Track 4 Data Truth)
+                Track 4: Verifiable Environmental Evidence (RFC-8785 Keccak-256)
               </span>
             </div>
             <p style={{ fontSize: "12px", color: "var(--color-text-secondary)", marginTop: "4px" }}>

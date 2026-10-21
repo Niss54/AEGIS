@@ -19,10 +19,10 @@
 
 | Contract | Network | Address | Explorer Link | PRD Reference |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ClimateEvidenceRegistry`** | Polygon Amoy (80002) | `0x8a729e2A676AC29e2898863f8d38A88E12A1F8a9` | [View on PolygonScan](https://amoy.polygonscan.com/address/0x8a729e2A676AC29e2898863f8d38A88E12A1F8a9) | §7, §8 (`E-073` $\rightarrow$ `E-078`) |
-| **`AEGISRiskLedger`** | Polygon Amoy (80002) | `0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D` | [View on PolygonScan](https://amoy.polygonscan.com/address/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D) | §7 (`E-080`) |
-| **`DisasterBond`** | Polygon Amoy (80002) | `0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6` | [View on PolygonScan](https://amoy.polygonscan.com/address/0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6) | §8 (`E-084`) |
-| **`CarbonFloodCredit` (CFMC)** | Polygon Amoy (80002) | `0x8A791620dd6260079BF849Dc5567aDC3F2FdC318` | [View on PolygonScan](https://amoy.polygonscan.com/address/0x8A791620dd6260079BF849Dc5567aDC3F2FdC318) | §8 (`E-083`) |
+| **`ClimateEvidenceRegistry`** | Polygon Amoy (80002) | `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512` | [View on PolygonScan](https://amoy.polygonscan.com/address/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512) | §7, §8 (`E-073` $\rightarrow$ `E-078`) |
+| **`AEGISRiskLedger`** | Polygon Amoy (80002) | `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512` | [View on PolygonScan](https://amoy.polygonscan.com/address/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512) | §7 (`E-080`) |
+| **`DisasterBond`** | Polygon Amoy (80002) | `0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0` | [View on PolygonScan](https://amoy.polygonscan.com/address/0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0) | §8 (`E-084`) |
+| **`CarbonFloodCredit` (CFMC)** | Polygon Amoy (80002) | `0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9` | [View on PolygonScan](https://amoy.polygonscan.com/address/0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9) | §8 (`E-083`) |
 
 ---
 

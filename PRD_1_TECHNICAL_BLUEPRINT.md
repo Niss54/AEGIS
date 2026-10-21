@@ -96,12 +96,13 @@ AEGIS-CHAIN v2.0    | ✅ Polygon   | ✅ 3 Live  | ✅   | ✅   | ✅ Hi  | �
 
 From official DevPost judging criteria and tracks:
 
-**Track 1 — Climate Data & Environmental Monitoring:**
+**Track 4 — Climate Data & Environmental Monitoring (Primary Architectural Core):**
 > "Climate data verification platforms • tools for research and insights"
-> KEY PHRASE: **VERIFICATION** — requires tamper-evidence = blockchain
+> KEY PHRASE: **VERIFICATION** — requires tamper-evidence = blockchain & RFC-8785 canonical hashes
 
-**Track 5 — Data Integrity & Accountability:**  
-> "Transparency, accountability" — blockchain anchoring of AI outputs
+**Track 1 — Carbon Markets & Emissions Transparency (Cross-Track Settlement):**  
+> "Transparency, accountability" — programmatic carbon flood mitigation credits (CFMC) and parametric disaster bonds triggered by verified environmental data.
+> Core Thesis: *"Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)."*
 
 **Judging Dimensions:**
 1. Innovation & Creativity

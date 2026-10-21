@@ -1,9 +1,9 @@
 {
   "dataset": "Official IMD / CWC / GloFAS Historical Observations",
-  "events_evaluated": 14,
+  "events_evaluated": 17,
   "disaster_recall_pct": 100.0,
-  "false_alarm_rate_pct": 0.0,
-  "overall_accuracy_pct": 100.0,
+  "false_alarm_rate_pct": 42.857142857142854,
+  "overall_accuracy_pct": 82.35294117647058,
   "event_results": [
     {
       "event_id": "MUMBAI-2005",
@@ -144,6 +144,36 @@
       "risk_score": 0.15,
       "dominant_factor": "soil_saturation",
       "passed": true
+    },
+    {
+      "event_id": "KOLKATA-MONSOON-MODERATE",
+      "name": "Kolkata Hooghly Controlled Monsoon Spate",
+      "date": "2023-08-15",
+      "expected": "MEDIUM",
+      "predicted": "MEDIUM",
+      "risk_score": 0.522,
+      "dominant_factor": "soil_saturation",
+      "passed": false
+    },
+    {
+      "event_id": "BHOPAL-MONSOON-MODERATE",
+      "name": "Bhopal Upper Lake Moderate Monsoon Rainfall",
+      "date": "2023-07-28",
+      "expected": "MEDIUM",
+      "predicted": "MEDIUM",
+      "risk_score": 0.519,
+      "dominant_factor": "soil_saturation",
+      "passed": false
+    },
+    {
+      "event_id": "AHMEDABAD-MONSOON-NORMAL",
+      "name": "Ahmedabad Sabarmati Controlled Discharge",
+      "date": "2023-08-04",
+      "expected": "MEDIUM",
+      "predicted": "MEDIUM",
+      "risk_score": 0.511,
+      "dominant_factor": "soil_saturation",
+      "passed": false
     }
   ]
 }
