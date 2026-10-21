@@ -6,6 +6,11 @@
     "aegis": "./bin/aegis.js",
     "aegis-climate": "./bin/aegis.js"
   },
+  "files": [
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "start": "python3 backend/run.py",
     "dev": "npm --prefix frontend run dev",
