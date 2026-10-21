@@ -1,13 +1,17 @@
 {
-  "name": "aegis-climate-platform",
+  "name": "aegis-climate",
   "version": "3.6.0",
-  "private": true,
   "description": "AEGIS-CLIMATE: Autonomous Multi-Agent Planetary Risk & Climate Defense Platform",
+  "bin": {
+    "aegis": "./bin/aegis.js",
+    "aegis-climate": "./bin/aegis.js"
+  },
   "scripts": {
     "start": "python3 backend/run.py",
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",
     "preview": "npm --prefix frontend run preview",
-    "install:all": "npm --prefix frontend install"
+    "install:all": "npm --prefix frontend install",
+    "cli": "node bin/aegis.js"
   }
 }

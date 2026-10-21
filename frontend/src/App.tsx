@@ -3973,12 +3973,29 @@ ANTHROPIC_API_KEY=`;
                     </p>
                   </div>
 
+                  <div style={{ background: "rgba(0,0,0,0.4)", borderRadius: "8px", border: "1px solid rgba(0, 240, 255, 0.3)", padding: "12px" }}>
+                    <div style={{ fontSize: "0.72rem", color: "var(--color-primary)", fontWeight: 700, textTransform: "uppercase", marginBottom: "4px" }}>
+                      Instant CLI & Agent Runner (NPX / Node.js)
+                    </div>
+                    <code className="mono" style={{ color: "#38BDF8", fontSize: "0.78rem", display: "block", marginBottom: "6px" }}>
+                      npx aegis-climate analyze mumbai --rain 125 --sat 92
+                    </code>
+                    <p style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
+                      Zero dependencies required. Runs full 3-agent flood cascade, 30m NASA SRTM elevation physics, and on-chain evidence verification directly in your terminal.
+                    </p>
+                  </div>
+
                   <div style={{ background: "rgba(0,0,0,0.4)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.08)", padding: "12px" }}>
                     <div style={{ fontSize: "0.72rem", color: "var(--color-text-secondary)", fontWeight: 700, textTransform: "uppercase", marginBottom: "4px" }}>
-                      Quick Terminal Verification (Curl)
+                      Terminal Verification (cURL / PowerShell)
                     </div>
-                    <code className="mono" style={{ color: "#FFF", fontSize: "0.75rem", display: "block", wordBreak: "break-all" }}>
+                    <div style={{ fontSize: "0.68rem", color: "#9CA3AF", marginBottom: "2px" }}>Bash / macOS / Linux:</div>
+                    <code className="mono" style={{ color: "#FFF", fontSize: "0.72rem", display: "block", wordBreak: "break-all", marginBottom: "8px" }}>
                       {`curl -X POST ${getPublicBackendUrl()}/mcp/invoke -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"tools/list","id":"1"}'`}
+                    </code>
+                    <div style={{ fontSize: "0.68rem", color: "#9CA3AF", marginBottom: "2px" }}>Windows PowerShell (use curl.exe):</div>
+                    <code className="mono" style={{ color: "#F59E0B", fontSize: "0.72rem", display: "block", wordBreak: "break-all" }}>
+                      {`curl.exe -X POST ${getPublicBackendUrl()}/mcp/invoke -H "Content-Type: application/json" -d "{\"jsonrpc\":\"2.0\",\"method\":\"tools/list\",\"id\":\"1\"}"`}
                     </code>
                   </div>
                 </div>

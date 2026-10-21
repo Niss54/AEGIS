@@ -4,6 +4,14 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/mcp/(.*)",
+      "destination": "https://web-production-91f72.up.railway.app/mcp/$1"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "https://web-production-91f72.up.railway.app/api/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
