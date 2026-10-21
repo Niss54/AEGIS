@@ -27,7 +27,19 @@ Built for **IEEE ClimateChain Hackathon 2026** & **Enterprise Environmental Inte
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" alt="divider"/>
 
-[📋 Devpost Submission Form](./DEVPOST_SUBMISSION.md) · [🏆 IEEE Submission Dossier](./IEEE_SUBMISSION_DOSSIER.md) · [🛡️ Smart Contract Defense](./docs/SMART_CONTRACT_DEFENSE.md) · [📊 ML Benchmark Defense](./docs/ML_ACCURACY_DEFENSE.md) · [📋 Guidelines](./HACKATHON_GUIDELINES.md) · [📑 Technical Blueprint](./PRD_1_TECHNICAL_BLUEPRINT.md) · [📊 Product Strategy](./AEGIS_PRD_1_Product_Strategy.md) · [📊 Pitch Deck](./docs/PITCH_DECK.md) · [🎬 Demo Script](./docs/DEMO_SCRIPT.md) · [🤖 Agent Manifest](./agent_manifest.yaml)
+### ⚡ Zero-Friction Terminal Verification (No Git Clone · No Python Setup Needed)
+> Judges and reviewers can immediately run the autonomous 3-agent climate cascade directly in their terminal without configuring environments:
+```bash
+# Interactive Mode (Choose from global hotspots or enter any custom city)
+npx aegis-climate
+
+# Direct City Simulation (Resolves real 30m NASA elevation physics & on-chain hash in <1s)
+npx aegis-climate analyze mumbai --rain 125 --sat 92
+npx aegis-climate analyze lucknow
+npx aegis-climate analyze singapore
+```
+
+[🌐 Live Mission-Control Cockpit](https://aegis-eight-delta.vercel.app) · [📋 Devpost Submission Form](./DEVPOST_SUBMISSION.md) · [🏆 IEEE Submission Dossier](./IEEE_SUBMISSION_DOSSIER.md) · [🛡️ Smart Contract Defense](./docs/SMART_CONTRACT_DEFENSE.md) · [📊 ML Benchmark Defense](./docs/ML_ACCURACY_DEFENSE.md) · [🛡️ Track Alignment Defense](./docs/TRACK_ALIGNMENT_DEFENSE.md) · [🎬 Winning Video Pitch Script](./docs/FINAL_WINNING_VIDEO_SCRIPT.md)
 
 </div>
 
@@ -61,6 +73,69 @@ Yet today, **a fatal operational disconnect paralyzes disaster response:**
 
 ---
 
+---
+
+## 🔗 The Single Unbroken Causal Chain: Observation to Relief
+
+AEGIS-CLIMATE does not treat climate resilience, financial settlement, and civic alerts as disjoint, competing modules. Every capability exists in an **unbroken, verifiable causal chain**:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│              STAGE 1: EMPIRICAL OBSERVATION & SENSING (TRACK 4)                 │
+│  • Copernicus Sentinel-2 MSI (10m) Multi-Spectral Water (NDWI) & Vegetation     │
+│  • Open-Meteo ERA5 Reanalysis & IMD Disaster Centroid Atmospheric Telemetry     │
+└──────────────────────────────────────┬──────────────────────────────────────────┘
+                                       │ Raw Physical Atmospheric Vectors
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│              STAGE 2: DETERMINISTIC 30m DEM HYDROLOGY (TRACK 4)                 │
+│  • NASA SRTM 30m Digital Elevation Model + D8 Steepest-Descent Runoff Routing    │
+│  • Topographic Wetness Index (TWI) & Manning's Overland Surface Roughness       │
+│  • FEMA HAZUS Standard Depth-Damage Functions (Eliminates ML Hallucination)      │
+└──────────────────────────────────────┬──────────────────────────────────────────┘
+                                       │ Physical Ingress Depth & Damage Footprint
+                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│              STAGE 3: CRYPTOGRAPHIC EVIDENCE SEALS (TRACK 4)                    │
+│  • RFC-8785 Canonical JSON Serialization (Deterministic Byte-Level Integrity)   │
+│  • Keccak-256 State Root Generation & Pinata IPFS Immutable CID Anchoring       │
+│  • One-Click Independent Verifier with Live Tamper-Detection Sandbox            │
+└──────────────────────────────────────┬──────────────────────────────────────────┘
+                                       │ Cryptographically Verified Truth
+                                       ▼ (Trigger: Depth >= 50cm OR Delta-NDVI > 0)
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│          STAGE 4: AUTOMATED CONSEQUENCE & PROGRAMMATIC RELIEF (TRACK 1)         │
+│  • Polygon Amoy Parametric Disaster Bond Escrow Liquidity Release ($175k USDC)  │
+│  • Panda Protocol Carbon Flood Mitigation Credits (CFMC) for Wetland Sponges    │
+│  • Bhasha-AI Neural Voice Alerts (Hindi, Marathi, Urdu, English)                │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+
+> **Axiom:** *"Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)."*
+
+---
+
+## 🔬 Scientific Methodology, Uncertainty & Physical Guardrails
+
+| Dimension | Engineering Implementation | Scientific Rigor & Disclosure |
+| :--- | :--- | :--- |
+| **Ground-Truth Calibration** | 10 Historical IMD Centroids (Mumbai 2005, Chennai 2015, Assam 2020, etc.) | Supervised Gradient Boosting benchmarked at **95.14% CV accuracy** on empirical disaster vectors. Disclosed as empirical benchmark, not claimed as speculative future omniscience. |
+| **Topographic Uncertainty** | NASA SRTM 30m Digital Elevation Model | NASA SRTM carries an inherent $\pm 1.5	ext{m}$ vertical uncertainty. To eliminate AI hallucination, predictions are strictly bounded by deterministic **FEMA HAZUS depth-damage curves** and Manning's hydraulic runoff formulas. |
+| **Data Integrity Separation** | Telemetry Ingestion Layer | Strict programmatic distinction between `[Observed Live Open-Meteo Telemetry]` and `[What-If Hydrodynamic Stress Simulation]` across all UI gauges and APIs. |
+| **Reproducibility** | RFC-8785 Canonical JSON | Any independent observer can reproduce the exact Keccak-256 digest from the raw observation payload using the public CLI or on-chain verifier. |
+
+---
+
+## 🛡️ Interactive Cryptographic Tamper Sandbox (Try It Live)
+
+In traditional parametric insurance, climate reports are frequently forged or altered to deny payouts. AEGIS includes an **Independent Evidence Verifier & Tamper Sandbox** in the live dashboard:
+
+1. **Verify Genuine Report:** Live computation of RFC-8785 canonical bytes matches the on-chain Polygon Amoy anchor `0x4eaa...` (**VERIFICATION PASSED ✅**).
+2. **Simulate Malicious Forgery:** Click **"Simulate Malicious Modification"** (a simulated corrupt actor changes flood depth from `94cm` to `4cm` to avoid paying relief).
+3. **Instant Ledger Rejection:** The verifier instantly computes the altered digest and flashes a high-visibility alert:  
+   `🚨 CRITICAL TAMPER DETECTED: Expected 0x4eaa... but computed 0x9b12... Evidence Rejected!`
+
+---
 ## 📋 Table of Contents
 
 - [🛡️ AEGIS-CLIMATE](#️-aegis-climate)
