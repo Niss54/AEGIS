@@ -14,7 +14,7 @@ const readline = require("readline");
 const https = require("https");
 const crypto = require("crypto");
 
-const VERSION = "3.6.0";
+const VERSION = "3.6.1";
 
 // ANSI Terminal Colors
 const C = {
