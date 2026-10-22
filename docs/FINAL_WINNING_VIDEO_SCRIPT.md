@@ -15,7 +15,7 @@
 [00:30 - 01:15] ➔ Act 2: Live Autonomous Multi-Agent Cascade (Sentinel-2 + 30m NASA DEM)
 [01:15 - 01:55] ➔ Act 3: Cryptographic Proof & Live Tamper Sandbox (The Winning Climax)
 [01:55 - 02:30] ➔ Act 4: Zero-Friction Terminal Verification (npx aegis-climate)
-[02:30 - 03:00] ➔ Act 5: Downstream Parametric Settlement & JAPAC Scaling Call-to-Action
+[02:30 - 03:00] ➔ Act 5: Downstream Parametric Settlement & Global Megacity Scaling Call-to-Action
 ```
 
 ---

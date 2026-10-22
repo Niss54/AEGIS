@@ -46,7 +46,7 @@ ${C.gray}Track 4: Climate Data & Environmental Monitoring · Deterministic Local
 
 // Offline Pre-Configured Global Hotspots Dictionary
 const OFFLINE_HOTSPOTS = {
-  singapore: { name: "Singapore — Marina Bay & Kallang Basin", region: "JAPAC Grand Finale", lat: 1.2868, lon: 103.8545, baseElev: 4.2 },
+  singapore: { name: "Singapore — Marina Bay & Kallang Basin", region: "ASEAN Coastal Corridor", lat: 1.2868, lon: 103.8545, baseElev: 4.2 },
   mumbai: { name: "Mumbai — Mithi River & Kurla Basin", region: "Maharashtra, India", lat: 19.0728, lon: 72.8797, baseElev: 6.5 },
   lucknow: { name: "Lucknow — Gomti River Basin & Lowlands", region: "Uttar Pradesh, India", lat: 26.8393, lon: 80.9231, baseElev: 126.0 },
   delhi: { name: "Delhi-NCR — Yamuna Floodplain Corridor", region: "National Capital Region, India", lat: 28.6139, lon: 77.2090, baseElev: 216.0 },
@@ -499,7 +499,7 @@ function listTools() {
 function startInteractiveWizard() {
   console.log(BANNER);
   console.log(`${C.bold}Select a Planetary Centroid or Operational Mode:${C.reset}\n`);
-  console.log(`  ${C.cyan}[1]${C.reset} 🇸🇬 Singapore — Marina Bay & Kallang Basin (JAPAC Grand Finale)`);
+  console.log(`  ${C.cyan}[1]${C.reset} 🇸🇬 Singapore — Marina Bay & Kallang Basin (Coastal Surge & Marina Barrage)`);
   console.log(`  ${C.cyan}[2]${C.reset} 🇮🇳 Mumbai — Mithi River & Kurla Basin (Monsoon Cloudburst)`);
   console.log(`  ${C.cyan}[3]${C.reset} 🇮🇳 Lucknow — Gomti River Basin & Lowlands (Gangetic Alluvial Plain)`);
   console.log(`  ${C.cyan}[4]${C.reset} 🇮🇳 Delhi-NCR — Yamuna Floodplain Corridor (Riverbed Inundation)`);
