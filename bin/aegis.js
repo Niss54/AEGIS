@@ -14,7 +14,7 @@ const readline = require("readline");
 const https = require("https");
 const crypto = require("crypto");
 
-const VERSION = "3.6.4";
+const VERSION = "3.6.5";
 
 // ANSI Terminal Colors
 const C = {
@@ -31,12 +31,11 @@ const C = {
 };
 
 const BANNER_ART = [
-  "     /\\       ______ _____ _____ _____ ",
-  "    /  \\     |  ____/ ____|_   _/ ____|",
-  "   / /\\ \\    | |__ | |  __  | || (___  ",
-  "  / ____ \\   |  __|| | |_ | | | \\___ \\ ",
-  " / /    \\ \\  | |___| |__| |_| |_____) |",
-  "/_/      \\_\\ |______\\_____|_____|_____/"
+  "    _    _____ ____ ___ ____  ",
+  "   / \\  | ____/ ___|_ _/ ___| ",
+  "  / _ \\ |  _|| |  _ | |\\___ \\ ",
+  " / ___ \\| |__| |_| || | ___) |",
+  "/_/   \\_\\_____|____|___|____/ "
 ].join("\n");
 const BANNER = `
 ${C.cyan}${C.bold}${BANNER_ART}${C.reset}
@@ -115,7 +114,7 @@ const MCP_TOOLS = [
   },
   {
     name: "verify_evidence_integrity",
-    description: "Validates RFC-8785 canonical JSON hashing and checks Keccak-256 evidence digests against the AEGIS cryptographic ledger.",
+    description: "Validates recursive key-sorted JSON hashing and formats SHA-256/Keccak-256 evidence digests for EVM testbed verification.",
     inputSchema: {
       type: "object",
       properties: {
@@ -240,8 +239,8 @@ function computeLocalFloodPhysics(lat, lon, locationName, elevationM, rainMm, sa
         soil_saturation_pct: satPct,
         elevation_meters: elevationM
       },
-      model_confidence: 0.9514,
-      model_basis: "95.14% CV accuracy on empirical IMD disaster centroids, coupled with deterministic 30m NASA SRTM elevation physics and HAZUS depth-damage curves to eliminate ML hallucination."
+      model_confidence: null,
+      model_basis: "Deterministic scenario calculation derived from empirical IMD disaster centroid reference benchmarks; unvalidated against independent held-out flood events in this CLI run."
     },
     agent2: {
       waterlogging_depth_cm: depthCm,
@@ -262,9 +261,12 @@ function computeLocalFloodPhysics(lat, lon, locationName, elevationM, rainMm, sa
   const canonicalStr = canonicalizeRFC8785(payload);
   const hash = "0x" + crypto.createHash("sha256").update(canonicalStr).digest("hex");
   payload.cryptographic_proof = {
+    canonical_sha256: hash,
     rfc8785_canonical_sha256: hash,
-    testbed_status: "Deterministic EVM Testbed Preimage (RFC-8785 Canonical SHA-256)",
-    polygon_amoy_status: "DETERMINISTIC_TESTBED_RULE_VERIFIED"
+    serialization_method: "recursive_key_sorted_json",
+    conformance_status: "UNVERIFIED_AGAINST_RFC8785_TEST_VECTORS",
+    testbed_status: "Deterministic Local Testbed Fingerprint",
+    polygon_amoy_status: "NOT_BROADCAST_IN_CLI"
   };
 
   return payload;
@@ -287,7 +289,7 @@ async function runAnalyze(cityQuery, rainArg, satArg) {
   console.log(`  • Configured Elevation  : ${target.baseElev.toFixed(1)}m ASL (Centroid Baseline Preset)`);
   console.log(`  • Scenario Precipitation: +${rain}mm (SIMULATED INPUT) | ${sat}% Soil Saturation\n`);
 
-  console.log(`${C.yellow}Executing Three-Stage Deterministic Climate-Risk Assessment...${C.reset}`);
+  console.log(`${C.yellow}Executing Four-Stage Deterministic Climate-Risk Assessment...${C.reset}`);
 
   console.log(`\n${C.green}✓ STAGE 1: HYDROLOGICAL RISK SCENARIO${C.reset}`);
   console.log(`  • Scenario Hazard Score : ${C.bold}${(res.agent1.flood_probability * 100).toFixed(1)}%${C.reset} (DETERMINISTIC STRESS-TEST)`);
@@ -305,11 +307,11 @@ async function runAnalyze(cityQuery, rainArg, satArg) {
   console.log(`  • Parametric Bond Rule : ${res.agent3.parametric_payout_triggered ? C.green + "THRESHOLD SATISFIED (DisasterBond.sol PoC Rule Met)" : C.gray + "THRESHOLD NOT REACHED"}${C.reset}`);
   console.log(`  • Settlement Status    : ${C.dim}Local trigger satisfied; no on-chain fund transfer executed in CLI${C.reset}`);
 
-  console.log(`\n${C.magenta}✓ STAGE 4: EVIDENCE INTEGRITY & LEDGER AUDIT${C.reset}`);
+  console.log(`\n${C.magenta}✓ STAGE 4: LOCAL EVIDENCE FINGERPRINT${C.reset}`);
   console.log(`  • Local Canonical Hash : ${C.bold}${res.cryptographic_proof.rfc8785_canonical_sha256}${C.reset}`);
-  console.log(`  • Canonical JSON       : ${C.dim}Deterministic recursive key-sorted serialization (RFC-8785 pre-conformance)${C.reset}`);
-  console.log(`  • Local Digest         : ${C.dim}SHA-256 (Local testbed computation; public blockchain anchoring not confirmed in this CLI)${C.reset}`);
-  console.log(`  • On-Chain Anchoring   : ${C.dim}Local EVM testbed mode (Public broadcast requires funded testnet gas)${C.reset}\n`);
+  console.log(`  • Serialization        : ${C.dim}recursive key-sorted JSON (RFC-8785 test vectors not yet verified)${C.reset}`);
+  console.log(`  • Digest               : ${C.dim}local SHA-256, conformance unverified against RFC-8785 test suite${C.reset}`);
+  console.log(`  • On-Chain Anchoring   : ${C.dim}NOT EXECUTED BY THIS CLI (Local deterministic testbed mode)${C.reset}\n`);
 
   console.log(`${C.gray}Axiom: Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1).${C.reset}\n`);
 }
@@ -401,8 +403,8 @@ function runMcpServer() {
         } else if (toolName === "verify_evidence_integrity") {
           executionResult = {
             digest: args.evidence_digest,
-            is_valid_sha256: true,
-            status: "EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring."
+            is_valid_sha256: typeof args.evidence_digest === "string" && args.evidence_digest.startsWith("0x") && args.evidence_digest.length === 66,
+            status: "Deterministic Local Testbed (40/40 Hardhat test suite passing); public on-chain ledger verification not executed in this CLI."
           };
         } else {
           process.stdout.write(JSON.stringify({
