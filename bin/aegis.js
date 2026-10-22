@@ -3,18 +3,19 @@
 /**
  * AEGIS-CLIMATE Autonomous Agentic CLI & MCP Transport
  * Package: aegis-climate (Node.js zero-dependency runner)
- * Supports: 
- *   - Interactive Menu Wizard (npx aegis-climate)
- *   - Global Geocoding (Lucknow, Tokyo, Mumbai, Singapore, or ANY city on Earth)
- *   - Claude Desktop & Cursor IDE Stdio MCP Server
- *   - 30m NASA SRTM Elevation & HAZUS Depth-Damage Physics
+ * Operational Scope:
+ *   - Interactive Menu Wizard & Global Centroid Geocoding
+ *   - Deterministic Local Climate-Risk Stress-Test Simulator
+ *   - Claude Desktop & Cursor IDE Stdio MCP Tool Protocol
+ *   - Configured baseline elevations & simplified depth-damage proxies
+ *   (Note: Full 30m raster hydrology runs in Python/FastAPI backend; not in this zero-dep CLI)
  */
 
 const readline = require("readline");
 const https = require("https");
 const crypto = require("crypto");
 
-const VERSION = "3.6.5";
+const VERSION = "3.6.6";
 
 // ANSI Terminal Colors
 const C = {
@@ -31,11 +32,11 @@ const C = {
 };
 
 const BANNER_ART = [
-  "    _    _____ ____ ___ ____  ",
-  "   / \\  | ____/ ___|_ _/ ___| ",
-  "  / _ \\ |  _|| |  _ | |\\___ \\ ",
-  " / ___ \\| |__| |_| || | ___) |",
-  "/_/   \\_\\_____|____|___|____/ "
+  "    /\\    _____ ____ ___ ____  ",
+  "   /  \\  | ____/ ___|_ _/ ___| ",
+  "  / /\\ \\ |  _|| |  _ | |\\___ \\ ",
+  " / ____ \\| |__| |_| || | ___) |",
+  "/_/    \\_\\_____|____|___|____/ "
 ].join("\n");
 const BANNER = `
 ${C.cyan}${C.bold}${BANNER_ART}${C.reset}
@@ -65,7 +66,7 @@ const OFFLINE_HOTSPOTS = {
 const MCP_TOOLS = [
   {
     name: "run_flood_classifier",
-    description: "Evaluates empirical disaster centroids and computes waterlogging depth & flood probability using supervised ML and 30m NASA SRTM elevation physics.",
+    description: "Evaluates empirical disaster centroid baseline coordinates and computes deterministic waterlogging depth & risk-tier proxies.",
     inputSchema: {
       type: "object",
       properties: {
@@ -90,7 +91,7 @@ const MCP_TOOLS = [
   },
   {
     name: "evaluate_financial_var",
-    description: "Computes Enterprise Value-at-Risk (VaR), municipal infrastructure damage, and insurance shortfall using HAZUS depth-damage functions.",
+    description: "Computes illustrative Enterprise Value-at-Risk (VaR), asset damage proxies, and insurance shortfall using simplified depth-damage formulas.",
     inputSchema: {
       type: "object",
       properties: {
@@ -222,7 +223,8 @@ function computeLocalFloodPhysics(lat, lon, locationName, elevationM, rainMm, sa
   const riskTier = riskScore >= 0.75 ? "CRITICAL" : riskScore >= 0.50 ? "HIGH" : riskScore >= 0.35 ? "MODERATE" : "LOW";
   const depthCm = Math.round((25 + riskScore * 80) * (elevationFactor >= 1.0 ? 1.05 : 0.88));
   const varInr = Math.round(riskScore * 12500000000);
-  const varUsd = Math.round(varInr / 83.2);
+  const fxUsdRate = 83.2; // Fixed illustrative exchange rate assumption (INR/USD)
+  const varUsd = Math.round(varInr / fxUsdRate);
 
   const payload = {
     event_id: `AEGIS-${Date.now().toString(36).toUpperCase()}`,
@@ -252,6 +254,7 @@ function computeLocalFloodPhysics(lat, lon, locationName, elevationM, rainMm, sa
     agent3: {
       value_at_risk_inr: varInr,
       value_at_risk_usd: varUsd,
+      fx_usd_assumption_inr: fxUsdRate,
       insurance_shortfall_pct: Number((riskScore * 38.5).toFixed(1)),
       brsr_disclosure_tier: riskTier === "CRITICAL" ? "MANDATORY_DISCLOSURE_PRINCIPLE_6" : "MONITOR",
       parametric_payout_triggered: depthCm >= 50
@@ -277,10 +280,28 @@ function computeLocalFloodPhysics(lat, lon, locationName, elevationM, rainMm, sa
 // -------------------------------------------------------------
 async function runAnalyze(cityQuery, rainArg, satArg) {
   console.log(BANNER);
-  
+
+  let rain = 115;
+  if (rainArg !== undefined && rainArg !== null) {
+    const parsedRain = parseFloat(rainArg);
+    if (isNaN(parsedRain) || parsedRain < 0) {
+      console.error(`\n${C.red}${C.bold}[INPUT REJECTED]${C.reset} Invalid rainfall: '${rainArg}'. Rainfall must be a non-negative number (mm).\n`);
+      process.exit(1);
+    }
+    rain = parsedRain;
+  }
+
+  let sat = 88;
+  if (satArg !== undefined && satArg !== null) {
+    const parsedSat = parseFloat(satArg);
+    if (isNaN(parsedSat) || parsedSat < 0 || parsedSat > 100) {
+      console.error(`\n${C.red}${C.bold}[INPUT REJECTED]${C.reset} Invalid soil saturation: '${satArg}'. Soil saturation percentage must be between 0 and 100.\n`);
+      process.exit(1);
+    }
+    sat = parsedSat;
+  }
+
   const target = await resolveCityCoordinates(cityQuery || "singapore");
-  const rain = rainArg ? parseFloat(rainArg) : 115;
-  const sat = satArg ? parseFloat(satArg) : 88;
 
   const res = computeLocalFloodPhysics(target.lat, target.lon, target.name, target.baseElev, rain, sat);
 
@@ -302,7 +323,7 @@ async function runAnalyze(cityQuery, rainArg, satArg) {
   console.log(`  • Terrain Data Note    : ${C.dim}Centroid baseline preset (Full raster analysis is a separate backend workflow; not invoked in this CLI run)${C.reset}`);
 
   console.log(`\n${C.green}✓ STAGE 3: FINANCIAL EXPOSURE & PARAMETRIC RULES${C.reset}`);
-  console.log(`  • Notional Exposure    : ${C.bold}₹${(res.agent3.value_at_risk_inr / 10000000).toFixed(1)} Crores ($${(res.agent3.value_at_risk_usd / 1000000).toFixed(1)}M USD notional exposure proxy)${C.reset}`);
+  console.log(`  • Notional Exposure    : ${C.bold}₹${(res.agent3.value_at_risk_inr / 10000000).toFixed(1)} Crores${C.reset} ($${(res.agent3.value_at_risk_usd / 1000000).toFixed(1)}M USD proxy, assuming fixed ₹83.2/USD)`);
   console.log(`  • Disclosure Context   : ${C.dim}SEBI BRSR Principle 6 (Regulatory applicability not legally assessed)${C.reset}`);
   console.log(`  • Parametric Bond Rule : ${res.agent3.parametric_payout_triggered ? C.green + "THRESHOLD SATISFIED (DisasterBond.sol PoC Rule Met)" : C.gray + "THRESHOLD NOT REACHED"}${C.reset}`);
   console.log(`  • Settlement Status    : ${C.dim}Local trigger satisfied; no on-chain fund transfer executed in CLI${C.reset}`);
@@ -313,7 +334,7 @@ async function runAnalyze(cityQuery, rainArg, satArg) {
   console.log(`  • Digest               : ${C.dim}local SHA-256, conformance unverified against RFC-8785 test suite${C.reset}`);
   console.log(`  • On-Chain Anchoring   : ${C.dim}NOT EXECUTED BY THIS CLI (Local deterministic testbed mode)${C.reset}\n`);
 
-  console.log(`${C.gray}Axiom: Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1).${C.reset}\n`);
+  console.log(`${C.gray}Demo mode: simulated rainfall and deterministic estimates only. This CLI computes a local SHA-256 fingerprint. It does not validate source-data truth, publish to Polygon Amoy, or execute financial settlement.${C.reset}\n`);
 }
 
 // -------------------------------------------------------------
@@ -369,9 +390,26 @@ function runMcpServer() {
 
         let executionResult = {};
         if (toolName === "run_flood_classifier") {
-          const rain = args.rainfall_mm || 95;
-          const sat = args.soil_saturation_pct || 80;
-          const elev = args.elevation_m || 20;
+          const rain = args.rainfall_mm !== undefined ? Number(args.rainfall_mm) : 95;
+          const sat = args.soil_saturation_pct !== undefined ? Number(args.soil_saturation_pct) : 80;
+          const elev = args.elevation_m !== undefined ? Number(args.elevation_m) : 20;
+
+          if (isNaN(rain) || rain < 0) {
+            process.stdout.write(JSON.stringify({
+              jsonrpc: "2.0",
+              id: reqId,
+              error: { code: -32602, message: "Invalid parameters: rainfall_mm must be a non-negative number." }
+            }) + "\n");
+            return;
+          }
+          if (isNaN(sat) || sat < 0 || sat > 100) {
+            process.stdout.write(JSON.stringify({
+              jsonrpc: "2.0",
+              id: reqId,
+              error: { code: -32602, message: "Invalid parameters: soil_saturation_pct must be between 0 and 100." }
+            }) + "\n");
+            return;
+          }
           executionResult = computeLocalFloodPhysics(19.0728, 72.8797, "Mumbai Centroid", elev, rain, sat);
         } else if (toolName === "delineate_watershed") {
           executionResult = {
