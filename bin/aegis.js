@@ -14,7 +14,7 @@ const readline = require("readline");
 const https = require("https");
 const crypto = require("crypto");
 
-const VERSION = "3.6.3";
+const VERSION = "3.6.4";
 
 // ANSI Terminal Colors
 const C = {
@@ -30,15 +30,18 @@ const C = {
   gray: "\x1b[90m"
 };
 
+const BANNER_ART = [
+  "     /\\       ______ _____ _____ _____ ",
+  "    /  \\     |  ____/ ____|_   _/ ____|",
+  "   / /\\ \\    | |__ | |  __  | || (___  ",
+  "  / ____ \\   |  __|| | |_ | | | \\___ \\ ",
+  " / /    \\ \\  | |___| |__| |_| |_____) |",
+  "/_/      \\_\\ |______\\_____|_____|_____/"
+].join("\n");
 const BANNER = `
-${C.cyan}${C.bold}     ___    ______ _____ _____ _____ 
-    / _ \\  |  ____/ ____|_   _/ ____|
-   / /_\\ \\ | |__ | |  __  | || (___  
-  / /_   _\\|  __|| | |_ | | | \\___ \\ 
- / /  | |  | |___| |__| |_| |_____) |
-/_/   |_|  |______\\_____|_____|_____/ ${C.reset}
+${C.cyan}${C.bold}${BANNER_ART}${C.reset}
 ${C.bold}AEGIS-CLIMATE v${VERSION} — Planetary Resilience & Parametric Climate Finance${C.reset}
-${C.gray}Track 4: Climate Data & Environmental Monitoring · NASA SRTM Physics · Polygon Amoy Testbed${C.reset}
+${C.gray}Track 4: Climate Data & Environmental Monitoring · Deterministic Local Testbed${C.reset}
 `;
 
 // Offline Pre-Configured Global Hotspots Dictionary
@@ -272,7 +275,6 @@ function computeLocalFloodPhysics(lat, lon, locationName, elevationM, rainMm, sa
 // -------------------------------------------------------------
 async function runAnalyze(cityQuery, rainArg, satArg) {
   console.log(BANNER);
-  process.stdout.write(`${C.cyan}Resolving planetary coordinates & 30m elevation terrain...${C.reset}\r`);
   
   const target = await resolveCityCoordinates(cityQuery || "singapore");
   const rain = rainArg ? parseFloat(rainArg) : 115;
@@ -294,8 +296,8 @@ async function runAnalyze(cityQuery, rainArg, satArg) {
 
   console.log(`\n${C.green}✓ STAGE 2: TOPOGRAPHIC & INUNDATION ESTIMATE${C.reset}`);
   console.log(`  • Inundation Depth     : ${C.bold}${res.agent2.waterlogging_depth_cm} cm${C.reset} (SIMPLIFIED HYDROLOGIC ESTIMATE)`);
-  console.log(`  • Basin Exposure Proxy : ${res.agent2.inundation_area_sqkm} sq.km (Illustrative proxy; TWI: ${res.agent2.topographic_wetness_index})`);
-  console.log(`  • Terrain Data Note    : ${C.dim}Centroid baseline preset (Full 30m raster analysis runs in FastAPI backend)${C.reset}`);
+  console.log(`  • Basin Exposure Proxy : ${res.agent2.inundation_area_sqkm} sq.km (Illustrative proxy; Illustrative TWI: ${res.agent2.topographic_wetness_index})`);
+  console.log(`  • Terrain Data Note    : ${C.dim}Centroid baseline preset (Full raster analysis is a separate backend workflow; not invoked in this CLI run)${C.reset}`);
 
   console.log(`\n${C.green}✓ STAGE 3: FINANCIAL EXPOSURE & PARAMETRIC RULES${C.reset}`);
   console.log(`  • Notional Exposure    : ${C.bold}₹${(res.agent3.value_at_risk_inr / 10000000).toFixed(1)} Crores ($${(res.agent3.value_at_risk_usd / 1000000).toFixed(1)}M USD notional exposure proxy)${C.reset}`);
@@ -305,7 +307,8 @@ async function runAnalyze(cityQuery, rainArg, satArg) {
 
   console.log(`\n${C.magenta}✓ STAGE 4: EVIDENCE INTEGRITY & LEDGER AUDIT${C.reset}`);
   console.log(`  • Local Canonical Hash : ${C.bold}${res.cryptographic_proof.rfc8785_canonical_sha256}${C.reset}`);
-  console.log(`  • RFC-8785 Compliance  : ${C.dim}Deterministic recursive key-sorted canonical JSON serialization${C.reset}`);
+  console.log(`  • Canonical JSON       : ${C.dim}Deterministic recursive key-sorted serialization (RFC-8785 pre-conformance)${C.reset}`);
+  console.log(`  • Local Digest         : ${C.dim}SHA-256 (Local testbed computation; public blockchain anchoring not confirmed in this CLI)${C.reset}`);
   console.log(`  • On-Chain Anchoring   : ${C.dim}Local EVM testbed mode (Public broadcast requires funded testnet gas)${C.reset}\n`);
 
   console.log(`${C.gray}Axiom: Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1).${C.reset}\n`);
