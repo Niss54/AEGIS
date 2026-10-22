@@ -14,7 +14,7 @@ const readline = require("readline");
 const https = require("https");
 const crypto = require("crypto");
 
-const VERSION = "3.6.2";
+const VERSION = "3.6.3";
 
 // ANSI Terminal Colors
 const C = {
@@ -281,30 +281,32 @@ async function runAnalyze(cityQuery, rainArg, satArg) {
   const res = computeLocalFloodPhysics(target.lat, target.lon, target.name, target.baseElev, rain, sat);
 
   console.log(`${C.cyan}${C.bold}[TARGET CENTROID]${C.reset} ${target.name}`);
-  console.log(`  • Coordinates       : ${target.lat >= 0 ? target.lat + "°N" : Math.abs(target.lat) + "°S"}, ${target.lon >= 0 ? target.lon + "°E" : Math.abs(target.lon) + "°W"}`);
-  console.log(`  • Terrain Elevation : ${target.baseElev.toFixed(1)}m ASL (${target.baseElev < 10 ? "Coastal/River Lowland Depression" : "Inland Alluvial Drainage Basin"})`);
-  console.log(`  • Atmospheric Vector: +${rain}mm Simulated Rainfall | ${sat}% Soil Moisture Saturation\n`);
+  console.log(`  • Coordinates           : ${target.lat >= 0 ? target.lat + "°N" : Math.abs(target.lat) + "°S"}, ${target.lon >= 0 ? target.lon + "°E" : Math.abs(target.lon) + "°W"}`);
+  console.log(`  • Configured Elevation  : ${target.baseElev.toFixed(1)}m ASL (Centroid Baseline Preset)`);
+  console.log(`  • Scenario Precipitation: +${rain}mm (SIMULATED INPUT) | ${sat}% Soil Saturation\n`);
 
-  console.log(`${C.yellow}Executing Autonomous 3-Agent Cognitive Swarm Cascade...${C.reset}`);
+  console.log(`${C.yellow}Executing Three-Stage Deterministic Climate-Risk Assessment...${C.reset}`);
 
-  console.log(`\n${C.green}✓ AGENT 1 (Hydrological Stress-Test Model):${C.reset}`);
-  console.log(`  • Scenario Hazard Score: ${C.bold}${(res.agent1.flood_probability * 100).toFixed(1)}%${C.reset} (Simulated Precipitation Stress-Test)`);
+  console.log(`\n${C.green}✓ STAGE 1: HYDROLOGICAL RISK SCENARIO${C.reset}`);
+  console.log(`  • Scenario Hazard Score : ${C.bold}${(res.agent1.flood_probability * 100).toFixed(1)}%${C.reset} (DETERMINISTIC STRESS-TEST)`);
   console.log(`  • Risk Severity Tier   : ${res.agent1.risk_tier === "CRITICAL" ? C.red : C.yellow}${C.bold}[${res.agent1.risk_tier}]${C.reset}`);
-  console.log(`  • Calibration Basis    : ${C.dim}Calibrated on empirical IMD historical disaster centroids (100% Catastrophic Recall)${C.reset}`);
+  console.log(`  • Model Disclosure     : ${C.dim}Illustrative scenario score; not an operational calibrated forecast${C.reset}`);
 
-  console.log(`\n${C.green}✓ AGENT 2 (Topographic Elevation & Inundation Physics):${C.reset}`);
-  console.log(`  • Inundation Depth     : ${C.bold}${res.agent2.waterlogging_depth_cm} cm${C.reset} (Topographic depression runoff estimate)`);
-  console.log(`  • DEM Baseline Source  : NASA SRTM 30m Centroid (${target.baseElev.toFixed(1)}m ASL)`);
-  console.log(`  • Est. Affected Basin  : ${res.agent2.inundation_area_sqkm} sq.km (TWI Matrix: ${res.agent2.topographic_wetness_index})`);
+  console.log(`\n${C.green}✓ STAGE 2: TOPOGRAPHIC & INUNDATION ESTIMATE${C.reset}`);
+  console.log(`  • Inundation Depth     : ${C.bold}${res.agent2.waterlogging_depth_cm} cm${C.reset} (SIMPLIFIED HYDROLOGIC ESTIMATE)`);
+  console.log(`  • Basin Exposure Proxy : ${res.agent2.inundation_area_sqkm} sq.km (Illustrative proxy; TWI: ${res.agent2.topographic_wetness_index})`);
+  console.log(`  • Terrain Data Note    : ${C.dim}Centroid baseline preset (Full 30m raster analysis runs in FastAPI backend)${C.reset}`);
 
-  console.log(`\n${C.green}✓ AGENT 3 (Financial VaR & Parametric Insurance Rule):${C.reset}`);
-  console.log(`  • Enterprise VaR       : ${C.bold}₹${(res.agent3.value_at_risk_inr / 10000000).toFixed(1)} Crores ($${(res.agent3.value_at_risk_usd / 1000000).toFixed(1)}M USD notional)${C.reset}`);
-  console.log(`  • Regulatory Principle : SEBI BRSR Principle 6 (Mandatory Flood Exposure Disclosure)`);
-  console.log(`  • Parametric Payout    : ${res.agent3.parametric_payout_triggered ? C.green + "THRESHOLD BREACHED (DisasterBond.sol Settlement Condition Met)" : C.gray + "THRESHOLD NOT REACHED"}${C.reset}`);
+  console.log(`\n${C.green}✓ STAGE 3: FINANCIAL EXPOSURE & PARAMETRIC RULES${C.reset}`);
+  console.log(`  • Notional Exposure    : ${C.bold}₹${(res.agent3.value_at_risk_inr / 10000000).toFixed(1)} Crores ($${(res.agent3.value_at_risk_usd / 1000000).toFixed(1)}M USD notional exposure proxy)${C.reset}`);
+  console.log(`  • Disclosure Context   : ${C.dim}SEBI BRSR Principle 6 (Regulatory applicability not legally assessed)${C.reset}`);
+  console.log(`  • Parametric Bond Rule : ${res.agent3.parametric_payout_triggered ? C.green + "THRESHOLD SATISFIED (DisasterBond.sol PoC Rule Met)" : C.gray + "THRESHOLD NOT REACHED"}${C.reset}`);
+  console.log(`  • Settlement Status    : ${C.dim}Local trigger satisfied; no on-chain fund transfer executed in CLI${C.reset}`);
 
-  console.log(`\n${C.magenta}✓ CRYPTOGRAPHIC IMMUTABILITY LEDGER:${C.reset}`);
-  console.log(`  • RFC-8785 Digest      : ${C.bold}${res.cryptographic_proof.rfc8785_canonical_sha256}${C.reset}`);
-  console.log(`  • Ledger Standard      : ${C.dim}Deterministic EVM Testbed Preimage (RFC-8785 Canonical SHA-256)${C.reset}\n`);
+  console.log(`\n${C.magenta}✓ STAGE 4: EVIDENCE INTEGRITY & LEDGER AUDIT${C.reset}`);
+  console.log(`  • Local Canonical Hash : ${C.bold}${res.cryptographic_proof.rfc8785_canonical_sha256}${C.reset}`);
+  console.log(`  • RFC-8785 Compliance  : ${C.dim}Deterministic recursive key-sorted canonical JSON serialization${C.reset}`);
+  console.log(`  • On-Chain Anchoring   : ${C.dim}Local EVM testbed mode (Public broadcast requires funded testnet gas)${C.reset}\n`);
 
   console.log(`${C.gray}Axiom: Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1).${C.reset}\n`);
 }
