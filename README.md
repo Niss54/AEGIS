@@ -48,9 +48,22 @@ npx aegis-climate analyze singapore
 ## 🌊 The Crisis & Ground Truth: Why AEGIS Exists
 
 Across urban India and vulnerable global deltas, catastrophic meteorological cloudbursts inflict immense economic destruction:
-* **The Cost of Inaction (World Bank / GFDRR):** Urban pluvial flooding inflicts **$4 Billion+ (₹33,000+ Crores) in direct annual losses** in India alone, projected to surge to **$21B to $75B in coastal corridors by 2050** without structural digital interventions.
-* **The 80%+ Protection Gap (Swiss Re / Munich Re):** Over 80% of urban flood losses remain completely uninsured. A direct repeat of the catastrophic Mumbai monsoon cloudburst would inflict over **$2.3 Billion (₹19,000+ Crores)** in unmitigated municipal damage.
-* **The Bureaucratic Latency Paradox:** Disaster relief and compensation take **3 to 6 months of disputed paperwork** because damage surveys are manual, subjective, and prone to paper-audit falsification (e.g., municipal investigations revealing multi-crore desilting and water-logging claim manipulation).
+* **The Cost of Inaction (World Bank / GFDRR Report):** Urban pluvial flooding inflicts **$4 Billion+ (₹33,000+ Crores) in direct annual losses** across India alone, projected to surge to **$21B to $75B in coastal corridors by 2050** without structural digital interventions. *(Source: [The New Indian Express / World Bank Report](https://www.newindianexpress.com/cities/chennai/2023/Nov/23/world-bank-estimates-annual-loss-from-urban-floods-in-india-at-4-billion-2635338.html))*.
+* **The 80%+ Protection Gap (Swiss Re / Munich Re Analysis):** Over 80% of urban flood losses remain completely uninsured. A modern-day repeat of the 2005 Mumbai cloudburst would inflict over **$2.3 Billion (₹19,000+ Crores)** in unhedged damages. *(Source: [Swiss Re Catastrophe Assessment](https://www.swissre.com))*.
+* **The Bureaucratic Paper Falsification Crisis:** Disaster relief takes **3 to 6 months of disputed paperwork** because traditional damage surveys and silt-clearance records are manual and easily forged. As documented in police investigations, over **₹65.54 Crore in flood-mitigation funds were siphoned off in Mumbai's Mithi River desilting scam** using fabricated transport logs and false silt clearance slips. *(Source: [The Hindu / Mumbai Police EOW FIR](https://www.thehindu.com/news/cities/mumbai/eow-registers-fir-in-alleged-mithi-river-desilting-scam/article68277259.ece))*.
+
+#### 📰 Verified Investigative & Institutional Evidence
+<div align="center">
+
+| 🏛️ World Bank / GFDRR $4B Loss Report | ⚖️ The Hindu: EOW FIR in Mithi Desilting Scam |
+|:---:|:---:|
+| <a href="https://www.newindianexpress.com/cities/chennai/2023/Nov/23/world-bank-estimates-annual-loss-from-urban-floods-in-india-at-4-billion-2635338.html"><img src="./evaluation/worldbank_urban_flood_loss.png" alt="World Bank $4B Annual Urban Flood Loss Report" width="100%" /></a> | <a href="https://www.thehindu.com/news/cities/mumbai/eow-registers-fir-in-alleged-mithi-river-desilting-scam/article68277259.ece"><img src="./evaluation/mithi_scam_thehindu.png" alt="The Hindu: Mithi River Desilting Scam FIR" width="100%" /></a> |
+| *[Read Report (The New Indian Express)](https://www.newindianexpress.com/cities/chennai/2023/Nov/23/world-bank-estimates-annual-loss-from-urban-floods-in-india-at-4-billion-2635338.html)* | *[Read Report (The Hindu)](https://www.thehindu.com/news/cities/mumbai/eow-registers-fir-in-alleged-mithi-river-desilting-scam/article68277259.ece)* |
+
+> 🔍 **Why Cryptographic Track 4 Verification is Non-Negotiable:**  
+> When flood mitigation records are paper-based, humans can fabricate debris removal, manipulate tender documents, and delay emergency relief. **In AEGIS-CLIMATE, Copernicus Sentinel-2 multispectral water indices and 30m NASA SRTM elevation physics cannot be bribed or falsified.** Every observation is canonicalized under RFC-8785 and permanently sealed with a Keccak-256 state root anchored to IPFS.
+
+</div>
 
 ### 🎯 Who Faces This Problem?
 1. **Civic Disaster Management Authorities (BMC, BBMP, NDMA):** Paralyzed by fragmented satellite rasters, Doppler feeds, and elevation maps that take 4 to 6 hours to convert into actionable ward-level dispatch plans.
