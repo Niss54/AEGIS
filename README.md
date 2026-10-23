@@ -22,7 +22,8 @@ Built for **IEEE ClimateChain Hackathon 2026** & **Enterprise Environmental Inte
 [![Storage](https://img.shields.io/badge/Storage-IPFS%20%2F%20Filecoin-3AC2E1?style=for-the-badge&logo=ipfs&logoColor=white)](https://pinata.cloud)
 [![Domain](https://img.shields.io/badge/Domain-Energy%20%26%20ClimateTech-2ea44f?style=for-the-badge&logo=leaf&logoColor=white)](#-domain--bharat-impact)
 [![Architecture](https://img.shields.io/badge/Protocol-Official%20MCP%20JSON--RPC%202.0-ff6b35?style=for-the-badge&logo=anthropic&logoColor=white)](#-model-context-protocol-mcp-gateway)
-[![Team](https://img.shields.io/badge/Team-Syntrix-8a2be2?style=for-the-badge&logo=shield&logoColor=white)](#-team-syntrix)
+[![Author](https://img.shields.io/badge/Author-Nishant%20Maurya-8a2be2?style=for-the-badge&logo=github&logoColor=white)](#-author--engineering)
+[![Package](https://img.shields.io/badge/Package-npx%20aegis--climate-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/aegis-climate)
 [![Tests](https://img.shields.io/badge/Test%20Suite-170%2F170%20Passing-brightgreen?style=for-the-badge&logo=checkmarx&logoColor=white)](#-automated-testing--verification)
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" alt="divider"/>
@@ -49,7 +50,7 @@ npx aegis-climate analyze singapore
 
 Across urban South Asia and vulnerable global deltas, catastrophic meteorological cloudbursts inflict immense economic destruction:
 * **The Cost of Inaction (World Bank Official Resilience Benchmark):** Disasters inflict over **$4 Billion in direct economic losses to productive assets** and **$8 Billion in agricultural damages** annually, displacing over **26.39 Million citizens** each year. *(Source: [The World Bank Resilience & Disaster Risk Management Portal](https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management))*.
-* **The 80%+ Protection Gap (Swiss Re Catastrophe Assessment):** Global economic disaster losses reached **$318 Billion in 2024**, with **$181 Billion (57% to 85%+ in emerging Asian corridors) completely uninsured**. A modern repeat of catastrophic cloudbursts inflicts billions in unhedged damages due to the absence of automated parametric liquidity. *(Source: [Swiss Re Institute Sigma Research]([https://www.swissre.com](https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk/adaptation-insurance-narrow-protection-gap.html)))*.
+* **The 80%+ Protection Gap (Swiss Re Catastrophe Assessment):** Global economic disaster losses reached **$318 Billion in 2024**, with **$181 Billion (57% to 85%+ in emerging Asian corridors) completely uninsured**. A modern repeat of catastrophic cloudbursts inflicts billions in unhedged damages due to the absence of automated parametric liquidity. *(Source: [Swiss Re Institute Sigma Research](https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk/adaptation-insurance-narrow-protection-gap.html))*.
 * **The Bureaucratic Paper Falsification & Delay Crisis:** Traditional disaster survey and relief takes **3 to 6 months of disputed paperwork**. Official audits by the Comptroller and Auditor General of India (CAG Report No. 10 of 2017) and judicial investigations into municipal flood funds (such as the ₹65.54 Crore Mithi River desilting FIR) document massive failures: non-functional telemetry sensors, unspent disaster mitigation allocations, and paper records forged with fake dumping slips.
 * **The Transboundary Early Warning Failure (e.g., Nepal Deluges 2024–2026):** In late September 2024, record downpours (>320mm in 48h) in the Bagmati basin caused 230+ deaths and >$127M in direct infrastructure losses. While regional meteorology detected rain, the failure to translate raw telemetry into localized, vernacular early warnings left informal settlements stranded on rooftops.
 
@@ -202,7 +203,7 @@ In traditional parametric insurance, climate reports are frequently forged or al
   - [📦 Deployment & Container Architecture Specifications](#-deployment--container-architecture-specifications)
     - [Method 1: YAML / Agent Manifest Submission](#method-1-yaml--agent-manifest-submission)
     - [Method 2: Hosted API Endpoint Submission](#method-2-hosted-api-endpoint-submission)
-  - [👥 Team Syntrix](#-team-syntrix)
+  - [👤 Author & Engineering](#-author--engineering)
   - [📄 License & Acknowledgments](#-license--acknowledgments)
 
 ---
@@ -687,13 +688,9 @@ AEGIS provides an official containerized manifest and microservice architecture:
 
 ---
 
-## 👥 Team Syntrix
+## 👤 Author & Engineering
 
-Architected and developed by **Team Syntrix**:
-- **Nishant Maurya** (Lead Agentic Systems & Full-Stack Architect)
-- **Navya Chaudhary** (Climate Modeling & GIS Analytics)
-- **Om Tripathi** (Blockchain & Smart Contracts Core)
-- **Nikita Chopde** (Financial Policy & UI/UX Experience)
+Architected, designed, and engineered solely by **Nishant Maurya** (Lead Agentic Systems, Topographic Hydrology & Cryptographic Protocol Architect).
 
 ---
 

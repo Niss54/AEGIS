@@ -24,8 +24,8 @@
   **"Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)."**  
   AEGIS-CLIMATE is anchored in Track 4: multi-agent climate hazard detection, 30m NASA SRTM elevation modeling, and RFC-8785 Keccak-256 evidence hashing. Track 1 features (disaster bonds, carbon mitigation credits) function exclusively as downstream programmable consequences of mathematically verified environmental telemetry.
 
-* **Team Name:**  
-  `Team Syntrix`
+* **Author & Architect:**  
+  `Nishant Maurya (Solo Developer & Architect)`
 
 * **Public Code Repository:**  
   [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS)

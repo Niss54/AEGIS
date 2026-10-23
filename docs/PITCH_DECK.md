@@ -1,5 +1,5 @@
 # 🛡️ AEGIS-CLIMATE — Pitch Deck
-### *Enterprise Executive Presentation | Team Syntrix*
+### *Enterprise Executive Presentation | Nishant Maurya*
 
 > **Deck Format:** 16:9 Widescreen | **Time:** 3–5 Minutes | **Slides:** 11
 > **Design Language:** Neon Black Cyber-Cockpit (`#0D1B2A` base, `#00F0FF` accent, `#E76F51` danger)
@@ -261,7 +261,7 @@ Manual trigger       →     Automated 15-min cron →    Real-time satellite fe
 
 ### **"From detecting the signal to deciding the next action — autonomously."**
 
-**AEGIS-CLIMATE** | Team Syntrix
+**AEGIS-CLIMATE** | Nishant Maurya
 Autonomous Multi-Agent Environmental & Risk Intelligence Platform 🛡️
 
 ---
@@ -293,7 +293,7 @@ Autonomous Multi-Agent Environmental & Risk Intelligence Platform 🛡️
   - **Phase 1 (Months 1–3):** National disaster command deployment across Bharat (NDMA, BMC Mumbai, BBMP Bengaluru, ASDMA Assam).
   - **Phase 2 (Months 4–8):** JAPAC cross-border pilot targeting coastal surge corridors in Singapore, Jakarta, Tokyo, and Manila.
   - **Phase 3 (Months 9–12):** Global catastrophe reinsurance API and municipal micro-disaster bond integration on institutional ledgers.
-- **Team Syntrix Commitment:** Delivering verifiable, sovereign, and autonomous planetary resilience.
+- **Nishant Maurya Commitment:** Delivering verifiable, sovereign, and autonomous planetary resilience.
 
 ---
 

@@ -1,7 +1,7 @@
 # 🎬 AEGIS-CLIMATE — High-Energy 3-Minute (180s) Video Screenplay
 ### *Autonomous Multi-Agent Environmental & Climate Risk Intelligence Platform*
 **Competition:** Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)  
-**Team:** Syntrix (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
+**Team:** AEGIS Core (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
 **Duration:** 180s (3 Minutes) Exact Mathematical Budget  
 **Infrastructure:** Google Cloud Run, Google Vertex AI (Gemini 2.0 Flash), Model Context Protocol (MCP)  
 
@@ -25,7 +25,7 @@
 - **Presenter / Voiceover:**
   > *"Every monsoon, mega-cities across the Indo-Pacific come to a devastating standstill. From Mumbai's Mithi River basin to Bengaluru and Southeast Asia, climate disasters inflict over $16 Billion in annual direct physical and economic destruction.*  
   > *Meteorological data, satellite elevation models, and disaster policies exist—but they are completely trapped in disconnected silos. Decision-makers receive warnings hours after water has already entered critical infrastructure.*  
-  > *We are Team Syntrix, competing in the Google Cloud AI Builder Cup, and this is **AEGIS-CLIMATE**—the first autonomous, multi-agent environmental and financial intelligence platform."*
+  > *We are Nishant Maurya, competing in the Google Cloud AI Builder Cup, and this is **AEGIS-CLIMATE**—the first autonomous, multi-agent environmental and financial intelligence platform."*
 
 ---
 
@@ -70,7 +70,7 @@
   > *Every analysis is compiled into a canonical RFC-8785 evidence bundle, hashed with Keccak-256, and anchored with Pinata IPFS CIDs.*  
   > *When flood thresholds breach, our smart contracts execute deterministic autonomous USDC emergency liquidity with zero paper claims.*  
   > *From Mumbai and Lucknow to our championship demonstration at Marina Barrage for the **Singapore Grand Finale**, AEGIS-CLIMATE delivers autonomous climate defense.*  
-  > *Built by Team Syntrix for the Google Cloud AI Builder Cup. Ready to protect our planet today!"*
+  > *Built by Nishant Maurya for the Google Cloud AI Builder Cup. Ready to protect our planet today!"*
 
 ---
 

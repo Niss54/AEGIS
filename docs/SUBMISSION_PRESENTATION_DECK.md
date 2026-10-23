@@ -1,12 +1,12 @@
 # 🏆 GOOGLE CLOUD AI BUILDER CUP — OFFICIAL SUBMISSION DECK
-## Team Syntrix | Project: AEGIS-CLIMATE v3.6.0-ENTERPRISE
+## Nishant Maurya | Project: AEGIS-CLIMATE v3.6.0-ENTERPRISE
 ### Template Mapping: `Submission Template - AI Builder Cup.pptx`
 
 ---
 
 ### SLIDE 1: Team Details
 - **Competition:** Google Cloud AI Builder Cup — Build in JAPAC. Build for the world.
-- **Team Name:** Syntrix
+- **Team Name:** AEGIS Core
 - **Team Leader Name:** Nishant Maurya
 - **Problem Statement:** 
   > Multi-hazard climate disasters (coastal storm surges, flash floods, and wetland encroachment) cause over \$380B in unquantified annual infrastructure damage and paralyze emergency response across JAPAC megadeltas. Siloed satellite telemetry, delayed hydrological modeling, and disconnected corporate financial disclosures create an operational blind spot where civic authorities react hours too late and enterprises face catastrophic unhedged Value-at-Risk (VaR).
@@ -180,5 +180,5 @@ flowchart TD
 
 ### SLIDE 16: Thank You
 - **Built for:** Google Cloud AI Builder Cup Singapore Grand Finale
-- **Team Syntrix:** Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde
+- **Nishant Maurya:** Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde
 - **Contact / GitHub:** [https://github.com/Niss54/AEGIS-CLIMATE](https://github.com/Niss54/AEGIS-CLIMATE)

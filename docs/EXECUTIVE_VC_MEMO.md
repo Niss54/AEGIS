@@ -4,7 +4,7 @@
 > **Confidential Document**  
 > **Prepared For:** Institutional Climate-Tech, AI Infrastructure & FinTech VCs  
 > **Target Event:** Google Cloud AI Builder Cup — JAPAC Grand Finale (Singapore)  
-> **Company:** AEGIS-CLIMATE Inc. (Team Syntrix: Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
+> **Company:** AEGIS-CLIMATE Inc. (Nishant Maurya: Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
 > **Jurisdiction:** India / Singapore (Holding Co. Structure)  
 > **Key Cloud Partner:** Google Cloud Platform (Google Vertex AI & Cloud Run Native)
 
@@ -117,7 +117,7 @@ AEGIS-CLIMATE’s architecture is co-engineered with Google Cloud technologies t
 
 ## 6. Singapore Grand Finale Strategy: 48-Hour Live Pitch Playbook
 
-At the **Google Cloud AI Builder Cup Grand Finale in Singapore**, Team Syntrix will execute an unforgettable live demonstration:
+At the **Google Cloud AI Builder Cup Grand Finale in Singapore**, Nishant Maurya will execute an unforgettable live demonstration:
 
 1. **The Live Singapore Marina Barrage Stress Test:**
    - Presenters will simulate an unprecedented 150mm tropical torrential downpour combined with a 2.5m high-tide coastal surge at the Singapore Marina Bay catchment (`1.2800° N, 103.8636° E`).
@@ -133,7 +133,7 @@ At the **Google Cloud AI Builder Cup Grand Finale in Singapore**, Team Syntrix w
 
 ## 7. The Team & Capital Allocation
 
-### Team Syntrix (Founders & Engineering Leadership):
+### Nishant Maurya (Founders & Engineering Leadership):
 - **Nishant Maurya:** Lead Architect & Systems Engineer (Full-Stack, Cloud Run, MCP Core)
 - **Navya Chaudhary:** Machine Learning & Geospatial Specialist (Copernicus MSI, GEE, GBM)
 - **Om Tripathi:** AI & LLM Systems Engineer (Google Vertex AI, Gemini 2.0 Flash, Policy RAG)

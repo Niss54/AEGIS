@@ -36,7 +36,7 @@
 >
 > But the deepest crisis is **operational latency**. When a cloudburst strikes, municipal authorities react four to six hours too late because data is trapped in disconnected silos. Even worse, emergency relief takes three to six months of disputed paperwork because damage surveys are manual and vulnerable to paper-audit fraud.
 >
-> We are Team Syntrix. And this is **AEGIS-CLIMATE** — the world’s first autonomous multi-agent climate resilience and verifiable evidence ledger."
+> I am Nishant Maurya. And this is **AEGIS-CLIMATE** — the world’s first autonomous multi-agent climate resilience and verifiable evidence ledger."
 
 ---
 
@@ -116,14 +116,14 @@
    ```
 3. Show the colored ASCII radar, the 3-agent thought trace, and the on-chain hash output in 500ms.
 4. Type: `npx aegis-climate lucknow` (demonstrating it resolves real 126m elevation and runs without crashing).
-5. Switch back to browser with full-screen AEGIS Mission Control, displaying GitHub URL and Team Syntrix splash.
+5. Switch back to browser with full-screen AEGIS Mission Control, displaying GitHub URL and project splash.
 
 #### 🎙️ SPOKEN SCRIPT (What You Say):
 > "Finally, judges do not need to clone complex repositories or configure environments. Anyone on Windows, Mac, or Linux can verify our engine right now in their terminal by running: `npx aegis-climate analyze mumbai`.
 >
 > In half a second, the CLI resolves real 30-meter NASA terrain elevation, runs the multi-agent cascade, and prints the verified cryptographic evidence. You can test Lucknow, Singapore, Tokyo, or any custom coordinate on Earth.
 >
-> By slashing emergency decision latency from six hours down to ninety seconds, AEGIS-CLIMATE turns vulnerable megacities into resilient ecosystems. We are Team Syntrix, and this is verifiable climate intelligence for IEEE ClimateChain 2026. Thank you."
+> By slashing emergency decision latency from six hours down to ninety seconds, AEGIS-CLIMATE turns vulnerable megacities into resilient ecosystems. I am Nishant Maurya, and this is AEGIS-CLIMATE: verifiable climate intelligence for IEEE ClimateChain 2026. Thank you."
 
 ---
 

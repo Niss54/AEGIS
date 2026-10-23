@@ -1,7 +1,7 @@
 # ⏱️ AEGIS-CLIMATE — Engineering Task Tracker
 ### *Autonomous Multi-Agent Environmental & Climate Risk Intelligence Platform*
 
-> **Team:** Syntrix  
+> **Team:** AEGIS Core  
 > **Repository:** [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS)  
 > **Status:** Production Release
 
