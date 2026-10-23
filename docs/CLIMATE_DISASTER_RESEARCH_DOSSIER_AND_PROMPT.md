@@ -77,7 +77,20 @@ For every case study identified, structure your findings exactly as follows:
 
 ## PART 2: Verified Historical Case Studies & Evidence Dossier (1990–2026)
 
-The following evidence dossier compiles verified primary institutional findings investigated under the Gravitas protocol:
+### 📸 Core Institutional Ground-Truth Captures (`evaluation/evidence_screenshots/`)
+The repository contains 5 high-resolution, unmanipulated browser and document captures directly validating our problem statement pillars:
+
+| # | Evidence File | Problem Statement Pillar | Primary Source & Live URL |
+|---|---|---|---|
+| 1 | [`01_mithi_river_eow_fraud_indianexpress.png`](../evaluation/evidence_screenshots/01_mithi_river_eow_fraud_indianexpress.png) | **Audit Fraud in Flood Mitigation** | [The Indian Express Investigation](https://indianexpress.com/article/cities/mumbai/mithi-river-desilting-scam-fraud-eow-searches-9985332/) (₹65.54 Cr EOW FIR: fabricated dumping slips & unverified silt logs). |
+| 2 | [`02_mumbai_drainage_capacity_failure_toi.png`](../evaluation/evidence_screenshots/02_mumbai_drainage_capacity_failure_toi.png) | **Chronic Drainage Latency & Delay** | [Times of India Civic Audit](https://timesofindia.indiatimes.com/city/mumbai/Mumbai-struggles-with-even-10-of-2005-deluge/articleshow/48195141.cms) (Drainage fails under even 10% of 2005 peak rainfall). |
+| 3 | [`03_swiss_re_adaptation_protection_gap.png`](../evaluation/evidence_screenshots/03_swiss_re_adaptation_protection_gap.png) | **The Parametric Protection Gap** | [Swiss Re Institute Sigma Research](https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk/adaptation-insurance-narrow-protection-gap.html) (Adaptation & insurance blueprint to bridge the 80%+ uninsured gap). |
+| 4 | [`04_worldbank_resilience_disaster_portal.png`](../evaluation/evidence_screenshots/04_worldbank_resilience_disaster_portal.png) | **Multilateral Scale of Inaction** | [The World Bank DRM Hub](https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management) ($4B direct asset loss, $8B agricultural ruin, 26.39M displaced). |
+| 5 | [`05_rfc8785_canonical_json_spec.png`](../evaluation/evidence_screenshots/05_rfc8785_canonical_json_spec.png) | **Track 4 Cryptographic Evidence Integrity** | [IETF RFC 8785 Specification](https://www.rfc-editor.org/rfc/rfc8785.html) (JSON Canonicalization Scheme for deterministic Keccak-256 state roots). |
+
+---
+
+### Detailed Case Studies (1990–2026):
 
 ---
 
@@ -159,6 +172,65 @@ The following evidence dossier compiles verified primary institutional findings 
   - *CAG Performance Audit on Chennai Floods (Report No. 4 of 2017, Tamil Nadu):* [cag.gov.in](https://cag.gov.in)
 
 ---
+
+
+---
+
+### Case 7: Bangladesh Cyclone Gorky (29 April 1991) & Telemetry Comms Breakdown
+* **Date:** 29 April 1991.
+* **Location:** Southeastern coastal Bangladesh (Chittagong, Cox's Bazar, Meghna delta).
+* **Empirical Scale:**
+  - **Fatalities:** ~138,000–140,000 deaths.
+  - **Affected Population:** ~10 Million people.
+  - **Economic Losses:** US$1.78 Billion (historical UNDP dataset).
+* **Core Problem Statement Failure:**
+  - *Telemetry Transmission Failure:* Japan's Ministry of Foreign Affairs (MOFA) official ODA review documented that physical communications infrastructure damage prevented weather radar imagery from reaching the Bangladesh Meteorological Department (BMD) in Dhaka in real-time, severing localized early warning.
+* **Authoritative Institutional Sources:**
+  - *MOFA Japan Official Review:* [mofa.go.jp/policy/oda/summary/1999/topics11.html](https://www.mofa.go.jp/policy/oda/summary/1999/topics11.html)
+  - *World Bank Disaster Study (In `evaluation/`):* [World Bank Report 41758-BD](https://documents1.worldbank.org/curated/en/970691468206344752/pdf/417580BD.pdf)
+
+---
+
+### Case 8: Pakistan 2010 Super Floods (Indus Basin Deluge)
+* **Date:** July–September 2010.
+* **Location:** Nationwide sequence across Khyber Pakhtunkhwa, Punjab, Sindh, and the lower Indus basin.
+* **Empirical Scale:**
+  - **Human Toll:** 1,985 fatalities; 20,184,550 people affected.
+  - **Housing Destruction:** 1.74 Million houses damaged or destroyed.
+  - **Economic Damage:** **PKR 855 Billion (~$10 Billion USD)** in the World Bank/ADB Damage and Needs Assessment (DNA).
+* **Core Problem Statement Failure:**
+  - While macro riverine forecasts existed, localized parametric payout mechanisms and rapid micro-relief were completely absent, leaving 20M citizens dependent on delayed multilateral debt appeals.
+* **Authoritative Institutional Sources:**
+  - *World Bank DNA Report (In `evaluation/`):* [World Bank Report 58290-PK](https://documents1.worldbank.org/curated/en/676321468057882381/pdf/582900BR0OM2011e0only1910BOX353794B.pdf)
+
+---
+
+### Case 9: Uttarakhand Himalayan Cloudburst & Flash Floods (June 2013)
+* **Date:** 16–17 June 2013.
+* **Location:** Kedarnath, Mandakini & Alaknanda valleys, Garhwal Himalaya, India.
+* **Empirical Scale:**
+  - **Precipitation:** 385.1 mm across Uttarakhand (15–18 June) vs normal 71.3 mm (440% anomaly).
+  - **Fatalities:** 580 confirmed dead; **5,526 missing (presumed dead)** in official Ministry of Home Affairs reporting.
+  - **Economic Losses:** >$3.8 Billion USD in World Bank/GFDRR assessments; ~₹50,000 Crore in NITI Aayog historical infrastructure review.
+* **Core Problem Statement Failure:**
+  - Total lack of automated telemetry alerts for downstream pilgrim settlements; complete absence of parametric insurance for smallholder guest houses and transport operators.
+* **Authoritative Institutional Sources:**
+  - *MHA Year-End Review (In `evaluation/`):* [pib.gov.in Release 102166](https://www.pib.gov.in/newsite/PrintRelease.aspx?lang=2&reg=48&relid=102166)
+  - *World Bank GFDRR Uttarakhand Story:* [worldbank.org/document/drm/gfdrr-stories-of-impact-uttarakhand.pdf](https://www.worldbank.org/content/dam/Worldbank/document/drm/gfdrr-stories-of-impact-uttarakhand.pdf)
+  - *CAG Audit Report No. 45 of 2017:* [cag.gov.in/en/audit-report/details/45722](https://cag.gov.in/en/audit-report/details/45722)
+
+---
+
+### Case 10: Kerala Floods (August 2018)
+* **Date:** 1 June – 19 August 2018 (Peak: 15–17 August).
+* **Location:** Periyar, Pamba, and Chaliyar catchments across 13 of 14 districts in Kerala.
+* **Empirical Scale:**
+  - **Fatalities:** 433 deaths; **1.4 Million people displaced** into relief camps; 5.4 Million affected.
+  - **Economic Losses:** **₹26,720 Crore (~$3.74 Billion USD)** in the UNDP-supported Post-Disaster Needs Assessment.
+* **Core Problem Statement Failure:**
+  - Uncoordinated dam gate operations compounded by the absence of automated real-time hydrodynamic runoff modeling; protracted paperwork delays in rebuilding rural homes.
+* **Authoritative Institutional Sources:**
+  - *UNDP Post-Disaster Needs Assessment:* [undp.org/india](https://www.undp.org)
 
 ## PART 3: Architectural Mapping: How AEGIS Directly Solves Each Historical Failure
 

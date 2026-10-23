@@ -53,15 +53,28 @@ Across urban South Asia and vulnerable global deltas, catastrophic meteorologica
 * **The Bureaucratic Paper Falsification & Delay Crisis:** Traditional disaster survey and relief takes **3 to 6 months of disputed paperwork**. Official audits by the Comptroller and Auditor General of India (CAG Report No. 10 of 2017) and judicial investigations into municipal flood funds (such as the ₹65.54 Crore Mithi River desilting FIR) document massive failures: non-functional telemetry sensors, unspent disaster mitigation allocations, and paper records forged with fake dumping slips.
 * **The Transboundary Early Warning Failure (e.g., Nepal Deluges 2024–2026):** In late September 2024, record downpours (>320mm in 48h) in the Bagmati basin caused 230+ deaths and >$127M in direct infrastructure losses. While regional meteorology detected rain, the failure to translate raw telemetry into localized, vernacular early warnings left informal settlements stranded on rooftops.
 
-#### 🏛️ Verified Institutional Evidence: Official World Bank Portal Capture
+#### 📰 Verified Ground-Truth Evidence: Real Investigations & Institutional Portals
+*Every problem statement claim in AEGIS is substantiated by primary judicial filings, institutional audits, and global multilateral portals stored in [`evaluation/evidence_screenshots/`](./evaluation/evidence_screenshots/):*
+
 <div align="center">
 
-<a href="https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management">
-  <img src="./evaluation/worldbank_disaster_management_official.png" alt="Official World Bank Resilience & Disaster Risk Management Portal Capture" width="100%" />
-</a>
+| ⚖️ 1. Procurement & Silt Audit Fraud | 🌧️ 2. Drainage Infrastructure Inaction |
+|:---:|:---:|
+| <a href="https://indianexpress.com/article/cities/mumbai/mithi-river-desilting-scam-fraud-eow-searches-9985332/"><img src="./evaluation/evidence_screenshots/01_mithi_river_eow_fraud_indianexpress.png" alt="Indian Express: ₹65.54-Crore Mithi River Desilting Fraud FIR" width="100%" /></a> | <a href="https://timesofindia.indiatimes.com/city/mumbai/Mumbai-struggles-with-even-10-of-2005-deluge/articleshow/48195141.cms"><img src="./evaluation/evidence_screenshots/02_mumbai_drainage_capacity_failure_toi.png" alt="Times of India: Mumbai Struggles With Even 10% of 2005 Deluge" width="100%" /></a> |
+| **[The Indian Express Report](https://indianexpress.com/article/cities/mumbai/mithi-river-desilting-scam-fraud-eow-searches-9985332/)**<br>EOW FIR: ₹65.54 Cr siphon via fake dumping slips & unverified silt transport. | **[Times of India Civic Audit](https://timesofindia.indiatimes.com/city/mumbai/Mumbai-struggles-with-even-10-of-2005-deluge/articleshow/48195141.cms)**<br>A decade after 2005, civic drainage fails under even 10% peak rain. |
+
+| 📊 3. The Climate Protection Gap | 🏛️ 4. Multilateral Asset Destruction |
+|:---:|:---:|
+| <a href="https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk/adaptation-insurance-narrow-protection-gap.html"><img src="./evaluation/evidence_screenshots/03_swiss_re_adaptation_protection_gap.png" alt="Swiss Re: Adaptation and Insurance to Narrow the Protection Gap" width="100%" /></a> | <a href="https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management"><img src="./evaluation/evidence_screenshots/04_worldbank_resilience_disaster_portal.png" alt="The World Bank: Disaster Management By The Numbers" width="100%" /></a> |
+| **[Swiss Re Sigma Research](https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk/adaptation-insurance-narrow-protection-gap.html)**<br>80%+ uninsured protection gap; imperative for physical adaptation & parametric bonds. | **[The World Bank DRM Portal](https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management)**<br>$4B direct asset loss, $8B agricultural loss, 26.39M disaster displacements. |
+
+| 🔐 5. Cryptographic Canonical Serialization (Track 4 Core Standard) |
+|:---:|
+| <a href="https://www.rfc-editor.org/rfc/rfc8785.html"><img src="./evaluation/evidence_screenshots/05_rfc8785_canonical_json_spec.png" alt="RFC 8785: JSON Canonicalization Scheme" width="70%" /></a> |
+| **[IETF RFC 8785 Specification](https://www.rfc-editor.org/rfc/rfc8785.html)**<br>Deterministic byte-level canonicalization eliminating data tampering, forged logs, and audit manipulation. |
 
 <p align="center">
-  <em>Live Capture from <a href="https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management">The World Bank Resilience & Disaster Management Hub</a> verifying $4B direct asset loss, $8B agricultural loss, and 26.39M disaster displacements. For an exhaustive 1990–2026 research dossier and master research prompt, see <a href="./docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md">docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md</a>.</em>
+  <em>For the complete 1990–2026 disaster research dossier and LLM master research prompt, see <a href="./docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md">docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md</a>.</em>
 </p>
 
 > 🔍 **Why Cryptographic Track 4 Verification is Non-Negotiable:**  
