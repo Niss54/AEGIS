@@ -115,7 +115,7 @@ def export_teleprompter_artifacts(output_dir: str = None) -> Dict[str, str]:
 
     data_payload = {
         "project": "AEGIS-CLIMATE",
-        "competition": "IEEE ClimateChain Hackathon (JAPAC Track)",
+        "competition": "IEEE ClimateChain Hackathon 2026 (Track 4)",
         "duration_seconds": TOTAL_DEMO_BUDGET_SECONDS,
         "acts": DEMO_ACTS
     }

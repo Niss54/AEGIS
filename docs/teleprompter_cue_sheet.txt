@@ -41,7 +41,7 @@ Here is our decisive technical advantage for the IEEE ClimateChain Hackathon: AE
 
 --------------------------------------------------------------------------------
 
---- ACT 4: JAPAC ECONOMIC ROI & SINGAPORE GRAND FINALE CALL TO ACTION [02:30 - 03:00] ---
+--- ACT 4: JAPAC ECONOMIC ROI & IEEE CLIMATECHAIN GLOBAL DEMONSTRATION CALL TO ACTION [02:30 - 03:00] ---
 SCENE ANCHOR : Blockchain parametric bond settlement & JAPAC multi-city scaling map
 TECH FOCUS   : Decentralized Parametric Bond, Hedera & IPFS Provenance, 78% Latency Reduction, IEEE ClimateChain Global Demonstration
 VISUAL CUES  :

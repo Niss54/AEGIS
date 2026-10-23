@@ -164,7 +164,7 @@ flowchart TD
 ---
 
 ### SLIDE 14: Provide links to your:
-- **GitHub Public Repository:** [https://github.com/Niss54/AEGIS-CLIMATE](https://github.com/Niss54/AEGIS-CLIMATE)
+- **GitHub Public Repository:** [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS)
 - **Demo Video Link (3 Minutes):** [https://youtu.be/YOUR_DEMO_VIDEO_URL_HERE](https://youtu.be/YOUR_DEMO_VIDEO_URL_HERE) *(Paste your YouTube/Drive link)*
 - **Final Product Link (Live App):** [https://aegis-climate-demo.web.app](https://aegis-climate-demo.web.app) *(Paste your deployed URL)*
 
@@ -179,6 +179,6 @@ flowchart TD
 ---
 
 ### SLIDE 16: Thank You
-- **Built for:** IEEE ClimateChain Hackathon IEEE ClimateChain Global Demonstration
-- **Nishant Maurya:** Nishant Maurya (Solo Developer)
-- **Contact / GitHub:** [https://github.com/Niss54/AEGIS-CLIMATE](https://github.com/Niss54/AEGIS-CLIMATE)
+- **Built for:** IEEE ClimateChain Hackathon 2026 (Track 4: Climate Data & Environmental Monitoring)
+- **Author & Architect:** Nishant Maurya (Solo Developer)
+- **GitHub Repository:** [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS)

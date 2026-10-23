@@ -63,7 +63,7 @@ def main():
     logger.info(f"Exported Grand Finale Strategy to: {output_path}")
 
     print("\n" + "=" * 55)
-    print("  AEGIS-CLIMATE SINGAPORE GRAND FINALE STRATEGY READY")
+    print("  AEGIS-CLIMATE IEEE CLIMATECHAIN GLOBAL DEMONSTRATION READY")
     print(f"  TAM: ${market_eval.tam_usd_b}B | SAM: ${market_eval.sam_usd_b}B | SOM: ${market_eval.som_usd_m}M")
     print(f"  Venue: {playbook['venue']}")
     print(f"  Capital Ask: ${playbook['financial_ask']['target_amount_usd']:,} USD ({playbook['financial_ask']['round']})")
