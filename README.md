@@ -47,18 +47,22 @@ npx aegis-climate analyze singapore
 
 ## 🌊 The Crisis & Ground Truth: Why AEGIS Exists
 
-Across urban India and vulnerable global deltas, catastrophic meteorological cloudbursts inflict immense economic destruction:
-* **The Cost of Inaction (World Bank / GFDRR Report):** Urban pluvial flooding inflicts **$4 Billion+ (₹33,000+ Crores) in direct annual losses** across India alone, projected to surge to **$21B to $75B in coastal corridors by 2050** without structural digital interventions. *(Source: [World Bank Resilience & Disaster Risk Management](https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management))*.
-* **The 80%+ Protection Gap (Swiss Re / Munich Re Analysis):** Over 80% of urban flood losses remain completely uninsured. A modern-day repeat of the 2005 Mumbai cloudburst would inflict over **$2.3 Billion (₹19,000+ Crores)** in unhedged damages. *(Source: [Swiss Re Catastrophe Assessment](https://www.swissre.com))*.
-* **The Bureaucratic Paper Falsification Crisis:** Disaster relief takes **3 to 6 months of disputed paperwork** because traditional damage surveys and silt-clearance records are manual and easily forged. As documented in police investigations, over **₹65.54 Crore in flood-mitigation funds were siphoned off in Mumbai's Mithi River desilting scam** using fabricated transport logs and false silt clearance slips. *(Source: [Mumbai Police EOW FIR / Free Press Journal Report](https://www.freepressjournal.in/mumbai-news-eow-arrests-two-middlemen-in-connection-with-mithi-river-desilting-scam/))*; see also investigative records on *[Mithi River Inquiries](https://en.wikipedia.org/wiki/Mithi_River)*.
+Across urban South Asia and vulnerable global deltas, catastrophic meteorological cloudbursts inflict immense economic destruction:
+* **The Cost of Inaction (World Bank Official Resilience Benchmark):** Disasters inflict over **$4 Billion in direct economic losses to productive assets** and **$8 Billion in agricultural damages** annually, displacing over **26.39 Million citizens** each year. *(Source: [The World Bank Resilience & Disaster Risk Management Portal](https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management))*.
+* **The 80%+ Protection Gap (Swiss Re Catastrophe Assessment):** Global economic disaster losses reached **$318 Billion in 2024**, with **$181 Billion (57% to 85%+ in emerging Asian corridors) completely uninsured**. A modern repeat of catastrophic cloudbursts inflicts billions in unhedged damages due to the absence of automated parametric liquidity. *(Source: [Swiss Re Institute Sigma Research](https://www.swissre.com))*.
+* **The Bureaucratic Paper Falsification & Delay Crisis:** Traditional disaster survey and relief takes **3 to 6 months of disputed paperwork**. Official audits by the Comptroller and Auditor General of India (CAG Report No. 10 of 2017) and judicial investigations into municipal flood funds (such as the ₹65.54 Crore Mithi River desilting FIR) document massive failures: non-functional telemetry sensors, unspent disaster mitigation allocations, and paper records forged with fake dumping slips.
+* **The Transboundary Early Warning Failure (e.g., Nepal Deluges 2024–2026):** In late September 2024, record downpours (>320mm in 48h) in the Bagmati basin caused 230+ deaths and >$127M in direct infrastructure losses. While regional meteorology detected rain, the failure to translate raw telemetry into localized, vernacular early warnings left informal settlements stranded on rooftops.
 
-#### 📰 Verified Investigative & Institutional Evidence
+#### 🏛️ Verified Institutional Evidence: Official World Bank Portal Capture
 <div align="center">
 
-| 🏛️ World Bank / GFDRR Loss Audit | ⚖️ Mumbai Police EOW FIR Investigation | 📊 Swiss Re Catastrophe Research |
-|:---:|:---:|:---:|
-| <a href="https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management"><img src="./evaluation/worldbank_urban_flood_loss.png" alt="World Bank $4B Annual Urban Flood Loss Report" width="100%" /></a> | <a href="https://www.freepressjournal.in/mumbai-news-eow-arrests-two-middlemen-in-connection-with-mithi-river-desilting-scam/"><img src="./evaluation/mithi_scam_thehindu.png" alt="Mumbai Police EOW: Mithi River Desilting Scam FIR" width="100%" /></a> | <a href="https://www.swissre.com"><img src="./evaluation/swiss_re_protection_gap.png" alt="Swiss Re Catastrophe Protection Gap" width="100%" /></a> |
-| *[World Bank Resilience Hub](https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management)* | *[Mumbai Police EOW Record](https://www.freepressjournal.in/mumbai-news-eow-arrests-two-middlemen-in-connection-with-mithi-river-desilting-scam/)* | *[Swiss Re Global Catastrophe](https://www.swissre.com)* |
+<a href="https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management">
+  <img src="./evaluation/worldbank_disaster_management_official.png" alt="Official World Bank Resilience & Disaster Risk Management Portal Capture" width="100%" />
+</a>
+
+<p align="center">
+  <em>Live Capture from <a href="https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management">The World Bank Resilience & Disaster Management Hub</a> verifying $4B direct asset loss, $8B agricultural loss, and 26.39M disaster displacements. For an exhaustive 1990–2026 research dossier and master research prompt, see <a href="./docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md">docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md</a>.</em>
+</p>
 
 > 🔍 **Why Cryptographic Track 4 Verification is Non-Negotiable:**  
 > When flood mitigation records are paper-based, humans can fabricate debris removal, manipulate tender documents, and delay emergency relief. **In AEGIS-CLIMATE, Copernicus Sentinel-2 multispectral water indices and 30m NASA SRTM elevation physics cannot be bribed or falsified.** Every observation is canonicalized under RFC-8785 and permanently sealed with a Keccak-256 state root anchored to IPFS.
