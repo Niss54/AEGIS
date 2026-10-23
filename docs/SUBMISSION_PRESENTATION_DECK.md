@@ -166,7 +166,7 @@ flowchart TD
 ### SLIDE 14: Provide links to your:
 - **GitHub Public Repository:** [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS)
 - **Demo Video Link (3 Minutes):** [https://youtu.be/YOUR_DEMO_VIDEO_URL_HERE](https://youtu.be/YOUR_DEMO_VIDEO_URL_HERE) *(Paste your YouTube/Drive link)*
-- **Final Product Link (Live App):** [https://aegis-climate-demo.web.app](https://aegis-climate-demo.web.app) *(Paste your deployed URL)*
+- **Final Product Link (Live App):** [https://aegis-eight-delta.vercel.app](https://aegis-eight-delta.vercel.app)
 
 ---
 
