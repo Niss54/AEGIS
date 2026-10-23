@@ -119,7 +119,7 @@ The judging panel will score entries on the following core pillars:
 
 ## 📦 6. Final Submission Checklist
 
-Each team must submit before **09:00 PM, 1 October 2026**:
+Each team must submit before **11:59 PM EDT, 25 October 2026**:
 
 - [ ] **Project Name:** AEGIS-CLIMATE
 - [ ] **Team Members:** Nishant Maurya (Solo Developer) (Team Syntrix)
@@ -143,8 +143,8 @@ Each team must submit before **09:00 PM, 1 October 2026**:
 ## 📜 7. Rules, Integrity & Responsible AI
 
 1. **Eligibility & Team:** Team Syntrix (Solo Developer) registered under Team Leader Nishant Maurya.
-2. **Fresh Development:** Core hackathon project built during the 12-hour sprint window.
+2. **Fresh Development:** Core hackathon project built during the IEEE ClimateChain 2026 Hackathon window (October 5 – October 25, 2026).
 3. **Open-Source & Libraries:** Open-source tools (LangGraph, FastAPI, GeoPandas, scikit-learn, Leaflet, React 19/Vite) are encouraged; existing foundational architecture must be clearly explained.
 4. **Originality:** Zero plagiarism, authentic technical implementation and real-time execution.
 5. **Responsible AI:** Strictly compliant with safety guidelines, no hazardous data injection, sanitization of RAG inputs, and transparent probabilistic hazard modeling.
-6. **No Late Submissions:** The submission portal closes strictly at 9:00 PM. Target internal freeze by 8:00 PM.
+6. **No Late Submissions:** The submission portal closes strictly at 11:59 PM EDT, 25 October 2026. Target internal freeze by 8:00 PM EDT.
