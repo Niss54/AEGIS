@@ -668,7 +668,6 @@ AEGIS-CLIMATE LIVE CREDENTIAL TEST SUITE
 > In accordance with our security defense:
 > **"EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring."**
 > All smart contract logic, state transitions, stablecoin escrows, and idempotency guarantees execute with 100% pass rate on our deterministic EVM testbed, while live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring operate in real time. Full verification runbook is documented in [docs/SMART_CONTRACT_DEFENSE.md](./docs/SMART_CONTRACT_DEFENSE.md).
-```
 
 ---
 
