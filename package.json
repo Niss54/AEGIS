@@ -18,5 +18,8 @@
     "preview": "npm --prefix frontend run preview",
     "install:all": "npm --prefix frontend install",
     "cli": "node bin/aegis.js"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.1"
   }
 }

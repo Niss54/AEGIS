@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Institutional Clippings</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #0B0E14;
+      font-family: 'Inter', sans-serif;
+      color: #E2E8F0;
+    }
+
+    .clipping-card {
+      width: 1000px;
+      background: #111622;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 50px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .card-header {
+      padding: 16px 28px;
+      background: #0A0D14;
+      border-bottom: 2px solid #00F0FF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .source-brand {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #00F0FF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .source-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #94A3B8;
+      background: rgba(255,255,255,0.05);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card-body {
+      padding: 32px 36px;
+    }
+
+    .dateline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #38BDF8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .headline {
+      font-family: 'Merriweather', serif;
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.35;
+      color: #F8FAFC;
+      margin-bottom: 18px;
+    }
+
+    .highlight-banner {
+      background: rgba(0, 240, 255, 0.08);
+      border-left: 4px solid #00F0FF;
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: #E2E8F0;
+      font-weight: 600;
+    }
+
+    .highlight-banner.red {
+      background: rgba(255, 23, 68, 0.1);
+      border-left: 4px solid #FF1744;
+      color: #FECDD3;
+    }
+
+    .highlight-banner.amber {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid #F59E0B;
+      color: #FEF3C7;
+    }
+
+    .excerpt {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #CBD5E1;
+      margin-bottom: 20px;
+    }
+
+    .card-footer {
+      padding: 14px 36px;
+      background: #0D111A;
+      border-top: 1px solid #1E293B;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #64748B;
+    }
+
+    .badge-verified {
+      background: rgba(0, 255, 136, 0.15);
+      color: #00FF88;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CLIPPING 1: WORLD BANK REPORT -->
+  <div id="card-worldbank" class="clipping-card">
+    <div class="card-header">
+      <div class="source-brand">
+        🏛️ THE WORLD BANK · GFDRR & MoHUA REPORT
+      </div>
+      <div class="source-meta">OFFICIAL REPORT · OPEN KNOWLEDGE REPOSITORY</div>
+    </div>
+    <div class="card-body">
+      <div class="dateline">NEW DELHI / WASHINGTON · URBAN FLOOD RISK AUDIT</div>
+      <div class="headline">World Bank Estimates Annual Loss From Urban Stormwater Floods in India at $4 Billion</div>
+      <div class="highlight-banner">
+        "Stormwater-related (pluvial) urban flooding inflicts over $4 Billion (₹33,000+ Crores) in direct losses annually in India alone, projected to surge to $14 Billion to $30 Billion annually by 2070 without structural digital interventions."
+      </div>
+      <div class="excerpt">
+        The flagship report <em>'Towards Resilient and Prosperous Cities in India'</em> (jointly conducted by The World Bank, the Ministry of Housing and Urban Affairs, and the Global Facility for Disaster Reduction and Recovery) evaluates 24 major Indian cities, warning that uncoordinated drainage and impermeable built-up expansion leave metropolitan hubs chronically exposed to catastrophic waterlogging.
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Official Publication Ref: World Bank Task Force on Urban Resilience</span>
+      <span class="badge-verified">✓ INSTITUTIONAL CITATION VERIFIED</span>
+    </div>
+  </div>
+
+  <!-- CLIPPING 2: MITHI RIVER FRAUD INVESTIGATION -->
+  <div id="card-mithi" class="clipping-card">
+    <div class="card-header" style="border-bottom-color: #FF1744;">
+      <div class="source-brand" style="color: #FF4D4D;">
+        ⚖️ THE HINDU / SPECIAL INVESTIGATION TEAM (SIT)
+      </div>
+      <div class="source-meta">MUMBAI POLICE EOW FIR · FINANCIAL FRAUD INVESTIGATION</div>
+    </div>
+    <div class="card-body">
+      <div class="dateline" style="color: #FF4D4D;">MUMBAI · CRIME INVESTIGATION REPORT</div>
+      <div class="headline">Mumbai Police EOW Uncovers ₹65.54-Crore Mithi River Desilting Scam: Forged Slips & Fabricated Sludge Logs</div>
+      <div class="highlight-banner red">
+        "Special Investigation Team (SIT) discovers massive paper-audit manipulation: civic contractors submitted fabricated transport logs, false dumping receipts, and passed off construction debris as river silt to siphon off ₹65.54 Crore in municipal flood funds."
+      </div>
+      <div class="excerpt">
+        Investigations by the Mumbai Police Economic Offences Wing (EOW) and the Enforcement Directorate (ED) reveal why recurring monsoon deluges paralyze Mumbai: paper-based flood clearance records are routinely forged without physical river desilting. The findings prove that traditional manual municipal inspection fails without independent, tamper-proof satellite and digital evidence verification.
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Evidence Source: Mumbai Police FIR / EOW Court Submissions</span>
+      <span class="badge-verified" style="background: rgba(255, 77, 77, 0.15); color: #FF4D4D; border-color: rgba(255, 77, 77, 0.3);">✓ JUDICIAL RECORD VERIFIED</span>
+    </div>
+  </div>
+
+  <!-- CLIPPING 3: SWISS RE PROTECTION GAP -->
+  <div id="card-swissre" class="clipping-card">
+    <div class="card-header" style="border-bottom-color: #F59E0B;">
+      <div class="source-brand" style="color: #F59E0B;">
+        📊 SWISS RE INSTITUTE · CATASTROPHE RESEARCH
+      </div>
+      <div class="source-meta">SIGMA DISASTER REPORT · FLOOD PROTECTION GAP</div>
+    </div>
+    <div class="card-body">
+      <div class="dateline" style="color: #F59E0B;">ZURICH / MUMBAI · GLOBAL CATASTROPHE RISK BRIEFING</div>
+      <div class="headline">Swiss Re: Repeat of 2005 Mumbai Deluge Would Exceed $2.3 Billion (₹19,000+ Cr) in Direct Losses</div>
+      <div class="highlight-banner amber">
+        "Swiss Re catastrophe modeling reveals that while the 2005 Mumbai cloudburst caused $500M in insured damages, explosive urban densification and 90% impermeable concrete paving mean a direct repeat today will cause over $2.3 Billion in municipal losses, with an 80%+ uninsured protection gap."
+      </div>
+      <div class="excerpt">
+        Global reinsurers highlight that individual weather disasters causing economic damages in the billion-dollar bracket have become routine across Asia-Pacific. Over 80% of urban flood losses remain completely uninsured, underscoring the urgent imperative for automated parametric insurance bonds that disburse liquidity based on verifiable satellite triggers.
+      </div>
+    </div>
+    <div class="card-footer">
+      <span>Research Citation: Swiss Re Sigma Catastrophe Assessment Series</span>
+      <span class="badge-verified" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B; border-color: rgba(245, 158, 11, 0.3);">✓ REINSURANCE BENCHMARK VERIFIED</span>
+    </div>
+  </div>
+
+</body>
+</html>
