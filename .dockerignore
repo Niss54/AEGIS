@@ -1,5 +1,5 @@
 # ==============================================================================
-# TERRA-SENTINEL .dockerignore
+# AEGIS-CLIMATE .dockerignore
 # Enforces ImageSize <= 250MB & Zero Attack Surface Leakage
 # ==============================================================================
 

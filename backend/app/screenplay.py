@@ -3,7 +3,7 @@ AEGIS-CLIMATE Production Specification: Phase 24
 Module: terra_sentinel.phase_24.screenplaycontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol Compliant
 
-AI Builder Cup 3-Minute Video Demo Screenplay & Teleprompter Plan
+IEEE ClimateChain 3-Minute Video Demo Screenplay & Teleprompter Plan
 Governing Mathematical Invariant:
     Delta_t = 30s (Crisis) + 60s (UI) + 60s (Cloud) + 30s (ROI) = 180s
 """
@@ -27,7 +27,7 @@ TIMING_TOLERANCE_S = 1.0  # max +/- 1s deviation allowed
 
 class DemoScreenplayModel(BaseModel):
     """
-    Validation Contract for Phase 24 (AI Builder Cup 3-Minute Video Demo Screenplay & Teleprompter Plan).
+    Validation Contract for Phase 24 (IEEE ClimateChain 3-Minute Video Demo Screenplay & Teleprompter Plan).
     Adheres strictly to RFC JSON-Schema Specification.
     """
     event_id: str = Field(..., description="Unique UUIDv4 telemetry event identifier")
@@ -42,7 +42,7 @@ class ScreenplayTimingRequest(BaseModel):
     act1_crisis_s: float = Field(..., ge=0.0, description="Act 1 duration (The Crisis)")
     act2_ui_s: float = Field(..., ge=0.0, description="Act 2 duration (Cockpit UI & Live Multi-Agent Cascade)")
     act3_cloud_s: float = Field(..., ge=0.0, description="Act 3 duration (Google Cloud Tech Alignment & MCP)")
-    act4_roi_s: float = Field(..., ge=0.0, description="Act 4 duration (JAPAC ROI & Singapore Grand Finale)")
+    act4_roi_s: float = Field(..., ge=0.0, description="Act 4 duration (JAPAC ROI & IEEE ClimateChain Global Demonstration)")
 
 
 class ScreenplayTimingResult(BaseModel):
@@ -69,7 +69,7 @@ def evaluate_screenplay_timing_budget(
     """
     Mathematical Invariant Enforcement:
         Delta_t = 30s + 60s + 60s + 30s = 180s
-    Enforces strict 180-second pitch video timing constraints for the Google Cloud AI Builder Cup.
+    Enforces strict 180-second pitch video timing constraints for the IEEE ClimateChain Hackathon.
     """
     total = round(float(act1_crisis_s) + float(act2_ui_s) + float(act3_cloud_s) + float(act4_roi_s), 2)
     total_ok = abs(total - EXACT_TOTAL_DURATION_S) <= TIMING_TOLERANCE_S
@@ -111,7 +111,7 @@ def evaluate_screenplay_timing_budget(
 def parse_and_validate_demo_script(script_path: Optional[str] = None) -> Dict[str, Any]:
     """
     Statically analyzes docs/DEMO_SCRIPT.md to verify Act structure,
-    Google Cloud AI Builder Cup keywords, and teleprompter pacing.
+    IEEE ClimateChain Hackathon keywords, and teleprompter pacing.
     """
     target_path = script_path or os.path.join(os.path.dirname(__file__), "..", "..", "docs", "DEMO_SCRIPT.md")
     if not os.path.exists(target_path):
@@ -174,8 +174,8 @@ def generate_teleprompter_cue_sheet() -> Dict[str, Any]:
     """
     return {
         "project": "AEGIS-CLIMATE",
-        "competition": "Google Cloud AI Builder Cup 2026",
-        "target_track": "JAPAC Track · Singapore Grand Finale",
+        "competition": "IEEE ClimateChain Hackathon 2026",
+        "target_track": "Track 4 · Global Climate Data",
         "total_duration_seconds": 180.0,
         "cues": [
             {
@@ -184,7 +184,7 @@ def generate_teleprompter_cue_sheet() -> Dict[str, Any]:
                 "timestamp_range": "00:00 - 00:30",
                 "duration_seconds": 30.0,
                 "visual_anchor": "Satellite flood breach montage & dark glassmorphic cockpit reveal",
-                "key_callout": "$16B Annual Urban Climate Losses in JAPAC",
+                "key_callout": "$318B Annual Urban Climate Losses Globally",
                 "dialogue_snippet": "Every monsoon season across the Indo-Pacific, devastating climate anomalies paralyze our mega-cities..."
             },
             {
@@ -207,7 +207,7 @@ def generate_teleprompter_cue_sheet() -> Dict[str, Any]:
             },
             {
                 "act": 4,
-                "title": "JAPAC Economic ROI & Singapore Grand Finale",
+                "title": "Planetary Economic ROI & IEEE ClimateChain Global Demonstration",
                 "timestamp_range": "02:30 - 03:00",
                 "duration_seconds": 30.0,
                 "visual_anchor": "Smart contract parametric bond liquidation & Singapore Finale roadmap",
@@ -220,14 +220,14 @@ def generate_teleprompter_cue_sheet() -> Dict[str, Any]:
 
 class ScreenplayController:
     """
-    Executive Controller for Phase 24 (AI Builder Cup 3-Minute Video Demo Screenplay & Teleprompter Plan).
+    Executive Controller for Phase 24 (IEEE ClimateChain 3-Minute Video Demo Screenplay & Teleprompter Plan).
     Enforces Delta_t = 30s + 60s + 60s + 30s = 180s, teleprompter pacing, and circuit breaking.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.phase_id = 24
-        self.name = "AI Builder Cup 3-Minute Video Demo Screenplay & Teleprompter Plan"
+        self.name = "IEEE ClimateChain 3-Minute Video Demo Screenplay & Teleprompter Plan"
         self.circuit_state = "CLOSED"
         self.failure_count = 0
         self.failure_threshold = 3

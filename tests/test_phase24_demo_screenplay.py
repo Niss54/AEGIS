@@ -1,6 +1,6 @@
 """
-TERRA-SENTINEL Phase 24 Verification Test Suite
-AI Builder Cup 3-Minute Video Demo Screenplay & Teleprompter Plan
+AEGIS-CLIMATE Phase 24 Verification Test Suite
+IEEE ClimateChain 3-Minute Video Demo Screenplay & Teleprompter Plan
 Governance: Gravitas Reliability Runtime · Mathematical Invariant Verification
 """
 import os
@@ -115,7 +115,7 @@ def test_mathematical_governing_equation_screenplay_timing():
 def test_docs_demo_script_static_inspection():
     """
     Verifies that docs/DEMO_SCRIPT.md exists, contains all 4 Acts,
-    and covers critical Google Cloud and Singapore Grand Finale keywords.
+    and covers critical Google Cloud and IEEE ClimateChain Global Demonstration keywords.
     """
     audit = parse_and_validate_demo_script()
     assert audit["status"] == "AUDITED"

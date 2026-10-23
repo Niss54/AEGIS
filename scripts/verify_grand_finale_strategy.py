@@ -2,7 +2,7 @@
 AEGIS-CLIMATE: Phase 25 Verification & Grand Finale Strategy Export
 Script: scripts/verify_grand_finale_strategy.py
 Validates TAM/SAM/SOM mathematical invariants, audits docs/PITCH_DECK.md,
-and exports the Singapore Grand Finale Playbook to docs/grand_finale_strategy.json.
+and exports the IEEE ClimateChain Global Demonstration Playbook to docs/grand_finale_strategy.json.
 """
 import sys
 import json
@@ -46,7 +46,7 @@ def main():
     if not deck_audit.get("is_compliant"):
         logger.warning(f"Pitch Deck Audit has warnings: {deck_audit}")
 
-    # 3. Generate Singapore Grand Finale Playbook
+    # 3. Generate IEEE ClimateChain Global Demonstration Playbook
     playbook = generate_singapore_grand_finale_playbook()
     output_path = PROJECT_ROOT / "docs" / "grand_finale_strategy.json"
 

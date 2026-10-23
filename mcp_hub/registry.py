@@ -124,7 +124,7 @@ TOOLS_REGISTRY: Dict[str, Dict[str, Any]] = {
     },
     "anchor_risk_on_chain": {
         "name": "anchor_risk_on_chain",
-        "description": "Anchors an Agent 1 risk assessment on Polygon Amoy blockchain via TerraSentinelRiskLedger.sol, creating a tamper-evident on-chain record.",
+        "description": "Anchors an Agent 1 risk assessment on Polygon Amoy blockchain via AEGISRiskLedger.sol, creating a tamper-evident on-chain record.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -697,7 +697,7 @@ TOOLS_REGISTRY: Dict[str, Dict[str, Any]] = {
                 "act1_crisis_s": {"type": "number", "description": "Act 1 duration (The Crisis)", "default": 30.0},
                 "act2_ui_s": {"type": "number", "description": "Act 2 duration (Cockpit UI & Live Multi-Agent Cascade)", "default": 60.0},
                 "act3_cloud_s": {"type": "number", "description": "Act 3 duration (Google Cloud Tech Alignment & MCP)", "default": 60.0},
-                "act4_roi_s": {"type": "number", "description": "Act 4 duration (JAPAC ROI & Singapore Grand Finale)", "default": 30.0}
+                "act4_roi_s": {"type": "number", "description": "Act 4 duration (JAPAC ROI & IEEE ClimateChain Global Demonstration)", "default": 30.0}
             },
             "required": ["act1_crisis_s", "act2_ui_s", "act3_cloud_s", "act4_roi_s"]
         },
@@ -741,7 +741,7 @@ TOOLS_REGISTRY: Dict[str, Dict[str, Any]] = {
     },
     "audit_pitch_deck_slides": {
         "name": "audit_pitch_deck_slides",
-        "description": "Statically parses docs/PITCH_DECK.md to verify 10 canonical investor slides, Google Cloud differentiators, and Singapore Grand Finale roadmap.",
+        "description": "Statically parses docs/PITCH_DECK.md to verify 10 canonical investor slides, Google Cloud differentiators, and IEEE ClimateChain Global Demonstration roadmap.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -753,11 +753,11 @@ TOOLS_REGISTRY: Dict[str, Dict[str, Any]] = {
     },
     "get_singapore_grand_finale_playbook": {
         "name": "get_singapore_grand_finale_playbook",
-        "description": "Returns structured 48-Hour Live Demo Execution Playbook for the Singapore Grand Finale stage.",
+        "description": "Returns structured 48-Hour Live Demo Execution Playbook for the IEEE ClimateChain Global Demonstration stage.",
         "parameters": {
             "type": "object",
             "properties": {
-                "event_name": {"type": "string", "description": "Target championship event name", "default": "Google Cloud AI Builder Cup — JAPAC Grand Finale"}
+                "event_name": {"type": "string", "description": "Target championship event name", "default": "IEEE ClimateChain 2026 Global Final"}
             },
             "required": []
         },

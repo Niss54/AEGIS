@@ -712,7 +712,7 @@ def execute_tool_logic(tool_name: str, params: Dict[str, Any]) -> Dict[str, Any]
 
     elif tool_name == "get_singapore_grand_finale_playbook":
         from backend.app.finale_strategy import generate_singapore_grand_finale_playbook
-        e_name = params.get("event_name") or "Google Cloud AI Builder Cup — JAPAC Grand Finale"
+        e_name = params.get("event_name") or "IEEE ClimateChain 2026 Global Final"
         return generate_singapore_grand_finale_playbook(event_name=e_name)
 
     elif tool_name == "predict_compound_landslide_flood_hazard":

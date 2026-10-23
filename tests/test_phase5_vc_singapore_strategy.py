@@ -1,6 +1,6 @@
 """
-Phase 5 Test Suite: Executive VC Documentation, Pitch Deck & Singapore Grand Finale Strategy
-Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)
+Phase 5 Test Suite: Executive VC Documentation, Pitch Deck & Global Climate Scaling Strategy
+IEEE ClimateChain 2026 — Track 4 (Global Planetary Resilience)
 """
 import os
 from pathlib import Path
@@ -29,7 +29,7 @@ def test_executive_vc_memo_document_integrity():
     assert "Google Vertex AI" in text
     assert "Gemini 2.0 Flash" in text
     assert "Marina Barrage" in text
-    assert "Singapore Grand Finale" in text
+    assert "IEEE ClimateChain Global Demonstration" in text
     assert "Team Syntrix" in text
 
 
@@ -46,11 +46,11 @@ def test_pitch_deck_slides_count_and_google_cloud_elevation():
     assert "SLIDE 4: Technical Depth" in text
     assert "SLIDE 5: Market Opportunity" in text
     assert "SLIDE 6 — THE INTELLIGENCE LAYER" in text
-    assert ("SLIDE 7 — WHAT MAKES AEGIS-CLIMATE DIFFERENT" in text or "SLIDE 7 — WHAT MAKES TERRA-SENTINEL DIFFERENT" in text)
+    assert ("SLIDE 7 — WHAT MAKES AEGIS-CLIMATE DIFFERENT" in text or "SLIDE 7 — WHAT MAKES AEGIS-CLIMATE DIFFERENT" in text)
     assert "SLIDE 8 — IMPACT & SCALABILITY" in text
     assert "SLIDE 9 — CLOSING (The Future)" in text
     assert "SLIDE 10: Google Cloud Decisive Advantage & Hackathon Edge" in text
-    assert "SLIDE 11: Singapore Grand Finale Strategy & JAPAC Expansion Roadmap" in text
+    assert "SLIDE 11: Global Climate Scaling Strategy & JAPAC Expansion Roadmap" in text
 
 
 def test_rest_api_get_vc_memo():
@@ -60,7 +60,7 @@ def test_rest_api_get_vc_memo():
     data = res.json()
 
     assert data["status"] == "success"
-    assert data["company_name"] in ["AEGIS-CLIMATE Inc.", "TERRA-SENTINEL Inc."]
+    assert data["company_name"] in ["AEGIS-CLIMATE Inc.", "AEGIS-CLIMATE Inc."]
     assert "Series Seed" in data["funding_round"]
     assert data["market_sizing"]["tam_global_climate_risk_usd_billions"] == 34.2
     assert data["market_sizing"]["sam_japac_municipal_usd_billions"] == 4.8

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 AEGIS-CLIMATE: Phase 24 Pitch Video Asset Recorder & Teleprompter Generator
-Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)
+IEEE ClimateChain 2026 — Track 4 (Global Planetary Resilience)
 
 Validates 180s timing invariants, checks live API connectivity,
 and generates structured teleprompter cue assets for video recording.

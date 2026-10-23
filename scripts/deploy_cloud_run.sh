@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# TERRA-SENTINEL: Google Cloud Run One-Command Deployment Script
-# Built for AI Builder Cup 2026 (Sponsored by Google Cloud)
+# AEGIS-CLIMATE: Google Cloud Run One-Command Deployment Script
+# Built for IEEE ClimateChain 2026 (Track 4)
 # ==============================================================================
 set -euo pipefail
 
 PROJECT_ID=${GCP_PROJECT_ID:-$(gcloud config get-value project 2>/dev/null || echo "")}
 REGION=${GCP_REGION:-"asia-south1"}
-SERVICE_NAME="terra-sentinel"
+SERVICE_NAME="aegis-climate"
 IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}:latest"
 
 if [ -z "$PROJECT_ID" ]; then
@@ -31,7 +31,7 @@ gcloud run deploy "${SERVICE_NAME}" \
     --memory 1Gi \
     --cpu 1 \
     --port 8080 \
-    --set-env-vars ENVIRONMENT=production,DEBUG=false,APP_NAME=TERRA-SENTINEL
+    --set-env-vars ENVIRONMENT=production,DEBUG=false,APP_NAME=AEGIS-CLIMATE
 
 # 3. Retrieve URL
 SERVICE_URL=$(gcloud run services describe "${SERVICE_NAME}" --platform managed --region "${REGION}" --format 'value(status.url)')

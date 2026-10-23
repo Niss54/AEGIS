@@ -20,10 +20,7 @@
 
 | Name | Role | Contact Number | Status |
 | :--- | :--- | :--- | :--- |
-| **Nishant Maurya** | **Team Leader** (Full-Stack / Agent Systems) | `+91 8840301998` | Verified ✅ |
-| **Navya Chaudhary** | Core Member (Climate Modeling & GIS) | `+91 9045659400` | Verified ✅ |
-| **Om Tripathi** | Core Member (Blockchain & Smart Contracts) | `+91 7905226392` | Verified ✅ |
-| **Nikita Chopde** | Core Member (Financial Policy & UI/UX) | `+91 9343458471` | Verified ✅ |
+| **Nishant Maurya** | **Solo Developer & Lead Architect** (Full-Stack / Agent Systems / Blockchain / GIS) | +91 8840301998 | Verified ✅ |
 
 ---
 
@@ -125,7 +122,7 @@ The judging panel will score entries on the following core pillars:
 Each team must submit before **09:00 PM, 1 October 2026**:
 
 - [ ] **Project Name:** AEGIS-CLIMATE
-- [ ] **Team Members:** Nishant Maurya (Leader), Navya Chaudhary, Om Tripathi, Nikita Chopde (Team Syntrix)
+- [ ] **Team Members:** Nishant Maurya (Solo Developer) (Team Syntrix)
 - [ ] **Selected Domain:** Energy & ClimateTech / Citizen & GovTech / Open Bharat
 - [ ] **Problem Statement:** Detailed problem & pain point articulation
 - [ ] **Solution Overview:** End-to-end multi-agent environmental intelligence system
@@ -145,7 +142,7 @@ Each team must submit before **09:00 PM, 1 October 2026**:
 
 ## 📜 7. Rules, Integrity & Responsible AI
 
-1. **Eligibility & Team:** Team Syntrix (4 members) registered under Team Leader Nishant Maurya.
+1. **Eligibility & Team:** Team Syntrix (Solo Developer) registered under Team Leader Nishant Maurya.
 2. **Fresh Development:** Core hackathon project built during the 12-hour sprint window.
 3. **Open-Source & Libraries:** Open-source tools (LangGraph, FastAPI, GeoPandas, scikit-learn, Leaflet, React 19/Vite) are encouraged; existing foundational architecture must be clearly explained.
 4. **Originality:** Zero plagiarism, authentic technical implementation and real-time execution.

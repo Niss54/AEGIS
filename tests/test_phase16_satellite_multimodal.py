@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Phase 16 Automated Test Suite
+AEGIS-CLIMATE Phase 16 Automated Test Suite
 Module: tests/test_phase16_satellite_multimodal.py
 Governance: Gravitas Reliability Runtime · Machine-Checked Verification
 

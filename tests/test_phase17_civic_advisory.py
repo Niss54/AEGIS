@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Phase 17 Verification Test Suite
+AEGIS-CLIMATE Phase 17 Verification Test Suite
 Bilingual Civic Advisory Synthesis (English & Devanagari Hindi)
 Governance: Gravitas Reliability Runtime · Mathematical Invariant Verification
 """

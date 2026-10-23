@@ -140,7 +140,7 @@ def evaluate_tam_sam_som_market_opportunity(
 def audit_pitch_deck_structure(deck_path: Optional[str] = None) -> Dict[str, Any]:
     """
     Audits docs/PITCH_DECK.md to ensure all required investor pitch deck components,
-    Google Cloud architecture differentiators, and Singapore Grand Finale strategies are present.
+    Google Cloud architecture differentiators, and IEEE ClimateChain Global Demonstration strategies are present.
     """
     target = Path(deck_path) if deck_path else Path(__file__).resolve().parent.parent.parent / "docs" / "PITCH_DECK.md"
     if not target.exists():
@@ -168,7 +168,7 @@ def audit_pitch_deck_structure(deck_path: Optional[str] = None) -> Dict[str, Any
         "slide_8_impact": "IMPACT & SCALABILITY" in content or "SLIDE 8" in content,
         "slide_9_closing": "CLOSING" in content or "SLIDE 9" in content,
         "slide_10_google_cloud": "Google Cloud" in content or "SLIDE 10" in content,
-        "slide_11_singapore": "Singapore Grand Finale" in content or "SLIDE 11" in content
+        "slide_11_singapore": "IEEE ClimateChain Global Demonstration" in content or "SLIDE 11" in content
     }
 
     # Critical Investor Keywords
@@ -200,14 +200,14 @@ def audit_pitch_deck_structure(deck_path: Optional[str] = None) -> Dict[str, Any
     }
 
 
-def generate_singapore_grand_finale_playbook(event_name: str = "Google Cloud AI Builder Cup — JAPAC Grand Finale") -> Dict[str, Any]:
+def generate_singapore_grand_finale_playbook(event_name: str = "IEEE ClimateChain 2026 Global Final") -> Dict[str, Any]:
     """
-    Generates the comprehensive 48-Hour Live Execution Playbook for the Singapore Grand Finale.
+    Generates the comprehensive 48-Hour Live Execution Playbook for the IEEE ClimateChain Global Demonstration.
     """
     return {
         "event_name": event_name,
         "venue": "Marina Bay Sands Expo & Convention Centre, Singapore",
-        "target_stage": "Global JAPAC Championship Stage",
+        "target_stage": "IEEE ClimateChain Global Stage",
         "live_demo_spec": {
             "location_name": "Singapore — Marina Barrage Catchment",
             "lat": 1.2800,
@@ -221,7 +221,7 @@ def generate_singapore_grand_finale_playbook(event_name: str = "Google Cloud AI 
             {
                 "window": "0:00 - 0:45",
                 "act": "The Global Climate Latency Paradox",
-                "focus": "Establish $16B+ annual JAPAC losses and Singapore sea-level vulnerability."
+                "focus": "Establish $16B+ annual urban climate flood losses and Singapore sea-level vulnerability."
             },
             {
                 "window": "0:45 - 2:00",

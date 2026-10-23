@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Verification: Phase 12
+AEGIS-CLIMATE Production Verification: Phase 12
 Suite: Multi-Tier Storage Architecture & Bi-Directional Offline Sync
 Governance: Gravitas Reliability Runtime · Machine-Checked Evidence Protocol
 """

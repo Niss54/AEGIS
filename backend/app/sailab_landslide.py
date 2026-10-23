@@ -5,7 +5,7 @@ Phase 30.1: Synthesized from mirzayasirabdullahbaig07/SailabAlert
 Implements:
 1. Compound Flood & Landslide Susceptibility Index (CFLSI)
 2. Steep slope terrain gradient and antecedent soil saturation coupling
-3. Multi-hazard monitoring stations catalog across Bharat & JAPAC corridors
+3. Multi-hazard monitoring stations catalog across Bharat & vulnerable global corridors
 4. Trilingual generative safety advisory (Urdu اردو, Hindi देवनागरी, English)
 5. 3-Tier resilient circuit breaker guaranteeing sub-50ms deterministic fallback
 """

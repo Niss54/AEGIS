@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 AEGIS-CLIMATE: Phase 4 Pitch Video Screenplay Runner & Teleprompter Generator
-Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)
+IEEE ClimateChain 2026 — Track 4 (Global Planetary Resilience)
 
 Validates 180s timing invariants, queries live system health, generates
 teleprompter cue sheets, and simulates real-time presentation pacing.
@@ -85,7 +85,7 @@ def export_teleprompter_artifacts(output_dir: str = None) -> Dict[str, str]:
     text_lines = [
         "================================================================================",
         "  AEGIS-CLIMATE: 3-MINUTE PITCH VIDEO TELEPROMPTER CUE SHEET",
-        "  Google Cloud AI Builder Cup · JAPAC Grand Finale · Singapore",
+        "  IEEE ClimateChain Hackathon · JAPAC Grand Finale · Singapore",
         "================================================================================",
         ""
     ]
@@ -115,7 +115,7 @@ def export_teleprompter_artifacts(output_dir: str = None) -> Dict[str, str]:
 
     data_payload = {
         "project": "AEGIS-CLIMATE",
-        "competition": "Google Cloud AI Builder Cup (JAPAC Track)",
+        "competition": "IEEE ClimateChain Hackathon (JAPAC Track)",
         "duration_seconds": TOTAL_DEMO_BUDGET_SECONDS,
         "acts": DEMO_ACTS
     }

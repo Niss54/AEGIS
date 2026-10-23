@@ -46,9 +46,9 @@
     "verdict": "PASSED_INVESTOR_DECK_AUDIT"
   },
   "singapore_grand_finale_playbook": {
-    "event_name": "Google Cloud AI Builder Cup \u2014 JAPAC Grand Finale",
+    "event_name": "IEEE ClimateChain Hackathon \u2014 JAPAC Grand Finale",
     "venue": "Marina Bay Sands Expo & Convention Centre, Singapore",
-    "target_stage": "Global JAPAC Championship Stage",
+    "target_stage": "IEEE ClimateChain Global Stage",
     "live_demo_spec": {
       "location_name": "Singapore \u2014 Marina Barrage Catchment",
       "lat": 1.28,
@@ -62,7 +62,7 @@
       {
         "window": "0:00 - 0:45",
         "act": "The Global Climate Latency Paradox",
-        "focus": "Establish $16B+ annual JAPAC losses and Singapore sea-level vulnerability."
+        "focus": "Establish $16B+ annual urban climate flood losses and Singapore sea-level vulnerability."
       },
       {
         "window": "0:45 - 2:00",

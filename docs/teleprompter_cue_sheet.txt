@@ -1,6 +1,6 @@
 ================================================================================
   AEGIS-CLIMATE: 3-MINUTE PITCH VIDEO TELEPROMPTER CUE SHEET
-  Google Cloud AI Builder Cup · JAPAC Grand Finale · Singapore
+  IEEE ClimateChain Hackathon · JAPAC Grand Finale · Singapore
 ================================================================================
 
 --- ACT 1: THE ACUTE PLANETARY CRISIS & LATENCY PARADOX [00:00 - 00:30] ---
@@ -37,18 +37,18 @@ VISUAL CUES  :
   • [02:15-02:30] Show MCP Hub JSON-RPC 2.0 tool registry with 'analyze_satellite_imagery' & 'query_policy_rag'
 
 SPOKEN VOICEOVER:
-Here is our decisive technical advantage for the Google Cloud AI Builder Cup: AEGIS-CLIMATE is engineered cloud-native from day one. Our entire backend runs containerized on Google Cloud Run, orchestrated through our production cloudbuild.yaml pipeline for serverless auto-scaling from zero to thousands of concurrent telemetry streams. At our AI core, we leverage Google Vertex AI Gemini 2.0 Flash. Gemini synthesizes multispectral satellite imagery, DEM contours, and ground telemetry with unmatched sub-second reasoning latency. To guarantee zero downtime during severe emergencies, we built an enterprise 5-tier circuit breaker: if Vertex AI encounters transient network limits, the engine gracefully fails over to Gemini 1.5 Pro, Gemini 3.8 Flash, Groq Llama 3.3, and local deterministic heuristics without dropping a single byte. Furthermore, every single agent tool operates over the official Model Context Protocol (MCP) JSON-RPC 2.0 gateway, standardizing tool discovery and execution. With over 75 passing automated tests, this is battle-tested, enterprise-grade engineering.
+Here is our decisive technical advantage for the IEEE ClimateChain Hackathon: AEGIS-CLIMATE is engineered cloud-native from day one. Our entire backend runs containerized on Google Cloud Run, orchestrated through our production cloudbuild.yaml pipeline for serverless auto-scaling from zero to thousands of concurrent telemetry streams. At our AI core, we leverage Google Vertex AI Gemini 2.0 Flash. Gemini synthesizes multispectral satellite imagery, DEM contours, and ground telemetry with unmatched sub-second reasoning latency. To guarantee zero downtime during severe emergencies, we built an enterprise 5-tier circuit breaker: if Vertex AI encounters transient network limits, the engine gracefully fails over to Gemini 1.5 Pro, Gemini 3.8 Flash, Groq Llama 3.3, and local deterministic heuristics without dropping a single byte. Furthermore, every single agent tool operates over the official Model Context Protocol (MCP) JSON-RPC 2.0 gateway, standardizing tool discovery and execution. With over 75 passing automated tests, this is battle-tested, enterprise-grade engineering.
 
 --------------------------------------------------------------------------------
 
 --- ACT 4: JAPAC ECONOMIC ROI & SINGAPORE GRAND FINALE CALL TO ACTION [02:30 - 03:00] ---
 SCENE ANCHOR : Blockchain parametric bond settlement & JAPAC multi-city scaling map
-TECH FOCUS   : Decentralized Parametric Bond, Hedera & IPFS Provenance, 78% Latency Reduction, Singapore Grand Finale
+TECH FOCUS   : Decentralized Parametric Bond, Hedera & IPFS Provenance, 78% Latency Reduction, IEEE ClimateChain Global Demonstration
 VISUAL CUES  :
   • [02:30-02:45] Zoom in on Hedera/Ethereum parametric bond panel; highlight automated $500,000 CFMC liquidity release & IPFS CID
   • [02:45-03:00] Animated regional expansion map: Mumbai -> Jakarta -> Bangkok -> Manila -> Singapore; final Team Syntrix splash card
 
 SPOKEN VOICEOVER:
-Our primary architecture is strictly Track 4: Climate Data & Environmental Monitoring. Remember our core thesis: "Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)." When catastrophic thresholds are verified on-chain, AEGIS-CLIMATE executes downstream smart settlement—unlocking instant parametric liquidity for civic authorities within seconds rather than months. By slashing emergency decision latency from six hours down to ninety seconds, we reduce direct municipal asset losses by up to forty percent. From safeguarding the rivers of Bharat to shielding coastal megacities across ASEAN, AEGIS-CLIMATE is ready to scale across the JAPAC region. We are Team Syntrix, and we look forward to presenting AEGIS-CLIMATE live at the Grand Finale in Singapore. Autonomous planetary resilience, powered by Google Cloud. Thank you!
+Our primary architecture is strictly Track 4: Climate Data & Environmental Monitoring. Remember our core thesis: "Data is the verifiable truth (Track 4); financial settlement is the automated consequence (Track 1)." When catastrophic thresholds are verified on-chain, AEGIS-CLIMATE executes downstream smart settlement—unlocking instant parametric liquidity for civic authorities within seconds rather than months. By slashing emergency decision latency from six hours down to ninety seconds, we reduce direct municipal asset losses by up to forty percent. From safeguarding the rivers of Bharat to shielding coastal megacities across ASEAN, AEGIS-CLIMATE is ready to scale across the South Asia & vulnerable global deltas. We are Team Syntrix, and we look forward to presenting AEGIS-CLIMATE live at the Grand Finale in Singapore. Autonomous planetary resilience, powered by Google Cloud. Thank you!
 
 --------------------------------------------------------------------------------

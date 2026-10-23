@@ -1,6 +1,6 @@
 # ==============================================================================
-# TERRA-SENTINEL: Google Cloud Run Windows PowerShell Deployment Script
-# Built for AI Builder Cup 2026 (Sponsored by Google Cloud)
+# AEGIS-CLIMATE: Google Cloud Run Windows PowerShell Deployment Script
+# Built for IEEE ClimateChain 2026 (Track 4)
 # ==============================================================================
 param(
     [string]$ProjectId = $env:GCP_PROJECT_ID,
@@ -16,7 +16,7 @@ if (-not $ProjectId) {
     exit 1
 }
 
-$ServiceName = "terra-sentinel"
+$ServiceName = "aegis-climate"
 $ImageName = "gcr.io/$ProjectId/${ServiceName}:latest"
 
 Write-Host "🚀 Deploying $ServiceName to Google Cloud Run in $Region (Project: $ProjectId)..." -ForegroundColor Cyan
@@ -35,7 +35,7 @@ gcloud run deploy $ServiceName `
     --memory 1Gi `
     --cpu 1 `
     --port 8080 `
-    --set-env-vars ENVIRONMENT=production,DEBUG=false,APP_NAME=TERRA-SENTINEL
+    --set-env-vars ENVIRONMENT=production,DEBUG=false,APP_NAME=AEGIS-CLIMATE
 
 # 3. Retrieve URL
 $ServiceUrl = (gcloud run services describe $ServiceName --platform managed --region $Region --format 'value(status.url)')

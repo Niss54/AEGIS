@@ -3,8 +3,8 @@
 
 > **Confidential Document**  
 > **Prepared For:** Institutional Climate-Tech, AI Infrastructure & FinTech VCs  
-> **Target Event:** Google Cloud AI Builder Cup — JAPAC Grand Finale (Singapore)  
-> **Company:** AEGIS-CLIMATE Inc. (Nishant Maurya: Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
+> **Target Event:** IEEE ClimateChain 2026 Global Final (Singapore)  
+> **Company:** AEGIS-CLIMATE Inc. (Nishant Maurya: Nishant Maurya (Solo Developer))  
 > **Jurisdiction:** India / Singapore (Holding Co. Structure)  
 > **Key Cloud Partner:** Google Cloud Platform (Google Vertex AI & Cloud Run Native)
 
@@ -15,7 +15,7 @@
 **AEGIS-CLIMATE** is building the world’s first autonomous, multi-agent environmental risk intelligence and decentralized parametric insurance platform. While legacy climate intelligence relies on static PDF warnings and disconnected weather sensors, AEGIS-CLIMATE chains **real-time weather telemetry**, **multimodal satellite earth observation (Copernicus Sentinel-2 MSI + Google Earth Engine DEM)**, and **Vertex AI Gemini 2.0 Flash spatial reasoning** into an automated loop that triggers immediate parametric liquidity via smart contracts in under 90 seconds.
 
 ### The Problem: The Climate Latency Paradox
-Across the JAPAC region (India, ASEAN, East Asia), extreme climate anomalies inflict **$16 Billion+ in direct economic damage** annually. The catastrophic loss of capital and lives is not due to a lack of data—petabytes of satellite and radar data exist. The root failure is **decision and settlement latency**:
+Across the South Asia & vulnerable global deltas (India, ASEAN, East Asia), extreme climate anomalies inflict **$16 Billion+ in direct economic damage** annually. The catastrophic loss of capital and lives is not due to a lack of data—petabytes of satellite and radar data exist. The root failure is **decision and settlement latency**:
 1. **Emergency Dispatch Latency:** Civil protection authorities take 4 to 6 hours to coordinate emergency barricades and stormwater sluices.
 2. **Insurance Payout Latency:** Traditional commercial property & casualty (P&C) insurers take 3 to 9 months to assess flood adjusters' claims, forcing municipal and industrial assets into liquidity paralysis during critical recovery windows.
 
@@ -51,7 +51,7 @@ AEGIS-CLIMATE eliminates the human-in-the-loop bottleneck:
 ### Market Growth Drivers:
 1. **Mandatory Climate Disclosures:** SEBI BRSR Core Mandate (India, top 1,000 listed entities), Monetary Authority of Singapore (MAS) Mandatory ESG Disclosure Framework, and TCFD compliance requirements.
 2. **Parametric Insurance Hyper-Growth:** Parametric climate insurance is expanding at a **21.4% CAGR (2024–2030)**, driven by institutional demand for zero-adjuster, smart-contract-settled emergency liquidity.
-3. **Urban Densification in Disaster Belts:** 60% of JAPAC megacities (Mumbai, Chennai, Jakarta, Bangkok, Manila) sit in high-vulnerability estuarine coastal flood corridors.
+3. **Urban Densification in Disaster Belts:** 60% of coastal megacities (Mumbai, Chennai, Jakarta, Bangkok, Manila) sit in high-vulnerability estuarine coastal flood corridors.
 
 ---
 
@@ -115,9 +115,9 @@ AEGIS-CLIMATE’s architecture is co-engineered with Google Cloud technologies t
 
 ---
 
-## 6. Singapore Grand Finale Strategy: 48-Hour Live Pitch Playbook
+## 6. Global Climate Scaling Strategy: 48-Hour Live Pitch Playbook
 
-At the **Google Cloud AI Builder Cup Grand Finale in Singapore**, Nishant Maurya will execute an unforgettable live demonstration:
+At the **IEEE ClimateChain Hackathon Grand Finale in Singapore**, Nishant Maurya will execute an unforgettable live demonstration:
 
 1. **The Live Singapore Marina Barrage Stress Test:**
    - Presenters will simulate an unprecedented 150mm tropical torrential downpour combined with a 2.5m high-tide coastal surge at the Singapore Marina Bay catchment (`1.2800° N, 103.8636° E`).
@@ -135,9 +135,6 @@ At the **Google Cloud AI Builder Cup Grand Finale in Singapore**, Nishant Maurya
 
 ### Nishant Maurya (Founders & Engineering Leadership):
 - **Nishant Maurya:** Lead Architect & Systems Engineer (Full-Stack, Cloud Run, MCP Core)
-- **Navya Chaudhary:** Machine Learning & Geospatial Specialist (Copernicus MSI, GEE, GBM)
-- **Om Tripathi:** AI & LLM Systems Engineer (Google Vertex AI, Gemini 2.0 Flash, Policy RAG)
-- **Nikita Chopde:** Security, Blockchain & Institutional Product (Hedera, Smart Contracts, ESG)
 
 ### Use of Seed Capital ($2.5M USD):
 - **45% Engineering & Research:** Expansion of satellite ingestion pipeline (SAR Radar Sentinel-1), fine-tuning domain-specific SLMs on Google Cloud TPU v5e.

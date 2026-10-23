@@ -1,7 +1,7 @@
 """
 AEGIS-CLIMATE: Phase 4 Pitch Video Screenplay & Teleprompter API Router
 Governs the 3-minute (180s) competition demo screenplay, scene visual cues,
-and real-time teleprompter timing engine for Google Cloud AI Builder Cup JAPAC Grand Finale.
+and real-time teleprompter timing engine for IEEE ClimateChain Hackathon JAPAC Grand Finale.
 """
 import logging
 from typing import Dict, Any, List
@@ -82,7 +82,7 @@ DEMO_ACTS = [
             "Model Context Protocol (JSON-RPC 2.0)"
         ],
         "voiceover_lines": (
-            "Here is our decisive technical advantage for the Google Cloud AI Builder Cup: AEGIS-CLIMATE is engineered "
+            "Here is our decisive technical advantage for the IEEE ClimateChain Hackathon: AEGIS-CLIMATE is engineered "
             "cloud-native from day one. Our entire backend runs containerized on Google Cloud Run, orchestrated through "
             "our production cloudbuild.yaml pipeline for serverless auto-scaling from zero to thousands of concurrent "
             "telemetry streams. At our AI core, we leverage Google Vertex AI Gemini 2.0 Flash. Gemini synthesizes multispectral "
@@ -101,7 +101,7 @@ DEMO_ACTS = [
     },
     {
         "act_id": 4,
-        "name": "JAPAC Economic ROI & Singapore Grand Finale Call to Action",
+        "name": "Planetary Economic ROI & IEEE ClimateChain Global Demonstration Call to Action",
         "duration_seconds": 30.0,
         "start_seconds": 150.0,
         "end_seconds": 180.0,
@@ -111,7 +111,7 @@ DEMO_ACTS = [
             "Live RFC-8785 Keccak-256 Hashing",
             "IPFS Pinata CID Anchoring",
             "78% Latency Reduction",
-            "Singapore Grand Finale"
+            "IEEE ClimateChain Global Demonstration"
         ],
         "voiceover_lines": (
             "The financial transformation is immediate: backed by an EVM Cryptographic Protocol & Deterministic Testbed "
@@ -119,7 +119,7 @@ DEMO_ACTS = [
             "AEGIS-CLIMATE triggers deterministic smart contracts—unlocking instant parametric liquidity for civic authorities "
             "within seconds rather than months. By slashing emergency decision latency from six hours down to ninety seconds, "
             "we reduce direct municipal asset losses by up to forty percent. From safeguarding the rivers of Bharat to shielding "
-            "coastal megacities across ASEAN, AEGIS-CLIMATE is ready to scale across the JAPAC region. We are Team Syntrix, and we look "
+            "coastal megacities across ASEAN, AEGIS-CLIMATE is ready to scale across the South Asia & vulnerable global deltas. We are Team Syntrix, and we look "
             "forward to presenting AEGIS-CLIMATE live at the Grand Finale in Singapore. Autonomous planetary resilience, powered by Google Cloud. Thank you!"
         ),
         "visual_cues": [
@@ -144,7 +144,7 @@ class ActSchema(BaseModel):
 
 class ScreenplayResponse(BaseModel):
     status: str = "success"
-    competition: str = "Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)"
+    competition: str = "IEEE ClimateChain 2026 — Track 4 (Global Planetary Resilience)"
     project_name: str = "AEGIS-CLIMATE"
     team_name: str = "Syntrix"
     total_duration_seconds: float = 180.0
@@ -190,7 +190,7 @@ def get_teleprompter_cue_sheet() -> Dict[str, Any]:
     sections = []
     plain_text_lines = [
         "=" * 70,
-        "AEGIS-CLIMATE — 3-MINUTE TELEPROMPTER SCRIPT (GOOGLE CLOUD AI BUILDER CUP)",
+        "AEGIS-CLIMATE — 3-MINUTE TELEPROMPTER SCRIPT (IEEE CLIMATECHAIN 2026)",
         "=" * 70,
         ""
     ]

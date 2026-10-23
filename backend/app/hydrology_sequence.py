@@ -247,7 +247,7 @@ class StateHandoffHydrologyEngine:
             soil_group = "Group C (Silty Loam with Low Infiltration)"
             dist = 0.62
         else:
-            cluster_id = "Cluster-JAPAC-Monsoon-Regional"
+            cluster_id = "Cluster-Global-Monsoon-Regional"
             donor_basin = "Ciliwung Estuary Proxy Station C-09"
             soil_group = "Group B (Moderate Infiltration)"
             dist = 0.75

@@ -8,7 +8,7 @@
 
 ## 1. Executive Summary: What is "The Smart Contract Bytecode Trap"?
 
-In Web3 and hackathon evaluations (e.g., IEEE ClimateChain, Google Cloud AI Builder Cup, ETHGlobal), one of the most critical pitfalls is claiming that a project has **"live mainnet contracts"** or **"live Polygon Amoy deployed contracts"** when the addresses in the configuration files are deterministic local testbed addresses.
+In Web3 and hackathon evaluations (e.g., IEEE ClimateChain, IEEE ClimateChain Hackathon, ETHGlobal), one of the most critical pitfalls is claiming that a project has **"live mainnet contracts"** or **"live Polygon Amoy deployed contracts"** when the addresses in the configuration files are deterministic local testbed addresses.
 
 ### The Problem in Detail:
 1. In `blockchain/deployments/polygonAmoy.json`, the recorded contract addresses are:
@@ -152,7 +152,7 @@ npm test
     ✔ should reset consecutive counter if risk drops below threshold
     ✔ should auto-pay beneficiary when consecutive threshold is reached
 
-  TerraSentinelRiskLedger
+  AEGISRiskLedger
     anchorRiskAssessment
       ✔ should anchor a valid risk assessment and emit event
       ✔ should assign CRITICAL tier when score >= 6500 BPS

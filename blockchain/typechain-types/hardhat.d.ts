@@ -73,10 +73,6 @@ declare module "hardhat/types/runtime" {
       name: "MockZKTelemetryVerifier",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MockZKTelemetryVerifier__factory>;
-    getContractFactory(
-      name: "TerraSentinelRiskLedger",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TerraSentinelRiskLedger__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -153,11 +149,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.MockZKTelemetryVerifier>;
-    getContractAt(
-      name: "TerraSentinelRiskLedger",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TerraSentinelRiskLedger>;
 
     deployContract(
       name: "Ownable",
@@ -219,10 +210,6 @@ declare module "hardhat/types/runtime" {
       name: "MockZKTelemetryVerifier",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MockZKTelemetryVerifier>;
-    deployContract(
-      name: "TerraSentinelRiskLedger",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TerraSentinelRiskLedger>;
 
     deployContract(
       name: "Ownable",
@@ -299,11 +286,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MockZKTelemetryVerifier>;
-    deployContract(
-      name: "TerraSentinelRiskLedger",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TerraSentinelRiskLedger>;
 
     // default types
     getContractFactory(

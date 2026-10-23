@@ -1,5 +1,5 @@
 # 🛡️ AEGIS-CLIMATE: Complete Product Requirements & Verified Implementation Specification (PRD)
-## Google Cloud AI Builder Cup 2026 | Comprehensive Technical Architecture & Verification Dossier
+## IEEE ClimateChain Hackathon 2026 | Comprehensive Technical Architecture & Verification Dossier
 
 ---
 

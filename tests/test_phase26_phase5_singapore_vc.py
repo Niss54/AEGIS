@@ -1,6 +1,6 @@
 """
-TERRA-SENTINEL: Phase 5 Verification Suite
-VC Investment Memo, Pitch Deck, and Singapore Grand Finale Strategy
+AEGIS-CLIMATE: Phase 5 Verification Suite
+VC Investment Memo, Pitch Deck, and Global Climate Scaling Strategy
 Incorporating Google Research Hydrology & DeepMind DGMR Nowcasting Moats
 """
 from pathlib import Path

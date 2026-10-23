@@ -1,4 +1,4 @@
-# Railway Nixpacks Configuration for TERRA-SENTINEL Backend
+# Railway Nixpacks Configuration for AEGIS-CLIMATE Backend
 providers = ["python"]
 
 [phases.setup]

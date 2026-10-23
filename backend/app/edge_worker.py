@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field
 
 logger = logging.getLogger("aegis.phase_19")
 
-PWA_CACHE_NAME = "terra-sentinel-cache-v1.0.0"
+PWA_CACHE_NAME = "aegis-climate-cache-v1.0.0"
 
 
 class PWAWorkerModel(BaseModel):

@@ -1,7 +1,7 @@
 """
-AEGIS-CLIMATE: Phase 5 Executive VC Documentation & Singapore Grand Finale API Router
+AEGIS-CLIMATE: Phase 5 Executive VC Documentation & IEEE ClimateChain Global Demonstration API Router
 Provides institutional VC investment metrics, unit economics, Pitch Deck slides,
-and Singapore Grand Finale execution strategy for Google Cloud AI Builder Cup.
+and IEEE ClimateChain Global Demonstration execution strategy for IEEE ClimateChain Hackathon.
 """
 import os
 import logging
@@ -48,7 +48,7 @@ class VCMemoResponse(BaseModel):
 def get_vc_investment_memo() -> VCMemoResponse:
     """
     Returns structured VC Investment Memo with market sizing,
-    unit economics, competitive moats, and Singapore Grand Finale strategy.
+    unit economics, competitive moats, and IEEE ClimateChain Global Demonstration strategy.
     """
     moats = [
         "Autonomous 3-agent cascade executing in < 90 seconds without human intervention",
@@ -114,7 +114,7 @@ def get_pitch_deck_summary() -> Dict[str, Any]:
         {"slide_number": 8, "title": "SLIDE 8: Impact & Scalability", "focus": "From hackathon prototype to national infrastructure"},
         {"slide_number": 9, "title": "SLIDE 9: Closing Vision", "focus": "The future is autonomous planetary resilience"},
         {"slide_number": 10, "title": "SLIDE 10: Google Cloud Decisive Advantage", "focus": "Cloud Run, Vertex AI Gemini 2.0 Flash, GEE, 5-tier circuit breaker"},
-        {"slide_number": 11, "title": "SLIDE 11: Singapore Grand Finale Strategy", "focus": "Marina Barrage live stress test & JAPAC expansion"}
+        {"slide_number": 11, "title": "SLIDE 11: Global Climate Scaling Strategy", "focus": "Marina Barrage live stress test & global delta expansion"}
     ]
     return {
         "status": "success",
@@ -127,11 +127,11 @@ def get_pitch_deck_summary() -> Dict[str, Any]:
 @router.get("/singapore-strategy")
 def get_singapore_grand_finale_strategy() -> Dict[str, Any]:
     """
-    Returns the comprehensive 48-Hour Live Pitch Playbook for the Singapore Grand Finale.
+    Returns the comprehensive 48-Hour Live Pitch Playbook for the IEEE ClimateChain Global Demonstration.
     """
     return {
         "status": "success",
-        "venue": "Google Cloud AI Builder Cup Grand Finale — Singapore",
+        "venue": "IEEE ClimateChain Hackathon Grand Finale — Singapore",
         "target_audience": "Google Cloud Leadership, Sovereign Wealth Funds (Temasek/GIC), Reinsurance Execs",
         "live_demo_location": {
             "name": "Singapore — Marina Barrage Catchment",

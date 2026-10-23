@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Phase 19 Verification Test Suite
+AEGIS-CLIMATE Phase 19 Verification Test Suite
 Edge Network Resilience: Service Worker & Local Storage Fallback
 Governance: Gravitas Reliability Runtime · Mathematical Invariant Verification
 """
@@ -90,7 +90,7 @@ def test_pwa_service_worker_asset_spec():
     assert os.path.exists(sw_path), "frontend/public/sw.js must exist for PWA offline operation"
     with open(sw_path, "r", encoding="utf-8") as f:
         content = f.read()
-    assert ("aegis-climate-v1.0.0" in content or "terra-sentinel-v1.0.0" in content)
+    assert ("aegis-climate-v1.0.0" in content or "aegis-climate-v1.0.0" in content)
     assert "STATIC_ASSETS" in content
     assert "OFFLINE_RESILIENT_SURVIVAL" in content
 
@@ -173,7 +173,7 @@ def test_rest_edge_endpoints(client):
     resp_man = client.get("/edge/manifest")
     assert resp_man.status_code == 200
     data_man = resp_man.json()
-    assert ("AEGIS-CLIMATE" in data_man["name"] or "TERRA-SENTINEL" in data_man["name"])
+    assert ("AEGIS-CLIMATE" in data_man["name"] or "AEGIS-CLIMATE" in data_man["name"])
     assert data_man["display"] == "standalone"
 
 

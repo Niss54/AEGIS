@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Verification: Phase 11
+AEGIS-CLIMATE Production Verification: Phase 11
 Suite: Zero-Trust Verifiable Telemetry & Cryptographic HMAC Sealing
 Governance: Gravitas Reliability Runtime · Machine-Checked Evidence Protocol
 """

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Phase 15 Automated Test Suite
+AEGIS-CLIMATE Phase 15 Automated Test Suite
 Module: tests/test_phase15_parametric_bond.py
 Governance: Gravitas Reliability Runtime · Machine-Checked Verification
 

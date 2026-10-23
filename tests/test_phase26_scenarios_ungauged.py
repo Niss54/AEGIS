@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Phase 4 Verification Suite
+AEGIS-CLIMATE: Phase 4 Verification Suite
 Extreme Disaster Scenarios Presets & Google Research Ungauged Basin Hydrology
 """
 import pytest

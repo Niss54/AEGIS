@@ -1,7 +1,7 @@
 # 🎬 AEGIS-CLIMATE — High-Energy 3-Minute (180s) Video Screenplay
 ### *Autonomous Multi-Agent Environmental & Climate Risk Intelligence Platform*
-**Competition:** Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)  
-**Team:** AEGIS Core (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
+**Competition:** IEEE ClimateChain 2026 — Track 4 (Global Planetary Resilience)  
+**Team:** Team Syntrix — Nishant Maurya (Solo Developer)  
 **Duration:** 180s (3 Minutes) Exact Mathematical Budget  
 **Infrastructure:** Google Cloud Run, Google Vertex AI (Gemini 2.0 Flash), Model Context Protocol (MCP)  
 
@@ -14,7 +14,7 @@
 | **ACT 1** | The Acute Planetary Crisis & Latency Paradox | 0:00 – 0:30 | 30.0s | ₹8,000 Cr+ annual losses; fragmented data silos; catastrophic response latency. |
 | **ACT 2** | Live Cockpit & Autonomous Multi-Agent Cascade | 0:30 – 1:30 | 60.0s | Interactive Cockpit, Leaflet GIS, What-If slider (+110mm), Agent 1 ➔ Agent 2 ➔ Agent 3. |
 | **ACT 3** | Google Cloud Architecture & Enterprise Resilience | 1:30 – 2:30 | 60.0s | Google Cloud Run, Vertex AI Gemini 2.0 Flash, Model Context Protocol (MCP Hub), Bhasha-AI. |
-| **ACT 4** | ROI, Market Scale & Singapore Grand Finale | 2:30 – 3:00 | 30.0s | Cryptographic evidence, USDC settlement, Marina Barrage, Singapore Grand Finale vision. |
+| **ACT 4** | ROI, Market Scale & IEEE ClimateChain Global Demonstration | 2:30 – 3:00 | 30.0s | Cryptographic evidence, USDC settlement, Marina Barrage, IEEE ClimateChain Global Demonstration vision. |
 
 ---
 
@@ -25,7 +25,7 @@
 - **Presenter / Voiceover:**
   > *"Every monsoon, mega-cities across the Indo-Pacific come to a devastating standstill. From Mumbai's Mithi River basin to Bengaluru and Southeast Asia, climate disasters inflict over $16 Billion in annual direct physical and economic destruction.*  
   > *Meteorological data, satellite elevation models, and disaster policies exist—but they are completely trapped in disconnected silos. Decision-makers receive warnings hours after water has already entered critical infrastructure.*  
-  > *We are Nishant Maurya, competing in the Google Cloud AI Builder Cup, and this is **AEGIS-CLIMATE**—the first autonomous, multi-agent environmental and financial intelligence platform."*
+  > *We are Nishant Maurya, competing in the IEEE ClimateChain Hackathon, and this is **AEGIS-CLIMATE**—the first autonomous, multi-agent environmental and financial intelligence platform."*
 
 ---
 
@@ -60,17 +60,17 @@
 
 ---
 
-### ACT 4: ROI, Market Scale & Singapore Grand Finale (2:30 – 3:00)
+### ACT 4: ROI, Market Scale & IEEE ClimateChain Global Demonstration (2:30 – 3:00)
 - **Visual:** Switch to **Web3 & Ledger Cockpit**. Highlight EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring. Show the **Agentic Settlement Pool** releasing USDC relief liquidity.
-- **Visual:** Show **Singapore Grand Finale Strategy** slide featuring Marina Barrage live stress test and JAPAC market expansion.
+- **Visual:** Show **Global Climate Scaling Strategy** slide featuring Marina Barrage live stress test and JAPAC market expansion.
 - **Presenter / Voiceover:**
   > *"AEGIS bridges the physical and financial worlds with cryptographic certainty.*  
   > *Our guiding thesis for the judges is clear: **Data is the verifiable truth under Track 4; financial settlement is the automated consequence under Track 1.***  
   > *We operate an EVM Cryptographic Protocol & Deterministic Testbed (40/40 Hardhat tests passing) with live RFC-8785 Keccak-256 evidence hashing and IPFS Pinata CID anchoring.*  
   > *Every analysis is compiled into a canonical RFC-8785 evidence bundle, hashed with Keccak-256, and anchored with Pinata IPFS CIDs.*  
   > *When flood thresholds breach, our smart contracts execute deterministic autonomous USDC emergency liquidity with zero paper claims.*  
-  > *From Mumbai and Lucknow to our championship demonstration at Marina Barrage for the **Singapore Grand Finale**, AEGIS-CLIMATE delivers autonomous climate defense.*  
-  > *Built by Nishant Maurya for the Google Cloud AI Builder Cup. Ready to protect our planet today!"*
+  > *From Mumbai and Lucknow to our championship demonstration at Marina Barrage, Singapore for the **IEEE ClimateChain Global Demonstration**, AEGIS-CLIMATE delivers autonomous climate defense.*  
+  > *Built by Nishant Maurya for the IEEE ClimateChain Hackathon. Ready to protect our planet today!"*
 
 ---
 
@@ -78,4 +78,4 @@
 - [ ] Ensure 180s total video pacing across all 4 Acts
 - [ ] Highlight Google Cloud Run, Vertex AI, Gemini 2.0 Flash, Model Context Protocol
 - [ ] Demonstrate live What-If anomaly trigger and Bhasha-AI voice synthesis
-- [ ] Show Singapore Grand Finale Marina Barrage roadmap and institutional ROI
+- [ ] Show IEEE ClimateChain Global Demonstration Marina Barrage roadmap and institutional ROI

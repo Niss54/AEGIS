@@ -9,7 +9,7 @@
 
 ## 1. Executive Track Alignment
 
-A common hazard in high-stakes hackathons (such as the Google Cloud AI Builder Cup or Web3 Climate summits) is for judges to view multi-faceted platforms as "unfocused." A judge might see:
+A common hazard in high-stakes hackathons (such as the IEEE ClimateChain Hackathon or Web3 Climate summits) is for judges to view multi-faceted platforms as "unfocused." A judge might see:
 - 30m NASA SRTM Elevation & HydroMT Hydrological Delineation
 - Copernicus Sentinel-2 MSI Multi-Spectral Water & Biomass Indices
 - Multi-Hazard Compound Landslide (CFLSI) & Urban Heat Island Monitors

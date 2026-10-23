@@ -83,8 +83,8 @@ def audit_pitch_deck_endpoint(deck_path: Optional[str] = None) -> PitchDeckAudit
 
 @router.get("/grandfinale/playbook")
 def get_grand_finale_playbook_endpoint(event_name: Optional[str] = None) -> Dict[str, Any]:
-    """Retrieves the Singapore Grand Finale 48-Hour Live Demo Execution Playbook."""
-    event = event_name or "Google Cloud AI Builder Cup — JAPAC Grand Finale"
+    """Retrieves the IEEE ClimateChain Global Demonstration 48-Hour Live Demo Execution Playbook."""
+    event = event_name or "IEEE ClimateChain 2026 Global Final"
     return {
         "status": "success",
         "playbook": generate_singapore_grand_finale_playbook(event_name=event)

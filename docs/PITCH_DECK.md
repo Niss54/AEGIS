@@ -1,5 +1,5 @@
 # 🛡️ AEGIS-CLIMATE — Pitch Deck
-### *Enterprise Executive Presentation | Nishant Maurya*
+### *Enterprise Executive Presentation | Team Syntrix (Nishant Maurya)*
 
 > **Deck Format:** 16:9 Widescreen | **Time:** 3–5 Minutes | **Slides:** 11
 > **Design Language:** Neon Black Cyber-Cockpit (`#0D1B2A` base, `#00F0FF` accent, `#E76F51` danger)
@@ -281,11 +281,11 @@ Autonomous Multi-Agent Environmental & Risk Intelligence Platform 🛡️
 
 ---
 
-## SLIDE 11: Singapore Grand Finale Strategy & JAPAC Expansion Roadmap
+## SLIDE 11: Global Climate Scaling Strategy & JAPAC Expansion Roadmap
 
 ### **Championship pitch execution at Marina Bay Sands and regional expansion.**
 
-- **Singapore Grand Finale Live Demonstration:**
+- **IEEE ClimateChain Global Demonstration Live Demonstration:**
   - Real-time stress test on the **Singapore Marina Barrage** tidal and stormwater catchment corridor (`1.2800°N, 103.8636°E`).
   - Autonomous simulation of sudden 150mm tropical convective cloudburst synchronized with 2.5m high astronomical tide.
   - Live execution of 3-agent cascade: Acute ML prediction ➔ Copernicus DEM terrain slope pooling ➔ Parametric bond liquidity release.
@@ -305,5 +305,5 @@ Autonomous Multi-Agent Environmental & Risk Intelligence Platform 🛡️
 > - Slide 7: Pause on "Observable Reasoning" — this is the WOW moment for judges
 > - Slide 8: State verified metrics with scientific integrity — 95.14% benchmark accuracy, <3 seconds, 100% tests
 > - Slide 10: Emphasize Google Cloud Run, Vertex AI Gemini 2.0 Flash, DeepMind DGMR Nowcasting, and Google Research LSTM
-> - Slide 11: Spotlight the Singapore Marina Barrage championship demo and JAPAC expansion
+> - Slide 11: Spotlight the Singapore Marina Barrage championship demo and global delta expansion
 > - Close: Repeat the tagline twice — *"From detecting the signal to deciding the next action."*

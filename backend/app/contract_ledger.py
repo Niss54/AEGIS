@@ -30,7 +30,7 @@ try:
 except ImportError:
     HAS_WEB3 = False
 
-from backend.app.blockchain.chain_client import chain_client, TerraSentinelChainClient
+from backend.app.blockchain.chain_client import chain_client, AEGISChainClient
 from backend.app.ipfs.storage import ipfs_client, IPFSStorageClient
 
 logger = logging.getLogger("aegis.phase_14")
@@ -107,7 +107,7 @@ class ContractLedgerController:
     def __init__(
         self,
         config: Optional[Dict[str, Any]] = None,
-        chain_gateway: Optional[TerraSentinelChainClient] = None,
+        chain_gateway: Optional[AEGISChainClient] = None,
         ipfs_gateway: Optional[IPFSStorageClient] = None
     ):
         self.config = config or {}

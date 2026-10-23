@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Specification: Phase 9
+AEGIS-CLIMATE Production Specification: Phase 9
 Module: terra_sentinel.phase_9.mcpgatewaycontroller
 Governance: Gravitas Reliability Runtime · Model Context Protocol (MCP JSON-RPC 2.0) Compliant
 

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Production Verification: Phase 9
+AEGIS-CLIMATE Production Verification: Phase 9
 Suite: Model Context Protocol (MCP) Hub & JSON-RPC 2.0 Gateway
 Governance: Gravitas Reliability Runtime · Machine-Checked Evidence Protocol
 """
@@ -191,7 +191,7 @@ def test_mcp_rpc_initialize(client):
     assert data["id"] == "handshake-1"
     result = data["result"]
     assert result["protocolVersion"] == "2024-11-05"
-    assert result["serverInfo"]["name"] in ["aegis-climate-mcp-hub", "terra-sentinel-mcp-hub"]
+    assert result["serverInfo"]["name"] in ["aegis-climate-mcp-hub", "aegis-climate-mcp-hub"]
 
 
 def test_mcp_rpc_tools_list(client):

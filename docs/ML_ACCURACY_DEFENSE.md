@@ -8,7 +8,7 @@
 
 ## 1. Executive Summary: What is "The ML 95.14% Accuracy Overclaim"?
 
-In academic peer review (IEEE, ACM) and competitive AI hackathons (Google Cloud AI Builder Cup, ClimateChain), one of the quickest ways to lose credibility with senior data science judges is stating:  
+In academic peer review (IEEE, ACM) and competitive AI hackathons (IEEE ClimateChain Hackathon, ClimateChain), one of the quickest ways to lose credibility with senior data science judges is stating:  
 > *"Our ML model predicts floods with 95.14% accuracy."*
 
 ### Why Senior Reviewers Challenge This:

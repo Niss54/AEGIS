@@ -2,7 +2,7 @@
 ### *Autonomous Multi-Agent Environmental & Climate Risk Intelligence Platform*
 
 > **Platform:** AEGIS-CLIMATE Enterprise Environmental Intelligence Platform  
-> **Team:** Syntrix (Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde)  
+> **Team:** Syntrix (Nishant Maurya (Solo Developer))  
 > **Repository:** [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS)  
 > **Version:** 2.5.0 Production  
 > **Status:** 🟢 Approved & Active  
@@ -352,7 +352,7 @@ Aligned with the multi-phase engineering milestones:
 
 ### Core Engineering Deliverables:
 - [x] **Project Name:** AEGIS-CLIMATE
-- [x] **Team Syntrix Roster:** Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde
+- [x] **Team Syntrix Roster:** Nishant Maurya (Solo Developer)
 - [x] **Domain:** Energy & ClimateTech / Citizen & GovTech
 - [x] **Live Working Cockpit:** Local Docker / Vite Dev Server
 - [x] **GitHub Repo:** `https://github.com/Niss54/AEGIS` (Clean history, documentation, `.gitignore`)

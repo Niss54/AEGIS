@@ -8,7 +8,7 @@
  */
 
 const CACHE_NAME = 'aegis-climate-v1.0.0';
-// Alias for backwards compatibility: terra-sentinel-v1.0.0
+// Alias for backwards compatibility: aegis-climate-v1.0.0
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -36,7 +36,7 @@ self.addEventListener('activate', (event) => {
         cacheNames
           .filter((name) => name !== CACHE_NAME)
           .map((name) => {
-            console.log('[TERRA-SENTINEL SW] Purging stale cache:', name);
+            console.log('[AEGIS-CLIMATE SW] Purging stale cache:', name);
             return caches.delete(name);
           })
       );
@@ -70,7 +70,7 @@ self.addEventListener('fetch', (event) => {
               status: 'OFFLINE_RESILIENT_SURVIVAL',
               network_status: 'DISCONNECTED',
               availability: 1.0,
-              message: 'TERRA-SENTINEL Edge Service Worker operational. Serving local heuristics.',
+              message: 'AEGIS-CLIMATE Edge Service Worker operational. Serving local heuristics.',
               timestamp: Date.now()
             };
             return new Response(JSON.stringify(offlinePayload), {
@@ -108,6 +108,6 @@ self.addEventListener('fetch', (event) => {
 // 4. Background Sync for Queued Mutations
 self.addEventListener('sync', (event) => {
   if (event.tag === 'sync-offline-mutations') {
-    console.log('[TERRA-SENTINEL SW] Executing background sync for offline mutations...');
+    console.log('[AEGIS-CLIMATE SW] Executing background sync for offline mutations...');
   }
 });

@@ -1,4 +1,4 @@
-name: TERRA-SENTINEL Deployment Pipeline
+name: AEGIS-CLIMATE Deployment Pipeline
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   deploy-cloud-run:
     name: Deploy to Google Cloud Run
     runs-on: ubuntu-latest
-    if: github.repository == 'Niss54/TERRA-SENTINEL'
+    if: github.repository == 'Niss54/AEGIS'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -31,13 +31,13 @@ jobs:
       - name: Build & Deploy Container to Cloud Run
         if: env.GCP_SA_KEY != ''
         run: |
-          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/terra-sentinel:${{ github.sha }} .
-          gcloud run deploy terra-sentinel \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/terra-sentinel:${{ github.sha }} \
+          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/aegis-climate:${{ github.sha }} .
+          gcloud run deploy aegis-climate \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/aegis-climate:${{ github.sha }} \
             --region asia-south1 \
             --platform managed \
             --allow-unauthenticated \
             --port 8080 \
-            --set-env-vars ENVIRONMENT=production,DEBUG=false,APP_NAME=TERRA-SENTINEL
+            --set-env-vars ENVIRONMENT=production,DEBUG=false,APP_NAME=AEGIS-CLIMATE
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}

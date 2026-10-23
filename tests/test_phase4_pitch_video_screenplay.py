@@ -1,6 +1,6 @@
 """
 Phase 4 Test Suite: 3-Minute High-Energy Pitch Video Screenplay & Teleprompter
-Google Cloud AI Builder Cup — JAPAC Track (Singapore Grand Finale)
+IEEE ClimateChain 2026 — Track 4 (Global Planetary Resilience)
 """
 import os
 import json
@@ -50,7 +50,7 @@ def test_rest_api_get_screenplay():
     assert data["total_duration_seconds"] == 180.0
     assert data["budget_verified"] is True
     assert len(data["acts"]) == 4
-    assert "Google Cloud AI Builder Cup" in data["competition"]
+    assert "IEEE ClimateChain Hackathon" in data["competition"]
     assert len(data["presenter_checklist"]) >= 4
 
 
@@ -87,7 +87,7 @@ def test_teleprompter_artifact_exporter(tmp_path):
 
     with open(exported["json_file"], "r", encoding="utf-8") as f:
         doc = json.load(f)
-    assert doc["project"] in ["AEGIS-CLIMATE", "TERRA-SENTINEL"]
+    assert doc["project"] in ["AEGIS-CLIMATE", "AEGIS-CLIMATE"]
     assert doc["duration_seconds"] == 180.0
     assert len(doc["acts"]) == 4
 
@@ -99,7 +99,7 @@ def test_demo_script_markdown_file():
     with open(script_path, "r", encoding="utf-8") as f:
         content = f.read()
     assert "180s" in content
-    assert "Google Cloud AI Builder Cup" in content
+    assert "IEEE ClimateChain Hackathon" in content
     assert "ACT 1" in content
     assert "ACT 2" in content
     assert "ACT 3" in content

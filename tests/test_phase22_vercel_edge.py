@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Phase 22 Verification Test Suite
+AEGIS-CLIMATE Phase 22 Verification Test Suite
 Vercel Edge Global Frontend Deployment & CDN Orchestration
 Governance: Gravitas Reliability Runtime · Mathematical Invariant Verification
 """

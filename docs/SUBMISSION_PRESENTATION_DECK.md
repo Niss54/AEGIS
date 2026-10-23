@@ -1,11 +1,11 @@
-# 🏆 GOOGLE CLOUD AI BUILDER CUP — OFFICIAL SUBMISSION DECK
+# 🏆 IEEE CLIMATECHAIN 2026 — OFFICIAL SUBMISSION DECK
 ## Nishant Maurya | Project: AEGIS-CLIMATE v3.6.0-ENTERPRISE
-### Template Mapping: `Submission Template - AI Builder Cup.pptx`
+### Template Mapping: `Submission Template - IEEE ClimateChain.pptx`
 
 ---
 
 ### SLIDE 1: Team Details
-- **Competition:** Google Cloud AI Builder Cup — Build in JAPAC. Build for the world.
+- **Competition:** IEEE ClimateChain Hackathon — Build in JAPAC. Build for the world.
 - **Team Name:** AEGIS Core
 - **Team Leader Name:** Nishant Maurya
 - **Problem Statement:** 
@@ -137,7 +137,7 @@ flowchart TD
 
 ### SLIDE 11: Snapshots of the prototype
 *(Insert the 4 screenshots from `public/submission_photos/`)*
-1. **Command Radar Overview:** Real-time GIS hazard polygons over Singapore Marina Bay & JAPAC corridors.
+1. **Command Radar Overview:** Real-time GIS hazard polygons over Singapore Marina Bay & vulnerable global corridors.
 2. **Multi-Agent Swarm Drawer:** Autonomous reasoning monologue and tool invocation traces.
 3. **Official MCP Tool Hub:** Live JSON-RPC 2.0 tool execution interface.
 4. **Financial & BRSR Dashboard:** Balance-sheet Value-at-Risk, stranded assets, and regulatory compliance audit.
@@ -179,6 +179,6 @@ flowchart TD
 ---
 
 ### SLIDE 16: Thank You
-- **Built for:** Google Cloud AI Builder Cup Singapore Grand Finale
-- **Nishant Maurya:** Nishant Maurya, Navya Chaudhary, Om Tripathi, Nikita Chopde
+- **Built for:** IEEE ClimateChain Hackathon IEEE ClimateChain Global Demonstration
+- **Nishant Maurya:** Nishant Maurya (Solo Developer)
 - **Contact / GitHub:** [https://github.com/Niss54/AEGIS-CLIMATE](https://github.com/Niss54/AEGIS-CLIMATE)

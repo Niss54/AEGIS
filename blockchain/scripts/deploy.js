@@ -1,11 +1,11 @@
 /**
- * TERRA-SENTINEL Phase 14 Smart Contract Deployment Script
+ * AEGIS-CLIMATE Phase 14 Smart Contract Deployment Script
  * Module: blockchain/scripts/deploy.js
  * Governance: Gravitas Reliability Runtime · Polygon Amoy Network Deployment
  *
  * Deploys:
  * 1. MockERC20 (USDC collateral token)
- * 2. TerraSentinelRiskLedger (immutable risk audit ledger)
+ * 2. AEGISRiskLedger (immutable risk audit ledger)
  * 3. DisasterBond (parametric catastrophe bond settlement engine)
  * 4. CarbonFloodCredit (CFMC mitigation reward ERC-20 token)
  */
@@ -33,13 +33,13 @@ async function main() {
   const usdcAddress = await usdc.getAddress();
   console.log(`   ✅ Mock USDC deployed at: ${usdcAddress}`);
 
-  // 2. Deploy TerraSentinelRiskLedger
-  console.log("2. Deploying TerraSentinelRiskLedger...");
-  const TerraSentinelRiskLedger = await ethers.getContractFactory("TerraSentinelRiskLedger");
-  const ledger = await TerraSentinelRiskLedger.deploy(BACKEND_WALLET);
+  // 2. Deploy AEGISRiskLedger
+  console.log("2. Deploying AEGISRiskLedger...");
+  const AEGISRiskLedger = await ethers.getContractFactory("AEGISRiskLedger");
+  const ledger = await AEGISRiskLedger.deploy(BACKEND_WALLET);
   await ledger.waitForDeployment();
   const ledgerAddress = await ledger.getAddress();
-  console.log(`   ✅ TerraSentinelRiskLedger deployed at: ${ledgerAddress}`);
+  console.log(`   ✅ AEGISRiskLedger deployed at: ${ledgerAddress}`);
 
   // 3. Deploy DisasterBond
   console.log("3. Deploying DisasterBond...");
@@ -65,7 +65,7 @@ async function main() {
     timestamp: new Date().toISOString(),
     contracts: {
       MockUSDC: usdcAddress,
-      TerraSentinelRiskLedger: ledgerAddress,
+      AEGISRiskLedger: ledgerAddress,
       DisasterBond: bondAddress,
       CarbonFloodCredit: cfmcAddress
     },

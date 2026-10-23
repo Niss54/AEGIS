@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Phase 23 Verification Test Suite
+AEGIS-CLIMATE Phase 23 Verification Test Suite
 End-to-End Regression Verification & 52-Test Automated Quality Gate
 Governance: Gravitas Reliability Runtime · Mathematical Invariant Verification
 """

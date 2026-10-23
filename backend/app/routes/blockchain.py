@@ -70,7 +70,7 @@ async def get_blockchain_network_status():
         "current_block_height": getattr(chain_client, "_block_number", 1234567),
         "contracts": {
             "AEGISRiskLedger": getattr(chain_client, "ledger_address", getattr(chain_client, "risk_anchor_address", "0x5FbDB2315678afecb367f032d93F642f64180aa3")),
-            "TerraSentinelRiskLedger": getattr(chain_client, "ledger_address", getattr(chain_client, "risk_anchor_address", "0x5FbDB2315678afecb367f032d93F642f64180aa3")),
+            "AEGISRiskLedger": getattr(chain_client, "ledger_address", getattr(chain_client, "risk_anchor_address", "0x5FbDB2315678afecb367f032d93F642f64180aa3")),
             "DisasterBond": getattr(chain_client, "bond_address", "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"),
             "CarbonFloodCredit": getattr(chain_client, "cfmc_address", "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"),
             "EvidenceRegistry": getattr(chain_client, "evidence_registry_address", "0x5FbDB2315678afecb367f032d93F642f64180aa3")

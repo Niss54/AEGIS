@@ -40,7 +40,7 @@ async def list_monitoring_stations(
     country: Optional[str] = Query(None, description="Filter by country: India, Pakistan")
 ):
     """
-    Returns monitored high-risk multi-hazard mountain and river stations across Bharat & JAPAC corridors.
+    Returns monitored high-risk multi-hazard mountain and river stations across Bharat & vulnerable global corridors.
     """
     stations = sailab_engine.get_stations()
     if country:

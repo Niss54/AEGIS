@@ -1,5 +1,5 @@
 """
-Phase 2 Deployment Verification Test Suite for TERRA-SENTINEL
+Phase 2 Deployment Verification Test Suite for AEGIS-CLIMATE
 Verifies Vercel Edge Frontend Configuration, Cloud Run Container Manifests,
 Production Bundle Integrity, and Error-Free 1-Click Cockpit Loading Invariants.
 """
@@ -98,4 +98,4 @@ def test_instant_health_for_cloud_run():
     res_root = client.get("/")
     assert res_root.status_code == 200
     assert res_root.json()["status"] == "online"
-    assert res_root.json()["platform"] in ["AEGIS-CLIMATE", "TERRA-SENTINEL"]
+    assert res_root.json()["platform"] in ["AEGIS-CLIMATE", "AEGIS-CLIMATE"]

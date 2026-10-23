@@ -246,7 +246,7 @@ def test_fastapi_blockchain_phase14_endpoints():
     assert r_status.status_code == 200
     status_data = r_status.json()
     assert "contracts" in status_data
-    assert "TerraSentinelRiskLedger" in status_data["contracts"]
+    assert "AEGISRiskLedger" in status_data["contracts"]
 
 
 # -----------------------------------------------------------------------------

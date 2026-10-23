@@ -219,7 +219,7 @@ def simulate_ci_trigger(branch: str = "main", commit_sha: str = "HEAD") -> Dict[
         "action_taken": action,
         "pipeline_compliant": eval_res.is_compliant,
         "pipeline_verdict": eval_res.verdict,
-        "destination": "gcr.io/$PROJECT_ID/terra-sentinel" if branch == "main" else "NONE",
+        "destination": "gcr.io/$PROJECT_ID/aegis-climate" if branch == "main" else "NONE",
         "cloud_run_service": "aegis-climate" if branch == "main" else "NONE"
     }
 

@@ -5,7 +5,7 @@ Implements:
 1. Genuine Web3.py JSON-RPC connection to Polygon Amoy endpoints
 2. Real EIP-155 transaction construction, ABI encoding & private key signing via eth_account
 3. Live on-chain broadcasting and receipt retrieval with resilient zero-fail fallback
-4. Direct contract state querying for TerraSentinelRiskLedger, DisasterBond, and CarbonFloodCredit
+4. Direct contract state querying for AEGISRiskLedger, DisasterBond, and CarbonFloodCredit
 """
 import os
 import json
@@ -41,8 +41,8 @@ AMOY_RPC_POOL = [
 ]
 
 
-class TerraSentinelChainClient:
-    """Web3 client for TerraSentinelRiskLedger, DisasterBond, and CarbonFloodCredit."""
+class AEGISChainClient:
+    """Web3 client for AEGISRiskLedger, DisasterBond, and CarbonFloodCredit."""
 
     def __init__(self):
         self.chain_id = int(os.getenv("POLYGON_CHAIN_ID", "80002"))
@@ -52,7 +52,7 @@ class TerraSentinelChainClient:
         self.deployments = self._load_deployments()
         self.ledger_address = os.getenv(
             "AEGIS_CLIMATE_RISK_LEDGER_ADDRESS",
-            self.deployments.get("contracts", {}).get("TerraSentinelRiskLedger", DEFAULT_LEDGER)
+            self.deployments.get("contracts", {}).get("AEGISRiskLedger", DEFAULT_LEDGER)
         )
         self.bond_address = os.getenv(
             "DISASTER_BOND_ADDRESS",
@@ -64,7 +64,7 @@ class TerraSentinelChainClient:
         )
 
         # Load Smart Contract ABIs for all 3 contracts
-        self.ledger_abi = self._load_contract_abi("TerraSentinelRiskLedger")
+        self.ledger_abi = self._load_contract_abi("AEGISRiskLedger")
         self.bond_abi = self._load_contract_abi("DisasterBond")
         self.cfmc_abi = self._load_contract_abi("CarbonFloodCredit")
 
@@ -700,7 +700,7 @@ class TerraSentinelChainClient:
 
         bytecode_status = {
             "AEGISRiskLedger": self.check_bytecode(self.ledger_address),
-            "TerraSentinelRiskLedger": self.check_bytecode(self.ledger_address),
+            "AEGISRiskLedger": self.check_bytecode(self.ledger_address),
             "DisasterBond": self.check_bytecode(self.bond_address),
             "CarbonFloodCredit": self.check_bytecode(self.cfmc_address),
         }
@@ -721,7 +721,7 @@ class TerraSentinelChainClient:
             "total_settled_usdc": total_settled_usdc,
             "contracts": {
                 "AEGISRiskLedger": self.ledger_address,
-                "TerraSentinelRiskLedger": self.ledger_address,
+                "AEGISRiskLedger": self.ledger_address,
                 "DisasterBond": self.bond_address,
                 "CarbonFloodCredit": self.cfmc_address,
                 "ClimateEvidenceRegistry": getattr(self, "evidence_registry_address", "0x89C57973B8e72faFE2c510D12E6B1D0bB5d8C971"),
@@ -917,7 +917,7 @@ class TerraSentinelChainClient:
         return getattr(self, "_mock_cfmc_balances", {}).get(address, 0)
 
 
-chain_client = TerraSentinelChainClient()
+chain_client = AEGISChainClient()
 
 # Backward compatibility alias for AEGIS tests
-AEGISChainClient = TerraSentinelChainClient
+AEGISChainClient = AEGISChainClient

@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL: Phase 26 Verification Suite
+AEGIS-CLIMATE: Phase 26 Verification Suite
 Tests the Google Research State-Handoff LSTM Hydrology Engine & DeepMind DGMR Nowcasting Engine.
 """
 import pytest

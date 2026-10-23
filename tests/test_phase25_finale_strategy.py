@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Phase 25 Verification Test Suite
+AEGIS-CLIMATE Phase 25 Verification Test Suite
 10-Slide Executive VC Pitch Deck, TAM/SAM/SOM & Grand Finale Strategy
 Governance: Gravitas Reliability Runtime · Mathematical Invariant Verification
 """
@@ -150,7 +150,7 @@ def test_mathematical_governing_equation_tam_sam_som():
 def test_docs_pitch_deck_static_inspection():
     """
     Verifies that docs/PITCH_DECK.md exists, contains all 10 core topics,
-    and covers critical Google Cloud and Singapore Grand Finale keywords.
+    and covers critical Google Cloud and IEEE ClimateChain Global Demonstration keywords.
     """
     audit = audit_pitch_deck_structure()
     assert audit["file_exists"] is True
@@ -165,7 +165,7 @@ def test_docs_pitch_deck_static_inspection():
 
 def test_singapore_grand_finale_playbook_spec():
     """
-    Verifies the Singapore Grand Finale 48-Hour Live Demo Execution Playbook.
+    Verifies the IEEE ClimateChain Global Demonstration 48-Hour Live Demo Execution Playbook.
     """
     playbook = generate_singapore_grand_finale_playbook()
     assert "Singapore" in playbook["venue"]

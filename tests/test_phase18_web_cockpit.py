@@ -1,5 +1,5 @@
 """
-TERRA-SENTINEL Phase 18 Verification Test Suite
+AEGIS-CLIMATE Phase 18 Verification Test Suite
 Mission-Control Cockpit: React 19 + TypeScript + Leaflet CartoDB 60fps
 Governance: Gravitas Reliability Runtime · Mathematical Invariant Verification
 """

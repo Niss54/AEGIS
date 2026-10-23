@@ -76,7 +76,7 @@ class TelemetryIntegrityController:
     Executive Controller for Zero-Trust Verifiable Telemetry & Cryptographic HMAC Sealing.
     Enforces non-repudiation, replay defense, and cryptographic integrity.
     """
-    DEFAULT_PLATFORM_KEY = "terra-sentinel-master-cryptographic-salt-2026-japac"
+    DEFAULT_PLATFORM_KEY = "aegis-climate-master-cryptographic-salt-2026"
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}

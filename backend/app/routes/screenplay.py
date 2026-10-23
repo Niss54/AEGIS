@@ -1,5 +1,5 @@
 """
-FastAPI Route Module: Phase 24 - AI Builder Cup 3-Minute Video Demo Screenplay & Teleprompter Plan
+FastAPI Route Module: Phase 24 - IEEE ClimateChain 3-Minute Video Demo Screenplay & Teleprompter Plan
 Endpoints:
   - GET  /screenplay/phase24/health
   - POST /screenplay/phase24/pipeline
@@ -21,7 +21,7 @@ from backend.app.screenplay import (
     screenplay_controller
 )
 
-router = APIRouter(prefix="/screenplay", tags=["Phase 24 - AI Builder Cup 3-Minute Video Demo Screenplay"])
+router = APIRouter(prefix="/screenplay", tags=["Phase 24 - IEEE ClimateChain 3-Minute Video Demo Screenplay"])
 
 
 @router.get("/phase24/health")
@@ -33,7 +33,7 @@ async def screenplay_health_endpoint():
     return {
         "status": "healthy",
         "phase": 24,
-        "name": "AI Builder Cup 3-Minute Video Demo Screenplay & Teleprompter Plan",
+        "name": "IEEE ClimateChain 3-Minute Video Demo Screenplay & Teleprompter Plan",
         "diagnostics": screenplay_controller.get_screenplay_diagnostics()
     }
 
