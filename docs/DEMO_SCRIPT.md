@@ -11,7 +11,7 @@
 
 | Act | Title | Timing | Duration | Key Voiceover & Demonstration Focus |
 |:---|:---|:---|:---|:---|
-| **ACT 1** | The Acute Planetary Crisis & Latency Paradox | 0:00 – 0:30 | 30.0s | ₹8,000 Cr+ annual losses; fragmented data silos; catastrophic response latency. |
+| **ACT 1** | The Acute Planetary Crisis & Latency Paradox | 0:00 – 0:30 | 30.0s | $16 Billion+ annual losses ($4B+ direct urban flood loss); fragmented data silos; catastrophic response latency. |
 | **ACT 2** | Live Cockpit & Autonomous Multi-Agent Cascade | 0:30 – 1:30 | 60.0s | Interactive Cockpit, Leaflet GIS, What-If slider (+110mm), Agent 1 ➔ Agent 2 ➔ Agent 3. |
 | **ACT 3** | Google Cloud Architecture & Enterprise Resilience | 1:30 – 2:30 | 60.0s | Google Cloud Run, Vertex AI Gemini 2.0 Flash, Model Context Protocol (MCP Hub), Bhasha-AI. |
 | **ACT 4** | ROI, Market Scale & IEEE ClimateChain Global Demonstration | 2:30 – 3:00 | 30.0s | Cryptographic evidence, USDC settlement, Marina Barrage, IEEE ClimateChain Global Demonstration vision. |
@@ -37,13 +37,13 @@
 - **Visual:** The live **Agent Execution Monologue** streams real-time reasoning:
   - `[AGENT 1 ACUTE ML]` Evaluates multi-factor hydrology: 92% flood probability. Threshold > 0.65 breached. Autonomously awakens Agent 2.
   - `[AGENT 2 CHRONIC GEO]` Executes 30m DEM elevation pooling, models 88cm inundation, 84.5% drainage conduit overload, and HAZUS structural damage. Autonomously activates Agent 3.
-  - `[AGENT 3 FINANCIAL VAR]` Queries ChromaDB regulatory vector store for SEBI BRSR and carbon mandates. Computes ₹1,180 Cr ($142M) Value-at-Risk.
+  - `[AGENT 3 FINANCIAL VAR]` Queries ChromaDB regulatory vector store for SEBI BRSR and carbon mandates. Computes $142 Million USD Value-at-Risk.
 - **Presenter / Voiceover:**
   > *"Notice that AEGIS is NOT a passive chatbot. It is a fully autonomous cascade.*  
   > *Agent 1 ingests live environmental telemetry and runs our trained Gradient Boosting classifier in under 20 milliseconds.*  
   > *Because risk breaches the critical threshold, Agent 1 autonomously triggers Agent 2 without human intervention.*  
   > *Agent 2 executes hydro-topographic pooling against Copernicus 30m DEM rasters, computes conduit overflow, and calculates HAZUS structural loss.*  
-  > *Detecting infrastructure failure, Agent 2 triggers Agent 3, synthesizing a 4-factor Value-at-Risk of ₹1,180 Crores."*
+  > *Detecting infrastructure failure, Agent 2 triggers Agent 3, synthesizing a 4-factor Value-at-Risk of 142 million dollars."*
 
 ---
 

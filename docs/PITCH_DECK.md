@@ -24,7 +24,7 @@
 
 ## SLIDE 2: The Problem — THE BHARAT CRISIS (The Real Problem)
 
-### **₹2 Lakh Crore+ lost annually to climate disasters. Most of it was preventable.**
+### **$25 Billion+ USD lost annually to climate disasters. Most of it was preventable.**
 
 | The Crisis | What Happens Today | Human Cost |
 |:---|:---|:---|
@@ -80,7 +80,7 @@
                                         │ auto-triggers for HIGH/CRITICAL
                                         ▼
                                 Agent 3: Financial Risk Engine  →   Executive VaR Briefing
-                                (RAG + ChromaDB + LLM Synthesis)    (₹37.5 Cr at risk)
+                                (RAG + ChromaDB + LLM Synthesis)    ($4.5 Million USD at risk)
                                         │
                                         ▼
                                   📡 UNIFIED REPORT → WebSocket → Dashboard + Voice Alert
@@ -172,7 +172,7 @@ TOOLS:  load_dem_raster() → 30m SRTM elevation tiles
   ↓
 RULES:  IF drainage_overflow > 70% AND elevation_delta < 5m → INFRASTRUCTURE_FAILURE
   ↓
-OUTPUT: buildings_at_risk: 342 | damage_estimate: ₹10.25 Cr | waterlogging: 85cm
+OUTPUT: buildings_at_risk: 342 | damage_estimate: $1.25M USD | waterlogging: 85cm
 ```
 
 #### 🔵 Agent 3 — Financial Risk (The Executive Strategist)
@@ -183,7 +183,7 @@ TOOLS:  query_regulatory_corpus() → ChromaDB cosine search (SEBI BRSR, NAPCC)
         model_var_exposure() → Multi-factor Value-at-Risk formula
         synthesize_executive_brief() → LLM with Pydantic JSON validation
   ↓
-OUTPUT: VaR: ₹37.5 Cr | stranded_asset_risk: HIGH | compliance_gap: 34%
+OUTPUT: VaR: $4.5M USD | stranded_asset_risk: HIGH | compliance_gap: 34%
         + 3 actionable recommendations + print-ready C-Suite briefing
 ```
 
@@ -241,8 +241,8 @@ Manual trigger       →     Automated 15-min cron →    Real-time satellite fe
 #### Multi-Level Impact:
 - **👤 User:** Municipal officers get ward-level alerts before flooding — not after
 - **🏛️ Organization:** Enterprises quantify climate VaR for quarterly board reporting
-- **🇮🇳 Society:** Reduce India's ₹2L Cr+ annual climate disaster losses through proactive intelligence
-- **💰 Economics:** Shift from reactive ₹10,000 Cr disaster relief to preventive ₹500 Cr early warning infrastructure
+- **🇮🇳 Society:** Reduce global & regional $25 Billion+ USD annual climate disaster losses through proactive intelligence
+- **💰 Economics:** Shift from reactive $1.2 Billion USD disaster relief to preventive $60 Million USD early warning infrastructure
 
 ---
 
@@ -252,7 +252,7 @@ Manual trigger       →     Automated 15-min cron →    Real-time satellite fe
 
 | | |
 |:---|:---|
-| **PROBLEM** | India loses ₹2 Lakh Crore+ every year to preventable climate disasters because intelligence is fragmented, delayed, and disconnected from action. |
+| **PROBLEM** | Megacities lose $25 Billion+ USD every year to preventable climate disasters because intelligence is fragmented, delayed, and disconnected from action. |
 | **SOLUTION** | AEGIS deploys 3 autonomous AI agents via MCP that chain live weather → infrastructure damage → financial risk in one pipeline. |
 | **PROOF** | 95.14% CV accuracy on empirical IMD disaster centroids, coupled with deterministic 30m NASA SRTM elevation physics and HAZUS depth-damage curves to eliminate ML hallucination. 100% tests passing. < 3 sec end-to-end. Live demo with 8 international cities. Observable agent reasoning. |
 | **FUTURE** | Pan-India municipal integration. Real-time satellite feeds. Multi-language civic dispatch. Enterprise SaaS for climate risk compliance. |

@@ -109,13 +109,13 @@ Judges will ask whether real raster DEM processing happens in real-time or if el
 ### Module 4: Agent 3 Financial Value-at-Risk & SEBI BRSR
 
 #### The Trap
-Judges will ask if "₹1,225 Crore VaR" is actuarially calculated, and whether SEBI BRSR mandates legally compel flood disclosures.
+Judges will ask if "$147.2 Million USD VaR" is actuarially calculated, and whether SEBI BRSR mandates legally compel flood disclosures.
 
 #### ❓ Judge Question 4.1:
-> *"How is the ₹1,225 Crore Value-at-Risk calculated? Is it an actuarial VaR with confidence intervals?"*
+> *"How is the $147.2 Million USD Value-at-Risk calculated? Is it an actuarial VaR with confidence intervals?"*
 
 #### 💡 Prepared Defense Answer:
-> *"In the CLI, ₹1,225 Crore is a notional exposure proxy derived from the scenario hazard score multiplied by an illustrative ₹12.5B enterprise asset base. In our backend financial engine (`backend/app/agent3_financial.py` and `backend/app/financial.py`), we apply standardized FEMA HAZUS depth-damage functions across four discrete pillars: direct structural replacement, business interruption downtime, supply chain demurrage, and regulatory non-compliance exposure. We explicitly label the CLI metric as a 'Notional Exposure Proxy' to remain actuarially precise."*
+> *"In the CLI, $147.2 Million USD is a notional exposure proxy derived from the scenario hazard score multiplied by an illustrative enterprise asset base. In our backend financial engine (`backend/app/agent3_financial.py` and `backend/app/financial.py`), we apply standardized FEMA HAZUS depth-damage functions across four discrete pillars: direct structural replacement, business interruption downtime, supply chain demurrage, and regulatory non-compliance exposure. We explicitly label the CLI metric as a 'Notional Exposure Proxy' to remain actuarially precise."*
 
 #### ❓ Judge Question 4.2:
 > *"You cite SEBI BRSR Principle 6. Does BRSR legally require companies to disclose flood risk?"*

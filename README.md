@@ -56,7 +56,7 @@ npx aegis-climate analyze singapore
 Across urban South Asia and vulnerable global deltas, catastrophic meteorological cloudbursts inflict immense economic destruction:
 * **The Cost of Inaction (World Bank Official Resilience Benchmark):** Disasters inflict over **$4 Billion in direct economic losses to productive assets** and **$8 Billion in agricultural damages** annually, displacing over **26.39 Million citizens** each year. *(Source: [The World Bank Resilience & Disaster Risk Management Portal](https://www.worldbank.org/ext/en/topic/resilience-and-disaster-management))*.
 * **The 80%+ Protection Gap (Swiss Re Catastrophe Assessment):** Global economic disaster losses reached **$318 Billion in 2024**, with **$181 Billion (57% to 85%+ in emerging Asian corridors) completely uninsured**. A modern repeat of catastrophic cloudbursts inflicts billions in unhedged damages due to the absence of automated parametric liquidity. *(Source: [Swiss Re Institute Sigma Research](https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk/adaptation-insurance-narrow-protection-gap.html))*.
-* **The Bureaucratic Paper Falsification & Delay Crisis:** Traditional disaster survey and relief takes **3 to 6 months of disputed paperwork**. Official audits by the Comptroller and Auditor General of India (CAG Report No. 10 of 2017) and judicial investigations into municipal flood funds (such as the ₹65.54 Crore Mithi River desilting FIR) document massive failures: non-functional telemetry sensors, unspent disaster mitigation allocations, and paper records forged with fake dumping slips.
+* **The Bureaucratic Paper Falsification & Delay Crisis:** Traditional disaster survey and relief takes **3 to 6 months of disputed paperwork**. Official audits by the Comptroller and Auditor General of India (CAG Report No. 10 of 2017) and judicial investigations into municipal flood funds (such as the $8 Million USD Mithi River desilting fraud FIR) document massive failures: non-functional telemetry sensors, unspent disaster mitigation allocations, and paper records forged with fake dumping slips.
 * **The Transboundary Early Warning Failure (e.g., Nepal Deluges 2024–2026):** In late September 2024, record downpours (>320mm in 48h) in the Bagmati basin caused 230+ deaths and >$127M in direct infrastructure losses. While regional meteorology detected rain, the failure to translate raw telemetry into localized, vernacular early warnings left informal settlements stranded on rooftops.
 
 #### 📰 Verified Ground-Truth Evidence: Real Investigations & Institutional Portals
@@ -66,8 +66,8 @@ Across urban South Asia and vulnerable global deltas, catastrophic meteorologica
 
 | ⚖️ 1. Procurement & Silt Audit Fraud | 🌧️ 2. Drainage Infrastructure Inaction |
 |:---:|:---:|
-| <a href="https://indianexpress.com/article/cities/mumbai/mithi-river-desilting-scam-fraud-eow-searches-9985332/"><img src="./evaluation/evidence_screenshots/01_mithi_river_eow_fraud_indianexpress.png" alt="Indian Express: ₹65.54-Crore Mithi River Desilting Fraud FIR" width="100%" /></a> | <a href="https://timesofindia.indiatimes.com/city/mumbai/Mumbai-struggles-with-even-10-of-2005-deluge/articleshow/48195141.cms"><img src="./evaluation/evidence_screenshots/02_mumbai_drainage_capacity_failure_toi.png" alt="Times of India: Mumbai Struggles With Even 10% of 2005 Deluge" width="100%" /></a> |
-| **[The Indian Express Report](https://indianexpress.com/article/cities/mumbai/mithi-river-desilting-scam-fraud-eow-searches-9985332/)**<br>EOW FIR: ₹65.54 Cr siphon via fake dumping slips & unverified silt transport. | **[Times of India Civic Audit](https://timesofindia.indiatimes.com/city/mumbai/Mumbai-struggles-with-even-10-of-2005-deluge/articleshow/48195141.cms)**<br>A decade after 2005, civic drainage fails under even 10% peak rain. |
+| <a href="https://indianexpress.com/article/cities/mumbai/mithi-river-desilting-scam-fraud-eow-searches-9985332/"><img src="./evaluation/evidence_screenshots/01_mithi_river_eow_fraud_indianexpress.png" alt="Indian Express: $8 Million USD Mithi River Desilting Fraud FIR" width="100%" /></a> | <a href="https://timesofindia.indiatimes.com/city/mumbai/Mumbai-struggles-with-even-10-of-2005-deluge/articleshow/48195141.cms"><img src="./evaluation/evidence_screenshots/02_mumbai_drainage_capacity_failure_toi.png" alt="Times of India: Mumbai Struggles With Even 10% of 2005 Deluge" width="100%" /></a> |
+| **[The Indian Express Report](https://indianexpress.com/article/cities/mumbai/mithi-river-desilting-scam-fraud-eow-searches-9985332/)**<br>EOW FIR: $8 Million USD siphon via fake dumping slips & unverified silt transport. | **[Times of India Civic Audit](https://timesofindia.indiatimes.com/city/mumbai/Mumbai-struggles-with-even-10-of-2005-deluge/articleshow/48195141.cms)**<br>A decade after 2005, civic drainage fails under even 10% peak rain. |
 
 | 📊 3. The Climate Protection Gap | 🏛️ 4. Multilateral Asset Destruction |
 |:---:|:---:|
@@ -235,7 +235,7 @@ AEGIS deploys **three autonomous, decoupled AI agents** executing in strict acco
 | **Input Vectors** | 24h/7d Rain, Soil Saturation %, Humidity, Elevation | Topographical Depressions, Inundation Depth, Drainage Capacity | Physical Asset Loss, SEBI BRSR Mandates, Carbon Penalties |
 | **Autonomous Trigger** | Telemetry ingestion on target coordinate `(lat, lon)` | Automatically triggered when **Agent 1 Risk Score > 0.65** | Automatically triggered when **Agent 2 Tier == INFRASTRUCTURE_FAILURE** |
 | **MCP Tools Called** | `fetch_weather_vectors`, `run_flood_classifier` | `compute_dem_exposure` | `query_policy_rag` |
-| **Key Output** | Flash flood probability `[0.0 - 1.0]`, Risk Tier (`CRITICAL/HIGH/MED/LOW`) | Waterlogging depth (cm), Exposed building count, Infrastructure Choke % | Value-at-Risk (INR/USD), Stranded asset risk, Bilingual Hindi/English Dispatch |
+| **Key Output** | Flash flood probability `[0.0 - 1.0]`, Risk Tier (`CRITICAL/HIGH/MED/LOW`) | Waterlogging depth (cm), Exposed building count, Infrastructure Choke % | Value-at-Risk (USD / Enterprise Exposure), Stranded asset risk, Bilingual Hindi/English Dispatch |
 
 > [!NOTE]
 > ***Scientific Benchmark Qualification & Ground Truth Verification**:
@@ -348,7 +348,7 @@ sequenceDiagram
     note over API, A3: Autonomous Trigger: Exposure Tier == INFRASTRUCTURE_FAILURE
     API->>MCP: JSON-RPC 2.0: query_policy_rag("SEBI BRSR Principle 6 penalties")
     MCP-->>A3: Vector Cosine Search (ChromaDB) + Groq Sub-400ms LLM
-    A3-->>API: VaR = ₹3,450 Cr ($41.5M), Stranded Asset = HIGH
+    A3-->>API: VaR = $41.5M USD, Stranded Asset = HIGH
     end
 
     API->>TTS: POST /api/v1/bhasha/tts (Devanagari Hindi + English)

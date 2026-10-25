@@ -44,10 +44,10 @@
 ## 📝 Official Submission Form Questionnaire
 
 ### 1. 💡 Inspiration
-Every year, catastrophic meteorological events cause over ₹2 Lakh Crore ($25B+) in preventable damage across India, Türkiye, and vulnerable coastal basins worldwide. During the Mumbai Mithi River breaches, the Chennai industrial corridor inundations, and the devastating Bozkurt/Kastamonu flash floods in Türkiye, response efforts were paralyzed not by a lack of data, but by a fatal operational chasm:
-1. **Data Silos & The Cost of Inaction**: The World Bank and GFDRR estimate that stormwater urban flooding inflicts over **$4 Billion (₹33,000+ Crores)** in direct annual losses in India alone, while Swiss Re notes that **80%+ remains completely uninsured**. Satellite rasters and elevation models exist, but take 4 to 6 hours to convert into actionable response.
+Every year, catastrophic meteorological events cause over $25 Billion+ USD in preventable damage across India, Türkiye, and vulnerable coastal basins worldwide. During the Mumbai Mithi River breaches, the Chennai industrial corridor inundations, and the devastating Bozkurt/Kastamonu flash floods in Türkiye, response efforts were paralyzed not by a lack of data, but by a fatal operational chasm:
+1. **Data Silos & The Cost of Inaction**: The World Bank and GFDRR estimate that stormwater urban flooding inflicts over **$4 Billion+ USD** in direct annual losses in India alone, while Swiss Re notes that **80%+ remains completely uninsured**. Satellite rasters and elevation models exist, but take 4 to 6 hours to convert into actionable response.
 2. **Financial Liquidity Latency**: Even after catastrophe strikes, municipal disaster relief and insurance payouts take **3 to 6 months of disputed paperwork** to disburse.
-3. **No Cryptographic Provenance & Paper Audit Fraud**: As uncovered in official investigations by the Mumbai Police Economic Offences Wing (EOW) into the ₹65.54 Crore Mithi River desilting fraud, paper-based flood mitigation and loss reports are frequently falsified using forged transport logs and manipulated silt receipts.
+3. **No Cryptographic Provenance & Paper Audit Fraud**: As uncovered in official investigations by the Mumbai Police Economic Offences Wing (EOW) into the $8 Million USD Mithi River desilting fraud, paper-based flood mitigation and loss reports are frequently falsified using forged transport logs and manipulated silt receipts.
 
 > Verified Ground-Truth Evidence Documented in Repository: Real Investigation Screenshots in `evaluation/evidence_screenshots/` (Indian Express Mithi EOW FIR, Times of India 2005 Deluge Capacity Audit, Swiss Re Sigma Protection Gap, World Bank DRM Portal, RFC 8785 JCS), and Comprehensive 1990–2026 Research Dossier in `docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md`.
 
@@ -71,7 +71,7 @@ AEGIS-CLIMATE deploys a deterministic 3-agent autonomous swarm coordinated via t
 3. **Agent 3 (Enterprise Financial VaR & Regulatory Compliance)**:
    - Implements international FEMA HAZUS depth-damage functions to compute direct physical reconstruction costs and operational business downtime.
    - Performs semantic vector search over SEBI BRSR Principle 6, NDMA flood guidelines, and EU CSDDD mandates via hybrid Redis L1 + ChromaDB RAG.
-   - Quantifies total corporate balance-sheet Value-at-Risk (VaR in INR and USD).
+   - Quantifies total corporate balance-sheet Value-at-Risk (VaR in USD and multi-currency equivalents).
 
 4. **Cryptographic Proofs & Blockchain Settlement (`AEGIS-CHAIN`)**:
    - The entire multi-agent execution payload is canonicalized under **RFC-8785** and hashed using **Keccak-256** to generate an immutable evidence digest.

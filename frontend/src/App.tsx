@@ -2411,11 +2411,11 @@ export function App() {
                       Total Enterprise Value at Risk (VaR)
                     </div>
                     <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginTop: "2px" }}>
-                      <span className="mono" style={{ fontSize: "1.45rem", fontWeight: 800, color: "#FFF" }}>
-                        ₹{(result.agent3.var_estimate_inr / 10000000).toFixed(2)} Cr
+                      <span className="mono" style={{ fontSize: "1.45rem", fontWeight: 800, color: "#00F0FF" }}>
+                        ${(result.agent3.var_estimate_usd / 1000000).toFixed(2)}M USD
                       </span>
-                      <span className="mono" style={{ fontSize: "0.85rem", color: "var(--color-primary)" }}>
-                        (${(result.agent3.var_estimate_usd / 1000000).toFixed(2)}M)
+                      <span className="mono" style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>
+                        (Enterprise Exposure)
                       </span>
                     </div>
                     <div style={{ fontSize: "0.7rem", color: "var(--color-watch)", marginTop: "4px" }}>
@@ -2426,15 +2426,15 @@ export function App() {
                     <div style={{ marginTop: "8px", paddingTop: "8px", borderTop: "1px dashed rgba(255,255,255,0.1)", display: "flex", justifyContent: "space-between", fontSize: "0.68rem" }}>
                       <div>
                         <span style={{ color: "var(--color-text-muted)" }}>P10 (Low):</span><br/>
-                        <b className="mono" style={{ color: "var(--color-safe)" }}>₹{((result.agent3.var_estimate_inr * 0.72) / 10000000).toFixed(1)} Cr</b>
+                        <b className="mono" style={{ color: "var(--color-safe)" }}>${((result.agent3.var_estimate_usd * 0.72) / 1000000).toFixed(1)}M</b>
                       </div>
                       <div>
                         <span style={{ color: "var(--color-text-muted)" }}>P50 (Median):</span><br/>
-                        <b className="mono" style={{ color: "#FFF" }}>₹{(result.agent3.var_estimate_inr / 10000000).toFixed(1)} Cr</b>
+                        <b className="mono" style={{ color: "#FFF" }}>${(result.agent3.var_estimate_usd / 1000000).toFixed(1)}M</b>
                       </div>
                       <div>
                         <span style={{ color: "var(--color-text-muted)" }}>P90 (Catastrophe):</span><br/>
-                        <b className="mono" style={{ color: "#EF4444" }}>₹{((result.agent3.var_estimate_inr * 1.48) / 10000000).toFixed(1)} Cr</b>
+                        <b className="mono" style={{ color: "#EF4444" }}>${((result.agent3.var_estimate_usd * 1.48) / 1000000).toFixed(1)}M</b>
                       </div>
                     </div>
                   </div>

@@ -49,7 +49,7 @@
 2. Click and drag the **Precipitation Slider** to `+125mm`.
 3. Click the bright cyan button: **"Execute Autonomous Cascade"**.
 4. Watch the live multi-agent cognitive monologue stream on screen.
-5. Mouse points to **Agent 1** (87% Flood Risk), then **Agent 2** (94cm Waterlogging Depth), then **Agent 3** (₹11,017 Crores VaR).
+5. Mouse points to **Agent 1** (87% Flood Risk), then **Agent 2** (94cm Waterlogging Depth), then **Agent 3** ($132 Million USD VaR).
 
 #### 🎙️ SPOKEN SCRIPT (What You Say):
 > "AEGIS is not a passive chatbot. It is an autonomous cognitive pipeline. Watch: we simulate an extreme cloudburst of 125 millimeters of rainfall with 92% soil saturation.

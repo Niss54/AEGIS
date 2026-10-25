@@ -535,7 +535,7 @@ export const EvidencePanel: React.FC<EvidencePanelProps> = ({
             {activeBundle.analysis.policy_output && (
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span style={{ color: "var(--color-text-secondary)" }}>Agent 3 Value-at-Risk:</span>
-                <span style={{ color: "#E2E8F0" }}>₹{(activeBundle.analysis.policy_output.var_inr / 10000000).toFixed(2)} Cr</span>
+                <span style={{ color: "#E2E8F0" }}>${((activeBundle.analysis.policy_output.var_inr / 83.2) / 1000000).toFixed(1)}M USD</span>
               </div>
             )}
           </div>

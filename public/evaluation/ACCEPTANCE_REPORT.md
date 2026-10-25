@@ -45,7 +45,7 @@ curl -X POST "http://127.0.0.1:8000/api/v1/analyze" \
 **Verified Output:**
 - `agent_1_physical_risk.probability`: `0.85` (`CRITICAL RISK`)
 - `agent_2_structural_exposure.waterlogging_depth_cm`: `85` (`INFRASTRUCTURE FAILURE`)
-- `agent_3_financial_impact.var_inr`: `₹25,00,00,000`
+- `agent_3_financial_impact.var_inr`: `$3,000,000 USD ($3.0M)`
 
 ### C. Agent 2 Copernicus DEM & OSM Cadastre Verification
 ```bash

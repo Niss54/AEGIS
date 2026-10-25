@@ -117,7 +117,7 @@ export class CivicClient {
     const varCrores = (vInr / 10000000.0).toFixed(1);
 
     const hindi = `आपातकालीन चेतावनी (${params.location}): अत्यधिक वर्षा (${pEff.toFixed(1)} मिमी) एवं जलभराव (${dWater} सेमी) के कारण ${bRisk} महत्वपूर्ण इमारतों के प्रभावित होने की आशंका है। अनुमानित वित्तीय जोखिम ₹${varCrores} करोड़ है। एनडीएमए आपदा प्रतिक्रिया दल को तत्काल डीवाटरिंग पंप तैनात करने और विद्युत सबस्टेशनों को सुरक्षित करने का निर्देश दिया जाता है।`;
-    const english = `EXECUTIVE ALERT: Intense precipitation of ${pEff.toFixed(1)} mm and inundation of ${dWater} cm projected across ${bRisk} critical assets in ${params.location}. Projected Enterprise Value-at-Risk stands at ₹${varCrores} Crores. Mandate immediate physical floodgate deployment and lifeline protocol actuation.`;
+    const english = `EXECUTIVE ALERT: Intense precipitation of ${pEff.toFixed(1)} mm and inundation of ${dWater} cm projected across ${bRisk} critical assets in ${params.location}. Projected Enterprise Value-at-Risk stands at $${((vInr / 83.2) / 1000000).toFixed(1)}M USD. Mandate immediate physical floodgate deployment and lifeline protocol actuation.`;
 
     return {
       status: 'COMPLETED',

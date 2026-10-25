@@ -323,8 +323,7 @@ async function runAnalyze(cityQuery, rainArg, satArg) {
   console.log(`  • Terrain Data Note    : ${C.dim}Centroid baseline preset (Full raster analysis is a separate backend workflow; not invoked in this CLI run)${C.reset}`);
 
   console.log(`\n${C.green}✓ STAGE 3: FINANCIAL EXPOSURE & PARAMETRIC RULES${C.reset}`);
-  console.log(`  • Notional Exposure    : ${C.bold}₹${(res.agent3.value_at_risk_inr / 10000000).toFixed(1)} Crores${C.reset} ($${(res.agent3.value_at_risk_usd / 1000000).toFixed(1)}M USD proxy, assuming fixed ₹83.2/USD)`);
-  console.log(`  • Disclosure Context   : ${C.dim}SEBI BRSR Principle 6 (Regulatory applicability not legally assessed)${C.reset}`);
+  console.log(`  • Notional Exposure    : ${C.bold}$${(res.agent3.value_at_risk_usd / 1000000).toFixed(1)}M USD${C.reset} (Global Municipal & Corporate Value-at-Risk Proxy)`);
   console.log(`  • Parametric Bond Rule : ${res.agent3.parametric_payout_triggered ? C.green + "THRESHOLD SATISFIED (DisasterBond.sol PoC Rule Met)" : C.gray + "THRESHOLD NOT REACHED"}${C.reset}`);
   console.log(`  • Settlement Status    : ${C.dim}Local trigger satisfied; no on-chain fund transfer executed in CLI${C.reset}`);
 

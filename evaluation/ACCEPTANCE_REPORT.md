@@ -19,7 +19,7 @@
 | **Autonomous Evacuation Routing** | $A^*$ dynamic water-depth obstacle avoidance avoiding flooded lowlands | [`04_Disaster_Evacuation_Routing_Fleet.png`](./screenshots/04_Disaster_Evacuation_Routing_Fleet.png) · Waypoints WP-01 to WP-04 |
 | **Off-Grid Telemetry & LoRa Mesh** | ClusterDuck Protocol with 6 active nodes, packet deduplication, and direct SOS broadcast | [`02_LoRa_Emergency_Mesh_Radar.png`](./screenshots/02_LoRa_Emergency_Mesh_Radar.png) · [`03_Critical_OffGrid_SOS_Broadcast.png`](./screenshots/03_Critical_OffGrid_SOS_Broadcast.png) |
 | **Blockchain Provability & Parametric Bonds** | Polygon Amoy testnet (Chain ID: 80002) with Keccak-256 evidence anchoring & IPFS CIDv1 | [`05_Cryptographic_Tamper_Proof_Verified.png`](./screenshots/05_Cryptographic_Tamper_Proof_Verified.png) · [`06_Cryptographic_Tamper_Defense_Alert.png`](./screenshots/06_Cryptographic_Tamper_Defense_Alert.png) |
-| **Verified Ground-Truth Evidence & Research** | Official World Bank $4B+ urban flood loss portal, Swiss Re Sigma 2026 (80%+ protection gap), Mumbai Police EOW FIR (₹65.54 Cr Mithi River desilting fraud), Times of India civic capacity audit, RFC 8785 IETF canonical specification | [`evidence_screenshots/`](./evidence_screenshots/) · [`docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md`](../docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md) |
+| **Verified Ground-Truth Evidence & Research** | Official World Bank $4B+ urban flood loss portal, Swiss Re Sigma 2026 (80%+ protection gap), Mumbai Police EOW FIR ($8 Million USD Mithi River desilting fraud), Times of India civic capacity audit, RFC 8785 IETF canonical specification | [`evidence_screenshots/`](./evidence_screenshots/) · [`docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md`](../docs/CLIMATE_DISASTER_RESEARCH_DOSSIER_AND_PROMPT.md) |
 | **Official 5-Minute Demo Video** | Authoritative 5-minute technical walkthrough covering the $4B+ crisis, live GIS multi-agent cascade, on-chain tamper rejection, and instant CLI execution | [YouTube Video Walkthrough](https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE) |
 | **Live Production Web Cockpit** | Full-screen interactive executive command center with live Open-Meteo telemetry, Leaflet GIS, and Web3 audit trail | [https://aegis-eight-delta.vercel.app](https://aegis-eight-delta.vercel.app) |
 
@@ -48,7 +48,7 @@ curl -X POST "http://127.0.0.1:8000/api/v1/analyze" \
 **Verified Output:**
 - `agent_1_physical_risk.probability`: `0.85` (`CRITICAL RISK`)
 - `agent_2_structural_exposure.waterlogging_depth_cm`: `85` (`INFRASTRUCTURE FAILURE`)
-- `agent_3_financial_impact.var_inr`: `₹25,00,00,000`
+- `agent_3_financial_impact.var_inr`: `$3,000,000 USD ($3.0M)`
 
 ### C. Agent 2 Copernicus DEM & OSM Cadastre Verification
 ```bash
