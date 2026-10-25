@@ -16,7 +16,7 @@
 | **Smart Contracts** | Polygon Amoy (Chain ID: 80002) / Base Sepolia / Hardhat Verified (40/40 Unit Tests Passing) |
 | **Backend Reliability** | 130/130 Passing Pytest Suite (Zero Failures) |
 | **Frontend UI** | React 19 + TypeScript + Tailwind CSS + Mapbox/Leaflet GIS Basemap (Vite 0 Errors) |
-| **Official Demo Video** | [https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE](https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE) (5-Minute Grand Finale Walkthrough) |
+| **Official Demo Video** | [https://youtu.be/8qQYkolr9qs](https://youtu.be/8qQYkolr9qs) (5-Minute Grand Finale Walkthrough) |
 | **Live Production Web Cockpit** | [https://aegis-eight-delta.vercel.app](https://aegis-eight-delta.vercel.app) (React 19 + GIS + Web3) |
 | **Repository** | [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS) |
 | **Official Devpost Form** | [DEVPOST_SUBMISSION.md](./DEVPOST_SUBMISSION.md) (100% Complete Questionnaire) |

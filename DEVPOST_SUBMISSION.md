@@ -28,7 +28,7 @@
   `Nishant Maurya (Solo Developer & Architect)`
 
 * **Official 5-Minute Demo Video:**  
-  [https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE](https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE)
+  [https://youtu.be/8qQYkolr9qs](https://youtu.be/8qQYkolr9qs)
 
 * **Live Production Web Cockpit:**  
   [https://aegis-eight-delta.vercel.app](https://aegis-eight-delta.vercel.app)
@@ -152,7 +152,7 @@ AEGIS-CLIMATE deploys a deterministic 3-agent autonomous swarm coordinated via t
 
 | Deliverable | Location / URL | Status |
 | :--- | :--- | :---: |
-| **Official 5-Minute Demo Video** | [https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE](https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE) | 📺 Ready to Watch |
+| **Official 5-Minute Demo Video** | [https://youtu.be/8qQYkolr9qs](https://youtu.be/8qQYkolr9qs) | 📺 Ready to Watch |
 | **Live Production Web Cockpit** | [https://aegis-eight-delta.vercel.app](https://aegis-eight-delta.vercel.app) | 🌐 Deployed on Vercel |
 | **Public GitHub Repository** | [https://github.com/Niss54/AEGIS](https://github.com/Niss54/AEGIS) | ✅ Live & Public |
 | **IEEE Submission Dossier** | [`IEEE_SUBMISSION_DOSSIER.md`](./IEEE_SUBMISSION_DOSSIER.md) | ✅ Complete |

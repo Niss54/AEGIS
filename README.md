@@ -24,7 +24,7 @@ Built for **IEEE ClimateChain Hackathon 2026** & **Enterprise Environmental Inte
 [![Architecture](https://img.shields.io/badge/Protocol-Official%20MCP%20JSON--RPC%202.0-ff6b35?style=for-the-badge&logo=anthropic&logoColor=white)](#-model-context-protocol-mcp-gateway)
 [![Author](https://img.shields.io/badge/Author-Nishant%20Maurya-8a2be2?style=for-the-badge&logo=github&logoColor=white)](#-author--engineering)
 [![Package](https://img.shields.io/badge/Package-npx%20aegis--climate-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/aegis-climate)
-[![Demo Video](https://img.shields.io/badge/YouTube-Watch%20Demo%20Video%20(5%20Min)-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE)
+[![Demo Video](https://img.shields.io/badge/YouTube-Watch%20Demo%20Video%20(5%20Min)-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/8qQYkolr9qs)
 [![Tests](https://img.shields.io/badge/Test%20Suite-170%2F170%20Passing-brightgreen?style=for-the-badge&logo=checkmarx&logoColor=white)](#-automated-testing--verification)
 
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" alt="divider"/>
@@ -42,10 +42,10 @@ npx aegis-climate analyze singapore
 ```
 
 > [!TIP]
-> 📺 **Official 5-Minute Grand Finale Walkthrough:** [Watch the Full IEEE ClimateChain Video Pitch on YouTube](https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE)  
+> 📺 **Official 5-Minute Grand Finale Walkthrough:** [Watch the Full IEEE ClimateChain Video Pitch on YouTube](https://youtu.be/8qQYkolr9qs)  
 > *(Covers the $4B+ World Bank loss crisis, real-world Mithi River desilting evidence, live Mission-Control GIS cascade, on-chain tamper rejection, and instant `npx aegis-climate` CLI verification)*
 
-[📺 Watch Demo Video (YouTube)](https://youtu.be/YOUR_YOUTUBE_VIDEO_ID_HERE) · [🌐 Live Mission-Control Cockpit](https://aegis-eight-delta.vercel.app) · [📋 Devpost Submission Form](./DEVPOST_SUBMISSION.md) · [🏆 IEEE Submission Dossier](./IEEE_SUBMISSION_DOSSIER.md) · [🛡️ Smart Contract Defense](./docs/SMART_CONTRACT_DEFENSE.md) · [📊 ML Benchmark Defense](./docs/ML_ACCURACY_DEFENSE.md) · [🛡️ Track Alignment Defense](./docs/TRACK_ALIGNMENT_DEFENSE.md) · [🎬 Winning Video Pitch Script](./docs/FINAL_WINNING_VIDEO_SCRIPT.md)
+[📺 Watch Demo Video (YouTube)](https://youtu.be/8qQYkolr9qs) · [🌐 Live Mission-Control Cockpit](https://aegis-eight-delta.vercel.app) · [📋 Devpost Submission Form](./DEVPOST_SUBMISSION.md) · [🏆 IEEE Submission Dossier](./IEEE_SUBMISSION_DOSSIER.md) · [🛡️ Smart Contract Defense](./docs/SMART_CONTRACT_DEFENSE.md) · [📊 ML Benchmark Defense](./docs/ML_ACCURACY_DEFENSE.md) · [🛡️ Track Alignment Defense](./docs/TRACK_ALIGNMENT_DEFENSE.md) · [🎬 Winning Video Pitch Script](./docs/FINAL_WINNING_VIDEO_SCRIPT.md)
 
 </div>
 
